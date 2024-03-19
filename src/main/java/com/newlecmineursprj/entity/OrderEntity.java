@@ -1,10 +1,14 @@
 package com.newlecmineursprj.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Date;
 import java.util.Objects;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "order", schema = "mineurs_db", catalog = "")
 public class OrderEntity {
@@ -21,38 +25,6 @@ public class OrderEntity {
     @Basic
     @Column(name = "reg_date")
     private Date regDate;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Long getMemberId() {
-        return memberId;
-    }
-
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public Date getRegDate() {
-        return regDate;
-    }
-
-    public void setRegDate(Date regDate) {
-        this.regDate = regDate;
-    }
 
     @Override
     public boolean equals(Object o) {

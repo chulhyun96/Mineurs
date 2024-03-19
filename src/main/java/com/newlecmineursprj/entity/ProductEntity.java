@@ -1,10 +1,14 @@
 package com.newlecmineursprj.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Date;
 import java.util.Objects;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "product", schema = "mineurs_db", catalog = "")
 public class ProductEntity {
@@ -30,62 +34,6 @@ public class ProductEntity {
     @Basic
     @Column(name = "description")
     private String description;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getRegDate() {
-        return regDate;
-    }
-
-    public void setRegDate(Date regDate) {
-        this.regDate = regDate;
-    }
-
-    public int getSellingPrice() {
-        return sellingPrice;
-    }
-
-    public void setSellingPrice(int sellingPrice) {
-        this.sellingPrice = sellingPrice;
-    }
-
-    public int getSupplyingPrice() {
-        return supplyingPrice;
-    }
-
-    public void setSupplyingPrice(int supplyingPrice) {
-        this.supplyingPrice = supplyingPrice;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     @Override
     public boolean equals(Object o) {
