@@ -1,0 +1,19 @@
+
+server:
+  port: 8083
+
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://db.newlecture.com:3306/rlanddb?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: rland
+    password: 20231110
+
+
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: mappers/*Mapper.xml
+  type-aliases-package: com.newlecmineursprj.entity
+
