@@ -5,9 +5,9 @@ server:
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://db.newlecture.com:3306/rlanddb?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: rland
-    password: 20231110
+    url: jdbc:mariadb://db.newlecture.com:3306/mineurs?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: mineurs
+    password: 20240129
 
 
 
