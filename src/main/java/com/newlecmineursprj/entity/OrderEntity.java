@@ -10,7 +10,7 @@ import java.util.Objects;
 @Setter
 @Getter
 @Entity
-@Table(name = "order", schema = "mineurs_db", catalog = "")
+@Table(name = "order", schema = "mineurs_db")
 public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
