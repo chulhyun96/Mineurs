@@ -10,7 +10,6 @@ spring:
     password: 20240129
 
 
-
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
