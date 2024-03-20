@@ -18,4 +18,8 @@ public class ProductServiceImpl implements  ProductService{
         return repository.findAll();
     }
 
+    @Override
+    public ProductEntity reg(ProductEntity product) {
+        return repository.reg(product);
+    }
 }

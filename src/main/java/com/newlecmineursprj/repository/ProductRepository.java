@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface ProductRepository {
     List<ProductEntity> findAll();
+
+    ProductEntity reg(ProductEntity product);
 }

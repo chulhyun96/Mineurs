@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ProductService {
     List<ProductEntity> getList();
+
+    ProductEntity reg(ProductEntity product);
 }

@@ -9,3 +9,4 @@ public class NewlecMineursPrjApplication {
         SpringApplication.run(NewlecMineursPrjApplication.class, args);
     }
 }
+
