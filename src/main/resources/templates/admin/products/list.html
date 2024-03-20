@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/inc/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main layout:fragment="main" class="flex flex-col w-full n-panel n-main-panel">
+    상품 목록 홈페이지야!
+    <div th:text="${list[0].name}"></div>
+
+</main>
+</body>
+</html>
