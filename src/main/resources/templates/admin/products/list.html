@@ -9,9 +9,33 @@
 </head>
 <body>
 <main layout:fragment="main" class="flex flex-col w-full n-panel n-main-panel">
-    상품 목록 홈페이지야!
-    <div th:text="${list[0].name}"></div>
 
+
+    <table class="n-table n-table-style:striped">
+        <thead>
+        <tr>
+            <th scope="col">상품 이름</th>
+            <th scope="col">판매가</th>
+            <th scope="col">공급가</th>
+            <th scope="col">이미지</th>
+            <th scope="col">설명</th>
+            <th scope="col">등록일자</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product: ${list}">
+            <td scope="col" th:text="${product.name}">상품 이름</td>
+            <td scope="col" th:text="${product.sellingPrice}">판매가</td>
+            <td scope="col" th:text="${product.supplyingPrice}">공급가</td>
+            <td scope="col">
+                <img id="imgId" th:src="${product.img}" alt="첨부이미지" class="w:3"/>
+            </td>
+            <td scope="col" th:text="${product.description}">설명</td>
+            <td scope="col" th:text="${product.regDate}">등록일자</td>
+        </tr>
+
+        </tbody>
+    </table>
 </main>
 </body>
 </html>
