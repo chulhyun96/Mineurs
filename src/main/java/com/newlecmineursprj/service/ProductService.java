@@ -8,4 +8,6 @@ public interface ProductService {
     List<ProductEntity> getList();
 
     ProductEntity reg(ProductEntity product);
+
+    ProductEntity getById(Long id);
 }

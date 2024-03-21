@@ -28,7 +28,9 @@
             <td scope="col" th:text="${product.sellingPrice}">판매가</td>
             <td scope="col" th:text="${product.supplyingPrice}">공급가</td>
             <td scope="col">
-                <img id="imgId" th:src="${product.img}" alt="첨부이미지" class="w:3"/>
+                <a href="" th:href="@{/admin/products/{id}(id=${product.id})}">
+                    <img id="imgId" th:src="${product.img}" alt="첨부이미지" class="w:1"/>
+                </a>
             </td>
             <td scope="col" th:text="${product.description}">설명</td>
             <td scope="col" th:text="${product.regDate}">등록일자</td>

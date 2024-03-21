@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/inc/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main layout:fragment="main" class="flex flex-col w-full n-panel n-main-panel">
+    <section class="d:flex w:100">
+        <div>
+            <div scope="col">
+                <a href="" th:href="@{/admin/products/{id}(id=${product.id})}">
+                    <img id="imgId" th:src="${product.img}" alt="첨부이미지" class="w:100p"/>
+                </a>
+            </div>
+
+        </div>
+        <div class="d:flex  flex-direction:column m:10 w:100p">
+            <h1 class="fw:3"  th:text="${product.name}">상품 이름</h1>
+            <div class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6" th:text="${product.sellingPrice}">판매가</div>
+            <div class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6" th:text="${product.supplyingPrice}">공급가</div>
+            <div class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6" th:text="${product.description}">설명</div>
+            <div class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6" th:text="${product.regDate}">등록일자</div>
+            
+        </div>
+    </section>
+</main>
+</body>
+</html>

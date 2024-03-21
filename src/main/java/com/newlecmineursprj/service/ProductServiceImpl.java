@@ -22,4 +22,9 @@ public class ProductServiceImpl implements  ProductService{
     public ProductEntity reg(ProductEntity product) {
         return repository.reg(product);
     }
+
+    @Override
+    public ProductEntity getById(Long id) {
+        return repository.findById(id);
+    }
 }

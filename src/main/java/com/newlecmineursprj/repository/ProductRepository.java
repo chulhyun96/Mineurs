@@ -10,4 +10,6 @@ public interface ProductRepository {
     List<ProductEntity> findAll();
 
     ProductEntity reg(ProductEntity product);
+
+    ProductEntity findById(Long id);
 }
