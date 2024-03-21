@@ -23,7 +23,7 @@ public class ProductController {
     }
     @PostMapping
     public String reg(@ModelAttribute ProductEntity product) {
-        System.out.println("entitiy = " + product);
+        System.out.println("entity = " + product);
         return "redirect:/admin/products";
     }
     @GetMapping("/reg")
