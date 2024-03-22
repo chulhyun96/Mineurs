@@ -3,6 +3,7 @@ package com.newlecmineursprj.controller.admin;
 import com.newlecmineursprj.entity.ProductEntity;
 import com.newlecmineursprj.entity.ProductView;
 import com.newlecmineursprj.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RequestMapping("admin/products")
 @Controller("adminProductController")
+@Slf4j
 public class ProductController {
     @Autowired
     private ProductService service;
@@ -19,6 +21,7 @@ public class ProductController {
     @GetMapping
     public String list(Model model) {
         List<ProductView> list = service.getList();
+        log.info("list: {}", list);
         model.addAttribute("list", list);
         return "admin/products/list";
     }

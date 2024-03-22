@@ -5,20 +5,29 @@
 <mapper namespace="com.newlecmineursprj.repository.ProductRepository">
 
 
-    <!-- <resultMap id="productView" type="ProductView">
+    <resultMap id="ProductView" type="ProductView">
         <id property="id" column="id"/>
-        <collection property="path" ofType="String">
-            <id property="id" column="id"/>
-        </collection>
-    </resultMap> -->
+        <result property="name" column="name"/>
+        <result property="regDate" column="reg_date"/>
+        <result property="sellingPrice" column="selling_price"/>
+        <result property="supplyingPrice" column="supplying_price"/>
+        <result property="img" column="img"/>
+        <result property="description" column="description"/>
+        <result property="categoryName" column="category_name"/>
 
-    <select id="findAll" resultType="ProductView">
+        <collection property="detailImgs" ofType="DetailImg">
+            <id property="id" column="di_id"/>
+            <result property="path" column="path"/>
+        </collection>
+    </resultMap>
+
+    <select id="findAll" resultMap="ProductView">
         SELECT
         *
         FROM product_view
     </select>
 
-    <select id="findById" resultType="ProductView">
+    <select id="findById" resultMap="ProductView">
         SELECT
         *
         FROM product_view
