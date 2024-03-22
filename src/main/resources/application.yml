@@ -16,3 +16,10 @@ mybatis:
   mapper-locations: mappers/*Mapper.xml
   type-aliases-package: com.newlecmineursprj.entity
 
+logging:
+  level:
+    com:
+      newlecmineursprj:
+        repository:
+          TRACE
+    

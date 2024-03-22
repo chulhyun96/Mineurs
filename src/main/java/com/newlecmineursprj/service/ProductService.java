@@ -1,13 +1,14 @@
 package com.newlecmineursprj.service;
 
 import com.newlecmineursprj.entity.ProductEntity;
+import com.newlecmineursprj.entity.ProductView;
 
 import java.util.List;
 
 public interface ProductService {
-    List<ProductEntity> getList();
+    List<ProductView> getList();
 
     ProductEntity reg(ProductEntity product);
 
-    ProductEntity getById(Long id);
+    ProductView getById(Long id);
 }

@@ -1,6 +1,7 @@
 package com.newlecmineursprj.service;
 
 import com.newlecmineursprj.entity.ProductEntity;
+import com.newlecmineursprj.entity.ProductView;
 import com.newlecmineursprj.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class ProductServiceImpl implements  ProductService{
     private ProductRepository repository;
 
     @Override
-    public List<ProductEntity> getList() {
+    public List<ProductView> getList() {
         return repository.findAll();
     }
 
@@ -24,7 +25,7 @@ public class ProductServiceImpl implements  ProductService{
     }
 
     @Override
-    public ProductEntity getById(Long id) {
+    public ProductView getById(Long id) {
         return repository.findById(id);
     }
 }

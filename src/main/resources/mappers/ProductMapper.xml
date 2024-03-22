@@ -5,16 +5,23 @@
 <mapper namespace="com.newlecmineursprj.repository.ProductRepository">
 
 
-    <select id="findAll" resultType="ProductEntity">
+    <!-- <resultMap id="productView" type="ProductView">
+        <id property="id" column="id"/>
+        <collection property="path" ofType="String">
+            <id property="id" column="id"/>
+        </collection>
+    </resultMap> -->
+
+    <select id="findAll" resultType="ProductView">
         SELECT
         *
-        FROM product
+        FROM product_view
     </select>
 
-    <select id="findById" resultType="ProductEntity">
+    <select id="findById" resultType="ProductView">
         SELECT
         *
-        FROM product
+        FROM product_view
         where id = #{id}
     </select>
 
