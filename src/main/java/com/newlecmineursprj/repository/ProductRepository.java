@@ -11,7 +11,7 @@ import java.util.List;
 public interface ProductRepository {
     List<ProductView> findAll();
 
-    ProductEntity reg(ProductEntity product);
+    void reg(ProductEntity product);
 
     ProductView findById(Long id);
 }

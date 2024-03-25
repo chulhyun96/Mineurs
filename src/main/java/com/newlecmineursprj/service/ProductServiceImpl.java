@@ -20,8 +20,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductEntity reg(ProductEntity product) {
-        return repository.reg(product);
+    public void reg(ProductEntity product) {
+        repository.reg(product);
     }
 
     @Override
