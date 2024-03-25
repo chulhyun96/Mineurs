@@ -40,27 +40,6 @@
                 <input type="file" name="img"/>
             </label>
         </div>
-<<<<<<< HEAD
-
-        <div>
-            <label>
-                <span>디테일 사진</span>
-                <input type="file" name="paths" multiple/>
-            </label>
-        </div>
-            <label for="lang">카테고리</label>
-            <select name="categoryId" class="n-dropdown">
-              
-                <option th:each="category : ${categories}" 
-                th:value="${category.id}"
-                value="javascript"
-                class="n-dropdown-item"
-                th:text="${category.name}">JavaScript</option>
-              
-            </select>
-
-            
-=======
         <label for="lang">카테고리</label>
         <select name="categoryId" id="lang" class="n-dropdown">
 
@@ -72,9 +51,13 @@
             </option>
 
         </select>
->>>>>>> 0ff93b253c24fb699749275a433e66e4c74e125f
         <div class="d:flex flex-direction:row justify-content:end">
-            <button class="n-btn n-btn-type:outline  display:inline-block">상품 등록</button>
+            <button class="n-btn n-btn-size:3">
+                상품 등록
+            </button>
+            <div>
+                <a href="/admin/products" class="n-btn n-btn-size:3">취소</a>
+            </div>
         </div>
     </form>
 </main>
