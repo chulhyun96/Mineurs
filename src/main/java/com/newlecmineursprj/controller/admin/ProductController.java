@@ -51,9 +51,7 @@ public class ProductController {
     @GetMapping("/reg")
     public String regForm(Model model) {
         List<CategoryEntity> categories = categoryService.getList();
-
         model.addAttribute("categories", categories);
-
         return "admin/products/reg";
     }
 }
