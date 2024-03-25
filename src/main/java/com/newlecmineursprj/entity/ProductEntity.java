@@ -35,12 +35,18 @@ public class ProductEntity {
     @Column(name = "description")
     private String description;
 
+    private long categoryId;
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         ProductEntity that = (ProductEntity) o;
-        return id == that.id && sellingPrice == that.sellingPrice && supplyingPrice == that.supplyingPrice && Objects.equals(name, that.name) && Objects.equals(regDate, that.regDate) && Objects.equals(img, that.img) && Objects.equals(description, that.description);
+        return id == that.id && sellingPrice == that.sellingPrice && supplyingPrice == that.supplyingPrice
+                && Objects.equals(name, that.name) && Objects.equals(regDate, that.regDate)
+                && Objects.equals(img, that.img) && Objects.equals(description, that.description);
     }
 
     @Override

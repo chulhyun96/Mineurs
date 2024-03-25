@@ -1,7 +1,10 @@
 package com.newlecmineursprj.controller.admin;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import com.newlecmineursprj.entity.CategoryEntity;
 import com.newlecmineursprj.entity.ProductEntity;
 import com.newlecmineursprj.entity.ProductView;
+import com.newlecmineursprj.service.CategoryService;
 import com.newlecmineursprj.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +18,12 @@ import java.util.List;
 @Controller("adminProductController")
 @Slf4j
 public class ProductController {
+
     @Autowired
     private ProductService service;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping
     public String list(Model model) {
@@ -33,14 +40,20 @@ public class ProductController {
         model.addAttribute("product", product);
         return "admin/products/detail";
     }
-     @PostMapping
-     public String reg(@ModelAttribute ProductEntity product) {
-         log.info("product = {}", product.getName());
-         return "redirect:/admin/products";
-     }
+
+    @PostMapping
+    public String reg(@ModelAttribute ProductEntity product) {
+        service.reg(product);
+        log.info("product = {}", product.getName());
+        return "redirect:/admin/products";
+    }
 
     @GetMapping("/reg")
-    public String regForm() {
+    public String regForm(Model model) {
+        List<CategoryEntity> categories = categoryService.getList();
+
+        model.addAttribute("categories", categories);
+
         return "admin/products/reg";
     }
 }

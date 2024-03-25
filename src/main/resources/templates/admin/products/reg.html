@@ -40,6 +40,16 @@
                 <input type="file" name="img"/>
             </label>
         </div>
+            <label for="lang">카테고리</label>
+            <select name="categoryId" id="lang" class="n-dropdown">
+              
+                <option th:each="category : ${categories}" 
+                th:value="${category.id}"
+                value="javascript"
+                class="n-dropdown-item"
+                th:text="${category.name}">JavaScript</option>
+              
+            </select>
         <div class="d:flex flex-direction:row justify-content:end">
             <button class="n-btn n-btn-type:outline  display:inline-block">상품 등록</button>
         </div>
