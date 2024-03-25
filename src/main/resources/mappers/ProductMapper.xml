@@ -38,4 +38,5 @@
         insert into product(name,selling_price, supplying_price, description ,img,category_id)
         values (#{name}, #{sellingPrice}, #{supplyingPrice}, #{description}, #{img},#{categoryId})
     </insert>
+
 </mapper>
