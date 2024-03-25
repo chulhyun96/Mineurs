@@ -24,6 +24,7 @@ public class ProductController {
         log.info("list: {}", list);
         model.addAttribute("list", list);
         return "admin/products/list";
+        // 잘되나?
     }
 
     @GetMapping("{id}")
@@ -35,8 +36,8 @@ public class ProductController {
 
     // @PostMapping
     // public String reg(@ModelAttribute ProductEntity product) {
-    //     System.out.println("entity = " + product);
-    //     return "redirect:/admin/products";
+    // System.out.println("entity = " + product);
+    // return "redirect:/admin/products";
     // }
     @GetMapping("/reg")
     public String regForm() {
