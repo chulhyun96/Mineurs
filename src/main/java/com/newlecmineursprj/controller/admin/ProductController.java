@@ -24,7 +24,7 @@ public class ProductController {
         log.info("list: {}", list);
         model.addAttribute("list", list);
         return "admin/products/list";
-        // 잘되나?
+
     }
 
     @GetMapping("{id}")

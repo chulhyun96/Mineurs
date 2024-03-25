@@ -9,7 +9,7 @@ public class HomeController {
 
     @GetMapping("index")
     public String index() {
-        // ㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇ
+
         return "admin/index";
     }
 }
