@@ -14,4 +14,5 @@ public class DetailImg {
     @Id
     private Long id;
     private String path;
+    private Long productId;
 }

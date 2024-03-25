@@ -1,18 +1,24 @@
 package com.newlecmineursprj.controller.admin;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.newlecmineursprj.entity.CategoryEntity;
 import com.newlecmineursprj.entity.ProductEntity;
 import com.newlecmineursprj.entity.ProductView;
 import com.newlecmineursprj.service.CategoryService;
+import com.newlecmineursprj.service.DetailImgService;
 import com.newlecmineursprj.service.ProductService;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
 @RequestMapping("admin/products")
 @Controller("adminProductController")
@@ -24,6 +30,9 @@ public class ProductController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private DetailImgService detailImgService;
 
     @GetMapping
     public String list(Model model) {
@@ -42,20 +51,21 @@ public class ProductController {
     }
 
     @PostMapping
-    public String reg(@ModelAttribute ProductEntity product, int categoryId) {
+    public String reg(@ModelAttribute ProductEntity product, int categoryId, String paths) {
         product.setCategoryId(categoryId);
         service.reg(product);
+        detailImgService.regAll(paths, product.getId());
+
         log.info("category = {}", categoryId);
         log.info("product = {}", product.getName());
+
         return "redirect:/admin/products";
     }
 
     @GetMapping("/reg")
     public String regForm(Model model) {
         List<CategoryEntity> categories = categoryService.getList();
-
         model.addAttribute("categories", categories);
-
         return "admin/products/reg";
     }
 }
