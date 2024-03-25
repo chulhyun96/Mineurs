@@ -32,12 +32,12 @@ public class ProductController {
         model.addAttribute("product", product);
         return "admin/products/detail";
     }
-
-    // @PostMapping
-    // public String reg(@ModelAttribute ProductEntity product) {
-    //     System.out.println("entity = " + product);
-    //     return "redirect:/admin/products";
-    // }
+     @PostMapping
+     public String reg(@ModelAttribute ProductEntity product) {
+        log.info("product = {}", product);
+         System.out.println("entity = " + product);
+         return "redirect:/admin/products";
+     }
     @GetMapping("/reg")
     public String regForm() {
         return "admin/products/reg";
