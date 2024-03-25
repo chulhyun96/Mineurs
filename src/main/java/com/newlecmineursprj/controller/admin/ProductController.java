@@ -27,8 +27,7 @@ public class ProductController {
     }
 
     @GetMapping("{id}")
-    public String detail(@PathVariable Long id, Model model){
-
+    public String detail(@PathVariable Long id, Model model) {
         ProductView product = service.getById(id);
         model.addAttribute("product", product);
         return "admin/products/detail";
@@ -41,7 +40,6 @@ public class ProductController {
     // }
     @GetMapping("/reg")
     public String regForm() {
-
         return "admin/products/reg";
     }
 }
