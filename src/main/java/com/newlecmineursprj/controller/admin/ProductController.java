@@ -42,8 +42,10 @@ public class ProductController {
     }
 
     @PostMapping
-    public String reg(@ModelAttribute ProductEntity product) {
+    public String reg(@ModelAttribute ProductEntity product, int categoryId) {
+        product.setCategoryId(categoryId);
         service.reg(product);
+        log.info("category = {}", categoryId);
         log.info("product = {}", product.getName());
         return "redirect:/admin/products";
     }
