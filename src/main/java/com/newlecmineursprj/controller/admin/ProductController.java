@@ -37,7 +37,6 @@ public class ProductController {
     @GetMapping
     public String list(Model model) {
         List<ProductView> list = service.getList();
-        log.info("list: {}", list);
         model.addAttribute("list", list);
         return "admin/products/list";
 
@@ -54,14 +53,8 @@ public class ProductController {
     public String reg(@ModelAttribute Product product, Long categoryId, String paths) {
         product.setCategoryId(categoryId);
         service.reg(product);
-        Long productId = product.getId();
 
-        detailImgService.regAll(paths, productId);
-
-        log.info("category = {}", categoryId);
-        log.info("product = {}", product);
-
-
+        detailImgService.regAll(paths, product.getId());
         return "redirect:/admin/products";
     }
 
