@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.newlecmineursprj.entity.CategoryEntity;
-import com.newlecmineursprj.entity.ProductEntity;
+import com.newlecmineursprj.entity.Category;
+import com.newlecmineursprj.entity.Product;
 import com.newlecmineursprj.entity.ProductView;
 import com.newlecmineursprj.service.CategoryService;
 import com.newlecmineursprj.service.DetailImgService;
@@ -51,20 +51,23 @@ public class ProductController {
     }
 
     @PostMapping
-    public String reg(@ModelAttribute ProductEntity product, int categoryId, String paths) {
+    public String reg(@ModelAttribute Product product, Long categoryId, String paths) {
         product.setCategoryId(categoryId);
         service.reg(product);
-        detailImgService.regAll(paths, product.getId());
+        Long num = product.getId();
+
+        detailImgService.regAll(paths, num);
 
         log.info("category = {}", categoryId);
-        log.info("product = {}", product.getName());
+        log.info("product = {}", product);
+
 
         return "redirect:/admin/products";
     }
 
     @GetMapping("/reg")
     public String regForm(Model model) {
-        List<CategoryEntity> categories = categoryService.getList();
+        List<Category> categories = categoryService.getList();
         model.addAttribute("categories", categories);
         return "admin/products/reg";
     }

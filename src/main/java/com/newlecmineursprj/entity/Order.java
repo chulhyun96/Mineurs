@@ -11,7 +11,7 @@ import java.util.Objects;
 @Getter
 @Entity
 @Table(name = "order", schema = "mineurs_db")
-public class OrderEntity {
+public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -30,7 +30,7 @@ public class OrderEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrderEntity that = (OrderEntity) o;
+        Order that = (Order) o;
         return id == that.id && Objects.equals(memberId, that.memberId) && Objects.equals(productId, that.productId) && Objects.equals(regDate, that.regDate);
     }
 

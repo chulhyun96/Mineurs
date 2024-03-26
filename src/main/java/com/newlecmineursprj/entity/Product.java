@@ -1,6 +1,7 @@
 package com.newlecmineursprj.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,8 +11,9 @@ import java.util.Objects;
 @Setter
 @Getter
 @Entity
+@Data
 @Table(name = "product", schema = "mineurs_db")
-public class ProductEntity {
+public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -35,7 +37,7 @@ public class ProductEntity {
     @Column(name = "description")
     private String description;
 
-    private long categoryId;
+    private Long categoryId;
 
     @Override
     public boolean equals(Object o) {
@@ -43,7 +45,7 @@ public class ProductEntity {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        ProductEntity that = (ProductEntity) o;
+        Product that = (Product) o;
         return id == that.id && sellingPrice == that.sellingPrice && supplyingPrice == that.supplyingPrice
                 && Objects.equals(name, that.name) && Objects.equals(regDate, that.regDate)
                 && Objects.equals(img, that.img) && Objects.equals(description, that.description);

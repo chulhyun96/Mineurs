@@ -16,8 +16,7 @@ public class DetailImgServiceImpl implements DetailImgService {
     private DetailImgRepository repository;
 
     @Override
-    public void regAll(String paths, Long productId) {
-
+    public void reg(String paths, Long productId) {
         String[] pathsArr = paths.split(",");
 
         List<DetailImg> dimgs = new ArrayList<>();
@@ -25,7 +24,24 @@ public class DetailImgServiceImpl implements DetailImgService {
             DetailImg dimg = new DetailImg();
 
             dimg.setPath(pathsArr[i]);
-            dimg.setId(productId);
+            dimg.setProductId(productId);
+            dimgs.add(dimg);
+        }
+
+    }
+
+    @Override
+    public void regAll(String paths, Long productId) {
+
+        String[] pathsArr = paths.split(",");
+
+        List<DetailImg> dimgs = new ArrayList<>();
+
+        for (int i = 0; i < pathsArr.length; i++) {
+            DetailImg dimg = new DetailImg();
+
+            dimg.setPath(pathsArr[i]);
+            dimg.setProductId(productId);
             dimgs.add(dimg);
         }
 

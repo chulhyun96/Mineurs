@@ -2,10 +2,10 @@ package com.newlecmineursprj.service;
 
 import java.util.List;
 
-import com.newlecmineursprj.entity.CategoryEntity;
+import com.newlecmineursprj.entity.Category;
 
 public interface CategoryService {
 
-    List<CategoryEntity> getList();
+    List<Category> getList();
 
 }

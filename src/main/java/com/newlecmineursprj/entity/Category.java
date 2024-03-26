@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class CategoryEntity {
+public class Category {
     private Long id;
     private String name;
 }

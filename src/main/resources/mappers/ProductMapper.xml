@@ -34,9 +34,10 @@
         where id = #{id}
     </select>
 
-    <insert id="reg" parameterType="ProductEntity">
+    <insert id="reg" parameterType="Product" useGeneratedKeys="true" keyProperty="id">
         insert into product(name,selling_price, supplying_price, description ,img,category_id)
         values (#{name}, #{sellingPrice}, #{supplyingPrice}, #{description}, #{img},#{categoryId})
     </insert>
+
 
 </mapper>

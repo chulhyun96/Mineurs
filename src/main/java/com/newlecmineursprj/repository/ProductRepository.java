@@ -1,6 +1,6 @@
 package com.newlecmineursprj.repository;
 
-import com.newlecmineursprj.entity.ProductEntity;
+import com.newlecmineursprj.entity.Product;
 import com.newlecmineursprj.entity.ProductView;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -11,7 +11,7 @@ import java.util.List;
 public interface ProductRepository {
     List<ProductView> findAll();
 
-    void reg(ProductEntity product);
+    void reg(Product product);
 
     ProductView findById(Long id);
 }

@@ -3,10 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.newlecmineursprj.repository.DetailImgRepository">
+<!--    <insert id="reg" parameterType="DetailImg">-->
+<!--        insert into-->
+<!--        values-->
+<!--&lt;!&ndash;        <foreach collection="list" item="detailImg" index="index" separator=",">&ndash;&gt;-->
+<!--            (#{detailImg.path}, #{detailImg.productId})-->
+<!--&lt;!&ndash;        </foreach>&ndash;&gt;-->
+<!--    </insert>-->
+
     <insert id="reg" parameterType="DetailImg">
         insert into detail_img(path, product_id)
         values
-        <foreach collection="list" item="detailImg" index="index" separator=",">
+        <foreach collection="list" item="detailImg" separator=",">
             (#{detailImg.path}, #{detailImg.productId})
         </foreach>
     </insert>

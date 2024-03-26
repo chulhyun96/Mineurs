@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.newlecmineursprj.entity.ProductEntity;
+import com.newlecmineursprj.entity.Product;
 import com.newlecmineursprj.entity.ProductView;
 import com.newlecmineursprj.repository.ProductRepository;
 
@@ -21,7 +21,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void reg(ProductEntity product) {
+    public void reg(Product product) {
         repository.reg(product);
     }
 

@@ -11,7 +11,7 @@ import java.util.Objects;
 @Getter
 @Entity
 @Table(name = "member", schema = "mineurs_db")
-public class MemberEntity {
+public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -39,7 +39,7 @@ public class MemberEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MemberEntity that = (MemberEntity) o;
+        Member that = (Member) o;
         return id == that.id && Objects.equals(name, that.name) && Objects.equals(loginId, that.loginId) && Objects.equals(password, that.password) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(regDate, that.regDate) && Objects.equals(email, that.email);
     }
 
