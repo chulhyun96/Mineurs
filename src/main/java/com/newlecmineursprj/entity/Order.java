@@ -1,29 +1,17 @@
 package com.newlecmineursprj.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Date;
 import java.util.Objects;
-
-@Setter
-@Getter
-@Entity
-@Table(name = "order", schema = "mineurs_db")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "id")
     private long id;
-    @Basic
-    @Column(name = "member_id")
     private Long memberId;
-    @Basic
-    @Column(name = "product_id")
     private Long productId;
-    @Basic
-    @Column(name = "reg_date")
     private Date regDate;
 
     @Override

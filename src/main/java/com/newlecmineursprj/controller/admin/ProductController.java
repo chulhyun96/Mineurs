@@ -54,9 +54,9 @@ public class ProductController {
     public String reg(@ModelAttribute Product product, Long categoryId, String paths) {
         product.setCategoryId(categoryId);
         service.reg(product);
-        Long num = product.getId();
+        Long productId = product.getId();
 
-        detailImgService.regAll(paths, num);
+        detailImgService.regAll(paths, productId);
 
         log.info("category = {}", categoryId);
         log.info("product = {}", product);

@@ -27,7 +27,6 @@ public class DetailImgServiceImpl implements DetailImgService {
             dimg.setProductId(productId);
             dimgs.add(dimg);
         }
-
     }
 
     @Override

@@ -1,40 +1,21 @@
 package com.newlecmineursprj.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Date;
 import java.util.Objects;
 
-@Setter
-@Getter
-@Entity
 @Data
-@Table(name = "product", schema = "mineurs_db")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "id")
     private long id;
-    @Basic
-    @Column(name = "name")
     private String name;
-    @Basic
-    @Column(name = "reg_date")
     private Date regDate;
-    @Basic
-    @Column(name = "selling_price")
     private int sellingPrice;
-    @Basic
-    @Column(name = "supplying_price")
     private int supplyingPrice;
-    @Basic
-    @Column(name = "img")
     private String img;
-    @Basic
-    @Column(name = "description")
     private String description;
 
     private Long categoryId;

@@ -1,38 +1,21 @@
 package com.newlecmineursprj.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Date;
 import java.util.Objects;
 
-@Setter
-@Getter
-@Entity
-@Table(name = "member", schema = "mineurs_db")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Member {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "id")
     private long id;
-    @Basic
-    @Column(name = "name")
     private String name;
-    @Basic
-    @Column(name = "login_id")
     private String loginId;
-    @Basic
-    @Column(name = "password")
     private String password;
-    @Basic
-    @Column(name = "phone_number")
     private String phoneNumber;
-    @Basic
-    @Column(name = "reg_date")
     private Date regDate;
-    @Basic
-    @Column(name = "email")
     private String email;
 
     @Override
