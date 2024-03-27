@@ -54,13 +54,9 @@ public class ProductController {
     @PutMapping
     public String edit(HttpEntity<String> httpEntity) {
         String json = httpEntity.getBody();
-        Gson gson1 = new Gson();
-
         JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
 
-
-        log.info("edit method call = {}", "editMethodCall");
-//        System.out.println(product.getId());
+        Gson gson = new Gson();
         return "redirect:/admin/products";
     }
 
@@ -79,6 +75,4 @@ public class ProductController {
         model.addAttribute("categories", categories);
         return "admin/products/reg";
     }
-
-
 }
