@@ -30,4 +30,10 @@ public class ProductServiceImpl implements ProductService {
         return repository.findById(id);
     }
 
+    @Override
+    public void editById(Product product) {
+        repository.editById(product);
+    }
+
+
 }

@@ -6,34 +6,83 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="/js/admin/products/edit.js"></script>
 </head>
 <body>
-<main layout:fragment="main" class="flex flex-col w-full n-panel n-main-panel">
-    <section class="d:flex w:100">
-        <div>
-            <div scope="col">
-                <a href="" th:href="@{/admin/products/{id}(id=${product.id})}">
-                    <img id="imgId" th:src="${product.img}" alt="첨부이미지" class="w:100p"/>
-                </a>
-            </div>
+<main layout:fragment="main" class="n-panel n-main-panel ">
 
+    <section class="d:flex fl-grow:1 ai:center mb:10 border-bottom">
+        <div>
+            <img id="imgId" th:src="${product.img}" alt="첨부이미지" class="w:7 m:10"/>
+            <input class="m:10" type="file" name="paths" multiple/>
         </div>
-        <form class="d:flex  flex-direction:column m:10 w:100p">
+        <form action="/admin/products" method="put" id="frm" class="d:flex  flex-direction:column m:5 w:100p">
             <label>상품이름</label>
-            <input  class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6" th:value="${product.name}">
+            <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6" name="name"
+                   th:value="${product.name}">
             <label>판매가</label>
-            <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6" th:value="${product.sellingPrice}">
+            <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6" name="sellingPrice"
+                   th:value="${product.sellingPrice}">
             <label>공급가</label>
-            <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6" th:value="${product.supplyingPrice}">
+            <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6" name="supplyingPrice"
+                   th:value="${product.supplyingPrice}">
             <label>설명</label>
-            <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6" th:value="${product.description}">
+            <textarea class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6" rows="7" name="description"
+                      th:text="${product.description}"></textarea>
             <label>등록일자</label>
-            <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6" th:value="${product.regDate}">
-            <input class="d:flex flex-direction:row">
-                <img th:each="detailImg: ${product.detailImgs}" th:src="${detailImg.path}" alt="첨부이미지" class="w:100p"/>
-            </input>
+            <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6 " th:value="${product.regDate}">
+
+
+            <button type="submit" class="n-btn" onclick="goInsert()">수정</button>
         </form>
     </section>
+
+    <section class="fl-grow:1 ai:center ">
+        <img th:each="detailImg: ${product.detailImgs}" th:src="${detailImg.path}" alt="첨부이미지" class="w:4 ml:10"/>
+        <div>
+            <input class="m:10" type="file" name="paths" multiple/>
+        </div>
+    </section>
+
+
+    <!--    <section class="w:100">-->
+    <!--        <div class="d:flex">-->
+    <!--            <div class="d:flex flex-direction:column">-->
+    <!--                <img id="imgId" th:src="${product.img}" alt="첨부이미지" class="w:7 m:10"/>-->
+    <!--                <input type="file" name="paths"/>-->
+    <!--            </div>-->
+
+    <!--            <div>-->
+    <!--                <form action="/admin/products" method="put" id="frm" class="d:flex  flex-direction:column m:5 w:100p">-->
+    <!--                    <label>상품이름</label>-->
+    <!--                    <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6" name="name"-->
+    <!--                           th:value="${product.name}">-->
+    <!--                    <label>판매가</label>-->
+    <!--                    <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6" name="sellingPrice"-->
+    <!--                           th:value="${product.sellingPrice}">-->
+    <!--                    <label>공급가</label>-->
+    <!--                    <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6" name="supplyingPrice"-->
+    <!--                           th:value="${product.supplyingPrice}">-->
+    <!--                    <label>설명</label>-->
+    <!--                    <textarea class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6" rows="7" name="description"-->
+    <!--                              th:text="${product.description}"></textarea>-->
+    <!--                    <label>등록일자</label>-->
+    <!--                    <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6 " th:value="${product.regDate}">-->
+
+
+    <!--                    <button type="submit" class="n-btn" onclick="goInsert()">수정</button>-->
+    <!--                </form>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </section>-->
+    <!--    <div>-->
+    <!--        <div class="m:10 d:flex flex-direction:row">-->
+    <!--            <img th:each="detailImg: ${product.detailImgs}" th:src="${detailImg.path}" alt="첨부이미지"-->
+    <!--                 class="w:4"/>-->
+    <!--        </div>-->
+    <!--        <input class="m:10" type="file" name="paths" multiple/>-->
+    <!--    </div>-->
+
 </main>
 </body>
 </html>

@@ -14,4 +14,6 @@ public interface ProductRepository {
     void reg(Product product);
 
     ProductView findById(Long id);
+
+    public void editById(Product product);
 }

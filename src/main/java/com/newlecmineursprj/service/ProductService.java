@@ -11,4 +11,6 @@ public interface ProductService {
     void reg(Product product);
 
     ProductView getById(Long id);
+
+    void editById(Product product);
 }

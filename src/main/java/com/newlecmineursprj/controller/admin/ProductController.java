@@ -2,14 +2,15 @@ package com.newlecmineursprj.controller.admin;
 
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.newlecmineursprj.entity.Category;
 import com.newlecmineursprj.entity.Product;
@@ -49,6 +50,20 @@ public class ProductController {
         return "admin/products/detail";
     }
 
+
+    @PutMapping
+    public String edit(HttpEntity<String> httpEntity) {
+        String json = httpEntity.getBody();
+        Gson gson1 = new Gson();
+
+        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
+
+
+        log.info("edit method call = {}", "editMethodCall");
+//        System.out.println(product.getId());
+        return "redirect:/admin/products";
+    }
+
     @PostMapping
     public String reg(@ModelAttribute Product product, Long categoryId, String paths) {
         product.setCategoryId(categoryId);
@@ -64,4 +79,6 @@ public class ProductController {
         model.addAttribute("categories", categories);
         return "admin/products/reg";
     }
+
+
 }

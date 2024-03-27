@@ -39,5 +39,8 @@
         values (#{name}, #{sellingPrice}, #{supplyingPrice}, #{description}, #{img},#{categoryId})
     </insert>
 
+    <update id="editById" parameterType="Product">
+        update product set name = #{name},selling_price=#{sellingPrice}, supplying_price=#{supplyingPrice} where id = #{id}
+    </update>
 
 </mapper>
