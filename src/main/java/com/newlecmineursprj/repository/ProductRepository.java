@@ -15,5 +15,5 @@ public interface ProductRepository {
 
     ProductView findById(Long id);
 
-    public void editById(Product product);
+    public void updateProductById(Product product);
 }

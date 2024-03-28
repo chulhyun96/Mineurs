@@ -12,5 +12,5 @@ public interface ProductService {
 
     ProductView getById(Long id);
 
-    void editById(Product product);
+    void edit(Product product);
 }

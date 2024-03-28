@@ -50,18 +50,13 @@ public class ProductController {
         return "admin/products/detail";
     }
 
+    @PutMapping("/edit")
+    @ResponseBody
+    public String edit(@RequestBody Product product) {
+        System.out.println("hi");
+        service.edit(product);
 
-    @PutMapping
-    public String edit(HttpEntity<String> httpEntity) {
-        String json = httpEntity.getBody();
-        Gson gson1 = new Gson();
-
-        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-
-
-        log.info("edit method call = {}", "editMethodCall");
-//        System.out.println(product.getId());
-        return "redirect:/admin/products";
+        return "success";
     }
 
     @PostMapping
@@ -79,6 +74,4 @@ public class ProductController {
         model.addAttribute("categories", categories);
         return "admin/products/reg";
     }
-
-
 }
