@@ -14,6 +14,8 @@
     <table class="n-table n-table-style:striped">
         <thead>
         <tr>
+            
+            <th scope="col" class="w:2"></th>
             <th scope="col">상품 이름</th>
             <th scope="col">판매가</th>
             <th scope="col">공급가</th>
@@ -24,6 +26,14 @@
         </thead>
         <tbody>
         <tr th:each="product: ${list}">
+            
+        
+            <td scope="col">
+                <input
+                type="checkbox"
+                class="n-toggle n-toggle-type:check-box n-toggle-size:2" />
+            
+            </td>
             <td scope="col" th:text="${product.name}">상품 이름</td>
             <td scope="col" th:text="${product.sellingPrice}">판매가</td>
             <td scope="col" th:text="${product.supplyingPrice}">공급가</td>
