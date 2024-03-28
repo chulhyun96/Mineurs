@@ -1,10 +1,11 @@
 package com.newlecmineursprj.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
-
 import java.sql.Date;
 import java.util.Objects;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor

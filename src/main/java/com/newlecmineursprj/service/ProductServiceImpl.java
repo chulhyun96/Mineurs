@@ -35,5 +35,9 @@ public class ProductServiceImpl implements ProductService {
         repository.updateProductById(product);
     }
 
+    @Override
+    public void deleteAllById(List<Long> deleteId) {
+        repository.deleteAll(deleteId);
+    }
 
 }

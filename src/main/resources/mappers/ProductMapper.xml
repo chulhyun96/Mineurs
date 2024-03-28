@@ -43,4 +43,11 @@
         update product set name = #{name},selling_price=#{sellingPrice}, supplying_price=#{supplyingPrice} where id = #{id}
     </update>
 
+    <delete id="deleteAll" parameterType="java.util.List">
+    DELETE FROM product
+    WHERE id IN
+    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
 </mapper>

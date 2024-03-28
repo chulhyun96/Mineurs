@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.newlecmineursprj.entity.Category;
@@ -75,4 +76,13 @@ public class ProductController {
         model.addAttribute("categories", categories);
         return "admin/products/reg";
     }
+
+    @PostMapping("delete")
+    public String delete(@RequestParam List<Long> deleteId) {
+
+        service.deleteAllById(deleteId);
+        System.out.println("deleteId =" + deleteId);
+        return "redirect:/admin/products";
+    }
+
 }

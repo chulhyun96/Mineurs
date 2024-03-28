@@ -8,8 +8,8 @@
     <title>Title</title>
 </head>
 <body>
-<main layout:fragment="main" class="flex flex-col w-full n-panel n-main-panel">
-
+<main layout:fragment="main" class="n-panel n-main-panel">
+    <form action="products/delete" class="flex flex-col w-full" method="post">
 
     <table class="n-table n-table-style:striped">
         <thead>
@@ -30,8 +30,10 @@
         
             <td scope="col">
                 <input
+                name="deleteId"
                 type="checkbox"
-                class="n-toggle n-toggle-type:check-box n-toggle-size:2" />
+                class="n-toggle n-toggle-type:check-box n-toggle-size:2"
+                th:value="${product.id}" />
             
             </td>
             <td scope="col" th:text="${product.name}">상품 이름</td>
@@ -55,6 +57,10 @@
             등록
         </a>
     </div>
+    <button class="n-btn n-btn-size:3">
+            삭제버튼
+    </button>
+</form>
 </main>
 </body>
 </html>
