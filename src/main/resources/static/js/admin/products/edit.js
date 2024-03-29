@@ -11,7 +11,7 @@ function edit() {
 
     const xhr = new XMLHttpRequest();                       //비동기통신을 위해 XMLHttpRequest 객체 생성 및 xhr로 참조.
 
-    xhr.open("PUT", "/admin/products");                    //서버로 비동기연결 요청메서드(PUT) , url 정보 적어서 보냄. 참고로 html 에선 get , post만 사용가능해서 자바스크립트로 데이터요청보내게됨.
+    xhr.open("PUT", "/api/products");                    //서버로 비동기연결 요청메서드(PUT) , url 정보 적어서 보냄. 참고로 html 에선 get , post만 사용가능해서 자바스크립트로 데이터요청보내게됨.
     xhr.setRequestHeader("Content-Type", "application/json");   //서버로 보낼 데이터 타입 명시해야댐 .
     xhr.send(JSON.stringify(product));
 
