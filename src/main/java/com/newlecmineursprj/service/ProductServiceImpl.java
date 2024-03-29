@@ -13,6 +13,7 @@ import com.newlecmineursprj.repository.ProductRepository;
 public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository repository;
+
     @Override
     public List<ProductView> getList() {
         return repository.findAll();

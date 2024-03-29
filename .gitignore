@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### 디비정보 삭제
+application.yml
