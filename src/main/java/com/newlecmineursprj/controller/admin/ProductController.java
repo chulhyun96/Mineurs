@@ -31,9 +31,6 @@ import lombok.extern.slf4j.Slf4j;
 public class ProductController {
     private static final String PRODUCTS_VIEW = "/admin/products";
     private static final String REDIRECT = "redirect:";
-    private static final String LIST_VIEW = PRODUCTS_VIEW + "/list";
-    private static final String DETAIL_VIEW = PRODUCTS_VIEW + "/detail";
-    private static final String REG_VIEW = PRODUCTS_VIEW + "/reg";
 
     private final ProductService service;
     private final CategoryService categoryService;
@@ -43,20 +40,20 @@ public class ProductController {
     public String list(Model model) {
         List<ProductView> list = service.getList();
         model.addAttribute("list", list);
-        return LIST_VIEW;
+        return PRODUCTS_VIEW + "/list";
     }
 
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
         ProductView product = service.getById(id);
         model.addAttribute("product", product);
-        return DETAIL_VIEW;
+        return PRODUCTS_VIEW + "/detail";
     }
     @GetMapping("/reg")
     public String regForm(Model model) {
         List<Category> categories = categoryService.getList();
         model.addAttribute("categories", categories);
-        return REG_VIEW;
+        return PRODUCTS_VIEW + "/reg";
     }
 
     //Img doesnt change
