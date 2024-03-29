@@ -11,33 +11,26 @@ import com.newlecmineursprj.repository.ProductRepository;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-
     @Autowired
     private ProductRepository repository;
-
     @Override
     public List<ProductView> getList() {
         return repository.findAll();
     }
-
     @Override
     public void reg(Product product) {
         repository.reg(product);
     }
-
     @Override
     public ProductView getById(Long id) {
         return repository.findById(id);
     }
-
     @Override
     public void edit(Product product) {
         repository.updateProductById(product);
     }
-
     @Override
     public void deleteAllById(List<Long> deleteId) {
         repository.deleteAll(deleteId);
     }
-
 }

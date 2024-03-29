@@ -8,6 +8,5 @@ import com.newlecmineursprj.entity.DetailImg;
 
 @Mapper
 public interface DetailImgRepository {
-
     void reg(List<DetailImg> dimgs);
 }

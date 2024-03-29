@@ -7,12 +7,8 @@ import java.util.List;
 
 public interface ProductService {
     List<ProductView> getList();
-
     void reg(Product product);
-
     ProductView getById(Long id);
-
     void edit(Product product);
-
     void deleteAllById(List<Long> deleteId);
 }

@@ -2,7 +2,7 @@ package com.newlecmineursprj.controller.admin;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,37 +26,43 @@ import lombok.extern.slf4j.Slf4j;
 
 @RequestMapping("admin/products")
 @Controller("adminProductController")
+@RequiredArgsConstructor
 @Slf4j
 public class ProductController {
+    private static final String PRODUCTS_VIEW = "/admin/products";
+    private static final String REDIRECT = "redirect:";
+    private static final String LIST_VIEW = PRODUCTS_VIEW + "/list";
+    private static final String DETAIL_VIEW = PRODUCTS_VIEW + "/detail";
+    private static final String REG_VIEW = PRODUCTS_VIEW + "/reg";
 
-    @Autowired
-    private ProductService service;
-
-    @Autowired
-    private CategoryService categoryService;
-
-    @Autowired
-    private DetailImgService detailImgService;
+    private final ProductService service;
+    private final CategoryService categoryService;
+    private final DetailImgService detailImgService;
 
     @GetMapping
     public String list(Model model) {
         List<ProductView> list = service.getList();
         model.addAttribute("list", list);
-        return "admin/products/list";
-
+        return LIST_VIEW;
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
         ProductView product = service.getById(id);
         model.addAttribute("product", product);
-        return "admin/products/detail";
+        return DETAIL_VIEW;
+    }
+    @GetMapping("/reg")
+    public String regForm(Model model) {
+        List<Category> categories = categoryService.getList();
+        model.addAttribute("categories", categories);
+        return REG_VIEW;
     }
 
-    @PutMapping("/edit")
+    //Img doesnt change
+    @PutMapping
     @ResponseBody
     public String edit(@RequestBody Product product) {
-        System.out.println("hi");
         service.edit(product);
         return "success";
     }
@@ -65,24 +71,14 @@ public class ProductController {
     public String reg(@ModelAttribute Product product, Long categoryId, String paths) {
         product.setCategoryId(categoryId);
         service.reg(product);
-
         detailImgService.regAll(paths, product.getId());
-        return "redirect:/admin/products";
+        return REDIRECT + PRODUCTS_VIEW;
     }
 
-    @GetMapping("/reg")
-    public String regForm(Model model) {
-        List<Category> categories = categoryService.getList();
-        model.addAttribute("categories", categories);
-        return "admin/products/reg";
-    }
-
-    @PostMapping("delete")
+    @PostMapping("/delete")
     public String delete(@RequestParam List<Long> deleteId) {
-
         service.deleteAllById(deleteId);
-        System.out.println("deleteId =" + deleteId);
-        return "redirect:/admin/products";
+        log.info("deleteId =" + deleteId);
+        return REDIRECT + PRODUCTS_VIEW;
     }
-
 }

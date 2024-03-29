@@ -9,7 +9,6 @@
 </head>
 <body>
 <main layout:fragment="main" class="flex flex-col w-full n-panel n-main-panel">
-<!--    <form method="post" action="/admin/products" class="n-form n-form-type:outline-box px:10">-->
     <form method="post" action="/admin/products" class="n-form n-form-type:outline-box px:10">
         <div>
             <label>
@@ -49,8 +48,7 @@
             </label>
         </div>
             <label for="lang">카테고리</label>
-            <select name="categoryId" class="n-dropdown">
-
+            <select id="lang" name="categoryId" class="n-dropdown">
                 <option th:each="category : ${categories}" 
                 th:value="${category.id}"
                 value="javascript"

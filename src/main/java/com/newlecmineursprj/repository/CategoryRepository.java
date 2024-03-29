@@ -8,7 +8,6 @@ import com.newlecmineursprj.entity.Category;
 
 @Mapper
 public interface CategoryRepository {
-
     List<Category> findAll();
 
 }

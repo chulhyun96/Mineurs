@@ -10,10 +10,8 @@ import com.newlecmineursprj.repository.CategoryRepository;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-
     @Autowired
     private CategoryRepository repository;
-
     @Override
     public List<Category> getList() {
         return repository.findAll();

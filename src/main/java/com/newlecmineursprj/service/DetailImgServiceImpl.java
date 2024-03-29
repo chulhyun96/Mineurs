@@ -11,7 +11,6 @@ import com.newlecmineursprj.repository.DetailImgRepository;
 
 @Service
 public class DetailImgServiceImpl implements DetailImgService {
-
     @Autowired
     private DetailImgRepository repository;
     @Override
@@ -19,7 +18,6 @@ public class DetailImgServiceImpl implements DetailImgService {
         List<DetailImg> dimgs = splitPath(paths, productId);
         repository.reg(dimgs);
     }
-
     private List<DetailImg> splitPath(String paths, Long productId) {
         String[] pathsArr = paths.split(",");
         List<DetailImg> dimgs = new ArrayList<>();

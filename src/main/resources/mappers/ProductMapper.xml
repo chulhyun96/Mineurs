@@ -3,8 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.newlecmineursprj.repository.ProductRepository">
-
-
     <resultMap id="ProductView" type="ProductView">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
@@ -40,7 +38,7 @@
     </insert>
 
     <update id="updateProductById" parameterType="Product">
-        update product set name = #{name},selling_price=#{sellingPrice}, supplying_price=#{supplyingPrice} where id = #{id}
+        update product set name = #{name},selling_price = #{sellingPrice}, supplying_price = #{supplyingPrice} where id = #{id}
     </update>
 
     <delete id="deleteAll" parameterType="java.util.List">
