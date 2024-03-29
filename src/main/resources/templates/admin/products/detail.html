@@ -13,14 +13,11 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
     />
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"/>
     <script src="/js/admin/products/edit.js"></script>
     <script>
-
         window.onload = function () {
             var textArea = document.getElementById("text-area");
-            <!-- Initialize Quill editor -->
             const quill = new Quill('#editor', {
                 modules: {
                     syntax: true,
@@ -33,47 +30,30 @@
 
             var btn = document.getElementById("btn");
             btn.onclick = function (e) {
-                // e.preventDefault();
-                // console.log("text = ",quill.getText());
-                // console.log("HTML = ", quill.getSemanticHTML());
-                // var p = document.getElementById("p");
-                // p.innerHTML= quill.getSemanticHTML();
-                // console.log(p.value);
 
                 textArea.innerHTML = quill.getSemanticHTML();
                 console.log(textArea.innerText);
-
             }
-
         }
-
         function setDetailImage(event) {
             const imagesContainer = document.getElementById('images_container');
-
-            // Clear existing images
             imagesContainer.innerHTML = '';
 
-            // Loop through selected files
             for (let i = 0; i < event.target.files.length; i++) {
                 const file = event.target.files[i];
                 const reader = new FileReader();
 
-                // Closure to capture the file information.
                 reader.onload = (function (file) {
                     return function (e) {
-                        // Render thumbnail image
                         const img = document.createElement('img');
                         img.src = e.target.result;
-                        img.width = 150; // Set width as desired
+                        img.width = 150;
                         imagesContainer.appendChild(img);
                     };
                 })(file);
-
-                // Read in the image file as a data URL.
                 reader.readAsDataURL(file);
             }
         }
-
     </script>
     <script>
         var i = 0;
@@ -112,7 +92,7 @@
             <img id="imgId" th:src="${product.img}" alt="첨부이미지" class="w:7 mt:10 ml:10 p:5 border"/>
             <input class="m:10" type="file" name="paths" multiple/>
         </div>
-        <form id="frm" class="d:flex  flex-direction:column w:100p mr:10 border-left pl:10">
+        <form id="form" class="d:flex  flex-direction:column w:100p mr:10 border-left pl:10">
             <input type="hidden" name="id" class="id" th:value="${product.id}">
             <label>상품이름</label>
             <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6 name" name="name"

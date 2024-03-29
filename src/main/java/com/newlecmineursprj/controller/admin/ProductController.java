@@ -3,24 +3,15 @@ package com.newlecmineursprj.controller.admin;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.newlecmineursprj.entity.Category;
 import com.newlecmineursprj.entity.Product;
 import com.newlecmineursprj.entity.ProductView;
 import com.newlecmineursprj.service.CategoryService;
-import com.newlecmineursprj.service.DetailImgService;
+import com.newlecmineursprj.service.ProductSubImgService;
 import com.newlecmineursprj.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +26,7 @@ public class ProductController {
 
     private final ProductService service;
     private final CategoryService categoryService;
-    private final DetailImgService detailImgService;
+    private final ProductSubImgService productSubImgService;
 
 
     @GetMapping
@@ -45,12 +36,6 @@ public class ProductController {
         return PRODUCTS_VIEW + "/list";
     }
 
-    @GetMapping("/{id}")
-    public String detail(@PathVariable Long id, Model model) {
-        ProductView product = service.getById(id);
-        model.addAttribute("product", product);
-        return PRODUCTS_VIEW + "/detail";
-    }
     @GetMapping("/reg")
     public String regForm(Model model) {
         List<Category> categories = categoryService.getList();
@@ -58,20 +43,18 @@ public class ProductController {
         return PRODUCTS_VIEW + "/reg";
     }
 
-    //Img doesnt change
-    @PutMapping
-    @ResponseBody
-    public String edit(@RequestBody Product product) {
-        service.edit(product);
-        return "success";
-    }
-
     @PostMapping
-    public String reg(@ModelAttribute Product product, Long categoryId, String paths) {
+    public String reg(Product product, Long categoryId, String paths) {
         product.setCategoryId(categoryId);
         service.reg(product);
-        detailImgService.regAll(paths, product.getId());
+        productSubImgService.regAll(paths, product.getId());
         return REDIRECT + PRODUCTS_VIEW;
+    }
+    @GetMapping("/{id}")
+    public String detail(@PathVariable Long id, Model model) {
+        ProductView product = service.getById(id);
+        model.addAttribute("product", product);
+        return PRODUCTS_VIEW + "/detail";
     }
 
     @PostMapping("/delete")
@@ -79,5 +62,10 @@ public class ProductController {
         service.deleteAllById(deleteId);
         log.info("deleteId =" + deleteId);
         return REDIRECT + PRODUCTS_VIEW;
+    }
+    @PutMapping
+    public String edit(@RequestBody Product product) {
+        service.edit(product);
+        return "success";
     }
 }

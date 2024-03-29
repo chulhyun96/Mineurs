@@ -13,7 +13,7 @@
         <result property="description" column="description"/>
         <result property="categoryName" column="category_name"/>
 
-        <collection property="detailImgs" ofType="DetailImg">
+        <collection property="productSubImgs" ofType="ProductSubImg">
             <id property="id" column="di_id"/>
             <result property="path" column="path"/>
         </collection>

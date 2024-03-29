@@ -2,6 +2,7 @@ package com.newlecmineursprj.service;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +11,9 @@ import com.newlecmineursprj.entity.ProductView;
 import com.newlecmineursprj.repository.ProductRepository;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    @Autowired
-    private ProductRepository repository;
-
+    private final ProductRepository repository;
     @Override
     public List<ProductView> getList() {
         return repository.findAll();
