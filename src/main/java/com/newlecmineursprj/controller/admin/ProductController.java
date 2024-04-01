@@ -31,15 +31,18 @@ public class ProductController {
 
     @GetMapping
     public String clist(@RequestParam(required = false) String searchMethod
-                        ,@RequestParam(defaultValue = "") String searchKeyword
-                        ,Model model){
+            , @RequestParam(defaultValue = "") String searchKeyword
+            , Model model) {
+
+        searchKeyword = searchKeyword.trim();
         if (searchMethod == null) {
             List<ProductView> list = service.getList();
             model.addAttribute("list", list);
             return PRODUCTS_VIEW + "/list";
         }
+
         List<ProductView> list = service.getList(searchMethod, searchKeyword);
-        model.addAttribute("list",list);
+        model.addAttribute("list", list);
         return PRODUCTS_VIEW + "/list";
     }
 
@@ -57,6 +60,7 @@ public class ProductController {
         productSubImgService.regAll(paths, product.getId());
         return REDIRECT + PRODUCTS_VIEW;
     }
+
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
         ProductView product = service.getById(id);
@@ -70,6 +74,7 @@ public class ProductController {
         log.info("deleteId =" + deleteId);
         return REDIRECT + PRODUCTS_VIEW;
     }
+
     @PutMapping
     public String edit(@RequestBody Product product) {
         service.edit(product);
