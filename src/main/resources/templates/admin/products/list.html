@@ -21,7 +21,7 @@
             <option th:selected="${{param.searchMethod}} == 'title'" value="title">제목</option>
             <option th:selected="${{param.searchMethod}} == 'description'" value="description">내용</option>
           </select>
-          <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요" th:value="${param.searchKeyword}"/>
+          <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요" th:value="${#strings.trim(param.searchKeyword)}"/>
           <button class="n-btn n-btn-type:outline-box">검색</button>
         </div>
       </form>
