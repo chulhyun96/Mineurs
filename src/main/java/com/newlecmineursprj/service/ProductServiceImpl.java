@@ -16,7 +16,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository repository;
     @Override
     public List<ProductView> getList() {
-        return repository.findAll();
+        return repository.findAll(null,null);
     }
     @Override
     public void reg(Product product) {
@@ -33,5 +33,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteAllById(List<Long> deleteId) {
         repository.deleteAll(deleteId);
+    }
+
+    @Override
+    public List<ProductView> getList(String searchMethod, String searchKeyword) {
+        return repository.findAll(searchMethod,searchKeyword);
     }
 }

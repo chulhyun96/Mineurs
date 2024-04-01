@@ -30,9 +30,16 @@ public class ProductController {
 
 
     @GetMapping
-    public String list(Model model) {
-        List<ProductView> list = service.getList();
-        model.addAttribute("list", list);
+    public String clist(@RequestParam(required = false) String searchMethod
+                        ,@RequestParam(defaultValue = "") String searchKeyword
+                        ,Model model){
+        if (searchMethod == null) {
+            List<ProductView> list = service.getList();
+            model.addAttribute("list", list);
+            return PRODUCTS_VIEW + "/list";
+        }
+        List<ProductView> list = service.getList(searchMethod, searchKeyword);
+        model.addAttribute("list",list);
         return PRODUCTS_VIEW + "/list";
     }
 
@@ -68,4 +75,5 @@ public class ProductController {
         service.edit(product);
         return "success";
     }
+
 }
