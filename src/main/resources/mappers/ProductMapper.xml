@@ -48,7 +48,7 @@
 
     <update id="updateProductById" parameterType="Product">
         UPDATE product
-        SET name = #{name},selling_price = #{sellingPrice}, supplying_price = #{supplyingPrice}, description = #{description}  where id = #{id}
+        SET name = #{name},selling_price = #{sellingPrice}, supplying_price = #{supplyingPrice}, description = #{description}, img = #{img}  where id = #{id}
     </update>
 
 

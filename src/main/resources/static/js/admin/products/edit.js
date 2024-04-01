@@ -8,6 +8,7 @@ function edit() {
         sellingPrice: form.querySelector(".sellingPrice").value,
         supplyingPrice: form.querySelector(".supplyingPrice").value,
         description: form.querySelector(".description").value,
+        img: form.querySelector(".img").value
     };
 
     const xhr = new XMLHttpRequest();                       //비동기통신을 위해 XMLHttpRequest 객체 생성 및 xhr로 참조.

@@ -90,7 +90,6 @@
     <section class="d:flex fl-grow:1 ai:center mb:8 border-bottom">
         <div>
             <img id="imgId" th:src="${product.img}" alt="첨부이미지" class="w:7 mt:10 ml:10 p:5 border"/>
-            <input class="m:10" type="file" name="paths" multiple/>
         </div>
         <form id="form" class="d:flex  flex-direction:column w:100p mr:10 border-left pl:10">
             <input type="hidden" name="id" class="id" th:value="${product.id}">
@@ -108,6 +107,7 @@
                       th:text="${product.description}"></textarea>
             <label>등록일자</label>
             <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6 " th:value="${product.regDate}">
+            <input class="m:4 ml:1 img" type="file" name="paths" multiple/>
 
 
             <button type="button" class="n-btn mt:4" onclick="edit()">수정</button>
