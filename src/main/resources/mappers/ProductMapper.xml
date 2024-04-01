@@ -33,20 +33,21 @@
     </select>
 
     <insert id="reg" parameterType="Product" useGeneratedKeys="true" keyProperty="id">
-        insert into product(name,selling_price, supplying_price, description ,img,category_id)
-        values (#{name}, #{sellingPrice}, #{supplyingPrice}, #{description}, #{img},#{categoryId})
+        INSERT INTO product(name,selling_price, supplying_price, description ,img,category_id)
+        VALUES (#{name}, #{sellingPrice}, #{supplyingPrice}, #{description}, #{img},#{categoryId})
     </insert>
 
     <update id="updateProductById" parameterType="Product">
-        update product
-        set name = #{name},selling_price = #{sellingPrice}, supplying_price = #{supplyingPrice}, description = #{description}  where id = #{id}
+        UPDATE product
+        SET name = #{name},selling_price = #{sellingPrice}, supplying_price = #{supplyingPrice}, description = #{description}  where id = #{id}
     </update>
 
+
     <delete id="deleteAll" parameterType="java.util.List">
-    DELETE FROM product
-    WHERE id IN
-    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
-      #{item}
-    </foreach>
-  </delete>
+        DELETE FROM product
+        WHERE id IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 </mapper>

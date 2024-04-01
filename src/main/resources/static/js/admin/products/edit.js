@@ -3,13 +3,12 @@ function edit() {
     const form = document.querySelector("#form"); // detail.html 의 요소(의 id:frm) 선택.
 
     const product = {                                                    //product객체의 각 요소의 값들을 똑같은 이름의 변수에 담기완료.
-        id: form.querySelector(".id").value, //현재 적은 방법은 json으로 파싱해서 서버로 데이터 보내려고 하는거고,
+        id: form.querySelector(".id").value,    //현재 적은 방법은 json으로 파싱해서 서버로 데이터 보내려고 하는거고,
         name: form.querySelector(".name").value,
         sellingPrice: form.querySelector(".sellingPrice").value,
         supplyingPrice: form.querySelector(".supplyingPrice").value,
-        description: form.querySelector(".description").value
+        description: form.querySelector(".description").value,
     };
-    console.log("자바스크립트 ConsoleLog"+product)
 
     const xhr = new XMLHttpRequest();                       //비동기통신을 위해 XMLHttpRequest 객체 생성 및 xhr로 참조.
 
