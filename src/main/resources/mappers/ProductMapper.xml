@@ -38,7 +38,8 @@
     </insert>
 
     <update id="updateProductById" parameterType="Product">
-        update product set name = #{name},selling_price = #{sellingPrice}, supplying_price = #{supplyingPrice} where id = #{id}
+        update product
+        set name = #{name},selling_price = #{sellingPrice}, supplying_price = #{supplyingPrice}, description = #{description}  where id = #{id}
     </update>
 
     <delete id="deleteAll" parameterType="java.util.List">
