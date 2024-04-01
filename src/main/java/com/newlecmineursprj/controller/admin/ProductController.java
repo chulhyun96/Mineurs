@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ProductController {
     private static final String PRODUCTS_VIEW = "/admin/products";
     private static final String REDIRECT = "redirect:";
+    private static final String LIST_VIEW = PRODUCTS_VIEW + "/list";
 
     private final ProductService service;
     private final CategoryService categoryService;
@@ -34,16 +35,17 @@ public class ProductController {
             , @RequestParam(defaultValue = "") String searchKeyword
             , Model model) {
 
-        searchKeyword = searchKeyword.trim();
+        String trimSearchKeyword = searchKeyword.trim();
+
         if (searchMethod == null) {
             List<ProductView> list = service.getList();
             model.addAttribute("list", list);
-            return PRODUCTS_VIEW + "/list";
+            return LIST_VIEW;
         }
 
-        List<ProductView> list = service.getList(searchMethod, searchKeyword);
+        List<ProductView> list = service.getList(searchMethod, trimSearchKeyword);
         model.addAttribute("list", list);
-        return PRODUCTS_VIEW + "/list";
+        return LIST_VIEW;
     }
 
     @GetMapping("/reg")
