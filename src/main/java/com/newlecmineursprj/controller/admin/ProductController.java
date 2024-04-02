@@ -28,7 +28,6 @@ public class ProductController {
     private final CategoryService categoryService;
     private final ProductSubImgService productSubImgService;
 
-
     @GetMapping
     public String list(@RequestParam(required = false) String searchMethod
             , @RequestParam(defaultValue = "") String searchKeyword
@@ -63,7 +62,6 @@ public class ProductController {
     @PostMapping("/delete")
     public String delete(@RequestParam List<Long> deleteId) {
         service.deleteAllById(deleteId);
-        log.info("deleteId =" + deleteId);
         return REDIRECT + PRODUCTS_VIEW;
     }
 

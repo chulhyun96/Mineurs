@@ -32,6 +32,7 @@
                 description like '%${searchKeyword}%'
             </if>
         </where>
+        ORDER BY reg_date DESC
     </select>
 
     <select id="findById" resultMap="ProductView">

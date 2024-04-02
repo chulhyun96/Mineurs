@@ -1,7 +1,9 @@
 package com.newlecmineursprj.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +33,11 @@ public class ProductSubImgServiceImpl implements ProductSubImgService {
             dimgs.add(dimg);
         }
         return dimgs;
+        /*return Arrays.stream(paths.split(","))
+                .map(path -> ProductSubImg.builder()
+                        .path(path)
+                        .productId(productId)
+                        .build())
+                .collect(Collectors.toList());*/
     }
 }
