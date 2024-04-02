@@ -1,83 +1,82 @@
 <!DOCTYPE html>
 <html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{/admin/inc/layout}"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{/admin/inc/layout}"
 >
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <title>Title</title>
-  </head>
-  <body>
-    <main
-      layout:fragment="main"
-      class="n-panel n-main-panel d:flex flex-direction:column"
-    >
-      <form
-        class="n-form md:n-field-label-position:left border:0 w:3/5 mx:auto my:10"
-      >
+</head>
+<body>
+<main
+        layout:fragment="main"
+        class="n-panel n-main-panel d:flex flex-direction:column"
+>
+    <form class="n-form md:n-field-label-position:left border:0 w:3/5 mx:auto my:10">
         <div>
-          <select class="border" name="searchMethod">
-            <option th:selected="${{param.searchMethod}} == 'title'" value="title">제목</option>
-            <option th:selected="${{param.searchMethod}} == 'description'" value="description">내용</option>
-          </select>
-          <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요" th:value="${#strings.trim(param.searchKeyword)}"/>
-          <button class="n-btn n-btn-type:outline-box">검색</button>
+            <select class="border" name="searchMethod">
+                <option th:selected="${{param.searchMethod}} == 'title'" value="title">제목</option>
+                <option th:selected="${{param.searchMethod}} == 'description'" value="description">내용</option>
+            </select>
+            <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요"
+                   th:value="${#strings.trim(param.searchKeyword)}"/>
+            <button class="n-btn n-btn-type:outline-box">검색</button>
         </div>
-      </form>
+    </form>
 
-      <div class="w:100p border-bottom"></div>
+    <div class="w:100p border-bottom"></div>
 
-      <form action="products/delete" class="flex flex-col w-full" method="post">
+    <form action="products/delete" class="flex flex-col w-full" method="post">
         <table class="n-table n-table-style:striped">
-          <thead>
+            <thead>
             <tr>
-              <th scope="col" class="w:2"></th>
-              <th scope="col">상품 이름</th>
-              <th scope="col">판매가</th>
-              <th scope="col">공급가</th>
-              <th scope="col">이미지</th>
-              <th scope="col">설명</th>
-              <th scope="col">등록일자</th>
+                <th scope="col" class="w:2"></th>
+                <th scope="col">상품 이름</th>
+                <th scope="col">판매가</th>
+                <th scope="col">공급가</th>
+                <th scope="col">이미지</th>
+                <th scope="col">설명</th>
+                <th scope="col">등록일자</th>
             </tr>
-          </thead>
-          <tbody>
+            </thead>
+            <tbody>
             <tr th:each="product: ${list}">
-              <td scope="col">
-                <input
-                  name="deleteId"
-                  type="checkbox"
-                  class="n-toggle n-toggle-type:check-box n-toggle-size:2"
-                  th:value="${product.id}"
-                />
-              </td>
-              <td scope="col" th:text="${product.name}">상품 이름</td>
-              <td scope="col" th:text="${product.sellingPrice}">판매가</td>
-              <td scope="col" th:text="${product.supplyingPrice}">공급가</td>
-              <td scope="col">
-                <a href="" th:href="@{/admin/products/{id}(id=${product.id})}">
-                  <img id="imgId" th:src="${product.img}" alt="첨부이미지" class="w:1"/>
-                </a>
-              </td>
-              <td scope="col" th:text="${product.description}">설명</td>
-              <td scope="col" th:text="${product.regDate}">등록일자</td>
+                <td scope="col">
+                    <input
+                            name="deleteId"
+                            type="checkbox"
+                            class="n-toggle n-toggle-type:check-box n-toggle-size:2"
+                            th:value="${product.id}"
+                    />
+                </td>
+                <td scope="col" th:text="${product.name}">상품 이름</td>
+                <td scope="col" th:text="${product.sellingPrice}">판매가</td>
+                <td scope="col" th:text="${product.supplyingPrice}">공급가</td>
+                <td scope="col">
+                    <a href="" th:href="@{/admin/products/{id}(id=${product.id})}">
+                        <img id="imgId" th:src="${product.img}" alt="첨부이미지" class="w:1"/>
+                    </a>
+                </td>
+                <td scope="col" th:text="${product.description}">설명</td>
+                <td scope="col" th:text="${product.regDate}">등록일자</td>
             </tr>
-          </tbody>
+            </tbody>
         </table>
         <div class="d:flex jc:end mt:3">
-          <div class="mr:3">
-            <a href="products/reg" class="n-btn n-btn-size:3"> 등록 </a>
-          </div>
-          <button class="n-btn n-btn-size:3 n-btn-color:accent mr:3">
-            삭제
-          </button>
+            <div class="mr:3">
+                <a href="products/reg" class="n-btn n-btn-size:3"> 등록 </a>
+            </div>
+            <button class="n-btn n-btn-size:3 n-btn-color:accent mr:3">
+                삭제
+            </button>
         </div>
-      </form>
-      <ul class="n-pager mx:auto">
+    </form>
+    <ul class="n-pager mx:auto">
         <li class="active"><a>1</a></li>
         <li><a>2</a></li>
         <li><a>3</a></li>
-      </ul>
-    </main>
-  </body>
+    </ul>
+</main>
+</body>
 </html>

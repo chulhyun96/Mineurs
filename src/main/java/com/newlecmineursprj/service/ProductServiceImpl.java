@@ -19,6 +19,10 @@ public class ProductServiceImpl implements ProductService {
         return repository.findAll(null,null);
     }
     @Override
+    public List<ProductView> getList(String searchMethod, String searchKeyword) {
+        return repository.findAll(searchMethod,searchKeyword);
+    }
+    @Override
     public void reg(Product product) {
         repository.reg(product);
     }
@@ -30,13 +34,9 @@ public class ProductServiceImpl implements ProductService {
     public void edit(Product product) {
         repository.updateProductById(product);
     }
+
     @Override
     public void deleteAllById(List<Long> deleteId) {
         repository.deleteAll(deleteId);
-    }
-
-    @Override
-    public List<ProductView> getList(String searchMethod, String searchKeyword) {
-        return repository.findAll(searchMethod,searchKeyword);
     }
 }
