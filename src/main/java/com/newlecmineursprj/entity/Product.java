@@ -16,7 +16,7 @@ public class Product {
     private Date regDate;
     private int sellingPrice;
     private int supplyingPrice;
-    private String img;
+    private String imgPath;
     private String description;
     private Long categoryId;
 }
