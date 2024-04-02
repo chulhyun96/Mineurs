@@ -6,10 +6,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="/js/admin/products/reg.js"></script>
+    <style>
+        .img-box img {
+            height: 300px;
+
+            /*width: 100px;*/
+            /*object-fit: contain;*/
+        }
+    </style>
 </head>
 <body>
-<main layout:fragment="main" class="flex flex-col w-full n-panel n-main-panel">
-    <form method="post" action="/admin/products" class="n-form n-form-type:outline-box px:10">
+<main layout:fragment="main" class="n-panel n-main-panel">
+    <form method="post" action="/admin/products" class="n-form n-form-type:outline-box px:10 w:100p">
         <div>
             <label>
                 <span>상품 이름</span>
@@ -31,15 +40,21 @@
         <div>
             <label>
                 <span>상품 설명</span>
-                <textarea type="text" name="description" class="height:7"></textarea>
+                <textarea name="description" class="height:7"></textarea>
             </label>
         </div>
         <div>
             <label>
-                <span>사진</span>
-                <input type="file" name="img"/>
+                <span>대표 사진</span>
+                <input class="img-input d:none border" type="file" name="img"/>
+                <span class="img-box d:flex flex-direction:row">
+                    <span class="d:flex jc:center al-items:center w:5 h:5 bg-color:base-3">
+                        <span class="icon icon:camera icon-size:5  icon-color:base-1"></span>
+                    </span>
+                </span>
             </label>
         </div>
+
 
         <div>
             <label>
@@ -47,14 +62,15 @@
                 <input type="file" name="paths" multiple/>
             </label>
         </div>
-            <label for="lang">카테고리</label>
-            <select id="lang" name="categoryId" class="n-dropdown">
-                <option th:each="category : ${categories}" 
-                th:value="${category.id}"
-                value="javascript"
-                class="n-dropdown-item"
-                th:text="${category.name}">JavaScript</option>
-            </select>
+        <label for="lang">카테고리</label>
+        <select id="lang" name="categoryId" class="n-dropdown">
+            <option th:each="category : ${categories}"
+                    th:value="${category.id}"
+                    value="javascript"
+                    class="n-dropdown-item"
+                    th:text="${category.name}">JavaScript
+            </option>
+        </select>
 
         <div class="d:flex flex-direction:row justify-content:end">
             <button class="n-btn n-btn-size:3">
