@@ -24,7 +24,6 @@ window.addEventListener("load", function (node, child) {
             img.src = e.target.result;
             imgBox.innerHTML = "";
             imgBox.append(img)
-            // imgBox.classList.add("fade-in");
 
             setTimeout(() => {
                 img.classList.add("slide-in")

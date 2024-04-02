@@ -6,129 +6,70 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.3/dist/quill.snow.css" rel="stylesheet"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.3/dist/quill.js"></script>
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
-    />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"/>
     <script src="/js/admin/products/edit.js"></script>
-    <script>
-        window.onload = function () {
-            var textArea = document.getElementById("text-area");
-            const quill = new Quill('#editor', {
-                modules: {
-                    syntax: true,
-                    toolbar: '#toolbar-container',
-                },
-                placeholder: '',
-                theme: 'snow',
-            });
-            console.log("123");
-
-            var btn = document.getElementById("btn");
-            btn.onclick = function (e) {
-
-                textArea.innerHTML = quill.getSemanticHTML();
-                console.log(textArea.innerText);
-            }
+    <style>
+        .img-box img {
+            height: 300px;
         }
-        function setDetailImage(event) {
-            const imagesContainer = document.getElementById('images_container');
-            imagesContainer.innerHTML = '';
-
-            for (let i = 0; i < event.target.files.length; i++) {
-                const file = event.target.files[i];
-                const reader = new FileReader();
-
-                reader.onload = (function (file) {
-                    return function (e) {
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        img.width = 150;
-                        imagesContainer.appendChild(img);
-                    };
-                })(file);
-                reader.readAsDataURL(file);
-            }
-        }
-    </script>
-    <script>
-        var i = 0;
-        var t = 0;
-        var picCount = document.querySelector(".pic-count");
-
-        function setDetailImage(event) {
-            if (i < 5) {
-                for (var image of event.target.files) {
-                    var reader = new FileReader();
-
-                    reader.onload = function (event) {
-                        var img = document.createElement("img");
-                        img.setAttribute("src", event.target.result);
-                        img.setAttribute("class", "mr:3 " + " w:3" + " h:3" + " bd-radius:4");
-
-                        document.querySelector("div#images_container").appendChild(img);
-                    };
-                    console.log(image);
-                    reader.readAsDataURL(image);
-                    i++;
-                }
-            } else {
-                t++;
-                picCount.textContent = '+' + t;
-            }
-        }
-    </script>
-
+    </style>
 </head>
 <body>
-<main layout:fragment="main" class="n-panel n-main-panel ">
-
-    <section class="d:flex fl-grow:1 ai:center mb:8 border-bottom">
+<main layout:fragment="main" class="n-panel n-main-panel">
+    <form id="form" class="n-form n-form-type:outline-box px:10 w:100p">
+        <input type="hidden" name="id" class="id" th:value="${product.id}">
         <div>
-            <img id="imgId" th:src="${product.img}" alt="첨부이미지" class="w:7 mt:10 ml:10 p:5 border"/>
+            <label>
+                <span>상품 이름</span>
+                <input type="text" name="name" th:value="${product.name}" class="name"/>
+            </label>
         </div>
-        <form id="form" class="d:flex  flex-direction:column w:100p mr:10 border-left pl:10">
-            <input type="hidden" name="id" class="id" th:value="${product.id}">
-            <label>상품이름</label>
-            <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6 name" name="name"
-                   th:value="${product.name}">
-            <label>판매가</label>
-            <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6 sellingPrice" name="sellingPrice"
-                   th:value="${product.sellingPrice}">
-            <label>공급가</label>
-            <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6 supplyingPrice" name="supplyingPrice"
-                   th:value="${product.supplyingPrice}">
-            <label>설명</label>
-            <textarea class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6 description" rows="7" name="description"
-                      th:text="${product.description}"></textarea>
-            <label>등록일자</label>
-            <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6 " th:value="${product.regDate}">
-            <input class="m:4 ml:1 img" type="file" name="paths" multiple/>
-
-
-            <button type="button" class="n-btn mt:4" onclick="edit()">수정</button>
-            <a type="button" class="n-btn n-btn-color:sub mt:1" th:href="@{/admin/products}">목록</a>
-        </form>
-    </section>
-
-    <section class="fl-grow:1 ai:center">
-        <div class="form-group d:flex mt:3">
-            <div class="bg-color:base-2 w:3 h:3 d:flex jc:center ai:center bd-radius:4 flex-shrink:0 mr:3 mb:2 ">
-                <label class="form-label-file d:flex jc:center ai:center">
-                    <span class="icon icon:plus"></span>
-                    <input class="form-control form-control-user d:none" type="file" multiple="multiple"
-                           name="product_detail_image" id="" onchange="setDetailImage(event);">
-                </label>
-            </div>
-            <div class="w:100p">
-                <div id="images_container" class="bd-radius:4 d:flex flex-grow:1  "></div>
-            </div>
+        <div>
+            <label>
+                <span>판매가</span>
+                <input type="text" name="sellingPrice" th:value="${product.sellingPrice}" class="sellingPrice" />
+            </label>
         </div>
-    </section>
+        <div>
+            <label>
+                <span>공급가</span>
+                <input type="text" name="supplyingPrice" th:value="${product.supplyingPrice}" class="supplyingPrice"/>
+            </label>
+        </div>
+        <div>
+            <label>
+                <span>상품 설명</span>
+                <textarea name="description" class="height:7 description" th:text="${product.description}"></textarea>
+            </label>
+        </div>
+        <div>
+            <label>
+                <span>대표 사진</span><span>(수정하려면 Click!)</span>
+                <input class="img-input d:none border img" type="file" name="img"/>
+                <span class="img-box d:flex flex-direction:row">
+                        <img alt="kk" src="" th:src="${product.img}">
+                </span>
+            </label>
+        </div>
+
+
+        <div>
+            <label>
+                <span>디테일 사진</span>
+                <input type="file" name="paths" multiple/>
+            </label>
+        </div>
+        <label for="lang">카테고리</label>
+        <select id="lang" name="categoryId" class="n-dropdown">
+            <option th:each="category : ${categories}"
+                    th:value="${category.id}"
+                    value="javascript"
+                    class="n-dropdown-item"
+                    th:text="${category.name}">JavaScript
+            </option>
+        </select>
+        <button type="button" class="n-btn mt:4" onclick="edit()">수정</button>
+        <a type="button" class="n-btn n-btn-color:sub mt:1" th:href="@{/admin/products}">목록</a>
+    </form>
 </main>
 </body>
 </html>
