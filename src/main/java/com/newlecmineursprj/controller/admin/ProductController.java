@@ -56,6 +56,7 @@ public class ProductController {
 
         String fileName = "";
         fileName = img.getOriginalFilename(); // 파일의 이름을 추출
+        System.out.println("fileNameasdasdasdasdasdasdasdasdasdasd  = " + fileName);
 
         if (img != null && !img.isEmpty())
         {

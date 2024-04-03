@@ -32,7 +32,7 @@
                 description like '%${searchKeyword}%'
             </if>
         </where>
-        ORDER BY reg_date DESC
+        ORDER BY id DESC
     </select>
 
     <select id="findById" resultMap="ProductView">
@@ -43,7 +43,7 @@
     </select>
 
     <insert id="reg" parameterType="Product" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO product(name,selling_price, supplying_price, description ,img,category_id)
+        INSERT INTO product(name,selling_price, supplying_price, description,img,category_id)
         VALUES (#{name}, #{sellingPrice}, #{supplyingPrice}, #{description}, #{imgPath},#{categoryId})
     </insert>
 
