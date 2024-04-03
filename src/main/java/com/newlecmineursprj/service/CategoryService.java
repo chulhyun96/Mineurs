@@ -6,5 +6,4 @@ import com.newlecmineursprj.entity.Category;
 
 public interface CategoryService {
     List<Category> getList();
-
 }

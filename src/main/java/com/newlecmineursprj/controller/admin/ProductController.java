@@ -53,11 +53,8 @@ public class ProductController {
                       Product product,
                       Long categoryId,
                       HttpServletRequest req) {
-        log.info("imgFileasdasdasd = {}", img);
-        log.info("getOriginal= {}", img.getOriginalFilename());
 
         String fileName = "";
-
         fileName = img.getOriginalFilename(); // 파일의 이름을 추출
 
         if (img != null && !img.isEmpty())

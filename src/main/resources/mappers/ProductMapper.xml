@@ -53,7 +53,7 @@
     </update>
 
 
-    <delete id="deleteAll" parameterType="java.util.List">
+    <delete id="deleteAll" parameterType="list">
         DELETE FROM product
         WHERE id IN
         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
