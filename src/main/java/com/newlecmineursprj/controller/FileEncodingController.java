@@ -13,7 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 @Controller
-public class HomeController {
+public class FileEncodingController {
     @GetMapping(path = "/image/products/{fileName}", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getImage(HttpServletRequest request, HttpServletResponse response, @PathVariable String fileName) {
         try {
@@ -28,3 +28,5 @@ public class HomeController {
         }
     }
 }
+
+

@@ -2,6 +2,7 @@ package com.newlecmineursprj.controller.admin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -49,38 +50,38 @@ public class ProductController {
     }
 
     @PostMapping
-    public String reg(MultipartFile img,
+    public String reg(@RequestParam("img") MultipartFile imgFile,
                       Product product,
                       Long categoryId,
-                      HttpServletRequest req) {
-
-        String fileName = "";
-        fileName = img.getOriginalFilename(); // 파일의 이름을 추출
-        System.out.println("fileNameasdasdasdasdasdasdasdasdasdasd  = " + fileName);
-
-        if (img != null && !img.isEmpty())
+                      HttpServletRequest req) throws IllegalStateException, IOException {
         {
-            String path = "/image/products";          // 루트 폴더에 절대경로로 해서 업로드될 파일 디렉토리 만들어줌
-            String realPath = req.getServletContext() // 전체 경로를 추출
-                    .getRealPath(path);
+            String fileName = "";
+            fileName = imgFile.getOriginalFilename(); // 파일의 이름을 추출
+            System.out.println("fileNameasdasdasdasdasdasdasdasdasdasd  = " + fileName);
 
-            File pathFile = new File(realPath);       // 파일을 만듦
-            if (!pathFile.exists()) {                 // 경로에 관련 디렉토리가 있지않다면 없는 디렉토리 전체생성
-                pathFile.mkdirs();
-            }
-            File file = new File(realPath + File.separator + fileName);  //separtor 자바에서 제공하는 전체운영체제 구분자
-            try {
-                img.transferTo(file);               //파일 생성
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (imgFile != null && !imgFile.isEmpty()) {
+                String path = "/image/products";          // 루트 폴더에 절대경로로 해서 업로드될 파일 디렉토리 만들어줌
+                String realPath = req.getServletContext() // 전체 경로를 추출
+                        .getRealPath(path);
+
+                File pathFile = new File(realPath);       // 파일을 만듦
+                if (!pathFile.exists()) {                 // 경로에 관련 디렉토리가 있지않다면 없는 디렉토리 전체생성
+                    pathFile.mkdirs();
+                }
+                File file = new File(realPath + File.separator + fileName);  //separtor 자바에서 제공하는 전체운영체제 구분자
+
+                imgFile.transferTo(file);               //파일 생성
             }
         }
         product.setCategoryId(categoryId);
-        product.setImgPath(fileName);
+        product.setImgPath(imgFile.getOriginalFilename());
         service.reg(product);
         /*productSubImgService.regAll(paths, product.getId());*/
         return REDIRECT + PRODUCTS_VIEW;
     }
+
+
+
 
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
