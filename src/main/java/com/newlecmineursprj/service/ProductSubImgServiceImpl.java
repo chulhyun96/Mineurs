@@ -1,43 +1,36 @@
 package com.newlecmineursprj.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import com.newlecmineursprj.entity.ProductSubImg;
 import com.newlecmineursprj.repository.ProductSubImgRepository;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class ProductSubImgServiceImpl implements ProductSubImgService {
     private final ProductSubImgRepository repository;
-    @Override
-    public void regAll(String paths, Long productId) {
-        List<ProductSubImg> dimgs = splitPath(paths, productId);
-        repository.reg(dimgs);
-    }
-    private List<ProductSubImg> splitPath(String paths, Long productId) {
-        String[] pathsArr = paths.split(",");
-        List<ProductSubImg> dimgs = new ArrayList<>();
-
-        for (String path : pathsArr) {
-            ProductSubImg dimg = new ProductSubImg();
-
-            dimg.setPath(path);
-            dimg.setProductId(productId);
-            dimgs.add(dimg);
-        }
-        return dimgs;
-        /*return Arrays.stream(paths.split(","))
-                .map(path -> ProductSubImg.builder()
-                        .path(path)
+    public void regAll(MultipartFile[] multipartFiles, Long productId) {
+        if (!isEmpty(multipartFiles)) {
+            for (MultipartFile multipartFile : multipartFiles) {
+                List<ProductSubImg> productSubImgList = new ArrayList<>();
+                ProductSubImg productSubImg = ProductSubImg.builder()
                         .productId(productId)
-                        .build())
-                .collect(Collectors.toList());*/
+                        .path(multipartFile.getOriginalFilename())
+                        .build();
+                productSubImgList.add(productSubImg);
+                repository.reg(productSubImgList);
+            }
+        }
+    }
+
+    private static boolean isEmpty(MultipartFile[] multipartFiles) {
+        return multipartFiles[0].isEmpty();
     }
 }

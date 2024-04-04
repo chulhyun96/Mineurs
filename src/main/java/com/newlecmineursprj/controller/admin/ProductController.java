@@ -52,12 +52,15 @@ public class ProductController {
     public String reg(MultipartFile img,
                       Product product,
                       Long categoryId,
-                      HttpServletRequest req) throws FileUploadException {
+                      HttpServletRequest req,
+                      MultipartFile[] paths) throws FileUploadException {
+
         String fileUploadResult = setFileUpload(img, req);
         product.setCategoryId(categoryId);
         product.setImgPath(fileUploadResult);
         service.reg(product);
-        /*productSubImgService.regAll(paths, product.getId());*/
+        productSubImgService.regAll(paths, product.getId());
+
         return REDIRECT + PRODUCTS_VIEW;
     }
 
