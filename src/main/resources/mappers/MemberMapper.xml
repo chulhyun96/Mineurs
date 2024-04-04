@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newlecmineursprj.repository.MemberRepository">
+
+    <select id="findAll" resultType="Member">
+        SELECT
+        *
+        FROM member
+
+        <where>
+            <if test="id != null">
+                id like '%${id}%'
+            </if>
+            <if test="name != null">
+                name like '%${name}%'
+            </if>
+            <if test="loginId != null">
+                login_id like '%${loginId}%'
+            </if>
+            <if test="password != null">
+                password like '%${password}%'
+            </if>
+            <if test="phoneNumber != null">
+                phone_number like '%${phoneNumber}%'
+            </if>
+            <if test="email != null">
+                email like '%${email}%'
+            </if>
+
+
+        </where>
+        ORDER BY id DESC
+    </select>
+
+    <select id="findById" resultType="Member">
+        SELECT
+        *
+        FROM member
+        where id = #{id}
+    </select>
+
+    <insert id="save" parameterType="Member" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO member(name, login_id, password, phone_number, email)
+        VALUES (#{name}, #{login_id}, #{password}, #{phone_number}, #{email})
+    </insert>
+
+    <update id="update" parameterType="Member">
+        UPDATE member
+
+        SET name = #{name},
+        login_id = #{loginId},
+        password = #{password},
+        phone_number = #{phoneNumber},
+        email = #{email}
+
+        where id = #{id}
+    </update>
+
+
+    <delete id="deleteAll" parameterType="list">
+        DELETE FROM member
+        WHERE id IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <delete id="deleteById" parameterType="Long">
+        delete from member
+        where id = #{id}
+    </delete>
+</mapper>
