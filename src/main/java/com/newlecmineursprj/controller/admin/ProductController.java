@@ -1,12 +1,11 @@
 package com.newlecmineursprj.controller.admin;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,38 +49,23 @@ public class ProductController {
     }
 
     @PostMapping
-    public String reg(@RequestParam("img") MultipartFile imgFile,
+    public String reg(MultipartFile img,
                       Product product,
                       Long categoryId,
-                      HttpServletRequest req) throws IllegalStateException, IOException {
-        {
-            String fileName = "";
-            fileName = imgFile.getOriginalFilename(); // 파일의 이름을 추출
-            System.out.println("fileNameasdasdasdasdasdasdasdasdasdasd  = " + fileName);
-
-            if (imgFile != null && !imgFile.isEmpty()) {
-                String path = "/image/products";          // 루트 폴더에 절대경로로 해서 업로드될 파일 디렉토리 만들어줌
-                String realPath = req.getServletContext() // 전체 경로를 추출
-                        .getRealPath(path);
-
-                File pathFile = new File(realPath);       // 파일을 만듦
-                if (!pathFile.exists()) {                 // 경로에 관련 디렉토리가 있지않다면 없는 디렉토리 전체생성
-                    pathFile.mkdirs();
-                }
-                File file = new File(realPath + File.separator + fileName);  //separtor 자바에서 제공하는 전체운영체제 구분자
-
-                imgFile.transferTo(file);               //파일 생성
-            }
-        }
+                      HttpServletRequest req) throws FileUploadException {
+        String fileUploadResult = setFileUpload(img, req);
         product.setCategoryId(categoryId);
-        product.setImgPath(imgFile.getOriginalFilename());
+        product.setImgPath(fileUploadResult);
         service.reg(product);
         /*productSubImgService.regAll(paths, product.getId());*/
         return REDIRECT + PRODUCTS_VIEW;
     }
 
-
-
+    private String setFileUpload(MultipartFile img, HttpServletRequest req) {
+        String path = "/image/products";
+        String realPath = req.getServletContext().getRealPath(path);
+        return service.saveProductImg(img, realPath);
+    }
 
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {

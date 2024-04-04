@@ -14,6 +14,7 @@ InputFileList.prototype = {
     }
 };
 
+
 window.addEventListener("load", function (node, child) {
 
     var imgInput = document.querySelector(".img-input");

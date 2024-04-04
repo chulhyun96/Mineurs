@@ -1,6 +1,9 @@
 package com.newlecmineursprj.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.newlecmineursprj.entity.Product;
 import com.newlecmineursprj.entity.ProductView;
 import com.newlecmineursprj.repository.ProductRepository;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -38,5 +42,25 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteAllById(List<Long> deleteId) {
         repository.deleteAll(deleteId);
+    }
+
+    @Override
+    public String saveProductImg(MultipartFile img, String realPath) {
+        String fileName = img.getOriginalFilename();
+        if (img != null && !img.isEmpty()) {
+
+            File pathFile = new File(realPath);
+            if (!pathFile.exists()) {
+                pathFile.mkdirs();
+            }
+            File file = new File(realPath + File.separator + fileName);
+            try {
+                img.transferTo(file);
+                return fileName;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return "Failed File Upload";
     }
 }
