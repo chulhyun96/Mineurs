@@ -1,162 +1,165 @@
-/* 인풋파일 컬렉션 리스트 구현*/
-function InputFileList(input) {
-    this.input = input;
-}
-InputFileList.prototype = {
-    add: function (file) {
-        var dt = new DataTransfer();
-        var files = this.input.files;
-
-        for(var temp of files)
-            dt.items.add(temp);
-
-        dt.items.files = dt.files;
-    }
-};
-
-
 window.addEventListener("load", function (node, child) {
 
-    var imgInput = document.querySelector(".img-input");
-    var imgBox = document.querySelector(".img-box");
-    var detailImageLabel = document.querySelector(".detail-img-label");
-    var detailImageBox = document.querySelector(".detail-img");
-    var mainImgLabel = document.querySelector(".main-img-label");
+    let mainImgInput = document.querySelector(".main-img-input");
+    let subImgInput = document.querySelector(".sub-img-input");
+
+    let mainImgBox = document.querySelector(".main-img-box");
+    let subImgBox = document.querySelector(".sub-img-box");
+
+    let mainImgLabel = document.querySelector(".main-img-label");
+    let subImgLabel = document.querySelector(".sub-img-label");
+
+    mainImgInput.oninput = (e) => handleInput(e, mainImgBox);
+    subImgInput.oninput = (e) => handleInput(e, subImgBox);
+
+    mainImgLabel.ondrop = (e) =>
+        handleDrop(e, mainImgLabel, mainImgInput, mainImgBox);
+    subImgLabel.ondrop = (e) =>
+        handleDrop(e, subImgLabel, subImgInput, subImgBox);
+
+    mainImgLabel.ondragover = (e) => handleDragOver(e, mainImgLabel);
+    subImgLabel.ondragover = (e) => handleDragOver(e, subImgLabel);
+
+    mainImgLabel.ondragleave = (e) => handleDragLeave(e, mainImgLabel);
+    subImgLabel.ondragleave = (e) => handleDragLeave(e, subImgLabel);
+
+});
+
+// -------------- 이벤트 핸들러 ----------
+function handleInput(e, imgBox) {
+    let files = e.target.files;
+
+    console.log("input files: ", files);
+
+    let append = false;
+    renderThumbnails(imgBox, files, append);
+}
+
+function handleDrop(e, imgLabel, imgInput, imgBox) {
+    e.stopPropagation();
+    e.preventDefault();
+    console.log("imgInput: {}", imgInput);
+
+    resetValidState(imgLabel);
+
+    const filesFromDrag = e.dataTransfer.files;
+
+    if (imgInput.multiple === false) {
+        updateSingleInputAndRender(imgInput, filesFromDrag, imgBox);
+    } else {
+        updateMultiInputAndRender(imgInput, filesFromDrag, imgBox);
+    }
+}
+
+function handleDragOver(e, imgLabel) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    let valid = e.dataTransfer.types.indexOf("Files") >= 0;
+    if (!valid)
+        imgLabel.classList.add("invalid");
+}
+
+function handleDragLeave(e, imgLabel) {
+    imgLabel.classList.remove("invalid");
+}
+
+function handleFileLoad(e, imgPreview) {
+    let img = document.createElement("img");
+    img.src = e.target.result;
+
+    // img.onload = () => {
+    //   img.classList.add("fade-in");
+    //   img.classList.add("slide-in");
+    // };
+
+    setTimeout(() => {
+        img.classList.add("fade-in");
+        img.classList.add("slide-in");
+    }, 10);
+
+    imgPreview.append(img);
+}
 
 
-    // 메인이미지 드래그
-    imgInput.oninput = function (e) {
-        for (var key in imgInput.files[0])
-            console.log(key, ":", imgInput.files[0][key])
+// -------------- 유틸 함수 ----------
+function setInputFiles(imgInput, files) {
+    imgInput.files = files;
+    console.log("input files: {}", files);
+}
 
-        var file = imgInput.files[0]
+function hasSameName(oldFilesArray, file) {
+    for (let oldFile of oldFilesArray)
+        if (oldFile.name === file.name) return true;
 
-        if (file.type.indexOf("image/") !== 0) { //타입 제약
-            alert("이미지만 업로드 할 수 있습니다.")
+    return false;
+}
+
+function removeDuplicate(oldFiles, appendingFiles) {
+    const oldFilesArray = [...oldFiles];
+    return [...appendingFiles].filter(
+        (file) => !hasSameName(oldFilesArray, file),
+    );
+}
+
+function appendFiles(imgInput, files) {
+    const dt = new DataTransfer();
+    for (let file of imgInput.files) dt.items.add(file);
+
+    for (let file of files) {
+        dt.items.add(file);
+    }
+    setInputFiles(imgInput, dt.files);
+}
+
+function renderThumbnails(imgPreview, files, append) {
+    if (!append) imgPreview.innerHTML = "";
+    // 유효성 검사
+    for (let file of files) {
+        // 크기 제약
+        if (!isImg(file)) {
+            alert("이미지만 업로드해라");
             return;
         }
-        if (file.size > 100 * 100 * 1024) {
-            alert(file.size)
+        // 타입 제약 바이트 단위. 단위기호 미제공
+        let sizeLimit = 40 * 1024 * 1024;
+        if (file.size > sizeLimit) {
+            alert("파일이 너무큼, file size: " + formatByteToMB(file.size));
+            console.log("파일사이즈: ", file.size);
             return;
         }
-
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            var img = document.createElement("img");
-            img.src = e.target.result;
-            imgBox.innerHTML = "";
-            imgBox.append(img)
-
-            setTimeout(() => {
-                img.classList.add("slide-in")
-            }, 10);
-        };
-
-        reader.readAsDataURL(file);
-
-    };
-    /*대표사진 존*/
-    mainImgLabel.ondragover = function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        console.log("over")
-        var valid = e.dataTransfer &&
-            e.dataTransfer.types &&
-            e.dataTransfer.types.indexOf("Files") >= 0;
-
-        if (!valid)
-            mainImgLabel.classList.add("invalid");
-        /*var files = e.dataTransfer.files;*/
-    };
-    /*대표사진 드래그 리브*/
-    mainImgLabel.ondragleave = function (e) {
-        mainImgLabel.classList.remove("invalid");
-    };
-    /*대표사진 드래그 드랍*/
-    mainImgLabel.ondrop = function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-
-        var files = e.dataTransfer.files;
-        var file = files[0];
-
-        // new InputFileList(imgInput).addList(files);
-        new InputFileList(imgInput).add(file);
-
-        if (file.type.indexOf("image/") !== 0) {
-            alert("이미지만 업로드 할 수 있습니다");
-            return;
-        }
-
-        if (file.size > 1024*1024 * 1024) {
-            alert("파일의 크기가 너무 큽니다");
-            return;
-        }
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            var img = document.createElement("img");
-            img.src = e.target.result;
-            imgBox.innerHTML = "";
-            imgBox.append(img);
-            setTimeout( ()=> {
-                img.classList.add("slide-in");
-                //10밀리세컨
-            }, 10);
-            // imgBox.classList.add("fade-in");
-            files = dataTransfer.files;
-        };
+        // 여기서 파일 배열을 전송
+        let reader = new FileReader();
+        reader.onload = (e) => handleFileLoad(e, imgPreview);
         reader.readAsDataURL(file);
     }
+}
 
-    /*서브이미지 드래그 존*/
-    detailImageLabel.ondragover = function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        console.log("over")
-        var valid = e.dataTransfer &&
-            e.dataTransfer.types &&
-            e.dataTransfer.types.indexOf("Files") >= 0;
+function updateSingleInputAndRender(imgInput, filesFromDrag, imgPreview) {
+    setInputFiles(imgInput, filesFromDrag);
 
-        if (!valid)
-            detailImageLabel.classList.add("invalid");
+    let append = false;
+    renderThumbnails(imgPreview, filesFromDrag, append);
+}
 
-        /*var files = e.dataTransfer.files;*/
-    };
-    /*서브이미지 드래그 드랍*/
-    detailImageLabel.ondrop = function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        detailImageLabel.classList.remove("valid");
-        detailImageLabel.classList.remove("invalid");
+function updateMultiInputAndRender(imgInput, filesFromDrag, imgPreview) {
+    const filteredFiles = removeDuplicate(imgInput.files, filesFromDrag);
 
-        var files = e.dataTransfer.files;
-        var file = files[0];
+    appendFiles(imgInput, filteredFiles);
 
+    let append = true;
+    renderThumbnails(imgPreview, filteredFiles, append);
+}
 
-        if (file.type.indexOf("image/") !== 0) {
-            alert("이미지파일만 업로드 할 수 있습니다.")
-            return;
-        }
-        if (file.size > 100 * 100 * 1024) {
-            alert(file.size)
-            return;
-        }
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            var img = document.createElement("img");
-            img.src = e.target.result;
-            detailImageBox.append(img);
-            setTimeout(() => {
-                // img.classList.add("slide-in");
-                //10밀리세컨
-            }, 10);
-            // imgBox.classList.add("fade-in");
-            files = dataTransfer.files;
-        };
-        reader.readAsDataURL(file);
-    };
-    /*서브이미지 드래그 리브*/
-    detailImageLabel.ondragleave = function (e) {
-        detailImageLabel.classList.remove("invalid");
-    };
-});
+function resetValidState(imgLabel) {
+    imgLabel.classList.remove("valid");
+    imgLabel.classList.remove("invalid");
+}
+
+function formatByteToMB(byteSize) {
+    return (byteSize / 1024).toFixed(2) + "MB";
+}
+
+function isImg(file) {
+    return file.type.indexOf("image/") === 0;
+}
