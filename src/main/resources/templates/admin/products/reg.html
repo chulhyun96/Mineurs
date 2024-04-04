@@ -11,7 +11,9 @@
         .img-box img {
             height: 300px;
         }
-
+        .detail-img-box img {
+            height: 300px;
+        }
         .detail-img-label.valid, .main-img-label.valid {
             background-color: yellowgreen;
         }
@@ -29,35 +31,34 @@
             content: "파일형식만 해라";
             display: inline-block;
         }
-
     </style>
 </head>
 <body>
 <main layout:fragment="main" class="n-panel n-main-panel">
     <form method="post" action="/admin/products" class="n-form n-form-type:outline-box px:10 w:100p"
-          enctype="multipart/form-data" novalidate>
+          enctype="multipart/form-data">
         <div>
             <label>
                 <span>상품 이름</span>
-                <input type="text" name="name"/>
+                <input type="text" name="name" required/>
             </label>
         </div>
         <div>
             <label>
                 <span>판매가</span>
-                <input type="text" name="sellingPrice"/>
+                <input type="text" name="sellingPrice" required/>
             </label>
         </div>
         <div>
             <label>
                 <span>공급가</span>
-                <input type="text" name="supplyingPrice"/>
+                <input type="text" name="supplyingPrice" required/>
             </label>
         </div>
         <div>
             <label>
                 <span>상품 설명</span>
-                <textarea name="description" class="height:7"></textarea>
+                <textarea name="description" required class="height:7"></textarea>
             </label>
         </div>
 
@@ -77,12 +78,12 @@
         <div class="mb:10">
             <label class="detail-img-label">
                 <span>디테일 사진</span>
-                <span class="img-box d:flex flex-direction:row">
+                <input type="file" name="paths" class="d:none detail-img-input" multiple/>
+                <span class="detail-img-box d:flex flex-direction:row">
                     <span class="d:flex jc:center al-items:center w:5 h:5 bg-color:base-3">
                         <span class="icon icon:camera icon-size:5  icon-color:base-1"></span>
                     </span>
                 </span>
-                <input type="file" name="paths" class="d:none detail-img-input" multiple/>
             </label>
         </div>
 

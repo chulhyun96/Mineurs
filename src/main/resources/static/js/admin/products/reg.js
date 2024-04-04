@@ -19,9 +19,9 @@ window.addEventListener("load", function (node, child) {
 
     var imgInput = document.querySelector(".img-input");
     var imgBox = document.querySelector(".img-box");
-    var detailImageLabel = document.querySelector(".detail-img-label");
-    var detailImageBox = document.querySelector(".detail-img");
     var mainImgLabel = document.querySelector(".main-img-label");
+    var detailImageLabel = document.querySelector(".detail-img-label");
+    var detailImageBox = document.querySelector(".detail-img-box");
 
 
     // 메인이미지 드래그
@@ -124,30 +124,35 @@ window.addEventListener("load", function (node, child) {
     };
     /*서브이미지 드래그 드랍*/
     detailImageLabel.ondrop = function (e) {
-        e.preventDefault();
         e.stopPropagation();
-        detailImageLabel.classList.remove("valid");
-        detailImageLabel.classList.remove("invalid");
+        e.preventDefault();
 
         var files = e.dataTransfer.files;
         var file = files[0];
 
+        // new InputFileList(imgInput).addList(files);
+        new InputFileList(imgInput).add(file);
 
         if (file.type.indexOf("image/") !== 0) {
-            alert("이미지파일만 업로드 할 수 있습니다.")
+            alert("이미지만 업로드 할 수 있습니다");
             return;
         }
-        if (file.size > 100 * 100 * 1024) {
-            alert(file.size)
+
+        if (file.size > 1024*1024 * 1024) {
+            alert("파일의 크기가 너무 큽니다");
             return;
         }
         var reader = new FileReader();
         reader.onload = function (e) {
             var img = document.createElement("img");
             img.src = e.target.result;
+
+            if(!detailImageBox.querySelector('img')){
+                detailImageBox.innerHTML = "";
+            }
             detailImageBox.append(img);
-            setTimeout(() => {
-                // img.classList.add("slide-in");
+            setTimeout( ()=> {
+                img.classList.add("slide-in");
                 //10밀리세컨
             }, 10);
             // imgBox.classList.add("fade-in");
