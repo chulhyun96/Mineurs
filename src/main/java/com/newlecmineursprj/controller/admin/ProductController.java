@@ -1,7 +1,6 @@
 package com.newlecmineursprj.controller.admin;
 
 import java.util.List;
-import java.util.Optional;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -53,23 +52,29 @@ public class ProductController {
                       Product product,
                       Long categoryId,
                       HttpServletRequest req,
-                      MultipartFile[] paths) throws FileUploadException {
+                      @RequestParam(value = "sub-imgs") MultipartFile[] subImages) throws FileUploadException {
 
-        String fileUploadResult = setFileUpload(img, req);
+        String mainImgPath = "/image/products";
+        String fileUploadResult = saveToDir(img, req, mainImgPath);
 
-        for (MultipartFile path : paths) {
-            setFileUpload(path, req);
-        }
+        String subImgPath = "/image/subImg";
+        saveSubImages(req, subImages, subImgPath);
 
         product.setCategoryId(categoryId);
         product.setImgPath(fileUploadResult);
         service.reg(product);
-        productSubImgService.regAll(paths, product.getId());
+        productSubImgService.regAll(subImages, product.getId());
         return REDIRECT + PRODUCTS_VIEW;
     }
 
-    private String setFileUpload(MultipartFile img, HttpServletRequest req) {
-        String path = "/image/products";
+    private void saveSubImages(HttpServletRequest req, MultipartFile[] subImages, String subImgPath) {
+        for (MultipartFile img : subImages) {
+            saveToDir(img, req, subImgPath);
+
+        }
+    }
+
+    private String saveToDir(MultipartFile img, HttpServletRequest req, String path) {
         String realPath = req.getServletContext().getRealPath(path);
         return service.saveProductImg(img, realPath);
     }
