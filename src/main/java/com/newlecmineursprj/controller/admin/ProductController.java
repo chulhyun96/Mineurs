@@ -56,11 +56,15 @@ public class ProductController {
                       MultipartFile[] paths) throws FileUploadException {
 
         String fileUploadResult = setFileUpload(img, req);
+
+        for (MultipartFile path : paths) {
+            setFileUpload(path, req);
+        }
+
         product.setCategoryId(categoryId);
         product.setImgPath(fileUploadResult);
         service.reg(product);
         productSubImgService.regAll(paths, product.getId());
-
         return REDIRECT + PRODUCTS_VIEW;
     }
 
