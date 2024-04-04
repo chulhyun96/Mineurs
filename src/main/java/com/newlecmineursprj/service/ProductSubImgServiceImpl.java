@@ -16,9 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class ProductSubImgServiceImpl implements ProductSubImgService {
     private final ProductSubImgRepository repository;
+
     public void regAll(MultipartFile[] subImgs, Long productId) {
         List<ProductSubImg> productSubImgList = new ArrayList<>();
-        if (subImgs != null && subImgs.length > 0 && !subImgs[0].isEmpty()) {
+        if (!isEmpty(subImgs)) {
             for (MultipartFile multipartFile : subImgs) {
                 ProductSubImg productSubImg = ProductSubImg.builder()
                         .productId(productId)
@@ -29,8 +30,8 @@ public class ProductSubImgServiceImpl implements ProductSubImgService {
         }
         repository.reg(productSubImgList);
     }
-    private static boolean isEmpty(MultipartFile[] multipartFiles) {
 
+    private static boolean isEmpty(MultipartFile[] multipartFiles) {
         return multipartFiles[0].isEmpty();
     }
 }
