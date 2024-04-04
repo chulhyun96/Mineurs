@@ -6,33 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/css/admin/products/reg.css">
     <script src="/js/admin/products/reg.js"></script>
-    <style>
-        .img-box img {
-            height: 300px;
-        }
-        .detail-img-box img {
-            height: 300px;
-        }
-        .detail-img-label.valid, .main-img-label.valid {
-            background-color: yellowgreen;
-        }
 
-        .detail-img-label.valid::after, .main-img-label.valid::after {
-            content: "올바른 파일";
-            display: inline-block;
-        }
-
-        .detail-img-label.invalid, .main-img-label.invalid {
-            background-color: coral;
-        }
-
-        .detail-img-label.invalid::after, .main-img-label.invalid::after {
-            content: "파일형식만 해라";
-            display: inline-block;
-        }
-
-    </style>
 </head>
 <body>
 <main layout:fragment="main" class="n-panel n-main-panel">
