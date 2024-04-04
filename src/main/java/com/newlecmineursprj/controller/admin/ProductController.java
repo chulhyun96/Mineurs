@@ -34,10 +34,15 @@ public class ProductController {
 
     @GetMapping
     public String list(@RequestParam(required = false) String searchMethod
+            , @RequestParam(name = "p", required = false, defaultValue = "1") Integer page
             , @RequestParam(defaultValue = "") String searchKeyword
             , Model model) {
-        List<ProductView> list = service.getList(searchMethod, searchKeyword.trim());
+
+        int count = service.getCount();
+        
+        List<ProductView> list = service.getList(page,searchMethod, searchKeyword.trim());
         model.addAttribute("list", list);
+        model.addAttribute("count", count);
         return PRODUCTS_VIEW + "/list";
     }
 

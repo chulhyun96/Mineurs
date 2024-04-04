@@ -22,17 +22,17 @@
     <select id="findAll" resultMap="ProductView">
         SELECT
         *
-        FROM product_view
+        FROM product
         <where>
             <if test="searchMethod == 'title'">
                 name like '%${searchKeyword}%'
             </if>
-
             <if test="searchMethod == 'description'">
                 description like '%${searchKeyword}%'
             </if>
         </where>
         ORDER BY id DESC
+        limit #{offset},#{size}
     </select>
 
     <select id="findById" resultMap="ProductView">
@@ -41,6 +41,21 @@
         FROM product_view
         where id = #{id}
     </select>
+
+    <select id="count" resultType="int">
+		select 
+	        count(id) count
+        from product
+		<where>
+            <if test="searchMethod == 'title'">
+                name like '%${searchKeyword}%'
+            </if>
+
+            <if test="searchMethod == 'description'">
+                description like '%${searchKeyword}%'
+            </if>
+        </where>
+	</select>
 
     <insert id="reg" parameterType="Product" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO product(name,selling_price, supplying_price, description,img,category_id)

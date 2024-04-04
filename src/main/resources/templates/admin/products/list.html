@@ -73,11 +73,43 @@
           </button>
         </div>
       </form>
-      <ul class="n-pager mx:auto">
-        <li class="active"><a>1</a></li>
-        <li><a>2</a></li>
-        <li><a>3</a></li>
-      </ul>
+      <section class="mb:5" >
+        <h1 class="d:none">페이저</h1>
+        <ul class="n-pager" 
+            style="display: flex; justify-content: center;"
+            th:with="page = (${param.p} == null)? 1 : ${{param.p}} 
+            , floatnum=(${page}-1)/5,
+            intnum=${T(java.lang.Math).floor(floatnum)},
+            startnum=${intnum}*5+1,
+            lastnum = ${count} mod 10 > 0 ? ${count / 10} + 1 : ${count / 10} + 0">
+            
+              <!-- <li th:text="${T(java.lang.Math).floor(page)}">1</li> -->
+          <!-- <li th:text="${startnum}"></li>
+          <li th:text="${lastnum}"></li> -->
+          <li>
+                  <!-- <span th:if="${page} lt 6">이전</span> -->
+                  <a th:if="${page} ge 6" href="products?p=1" th:href="@{products?(p=${startnum-1})}">이전</a>
+          </li>
+              
+          <li th:each="n : ${#numbers.sequence(startnum,startnum+4)}"
+              th:class = "${{param.p}} eq ${n}? 'active'">
+              <a th:if="${n} le ${lastnum}" 
+              href="products?p=1"
+              th:href="@{./products(p=${n})}"
+              th:text="${n}"
+              >1</a>
+              <!-- 데이터 없는 페이지 넘버 -->
+              <!-- <span th:if="${n} gt ${lastnum}" 
+              th:text="${n}">1</span> -->
+          </li>
+          <li>
+              <!-- <span th:if="${startnum+5} gt ${lastnum}">다음</span> -->
+              <a th:if="${startnum+5} le ${lastnum}"
+              href="products?p=12" 
+              th:href="@{products?(p=${startnum}+5)}">다음</a>
+          </li>
+        </ul>
+      </section>
     </main>
   </body>
 </html>
