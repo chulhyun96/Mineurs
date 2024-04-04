@@ -31,6 +31,7 @@
             content: "파일형식만 해라";
             display: inline-block;
         }
+
     </style>
 </head>
 <body>
@@ -65,8 +66,8 @@
         <div>
             <label class="main-img-label">
                 <span>대표 사진</span>
-                <input class="img-input d:none border" type="file" name="img"/>
-                <span class="img-box d:flex flex-direction:row">
+                <input class="main-img-input d:none border" type="file" name="img"/>
+                <span class="main-img-box d:flex flex-direction:row">
                     <span class="d:flex jc:center al-items:center w:5 h:5 bg-color:base-3">
                         <span class="icon icon:camera icon-size:5  icon-color:base-1"></span>
                     </span>
@@ -76,14 +77,14 @@
 
 
         <div class="mb:10">
-            <label class="detail-img-label">
+            <label class="sub-img-label">
                 <span>디테일 사진</span>
-                <input type="file" name="paths" class="d:none detail-img-input" multiple/>
-                <span class="detail-img-box d:flex flex-direction:row">
+                <span class="sub-img-box d:flex flex-direction:row">
                     <span class="d:flex jc:center al-items:center w:5 h:5 bg-color:base-3">
                         <span class="icon icon:camera icon-size:5  icon-color:base-1"></span>
                     </span>
                 </span>
+                <input type="file" name="paths" class="d:none sub-img-input" multiple/>
             </label>
         </div>
 
