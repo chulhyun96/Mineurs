@@ -11,11 +11,9 @@
 <body>
 <main
         layout:fragment="main"
-        class="n-panel n-main-panel d:flex flex-direction:column"
->
+        class="n-panel n-main-panel d:flex flex-direction:column">
     <form
-            class="n-form md:n-field-label-position:left border:0 w:3/5 mx:auto my:10"
-    >
+            class="n-form md:n-field-label-position:left border:0 w:3/5 mx:auto my:10">
         <div>
             <select class="border" name="searchMethod">
                 <option th:selected="${param.searchMethod} == 'name'" value="name">이름</option>

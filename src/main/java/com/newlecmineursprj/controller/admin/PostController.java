@@ -10,21 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@RequestMapping("admin/board")
+@RequestMapping("admin/post")
 @Controller
-public class BoardController {
+public class PostController {
     @Autowired
     PostService service;
     @GetMapping
     public String list(Model model) {
         List<Post> list = service.getList();
         model.addAttribute("list", list);
-        return "admin/board/list";
+        return "admin/post/list";
     }
 
     @GetMapping("preview")
     public String regForm() {
 
-        return "admin/board/preview";
+        return "admin/post/preview";
     }
 }

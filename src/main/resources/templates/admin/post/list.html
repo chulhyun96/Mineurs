@@ -13,19 +13,32 @@
 
 </head>
 <body>
-<main layout:fragment="main" class="n-panel n-main-panel">
-    <div class="n-container px:4 lg:px:10">
-        <h1 class="my:5">게시판</h1>
-        <table class="n-table n-row-height:3 n-table-border">
+<main layout:fragment="main" class="n-panel n-main-panel d:flex flex-direction:column">
+
+    <form
+            class="n-form md:n-field-label-position:left border:0 w:3/5 mx:auto my:10">
+        <div>
+            <select class="border" name="searchMethod">
+                <option th:selected="${param.searchMethod} == 'name'" value="name">이름</option>
+                <option th:selected="${{param.searchMethod}} == 'login-id'" value="login-id">유저아이디</option>
+            </select>
+            <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요" th:value="${#strings.trim(param.searchKeyword)}"/>
+            <button class="n-btn n-btn-type:outline-box">검색</button>
+        </div>
+    </form>
+
+    <div class="w:100p border-bottom"></div>
+
+    <form action="members/delete" class="flex flex-col w-full" method="post">
+        <table class="n-table n-table-style:striped">
             <thead>내용
                 <tr>
                     <th scope="col" class="w:2"></th>
                     <th scope="col">ID</th>
                     <th scope="col">분류</th>
-                    <th scope="col">카테고리</th>
                     <th scope="col">제목</th>
-                    <th scope="col">내용보기</th>
                     <th scope="col">답변상태</th>
+                    <th scope="col">내용보기</th>
                     <th scope="col">답변하기</th>
                     <th scope="col">작성자</th>
                 </tr>
@@ -41,7 +54,6 @@
                     </td>
                     <td scope="row" th:text="${board.id}">1</td>
                     <td>Q&A</td>
-                    <td>교환/반품문의</td>
                     <td th:text="${board.title}">제목</td>
                     <td th:text="((${{board.status}} == '1')) ? '답변완료':'-'">답변완료</td>
                     <td><button class="n-btn">미리보기</button></td>
@@ -50,7 +62,21 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+        <div class="d:flex jc:end mt:3">
+            <div class="mr:3">
+                <a href="members/reg" class="n-btn n-btn-size:3"> 등록 </a>
+            </div>
+            <button class="n-btn n-btn-size:3 n-btn-color:accent mr:3">
+                삭제
+            </button>
+        </div>
+    </form>
+
+    <ul class="n-pager mx:auto">
+        <li class="active"><a>1</a></li>
+        <li><a>2</a></li>
+        <li><a>3</a></li>
+    </ul>
 </main>
 </body>
 </html>
