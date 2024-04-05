@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,27 +16,33 @@ import com.newlecmineursprj.repository.ProductRepository;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository repository;
+
     @Override
     public List<ProductView> getList(Integer page) {
-        return getList(page,null,null);
+        return getList(page, null, null);
     }
+
     @Override
     public List<ProductView> getList(Integer page, String searchMethod, String searchKeyword) {
         int size = 10;
         int offset = (page - 1) * size;
-        return repository.findAll(searchMethod,searchKeyword,offset,size);
+        return repository.findAll(searchMethod, searchKeyword, offset, size);
     }
+
     @Override
     public void reg(Product product) {
         repository.reg(product);
     }
+
     @Override
     public ProductView getById(Long id) {
         return repository.findById(id);
     }
+
     @Override
     public void edit(Product product) {
         repository.updateProductById(product);
@@ -60,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
                 img.transferTo(file);
                 return fileName;
             } catch (IOException e) {
-                e.printStackTrace();
+                log.error("Failed to save product image = {}", e.getMessage());
             }
         }
         return "Failed File Upload";

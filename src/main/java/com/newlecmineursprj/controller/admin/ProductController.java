@@ -38,8 +38,8 @@ public class ProductController {
             , Model model) {
 
         int count = service.getCount();
-        
-        List<ProductView> list = service.getList(page,searchMethod, searchKeyword.trim());
+
+        List<ProductView> list = service.getList(page, searchMethod, searchKeyword.trim());
         model.addAttribute("list", list);
         model.addAttribute("count", count);
         return PRODUCTS_VIEW + "/list";
@@ -63,7 +63,7 @@ public class ProductController {
         String fileUploadResult = saveToDir(img, req, mainImgPath);
 
         String subImgPath = "/image/subImg";
-        saveSubImages(req, subImages, subImgPath);
+        saveSubImages(subImages, req, subImgPath);
 
         product.setCategoryId(categoryId);
         product.setImgPath(fileUploadResult);
@@ -72,10 +72,9 @@ public class ProductController {
         return REDIRECT + PRODUCTS_VIEW;
     }
 
-    private void saveSubImages(HttpServletRequest req, MultipartFile[] subImages, String subImgPath) {
+    private void saveSubImages(MultipartFile[] subImages, HttpServletRequest req, String subImgPath) {
         for (MultipartFile img : subImages) {
             saveToDir(img, req, subImgPath);
-
         }
     }
 
