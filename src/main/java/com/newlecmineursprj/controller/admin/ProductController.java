@@ -44,7 +44,7 @@ public class ProductController {
         model.addAttribute("count", count);
         return PRODUCTS_VIEW + "/list";
     }
-
+    
     @GetMapping("/reg")
     public String regForm(Model model) {
         List<Category> categories = categoryService.getList();

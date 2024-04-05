@@ -9,7 +9,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.44/dist/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/admin/post/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/admin/post/list.js"></script>
 
 </head>
 <body>
@@ -56,7 +58,7 @@
                     <td>Q&A</td>
                     <td th:text="${board.title}">제목</td>
                     <td th:text="((${{board.status}} == '1')) ? '답변완료':'-'">답변완료</td>
-                    <td><button class="n-btn">미리보기</button></td>
+                    <td><button id="modal-btn" type="button" class="preview n-btn" th:data-id="${board.id}">미리보기</button></button></td>
                     <td><button class="n-btn">답변하기</button></td>
                     <td th:text="${board.writer}">작성자</td>
                 </tr>
@@ -77,6 +79,17 @@
         <li><a>2</a></li>
         <li><a>3</a></li>
     </ul>
+<section class="n-modal d:none" tabindex="-1">
+    <h1 class="n-font:h3 font-weight:3">게시글 미리보기</h1>
+
+    <div class="mt:8 text-a:center modal-content">Hello World</div>
+
+    <div class="d:flex fl-direction:column gap:2 mt:8 w:10">
+        <button type="button" class="n-btn n-btn-size:3 close-button">닫기</button>
+    </div>
+</section>
+
+
 </main>
 </body>
 </html>

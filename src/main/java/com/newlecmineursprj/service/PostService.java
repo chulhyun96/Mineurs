@@ -5,5 +5,7 @@ import com.newlecmineursprj.entity.Post;
 import java.util.List;
 
 public interface PostService {
-    List<Post> getList();
+    List<Post> getPostList();
+
+    Post getPostById(Long id);
 }

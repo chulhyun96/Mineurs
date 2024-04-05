@@ -8,4 +8,8 @@
         *
         FROM post
     </select>
+
+    <select id="findById" parameterType="Post">
+        select * from post where id=#{id}
+    </select>
 </mapper>

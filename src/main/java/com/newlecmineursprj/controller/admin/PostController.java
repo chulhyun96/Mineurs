@@ -17,7 +17,7 @@ public class PostController {
     PostService service;
     @GetMapping
     public String list(Model model) {
-        List<Post> list = service.getList();
+        List<Post> list = service.getPostList();
         model.addAttribute("list", list);
         return "admin/post/list";
     }
