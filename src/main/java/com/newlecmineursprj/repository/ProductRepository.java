@@ -14,5 +14,5 @@ public interface ProductRepository {
     ProductView findById(Long id);
     void updateProductById(Product product);
     void deleteAll(List<Long> deleteId);
-    int count();
+    int count(String searchMethod,String searchKeyword);
 }

@@ -93,23 +93,35 @@
             startnum=${intnum}*5+1,
             lastnum = ${count} mod 10 > 0 ? ${count / 10} + 1 : ${count / 10} + 0">
 
-
             <li>
-                <a th:if="${page} ge 6" href="products?p=1" th:href="@{products?(page=${startnum-1})}">이전</a>
+                <a th:if="${page} ge 6 and ${param.searchKeyword} != null"
+                    href="products?p=1" 
+                    th:href="@{./products(page=${startnum}-1,searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword})}">이전</a>
+                    <a th:if="${page} ge 6 and ${param.searchKeyword} == null"
+                    href="products?p=1" 
+                    th:href="@{./products(page=${startnum}-1)}">이전</a>
             </li>
 
             <li th:each="n : ${#numbers.sequence(startnum,startnum+4)}"
-                th:class="${{param.page}} eq ${n}? 'active'">
-                <a th:if="${n} le ${lastnum}"
+                th:class="${{page}} eq ${n}? 'active'">
+                <a th:if="${n le lastnum and param.searchKeyword != null}"
+                   href="products?p=1"
+                   th:href="@{./products(page=${n},searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword})}"
+                   th:text="${n}"
+                >1</a>
+                <a th:if="${n le lastnum and param.searchKeyword == null}"
                    href="products?p=1"
                    th:href="@{./products(page=${n})}"
                    th:text="${n}"
                 >1</a>
             </li>
             <li>
-                <a th:if="${startnum+5} le ${lastnum}"
+                <a th:if="${startnum+5 le lastnum and param.searchKeyword != null}"
                    href="products?p=12"
-                   th:href="@{products?(page=${startnum}+5)}">다음</a>
+                   th:href="@{./products(page=${startnum}+5,searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword})}">다음</a>
+                   <a th:if="${startnum+5 le lastnum and param.searchKeyword == null}"
+                   href="products?p=12"
+                   th:href="@{./products(page=${startnum}+5)}">다음</a>
             </li>
         </ul>
     </section>

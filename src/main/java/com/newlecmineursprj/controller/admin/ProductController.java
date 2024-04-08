@@ -37,7 +37,7 @@ public class ProductController {
             , @RequestParam(defaultValue = "") String searchKeyword
             , Model model) {
 
-        int count = service.getCount();
+        int count = service.getCount(searchMethod, searchKeyword.trim());
         List<ProductView> list = service.getList(page, searchMethod, searchKeyword.trim());
         model.addAttribute("list", list);
         model.addAttribute("count", count);

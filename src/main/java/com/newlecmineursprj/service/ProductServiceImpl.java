@@ -69,7 +69,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int getCount() {
-        return repository.count();
+    public int getCount(String searchMetod,String searchKeyword) {
+        return repository.count(searchMetod,searchKeyword);
     }
 }

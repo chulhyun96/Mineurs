@@ -14,5 +14,5 @@ public interface ProductService {
     void reg(Product product);
     void edit(Product product);
     void deleteAllById(List<Long> deleteId);
-    int getCount();
+    int getCount(String searchMethod, String searchKeyword);
 }
