@@ -22,11 +22,6 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository repository;
 
     @Override
-    public List<ProductView> getList(Integer page) {
-        return getList(page, null, null);
-    }
-
-    @Override
     public List<ProductView> getList(Integer page, String searchMethod, String searchKeyword) {
         int size = 10;
         int offset = (page - 1) * size;

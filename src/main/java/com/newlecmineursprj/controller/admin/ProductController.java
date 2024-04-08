@@ -38,7 +38,6 @@ public class ProductController {
             , Model model) {
 
         int count = service.getCount();
-
         List<ProductView> list = service.getList(page, searchMethod, searchKeyword.trim());
         model.addAttribute("list", list);
         model.addAttribute("count", count);

@@ -31,7 +31,7 @@ public class ProductSubImgServiceImpl implements ProductSubImgService {
         repository.reg(productSubImgList);
     }
 
-    private static boolean isEmpty(MultipartFile[] multipartFiles) {
+    private boolean isEmpty(MultipartFile[] multipartFiles) {
         return multipartFiles[0].isEmpty();
     }
 }
