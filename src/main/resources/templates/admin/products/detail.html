@@ -6,87 +6,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.3/dist/quill.snow.css" rel="stylesheet"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.3/dist/quill.js"></script>
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
-    />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"/>
     <script src="/js/admin/products/edit.js"></script>
-    <script>
-        window.onload = function () {
-            var textArea = document.getElementById("text-area");
-            const quill = new Quill('#editor', {
-                modules: {
-                    syntax: true,
-                    toolbar: '#toolbar-container',
-                },
-                placeholder: '',
-                theme: 'snow',
-            });
-            console.log("123");
-
-            var btn = document.getElementById("btn");
-            btn.onclick = function (e) {
-
-                textArea.innerHTML = quill.getSemanticHTML();
-                console.log(textArea.innerText);
-            }
-        }
-        function setDetailImage(event) {
-            const imagesContainer = document.getElementById('images_container');
-            imagesContainer.innerHTML = '';
-
-            for (let i = 0; i < event.target.files.length; i++) {
-                const file = event.target.files[i];
-                const reader = new FileReader();
-
-                reader.onload = (function (file) {
-                    return function (e) {
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        img.width = 150;
-                        imagesContainer.appendChild(img);
-                    };
-                })(file);
-                reader.readAsDataURL(file);
-            }
-        }
-    </script>
-    <script>
-        var i = 0;
-        var t = 0;
-        var picCount = document.querySelector(".pic-count");
-
-        function setDetailImage(event) {
-            if (i < 5) {
-                for (var image of event.target.files) {
-                    var reader = new FileReader();
-
-                    reader.onload = function (event) {
-                        var img = document.createElement("img");
-                        img.setAttribute("src", event.target.result);
-                        img.setAttribute("class", "mr:3 " + " w:3" + " h:3" + " bd-radius:4");
-
-                        document.querySelector("div#images_container").appendChild(img);
-                    };
-                    console.log(image);
-                    reader.readAsDataURL(image);
-                    i++;
-                }
-            } else {
-                t++;
-                picCount.textContent = '+' + t;
-            }
-        }
-    </script>
-
 </head>
 <body>
 <main layout:fragment="main" class="n-panel n-main-panel ">
-
+    <!--상세 페이지 폼-->
     <section class="d:flex fl-grow:1 ai:center mb:8 border-bottom">
         <div>
             <img id="imgId" th:src="${product.img}" alt="첨부이미지" class="w:7 mt:10 ml:10 p:5 border"/>
@@ -114,21 +38,7 @@
             <a type="button" class="n-btn n-btn-color:sub mt:1" th:href="@{/admin/products}">목록</a>
         </form>
     </section>
-
-    <section class="fl-grow:1 ai:center">
-        <div class="form-group d:flex mt:3">
-            <div class="bg-color:base-2 w:3 h:3 d:flex jc:center ai:center bd-radius:4 flex-shrink:0 mr:3 mb:2 ">
-                <label class="form-label-file d:flex jc:center ai:center">
-                    <span class="icon icon:plus"></span>
-                    <input class="form-control form-control-user d:none" type="file" multiple="multiple"
-                           name="product_detail_image" id="" onchange="setDetailImage(event);">
-                </label>
-            </div>
-            <div class="w:100p">
-                <div id="images_container" class="bd-radius:4 d:flex flex-grow:1"></div>
-            </div>
-        </div>
-    </section>
+    <!--상세 페이지 폼-->
 </main>
 </body>
 </html>

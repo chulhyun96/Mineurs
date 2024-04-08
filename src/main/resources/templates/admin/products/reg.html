@@ -12,6 +12,7 @@
 </head>
 <body>
 <main layout:fragment="main" class="n-panel n-main-panel">
+    <!--등록 폼-->
     <form method="post" action="/admin/products" class="n-form n-form-type:outline-box px:10 w:100p"
           enctype="multipart/form-data">
         <div>
@@ -38,7 +39,7 @@
                 <textarea name="description" required class="height:7"></textarea>
             </label>
         </div>
-
+        <!--대표사진-->
         <div>
             <label class="main-img-label">
                 <span>대표 사진</span>
@@ -50,8 +51,9 @@
                 </span>
             </label>
         </div>
+        <!--대표사진-->
 
-
+        <!--서브 사진 등록-->
         <div class="mb:10">
             <label class="sub-img-label">
                 <span>디테일 사진</span>
@@ -63,7 +65,8 @@
                 <input type="file" name="sub-imgs" class="d:none sub-img-input" multiple/>
             </label>
         </div>
-
+        <!--서브 사진 등록-->
+        <!--카테고리-->
         <label>카테고리
             <select name="categoryId" class="n-dropdown">
                 <option th:each="category : ${categories}"
@@ -74,7 +77,8 @@
                 </option>
             </select>
         </label>
-
+        <!--카테고리-->
+        <!--버튼-->
         <div class="d:flex flex-direction:row justify-content:end">
             <button class="n-btn n-btn-size:3">
                 상품 등록
@@ -83,7 +87,9 @@
                 <a href="/admin/products" class="n-btn n-btn-size:3">취소</a>
             </div>
         </div>
+        <!--버튼-->
     </form>
+    <!--등록 폼-->
 </main>
 </body>
 </html>

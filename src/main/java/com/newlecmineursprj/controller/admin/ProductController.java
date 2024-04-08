@@ -33,7 +33,7 @@ public class ProductController {
 
     @GetMapping
     public String list(@RequestParam(required = false) String searchMethod
-            , @RequestParam(name = "p", required = false, defaultValue = "1") Integer page
+            , @RequestParam(defaultValue = "1") Integer page
             , @RequestParam(defaultValue = "") String searchKeyword
             , Model model) {
 
