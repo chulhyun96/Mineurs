@@ -66,6 +66,9 @@ public class ProductController {
 
         product.setCategoryId(categoryId);
         product.setImgPath(fileUploadResult);
+
+
+
         service.reg(product);
         productSubImgService.regAll(subImages, product.getId());
         return REDIRECT + PRODUCTS_VIEW;
