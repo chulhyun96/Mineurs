@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html
+        lang="ko"
+>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon/favicon.ico" />
+    <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/favicon/apple-touch-icon.png"
+    />
+    <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon/favicon-32x32.png"
+    />
+    <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+
+    <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.46/dist/style.css"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <meta charset="UTF-8" />
+
+    <title>회원가입 - 뉴렉처</title>
+    <!-- css -->
+    <link rel="stylesheet" href="/css/signin.css" />
+    <!-- js -->
+    <script type="module" src="/js/signin.js"></script>
+    <link rel="stylesheet" href="../../static/css/user/signin.css" />
+</head>
+<body>
+<!-- main부분 -->
+<main class="d:flex ai:center jc:center min-h:100vh px:4">
+    <h1 class="d:none">뉴렉처</h1>
+
+    <section
+            class="d:flex fl-dir:column ai:center jc:center py:8 px:4 w:100p max-w:9"
+    >
+        <h1 class="d:none">뉴렉처 회원가입</h1>
+
+        <!-- 소셜 로그인 -->
+        <div class="w:100p">
+            <a
+                    href="/oauth2/authorization/google?redirect_uri=/login/oauth2/code/google"
+                    class="n-btn n-btn:outline n-btn-size:3 bg-color:base-1 w:100p"
+            >
+                <span class="google">구글로 가입하기</span>
+            </a>
+        </div>
+
+        <div class="separator">
+            <span class="mx:2 color:base-2a font:n2">또는</span>
+        </div>
+
+        <form method="post" class="d:flex fl-dir:column gap:6 w:100p">
+            <!-- =============== 아이디 =============== -->
+            <div class="username">
+                <!-- 텍스트 박스 -->
+                <div>
+                    <label class="d:flex fl-dir:column ai:flex-start gap:1">
+                <span class="d:flex ai:center gap:1 font:n1">
+                  아이디
+                  <span
+                          class="icon icon:asterisk_bold deco-size:1 icon-color:accent-3"
+                  >
+                    (필수)
+                  </span>
+                </span>
+                        <span class="font:n2 color:base-2a">
+                  유동근에서 사용할 아이디를 입력해주세요
+                </span>
+                        <span class="w:100p pos:relative d:flex ai:center">
+                  <input
+                          type="text"
+                          value=""
+                          class="n-textbox"
+                          placeholder="아이디를 입력해주세요"
+                          name="username"
+                          pattern="^[a-z\d\-_]{6,12}$"
+                          required
+                          autofocus
+                  />
+                  <span
+                          class="valid-icon pos:absolute right:1 mr:2 icon icon:check_circle icon-color:sub-2 d:none"
+                  >
+                    유효성 체크 성공 아이콘
+                  </span>
+                  <span
+                          class="invalid-icon pos:absolute right:1 mr:2 icon icon:warning_circle icon-color:accent-2 d:none"
+                  >
+                    유효성 체크 실패 아이콘
+                  </span>
+                </span>
+                    </label>
+                </div>
+
+                <!-- 유효성 안내 리스트 -->
+                <ul>
+                    <li class="invalid-username font:n2 color:accent-3 py:1 d:none">
+                        6~12자리의 영문 소문자, 숫자와 특수문자 밑줄(_) 또는 하이픈(-)만
+                        사용 가능합니다
+                    </li>
+
+                </ul>
+            </div>
+
+            <!-- =============== 이메일 =============== -->
+            <div class="email">
+                <!-- 텍스트 박스 -->
+                <div>
+                    <label class="d:flex fl-dir:column ai:flex-start gap:1">
+                <span class="d:flex ai:center gap:1 font:n1">
+                  이메일
+                  <span
+                          class="icon icon:asterisk_bold deco-size:1 icon-color:accent-3"
+                  >
+                    (필수)
+                  </span>
+                </span>
+                        <span class="w:100p pos:relative d:flex ai:center">
+                  <input
+                          type="email"
+                          value=""
+                          class="n-textbox"
+                          placeholder="이메일을 입력해주세요"
+                          name="email"
+                          pattern="^[0-9a-zA-Z]([\-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([\-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$"
+                          required
+                  />
+                  <span
+                          class="valid-icon pos:absolute right:1 mr:2 icon icon:check_circle icon-color:sub-2 d:none"
+                  >
+                    유효성 체크 성공 아이콘
+                  </span>
+                  <span
+                          class="invalid-icon pos:absolute right:1 mr:2 icon icon:warning_circle icon-color:accent-2 d:none"
+                  >
+                    유효성 체크 실패 아이콘
+                  </span>
+                </span>
+                    </label>
+                </div>
+
+                <!-- 유효성 안내 리스트 -->
+                <ul>
+                    <li class="invalid-email d:none font:n2 color:accent-3 py:1">
+                        올바른 이메일 형식을 입력해주세요
+                    </li>
+
+                </ul>
+            </div>
+
+            <!-- =============== 비밀번호 =============== -->
+            <div class="password">
+                <!-- 텍스트 박스 -->
+                <div>
+                    <label class="d:flex fl-dir:column ai:flex-start gap:1">
+                <span class="d:flex ai:center gap:1">
+                  <span class="font:n1">비밀번호</span>
+                  <span
+                          class="icon icon:asterisk_bold deco-size:1 icon-color:accent-3"
+                  >
+                    (필수)
+                  </span>
+                </span>
+                        <span class="w:100p pos:relative d:flex ai:center">
+                  <input
+                          class="n-textbox"
+                          type="password"
+                          placeholder="비밀번호를 입력해주세요"
+                          name="password"
+                          pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])\S{8,20}$"
+                          required
+                  />
+                  <span
+                          class="valid-icon pos:absolute right:1 mr:2 icon icon:check_circle icon-color:sub-2 d:none"
+                  >
+                    유효성 체크 성공 아이콘
+                  </span>
+                  <span
+                          class="invalid-icon pos:absolute right:1 mr:2 icon icon:warning_circle icon-color:accent-2 d:none"
+                  >
+                    유효성 체크 실패 아이콘
+                  </span>
+                </span>
+                    </label>
+                    <span class="invalid-password d:none font:n2 color:accent-3 py:1"
+                    >8~20자의 영문, 숫자, 특수문자로 비밀번호를 설정해 주세요</span
+                    >
+                </div>
+            </div>
+
+            <!-- =============== 비밀번호 확인 =============== -->
+            <div class="confirm-password">
+                <!-- 텍스트 박스 -->
+                <div class="d:flex fl-dir:column">
+                    <label class="d:flex fl-dir:column ai:flex-start gap:1">
+                <span class="d:flex ai:center gap:1">
+                  <span class="font:n1">비밀번호 확인</span>
+                  <span
+                          class="icon icon:asterisk_bold deco-size:1 icon-color:accent-3"
+                  >  monolith
+                    (필수)
+                  </span>
+                </span>
+                        <span class="w:100p pos:relative d:flex ai:center">
+                  <input
+                          class="n-textbox"
+                          type="password"
+                          placeholder="비밀번호를 한번 더 입력해주세요"
+                          name="confirmPassword"
+                          required
+                  />
+                  <span
+                          class="pos:absolute right:1 mr:2 icon d:none icon-color:sub-2"
+                  >
+                    유효성 체크 여부 아이콘
+                  </span>
+                </span>
+                    </label>
+                    <span
+                            class="invalid-confirm-password font:n2 color:accent-3 py:1 d:none"
+                    >
+                비밀번호가 일치하지 않습니다
+              </span>
+                </div>
+            </div>
+
+            <!-- =============== 약관 동의 =============== -->
+            <div class="checkbox">
+                <ul class="d:flex fl-dir:column jc:center gap:0 py:1 md:gap:1">
+                    <li class="mb:2 bd-bottom">
+                        <label class="d:flex gap:2 pb:2 csr:pointer md:ai:center">
+                  <span class="d:flex ai:center p:2 md:p:0">
+                    <input
+                            type="checkbox"
+                            class="n-toggle n-toggle:check n-toggle-size:1"
+                    />
+                  </span>
+                            <span class="font:n1 font-size:3 font-weight:2"
+                            >전체 동의</span
+                            >
+                        </label>
+                    </li>
+                    <li class="mb:2">
+                        <label class="d:flex gap:2 csr:pointer md:ai:center">
+                  <span class="d:flex ai:center p:2 md:p:0">
+                    <input
+                            type="checkbox"
+                            class="n-toggle n-toggle:check n-toggle-size:1"
+                            required
+                    />
+                  </span>
+                            <span>
+                    <span class="mr:1 color:base-3a">(필수)</span>
+                    <span>
+                      <a
+                              href="/terms-of-service"
+                              target="_blank"
+                              class="color:sub-2"
+                      >
+                        서비스 이용약관 </a
+                      >에 동의합니다
+                    </span>
+                  </span>
+                        </label>
+                    </li>
+                    <li class="mb:2">
+                        <label class="d:flex gap:2 csr:pointer md:ai:center">
+                  <span class="d:flex ai:center p:2 md:p:0">
+                    <input
+                            type="checkbox"
+                            class="n-toggle n-toggle:check n-toggle-size:1"
+                            required
+                    />
+                  </span>
+                            <span>
+                    <span class="mr:1 color:base-3a">(필수)</span>
+                    <span>
+                      <a
+                              href="/privacy"
+                              target="_blank"
+                              class="color:sub-2"
+                      >
+                        개인정보 처리 방침
+                      </a>
+                      에 동의합니다
+                    </span>
+                  </span>
+                        </label>
+                    </li>
+                    <li class="mb:2">
+                        <label class="d:flex gap:2 csr:pointer md:ai:center">
+                  <span class="d:flex ai:center p:2 md:p:0">
+                    <input
+                            type="checkbox"
+                            class="n-toggle n-toggle:check n-toggle-size:1"
+                            name="terms"
+                            value="3"
+                    />
+                  </span>
+                            <span>
+                    <span class="mr:1 color:base-2a">(선택)</span>
+                    <span>
+                      <button
+                              type="button"
+                              class="text-align:left color:sub-2 csr:pointer"
+                      >
+                        마케팅 목적의 개인정보 수집 및 이용과 광고성 정보 수신
+                      </button>
+                      에 동의합니다
+                    </span>
+                  </span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- =============== 회원가입 전송 버튼 =============== -->
+            <div>
+                <button type="submit" class="n-btn n-btn-size:3 w:100p">
+                    회원가입
+                </button>
+            </div>
+        </form>
+
+        <!-- =============== 로그인, 홈 이동 =============== -->
+        <div class="d:flex jc:center gap:2 mt:8 w:100p">
+            <a href="signin" class="n-btn n-btn:void color:base-2a font:n2">
+                로그인하기
+            </a>
+            <a href="/static" class="n-btn n-btn:void color:base-2a font:n2">
+                홈으로
+            </a>
+        </div>
+    </section>
+
+    <!-- 마케팅 약관 모달 -->
+    <div class="backdrop d:none">
+        <div class="n-modal">
+            <section class="my:1 d:flex fl-dir:column ai:center">
+                <h1
+                        class="font-size:3 font-weight:3 txt-al:center deco icon:info icon-color:main-2"
+                >
+                    마케팅 정보 수신 동의
+                </h1>
+
+                <section class="n-item mt:4 w:100p">
+                    <h1 class="d:none">상세 내용</h1>
+                    <p class="d:flex fl-dir:column max-w:6 max-h:4 of:auto">
+                <span>
+                  뉴렉처는 회원님이 동의하신 개인정보를 이용하여 이메일을 통해
+                  서비스 이벤트 및 업데이트, 마케팅 정보, 고객 맞춤 서비스
+                  정보를 전송할 수 있습니다.
+                </span>
+                        <br />
+                        <span>
+                  본 동의는 거부하실 수 있으나, 거부 시 이벤트 및 프로모션 안내,
+                  유용한 정보를 받아보실 수 없습니다.
+                </span>
+                    </p>
+                </section>
+
+                <div class="w:100p mt:4 d:flex gap:2">
+                    <button class="close-btn n-btn n-btn:outline w:100p">닫기</button>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+</body>
+</html>

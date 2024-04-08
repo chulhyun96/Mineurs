@@ -1,0 +1,75 @@
+/**
+ * how to use
+
+  <ul class="menu-list">
+    <li class="menu-category">
+      category
+    </li>
+    <li>
+      <a href="">
+        <span class="deco icon:house">home</span>
+      </a>
+    </li>
+    <li class="menu-actvie">
+      <a href="">
+        <span class="deco icon:house">home</span>
+      </a>
+    </li>
+  </ul>
+
+ */
+
+.menu-list > li {
+  position: relative;
+  margin-bottom: 4px;
+}
+
+.menu-list > li > a,
+.menu-list > li > button {
+  display: flex;
+  align-items: center;
+
+  padding-left: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.87);
+
+  cursor: pointer;
+  overflow: hidden;
+  transition: background-color 0.13s;
+}
+.menu-list > li:not(.active) > a:hover,
+.menu-list > li:not(.active) > button:hover {
+  background-color: rgba(var(--rgb-base-10), 0.05);
+}
+
+/* active ------------------------------------------------------------- */
+.menu-list .active > a,
+.menu-list .active > button {
+  color: var(--color-main-3);
+  background-color: rgba(var(--rgb-main-2), 0.12);
+}
+.menu-list .active .deco::before {
+  background-color: var(--color-main-3);
+}
+
+/* menu-category ------------------------------------------------------------- */
+.menu-list .menu-category {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .menu-list .menu-category {
+    display: list-item;
+
+    padding-left: 8px;
+    margin-top: 24px;
+    margin-bottom: 8px;
+
+    color: var(--color-base-6);
+  }
+}

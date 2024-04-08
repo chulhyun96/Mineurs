@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/src/output.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.48/dist/style.css" />
+    <link rel="stylesheet" href="/css/output.css">
+</head>
+<body style="background-color: #f7f5f1;">
+<header>
+    <h1 class="hidden">감출것</h1>
+    <div style="background-color: #eeeae5;" class="flex text-xs h-8 items-center justify-center">
+        <div class="font-thin">무료 배송 & 반품</div>
+    </div>
+    <div style="background-color: #c3b0a5; height: 8px;" class="w-full border-y-2 border-amber-900"></div>
+    <div class="text-xs flex items-center my-4 flex-col">
+        <div class="mb-12">
+            <a th:href="@{/item/list}"><img src="https://mineurs.co.kr/web/upload/hazel/logo_img.png" alt="" class="h-8"></a>
+        </div>
+        <nav class="flex w-11/12 justify-between mx-4">
+                <div class="flex">
+                    <div class="absolute left-8"><a >reg</a></div>
+                    <div class="flex">
+                        <form  method="get" class="flex items-center">
+                            <input type="text" name="q" placeholder="검색어 입력" class="text-xs p-2" />
+                            <button type="submit" class="ml-2 text-xs p-2 bg-gray-200">검색</button>
+                        </form>
+                    </div>
+                </div>
+            <div class="flex-1 flex justify-evenly">
+                <div>New Arrival</div>
+                <div>All</div>
+                <div>Outer</div>
+                <div>Top</div>
+                <div>Bottom</div>
+                <div>Dress</div>
+                <div>ETC</div>
+            </div>
+            <div>table</div>
+        </nav>
+    </div>
+</header>
+<main>
+    <div class="w-full h-16 border-y border-amber-900 mt-12 text-xs p-4 mb-24">
+        <div class="flex items-center bg-contain w-full h-full justify-between">
+            <div>Product (<span th:text="${count}">64</span>)</div>
+            <div style="color: #ba866a;">Show all filters</div>
+            <div style="color: #ba866a;" class="flex">
+                <div class="mr-8">Sort by</div>
+                <div th:each="category : ${categoryList}">
+                    <div th:text="${category.name}" class="mr-8"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--    <a th:href="@{/item/detail(id=${item. ncx1 getId()})}">-->
+    <section class="w-full h-full flex items-center justify-center">
+        <div class=" h-full">
+            <div class="grid grid-cols-2 gap-12 md:grid-cols-3 gap-12">
+                <div class="w-96 flex flex-col h-[700px] relative" th:each="product : ${list}">
+                    <div class="w-full grow"><a ><img  class="w-full object-contain" id="imgId" th:src="@{'/image/products/'+${product.img}}" alt="첨부이미지"/></a></div>
+                    <div class="flex items-center justify-center relative">
+                        <div class="absolute top-6 text-xs"><span th:text="${product.name}">안녕하세요 이공간은 텍스트입니다.</span></div>
+                        <div class="absolute top-10 text-xs"><span th:text="${product.sellingPrice}">111,400</span><span> 원</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb:5">
+        <h1 class="d:none">페이저</h1>
+        <ul class="n-pager"
+            style="display: flex; justify-content: center;"
+            th:with="page = (${param.page} == null)? 1 : ${{param.page}}
+            , floatnum=(${page}-1)/5,
+            intnum=${T(java.lang.Math).floor(floatnum)},
+            startnum=${intnum}*5+1,
+            lastnum = ${count} mod 10 > 0 ? ${count / 10} + 1 : ${count / 10} + 0">
+
+
+            <li>
+                <a th:if="${page} ge 6" href="products?p=1" th:href="@{/(page=${startnum-1})}">이전</a>
+            </li>
+
+            <li th:each="n : ${#numbers.sequence(startnum,startnum+4)}"
+                th:class="${{param.page}} eq ${n}? 'active'">
+                <a th:if="${n} le ${lastnum}"
+                   href="products?p=1"
+                   th:href="@{./(page=${n})}"
+                   th:text="${n}"
+                >1</a>
+            </li>
+            <li>
+                <a th:if="${startnum+5} le ${lastnum}"
+                   href="products?p=12"
+                   th:href="@{/?(page=${startnum}+5)}">다음</a>
+            </li>
+        </ul>
+    </section>
+
+    <div>
+        <div  class="m-8">
+            <hr style="background-color: black; height: 0.5px; border: none;">
+        </div>
+    </div>
+</main>
+<footer>
+    <section class="flex m-8 bg-gray-200 p-24">
+        <div>
+            customer center
+        </div>
+        <div>
+            info
+        </div>
+    </section>
+</footer>
+
+</body>
+</html>

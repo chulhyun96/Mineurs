@@ -11,4 +11,14 @@ public class HomeController{
     public String index() {
         return "admin/index";
     }
+
+    @GetMapping("signin")
+    public String login() {
+        return "signin";
+    }
+
+    @GetMapping("signup")
+    public String signin() {
+        return "signup";
+    }
 }
