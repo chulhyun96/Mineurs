@@ -64,7 +64,7 @@
             <span class="mx:2 color:base-2a font:n2">또는</span>
         </div>
 
-        <form method="post" class="d:flex fl-dir:column gap:6 w:100p">
+        <form method="post" action="/signup" class="d:flex fl-dir:column gap:6 w:100p">
             <!-- =============== 아이디 =============== -->
             <div class="username">
                 <!-- 텍스트 박스 -->
@@ -111,6 +111,55 @@
                     <li class="invalid-username font:n2 color:accent-3 py:1 d:none">
                         6~12자리의 영문 소문자, 숫자와 특수문자 밑줄(_) 또는 하이픈(-)만
                         사용 가능합니다
+                    </li>
+
+                </ul>
+            </div>
+            <!-- =============== 이름 =============== -->
+            <div class="name">
+                <!-- 텍스트 박스 -->
+                <div>
+                    <label class="d:flex fl-dir:column ai:flex-start gap:1">
+                <span class="d:flex ai:center gap:1 font:n1">
+                  이름
+                  <span
+                          class="icon icon:asterisk_bold deco-size:1 icon-color:accent-3"
+                  >
+                    (필수)
+                  </span>
+                </span>
+                        <span class="font:n2 color:base-2a">
+                  이름을 입력해주세요
+                </span>
+                        <span class="w:100p pos:relative d:flex ai:center">
+                  <input
+                          type="text"
+                          value=""
+                          class="n-textbox"
+                          placeholder="이름을 입력해주세요"
+                          name="name"
+                          pattern="[a-zA-Z가-힣\s]+"
+                          required
+                          autofocus
+                  />
+                  <span
+                          class="valid-icon pos:absolute right:1 mr:2 icon icon:check_circle icon-color:sub-2 d:none"
+                  >
+                    유효성 체크 성공 아이콘
+                  </span>
+                  <span
+                          class="invalid-icon pos:absolute right:1 mr:2 icon icon:warning_circle icon-color:accent-2 d:none"
+                  >
+                    유효성 체크 실패 아이콘
+                  </span>
+                </span>
+                    </label>
+                </div>
+
+                <!-- 유효성 안내 리스트 -->
+                <ul>
+                    <li class="invalid-username font:n2 color:accent-3 py:1 d:none">
+                        알파벳과 한글만 사용 가능합니다
                     </li>
 
                 </ul>
@@ -236,6 +285,57 @@
                 비밀번호가 일치하지 않습니다
               </span>
                 </div>
+            </div>
+
+            <!-- =============== 전화번호 =============== -->
+            <div class="phoneNumber">
+                <!-- 텍스트 박스 -->
+                <div>
+                    <label class="d:flex fl-dir:column ai:flex-start gap:1">
+                <span class="d:flex ai:center gap:1 font:n1">
+                  전화번호
+                  <span
+                          class="icon icon:asterisk_bold deco-size:1 icon-color:accent-3"
+                  >
+                    (필수)
+                  </span>
+                </span>
+                        <span class="font:n2 color:base-2a">
+                  전화번호을 입력해주세요
+                </span>
+                        <span class="w:100p pos:relative d:flex ai:center">
+                  <input
+                          type="text"
+                          value=""
+                          class="n-textbox"
+                          placeholder="전화번호을 입력해주세요"
+                          name="phoneNumber"
+                          pattern="[0-9]{11}"
+                          maxlength="11"
+                          required
+                          autofocus
+                  />
+                  <span
+                          class="valid-icon pos:absolute right:1 mr:2 icon icon:check_circle icon-color:sub-2 d:none"
+                  >
+                    유효성 체크 성공 아이콘
+                  </span>
+                  <span
+                          class="invalid-icon pos:absolute right:1 mr:2 icon icon:warning_circle icon-color:accent-2 d:none"
+                  >
+                    유효성 체크 실패 아이콘
+                  </span>
+                </span>
+                    </label>
+                </div>
+
+                <!-- 유효성 안내 리스트 -->
+                <ul>
+                    <li class="invalid-username font:n2 color:accent-3 py:1 d:none">
+                        11자리 전화번호를 '-' 없이 입력해주세요
+                    </li>
+
+                </ul>
             </div>
 
             <!-- =============== 약관 동의 =============== -->

@@ -1,23 +1,29 @@
 package com.newlecmineursprj.controller;
 
 import com.newlecmineursprj.entity.Category;
+import com.newlecmineursprj.entity.Member;
 import com.newlecmineursprj.entity.ProductView;
 import com.newlecmineursprj.service.CategoryService;
+import com.newlecmineursprj.service.MemberService;
 import com.newlecmineursprj.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class HomeController {
 
 private final ProductService service;
 private final CategoryService categoryService;
+private final MemberService memberService;
 
     @GetMapping
     public String index(@RequestParam(required = false) String searchMethod
@@ -33,5 +39,13 @@ private final CategoryService categoryService;
         model.addAttribute("categoryList",categoryList);
         System.out.println(list.get(0));
         return "list";
+    }
+
+    @PostMapping("signup")
+    public String signupPost(Member member){
+        memberService.save(member);
+        log.debug("member: {}", member);
+        
+        return "redirect:";
     }
 }

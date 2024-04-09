@@ -7,7 +7,7 @@ import java.util.List;
 public interface MemberService {
     List<Member> getList(String searchMethod, String searchKeyword);
     List<Member> findByName(String name);
-    Member findByLoginId(String loginId);
+    Member findByUsername(String username);
     Member findById(long id);
 
     void save(Member member);
