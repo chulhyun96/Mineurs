@@ -16,8 +16,8 @@
             <if test="name != null">
                 name like '%${name}%'
             </if>
-            <if test="loginId != null">
-                login_id like '%${loginId}%'
+            <if test="username != null">
+                username like '%${username}%'
             </if>
             <if test="password != null">
                 password like '%${password}%'
@@ -42,15 +42,15 @@
     </select>
 
     <insert id="save" parameterType="Member" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO member(name, login_id, password, phone_number, email)
-        VALUES (#{name}, #{login_id}, #{password}, #{phone_number}, #{email})
+        INSERT INTO member(name, username, password, phone_number, email)
+        VALUES (#{name}, #{username}, #{password}, #{phoneNumber}, #{email})
     </insert>
 
     <update id="update" parameterType="Member">
         UPDATE member
 
         SET name = #{name},
-        login_id = #{loginId},
+        username = #{username},
         password = #{password},
         phone_number = #{phoneNumber},
         email = #{email}

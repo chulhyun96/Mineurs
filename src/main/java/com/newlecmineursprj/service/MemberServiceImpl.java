@@ -25,7 +25,7 @@ public class MemberServiceImpl implements MemberService {
             return repository.findAll(null, null, null, null, null, null);
         return switch (searchMethod) {
             case "name" -> findByName(searchMethod.trim());
-            case "login-id" -> List.of(findByLoginId(searchKeyword.trim()));
+            case "login-id" -> List.of(findByUsername(searchKeyword.trim()));
             default -> null;
         };
     }
@@ -36,8 +36,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member findByLoginId(String loginId) {
-        return repository.findAll(null, null, loginId, null, null, null).get(0);
+    public Member findByUsername(String username) {
+        return repository.findAll(null, null, username, null, null, null).get(0);
     }
 
 
