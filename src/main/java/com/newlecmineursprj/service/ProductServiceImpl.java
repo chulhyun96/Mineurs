@@ -3,17 +3,16 @@ package com.newlecmineursprj.service;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.newlecmineursprj.entity.Product;
 import com.newlecmineursprj.entity.ProductView;
 import com.newlecmineursprj.repository.ProductRepository;
-import org.springframework.web.multipart.MultipartFile;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
@@ -69,7 +68,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int getCount(String searchMetod,String searchKeyword) {
-        return repository.count(searchMetod,searchKeyword);
+    public int getCount(String searchMetod, String searchKeyword) {
+        return repository.count(searchMetod, searchKeyword);
     }
 }

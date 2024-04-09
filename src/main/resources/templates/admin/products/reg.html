@@ -1,95 +1,118 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/admin/inc/layout}">
-
-<head>
-    <meta charset="UTF-8">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/admin/inc/layout}"
+>
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-    <link rel="stylesheet" href="/css/admin/products/reg.css">
+    <link rel="stylesheet" href="/css/admin/products/reg.css" />
     <script src="/js/admin/products/reg.js"></script>
-
-</head>
-<body>
-<main layout:fragment="main" class="n-panel n-main-panel">
-    <!--등록 폼-->
-    <form method="post" action="/admin/products" class="n-form n-form-type:outline-box px:10 w:100p"
-          enctype="multipart/form-data">
+  </head>
+  <body>
+    <main layout:fragment="main" class="n-panel n-main-panel">
+      <!--등록 폼-->
+      <form
+        method="post"
+        action="/admin/products"
+        class="n-form n-form-type:outline-box px:10 w:100p"
+        enctype="multipart/form-data"
+      >
         <div>
-            <label>
-                <span>상품 이름</span>
-                <input type="text" name="name" required/>
-            </label>
+          <label>
+            <span>상품 이름</span>
+            <input type="text" name="name" required />
+          </label>
         </div>
         <div>
-            <label>
-                <span>판매가</span>
-                <input type="text" name="sellingPrice" required/>
-            </label>
+          <label>
+            <span>판매가</span>
+            <input type="text" name="sellingPrice" required />
+          </label>
         </div>
         <div>
-            <label>
-                <span>공급가</span>
-                <input type="text" name="supplyingPrice" required/>
-            </label>
+          <label>
+            <span>공급가</span>
+            <input type="text" name="supplyingPrice" required />
+          </label>
         </div>
         <div>
-            <label>
-                <span>상품 설명</span>
-                <textarea name="description" required class="height:7"></textarea>
-            </label>
+          <label>
+            <span>상품 설명</span>
+            <textarea name="description" required class="height:7"></textarea>
+          </label>
         </div>
         <!--대표사진-->
         <div>
-            <label class="main-img-label">
-                <span>대표 사진</span>
-                <input class="main-img-input d:none border" type="file" name="img"/>
-                <span class="main-img-box d:flex flex-direction:row">
-                    <span class="d:flex jc:center al-items:center w:5 h:5 bg-color:base-3">
-                        <span class="icon icon:camera icon-size:5  icon-color:base-1"></span>
-                    </span>
-                </span>
-            </label>
+          <label class="main-img-label">
+            <span>대표 사진</span>
+            <input
+              class="main-img-input d:none border"
+              type="file"
+              name="img"
+            />
+            <span class="main-img-box d:flex flex-direction:row">
+              <span
+                class="d:flex jc:center al-items:center w:5 h:5 bg-color:base-3"
+              >
+                <span
+                  class="icon icon:camera icon-size:5 icon-color:base-1"
+                ></span>
+              </span>
+            </span>
+          </label>
         </div>
         <!--대표사진-->
 
         <!--서브 사진 등록-->
         <div class="mb:10">
-            <label class="sub-img-label">
-                <span>디테일 사진</span>
-                <span class="sub-img-box d:flex flex-direction:row">
-                    <span class="d:flex jc:center al-items:center w:5 h:5 bg-color:base-3">
-                        <span class="icon icon:camera icon-size:5  icon-color:base-1"></span>
-                    </span>
-                </span>
-                <input type="file" name="sub-imgs" class="d:none sub-img-input" multiple/>
-            </label>
+          <label class="sub-img-label">
+            <span>디테일 사진</span>
+            <span class="sub-img-box d:flex flex-direction:row">
+              <span
+                class="d:flex jc:center al-items:center w:5 h:5 bg-color:base-3"
+              >
+                <span
+                  class="icon icon:camera icon-size:5 icon-color:base-1"
+                ></span>
+              </span>
+            </span>
+            <input
+              type="file"
+              name="sub-imgs"
+              class="d:none sub-img-input"
+              multiple
+            />
+          </label>
         </div>
         <!--서브 사진 등록-->
         <!--카테고리-->
-        <label>카테고리
-            <select name="categoryId" class="n-dropdown">
-                <option th:each="category : ${categories}"
-                        th:value="${category.id}"
-                        value="javascript"
-                        class="n-dropdown-item"
-                        th:text="${category.name}">JavaScript
-                </option>
-            </select>
+        <label
+          >카테고리
+          <select name="categoryId" class="n-dropdown">
+            <option
+              th:each="category : ${categories}"
+              th:value="${category.id}"
+              value="javascript"
+              class="n-dropdown-item"
+              th:text="${category.name}"
+            >
+              JavaScript
+            </option>
+          </select>
         </label>
         <!--카테고리-->
         <!--버튼-->
         <div class="d:flex flex-direction:row justify-content:end">
-            <button class="n-btn n-btn-size:3">
-                상품 등록
-            </button>
-            <div>
-                <a href="/admin/products" class="n-btn n-btn-size:3">취소</a>
-            </div>
+          <button class="n-btn n-btn-size:3">상품 등록</button>
+          <div>
+            <a href="/admin/products" class="n-btn n-btn-size:3">취소</a>
+          </div>
         </div>
         <!--버튼-->
-    </form>
-    <!--등록 폼-->
-</main>
-</body>
+      </form>
+      <!--등록 폼-->
+    </main>
+  </body>
 </html>
