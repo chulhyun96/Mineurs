@@ -29,19 +29,19 @@
         </div>
     </div>
 <!--    <a th:href="@{/item/detail(id=${item. ncx1 getId()})}">-->
-    <section class="w-full h-full flex items-center justify-center p-8">
-        <div class="grid grid-cols-2 gap-12 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
-            <!-- 반복 시작: 상품 목록을 9개까지 표시 -->
-            <div class="w-full flex flex-col h-[700px]" th:each="product : ${list}">
-                <div class="w-full grow">
-                    <a><img class="object-contain h-full w-full" th:src="@{'/image/products/'+${product.img}}" alt="첨부이미지"/></a>
+    <section>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-center items-center">
+            <div th:each="product : ${list}" class="flex flex-col justify-center items-center m-4">
+                <!-- 이미지 컨테이너, 고정 크기 지정 -->
+                <div class="flex justify-center items-center" style="height: 650px; width: 500px; overflow: hidden;">
+                    <a><img th:src="@{'/image/products/'+${product.img}}" alt="첨부이미지" class="object-cover h-full w-full"/></a>
                 </div>
-                <div class="flex items-center justify-center relative h-20">
-                    <div class="absolute top-6 text-xs"><span th:text="${product.name}">상품 이름</span></div>
-                    <div class="absolute top-10 text-xs"><span th:text="${product.sellingPrice}">가격</span><span> 원</span></div>
+                <!-- 상품 이름과 가격 정보 -->
+                <div class="flex flex-col items-center justify-center mt-6">
+                    <div class="mb-2"><span th:text="${product.name}">상품 이름</span></div>
+                    <div><span th:text="${product.sellingPrice}">가격</span><span> 원</span></div>
                 </div>
             </div>
-            <!-- 반복 끝 -->
         </div>
     </section>
 
