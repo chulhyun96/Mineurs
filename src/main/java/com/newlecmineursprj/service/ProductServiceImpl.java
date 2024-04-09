@@ -23,7 +23,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductView> getList(Integer page, String searchMethod, String searchKeyword) {
-        int size = 10;
+        int size = 9;
         int offset = (page - 1) * size;
         return repository.findAll(searchMethod, searchKeyword, offset, size);
     }
