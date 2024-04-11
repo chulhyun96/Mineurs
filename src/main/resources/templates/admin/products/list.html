@@ -189,20 +189,13 @@
             <!-- head -->
             <thead>
               <tr>
-                <th>
-                  <label>
-                    <input type="checkbox" class="checkbox" />
-                  </label>
-                </th>
-                <th>No</th>
-                <th>상품코드</th>
-                <th>상품명</th>
-                <th>판매가</th>
-                <th>공급가</th>
-                <th>설명</th>
-                <th>이미지</th>
-                <th>판매함</th>
-                <th>등록일자</th>
+                <th scope="col" class="w:2"></th>
+                <th scope="col">상품 이름</th>
+                <th scope="col">판매가</th>
+                <th scope="col">공급가</th>
+                <th scope="col">이미지</th>
+                <th scope="col">설명</th>
+                <th scope="col">등록일자</th>
               </tr>
             </thead>
 
@@ -216,8 +209,6 @@
                     th:value="${product.id}"
                   />
                 </td>
-                <td>5</td>
-                <td>P000000N</td>
                 <td scope="col" th:text="${product.name}">상품 이름</td>
                 <td scope="col" th:text="${product.sellingPrice}">판매가</td>
                 <td scope="col" th:text="${product.supplyingPrice}">공급가</td>
@@ -270,14 +261,12 @@
         >
           <li>
             <a
-              class="join-item btn"
               th:if="${page} ge 6 and ${param.searchKeyword} != null"
               href="products?p=1"
               th:href="@{./products(page=${startnum}-1,searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword})}"
               >이전</a
             >
             <a
-              class="join-item btn"
               th:if="${page} ge 6 and ${param.searchKeyword} == null"
               href="products?p=1"
               th:href="@{./products(page=${startnum}-1)}"

@@ -48,4 +48,9 @@ private final MemberService memberService;
         
         return "redirect:";
     }
+
+    @GetMapping("checkout")
+    public String checkout(){
+        return "checkout";
+    }
 }
