@@ -1,87 +1,128 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/inc/layout}">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/inc/layout}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/src/output.css">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.48/dist/style.css" />
-    <link rel="stylesheet" href="/css/output.css">
-</head>
-<body style="background-color: #f7f5f1;">
-<main layout:fragment="main">
-    <div class="w-full h-16 border-y border-amber-900 mt-12 text-xs p-4 mb-24">
+    <link rel="stylesheet" href="/src/output.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.48/dist/style.css"
+    />
+    <link rel="stylesheet" href="/css/output.css" />
+  </head>
+  <body style="background-color: #f7f5f1">
+    <main layout:fragment="main">
+      <div
+        class="w-full h-16 border-y border-amber-900 mt-12 text-xs p-4 mb-24"
+      >
         <div class="flex items-center bg-contain w-full h-full justify-between">
-            <div class="flex-1">Product (<span th:text="${count}">64</span>)</div>
-            <div  class="flex-1 text-center" style="color: #ba866a;">Show all filters</div>
-            <div class="flex-1 flex justify-end" style="color: #ba866a;">
-                <div class="flex">
-                    <div class="mr-8">Sort by</div>
-                    <div th:each="category : ${categoryList}">
-                    <div th:text="${category.name}" class="mr-8"></div>
-                    </div>
-                </div>
+          <div class="flex-1">Product (<span th:text="${count}">64</span>)</div>
+          <div class="flex-1 text-center" style="color: #ba866a">
+            Show all filters
+          </div>
+          <div class="flex-1 flex justify-end" style="color: #ba866a">
+            <div class="flex">
+              <div class="mr-8">Sort by</div>
+              <div th:each="category : ${categoryList}">
+                <div th:text="${category.name}" class="mr-8"></div>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-<!--    <a th:href="@{/item/detail(id=${item. ncx1 getId()})}">-->
-    <section>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-center items-center">
-            <div th:each="product : ${list}" class="flex flex-col justify-center items-center m-4">
-                <!-- 이미지 컨테이너, 고정 크기 지정 -->
-                <div class="flex justify-center items-center" style="height: 650px; width: 500px; overflow: hidden;">
-                    <a><img th:src="@{'/image/products/'+${product.img}}" alt="첨부이미지" class="object-cover h-full w-full"/></a>
-                </div>
-                <!-- 상품 이름과 가격 정보 -->
-                <div class="flex flex-col items-center justify-center mt-6">
-                    <div class="mb-2"><span th:text="${product.name}">상품 이름</span></div>
-                    <div><span th:text="${product.sellingPrice}">가격</span><span> 원</span></div>
-                </div>
+      </div>
+      <!--    <a th:href="@{/item/detail(id=${item. ncx1 getId()})}">-->
+      <section>
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-center items-center"
+        >
+          <div
+            th:each="product : ${list}"
+            class="flex flex-col justify-center items-center m-4"
+          >
+            <!-- 이미지 컨테이너, 고정 크기 지정 -->
+            <div
+              class="flex justify-center items-center"
+              style="height: 650px; width: 500px; overflow: hidden"
+            >
+              <a
+                ><img
+                  th:src="@{'/image/products/'+${product.img}}"
+                  alt="첨부이미지"
+                  class="object-cover h-full w-full"
+              /></a>
             </div>
+            <!-- 상품 이름과 가격 정보 -->
+            <div class="flex flex-col items-center justify-center mt-6">
+              <div class="mb-2">
+                <span th:text="${product.name}">상품 이름</span>
+              </div>
+              <div>
+                <span th:text="${product.sellingPrice}">가격</span
+                ><span> 원</span>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-
-    <section class="mb:5">
+      <section class="mb:5">
         <h1 class="d:none">페이저</h1>
-        <ul class="n-pager"
-            style="display: flex; justify-content: center;"
-            th:with="page = (${param.page} == null)? 1 : ${{param.page}}
+        <ul
+          class="n-pager"
+          style="display: flex; justify-content: center"
+          th:with="page = (${param.page} == null)? 1 : ${{param.page}}
             , floatnum=(${page}-1)/5,
             intnum=${T(java.lang.Math).floor(floatnum)},
             startnum=${intnum}*5+1,
-            lastnum = ${count} mod 10 > 0 ? ${count / 10} + 1 : ${count / 10} + 0">
+            lastnum = ${count} mod 10 > 0 ? ${count / 10} + 1 : ${count / 10} + 0"
+        >
+          <li>
+            <a
+              th:if="${page} ge 6"
+              href="products?p=1"
+              th:href="@{/(page=${startnum-1})}"
+              >이전</a
+            >
+          </li>
 
-
-            <li>
-                <a th:if="${page} ge 6" href="products?p=1" th:href="@{/(page=${startnum-1})}">이전</a>
-            </li>
-
-            <li th:each="n : ${#numbers.sequence(startnum,startnum+4)}"
-                th:class="${{param.page}} eq ${n}? 'active'">
-                <a th:if="${n} le ${lastnum}"
-                   href="products?p=1"
-                   th:href="@{./(page=${n})}"
-                   th:text="${n}"
-                >1</a>
-            </li>
-            <li>
-                <a th:if="${startnum+5} le ${lastnum}"
-                   href="products?p=12"
-                   th:href="@{/?(page=${startnum}+5)}">다음</a>
-            </li>
+          <li
+            th:each="n : ${#numbers.sequence(startnum,startnum+4)}"
+            th:class="${{param.page}} eq ${n}? 'active'"
+          >
+            <a
+              th:if="${n} le ${lastnum}"
+              href="products?p=1"
+              th:href="@{./(page=${n})}"
+              th:text="${n}"
+              >1</a
+            >
+          </li>
+          <li>
+            <a
+              th:if="${startnum+5} le ${lastnum}"
+              href="products?p=12"
+              th:href="@{/?(page=${startnum}+5)}"
+              >다음</a
+            >
+          </li>
         </ul>
-    </section>
+      </section>
 
-    <div>
-        <div  class="m-8">
-            <hr style="background-color: black; height: 0.5px; border: none;">
+      <div>
+        <div class="m-8">
+          <hr style="background-color: black; height: 0.5px; border: none" />
         </div>
-    </div>
-</main>
-</body>
+      </div>
+    </main>
+  </body>
 </html>
