@@ -37,6 +37,7 @@
             <thead>
             <tr>
                 <th scope="col" class="w:2"></th>
+                <th scope="col">아이디</th>
                 <th scope="col">상품 이름</th>
                 <th scope="col">판매가</th>
                 <th scope="col">공급가</th>
@@ -57,6 +58,7 @@
                             th:value="${product.id}"
                     />
                 </td>
+                <td scope="col" th:text="${product.id}">아이디</td>
                 <td scope="col" th:text="${product.name}">상품 이름</td>
                 <td scope="col" th:text="${product.sellingPrice}">판매가</td>
                 <td scope="col" th:text="${product.supplyingPrice}">공급가</td>
@@ -91,7 +93,7 @@
             , floatnum=(${page}-1)/5,
             intnum=${T(java.lang.Math).floor(floatnum)},
             startnum=${intnum}*5+1,
-            lastnum = ${count} mod 10 > 0 ? ${count / 10} + 1 : ${count / 10} + 0">
+            lastnum = ${count} mod 9 > 0 ? ${count / 9} + 1 : ${count / 9} + 0">
 
             <li>
                 <a th:if="${page} ge 6 and ${param.searchKeyword} != null"
