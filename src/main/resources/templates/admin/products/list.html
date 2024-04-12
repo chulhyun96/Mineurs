@@ -17,6 +17,11 @@
 
       <section class="overflow-x-auto w-full flex flex-col">
         <h1 class="text-2xl mb-0">결제 정보</h1>
+        <form
+          method="get"
+          action="products"
+          class="n-form md:n-field-label-position:left border:0 w:3/5 mx:auto my:10"
+        >
         <table class="table">
           <colgroup>
             <col class="bg-base-300" />
@@ -29,9 +34,6 @@
               <td colspan="3">
                 <div>
                   <!--  검색 모듈 -->
-                  <form
-                    class="n-form md:n-field-label-position:left border:0 w:3/5 mx:auto my:10"
-                  >
                     <div class="join">
                       <select
                         class="select select-bordered join-item"
@@ -62,16 +64,18 @@
                         </div>
                       </div>
                     </div>
-                  </form>
                 </div>
               </td>
             </tr>
             <tr>
               <td>상품분류</td>
               <td colspan="3">
-                <select class="select select-sm select-bordered">
-                  <option>Outwear</option>
-                  <option>Top</option>
+                <select class="select select-sm select-bordered" name="categoryId">
+                  <option value="0" th:selected="${categoryId == 0}">All</option>
+                  <option th:each="category: ${categories}" 
+                          th:value="${category.id}" 
+                          th:text="${category.name}"
+                          th:selected="${categoryId == category.id}"></option>
                 </select>
               </td>
             </tr>
@@ -84,37 +88,37 @@
                       class="btn btn-outline btn-sm flex justify-center items-center"
                     >
                       <span>오늘</span>
-                      <input type="radio" name="radio-1" class="hidden" />
+                      <input type="radio"  class="hidden" />
                     </label>
                     <label
                       class="btn btn-outline btn-sm flex justify-center items-center"
                     >
                       <span>3일</span>
-                      <input type="radio" name="radio-1" class="hidden" />
+                      <input type="radio"  class="hidden" />
                     </label>
                     <label
                       class="btn btn-outline btn-sm flex justify-center items-center"
                     >
                       <span>7일</span>
-                      <input type="radio" name="radio-1" class="hidden" />
+                      <input type="radio"  class="hidden" />
                     </label>
                     <label
                       class="btn btn-outline btn-sm flex justify-center items-center"
                     >
                       <span>1개월</span>
-                      <input type="radio" name="radio-1" class="hidden" />
+                      <input type="radio"  class="hidden" />
                     </label>
                     <label
                       class="btn btn-outline btn-sm flex justify-center items-center"
                     >
                       <span>3개월</span>
-                      <input type="radio" name="radio-1" class="hidden" />
+                      <input type="radio"  class="hidden" />
                     </label>
                     <label
                       class="btn btn-outline btn-sm flex justify-center items-center"
                     >
                       <span>1년</span>
-                      <input type="radio" name="radio-1" class="hidden" />
+                      <input type="radio"  class="hidden" />
                     </label>
                     <label
                       class="btn btn-outline btn-sm flex justify-center items-center"
@@ -122,7 +126,7 @@
                       <span>전체</span>
                       <input
                         type="radio"
-                        name="radio-1"
+                        
                         class="hidden"
                         checked
                       />
@@ -130,9 +134,9 @@
                   </div>
 
                   <div class="flex space-x-1 items-center">
-                    <input type="date" name="startDate" />
+                    <input type="date"  />
                     <span>~</span>
-                    <input type="date" name="endDate" />
+                    <input type="date"  />
                   </div>
                 </div>
               </td>
@@ -142,15 +146,15 @@
               <td>
                 <div class="form-control flex flex-row space-x-2">
                   <label class="label cursor-pointer space-x-1">
-                    <input type="radio" name="radio-10" class="radio" checked />
+                    <input type="radio"  class="radio" checked />
                     <span class="label-text">전체</span>
                   </label>
                   <label class="label cursor-pointer space-x-1">
-                    <input type="radio" name="radio-10" class="radio" />
+                    <input type="radio"  class="radio" />
                     <span class="label-text">진열함</span>
                   </label>
                   <label class="label cursor-pointer space-x-1">
-                    <input type="radio" name="radio-10" class="radio" />
+                    <input type="radio"  class="radio" />
                     <span class="label-text">진열안함</span>
                   </label>
                 </div>
@@ -159,15 +163,15 @@
               <td>
                 <div class="form-control flex flex-row space-x-2">
                   <label class="label cursor-pointer space-x-1">
-                    <input type="radio" name="radio-10" class="radio" checked />
+                    <input type="radio"  class="radio" checked />
                     <span class="label-text">전체</span>
                   </label>
                   <label class="label cursor-pointer space-x-1">
-                    <input type="radio" name="radio-10" class="radio" />
+                    <input type="radio"  class="radio" />
                     <span class="label-text">판매함</span>
                   </label>
                   <label class="label cursor-pointer space-x-1">
-                    <input type="radio" name="radio-10" class="radio" />
+                    <input type="radio"  class="radio" />
                     <span class="label-text">판매안함</span>
                   </label>
                 </div>
@@ -179,6 +183,7 @@
           <button class="btn btn-wide">검색</button>
           <button class="btn btn-wide btn-outline">초기화</button>
         </div>
+      </form>
       </section>
 
       <!--    리스트-->
@@ -190,6 +195,7 @@
             <thead>
               <tr>
                 <th scope="col" class="w:2"></th>
+                <th scope="col">카테고리 이름</th>
                 <th scope="col">상품 이름</th>
                 <th scope="col">판매가</th>
                 <th scope="col">공급가</th>
@@ -209,6 +215,7 @@
                     th:value="${product.id}"
                   />
                 </td>
+                <td scope="col" th:text="${product.categoryName}">카테고리 이름</td>
                 <td scope="col" th:text="${product.name}">상품 이름</td>
                 <td scope="col" th:text="${product.sellingPrice}">판매가</td>
                 <td scope="col" th:text="${product.supplyingPrice}">공급가</td>
@@ -220,6 +227,7 @@
                       th:src="@{'/image/products/'+${product.img}}"
                       alt="첨부이미지"
                       class="w:1"
+                      style="height:60px;"
                     />
                   </a>
                 </td>
@@ -263,13 +271,13 @@
             <a
               th:if="${page} ge 6 and ${param.searchKeyword} != null"
               href="products?p=1"
-              th:href="@{./products(page=${startnum}-1,searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword})}"
+              th:href="@{./products(page=${startnum}-1,searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId})}"
               >이전</a
             >
             <a
               th:if="${page} ge 6 and ${param.searchKeyword} == null"
               href="products?p=1"
-              th:href="@{./products(page=${startnum}-1)}"
+              th:href="@{./products(page=${startnum}-1),categoryId=${param.categoryId}}"
               >이전</a
             >
           </li>
@@ -282,7 +290,7 @@
               class="join-item btn"
               th:if="${n le lastnum and param.searchKeyword != null}"
               href="products?p=1"
-              th:href="@{./products(page=${n},searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword})}"
+              th:href="@{./products(page=${n},searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId})}"
               th:text="${n}"
               >1</a
             >
@@ -290,7 +298,7 @@
               class="join-item btn"
               th:if="${n le lastnum and param.searchKeyword == null}"
               href="products?p=1"
-              th:href="@{./products(page=${n})}"
+              th:href="@{./products(page=${n},categoryId=${param.categoryId})}"
               th:text="${n}"
               >1</a
             >
@@ -300,14 +308,14 @@
               class="join-item btn"
               th:if="${startnum+5 le lastnum and param.searchKeyword != null}"
               href="products?p=12"
-              th:href="@{./products(page=${startnum}+5,searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword})}"
+              th:href="@{./products(page=${startnum}+5,searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId})}"
               >다음</a
             >
             <a
               class="join-item btn"
               th:if="${startnum+5 le lastnum and param.searchKeyword == null}"
               href="products?p=12"
-              th:href="@{./products(page=${startnum}+5)}"
+              th:href="@{./products(page=${startnum}+5),categoryId=${param.categoryId}}"
               >다음</a
             >
           </li>

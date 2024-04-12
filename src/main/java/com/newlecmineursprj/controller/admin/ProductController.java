@@ -38,14 +38,21 @@ public class ProductController {
     private final ProductSubImgService productSubImgService;
 
     @GetMapping
-    public String list(@RequestParam(required = false) String searchMethod,
-            @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "") String searchKeyword,
+    public String list(
+            @RequestParam(defaultValue = "1") Integer page, 
+            @RequestParam(required = false) String searchMethod,
+            @RequestParam(defaultValue = "") String searchKeyword,
+            @RequestParam(defaultValue = "0") Long categoryId,
             Model model) {
 
-        int count = service.getCount(searchMethod, searchKeyword.trim());
-        List<ProductView> list = service.getList(page, searchMethod, searchKeyword.trim());
+        int count = service.getCount(searchMethod, searchKeyword.trim(),categoryId);
+        List<ProductView> list = service.getList(page, searchMethod, searchKeyword.trim(), categoryId);
+        List<Category> categories = categoryService.getList();
+        
+        
         model.addAttribute("list", list);
         model.addAttribute("count", count);
+        model.addAttribute("categories",categories);
         return PRODUCTS_VIEW + "/list";
     }
 

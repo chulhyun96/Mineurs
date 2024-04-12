@@ -21,10 +21,13 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository repository;
 
     @Override
-    public List<ProductView> getList(Integer page, String searchMethod, String searchKeyword) {
+    public List<ProductView> getList(Integer page, 
+                                    String searchMethod, 
+                                    String searchKeyword, 
+                                    Long categoryId) {
         int size = 9;
         int offset = (page - 1) * size;
-        return repository.findAll(searchMethod, searchKeyword, offset, size);
+        return repository.findAll(searchMethod, searchKeyword, offset, size, categoryId);
     }
 
     @Override
@@ -68,7 +71,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int getCount(String searchMetod, String searchKeyword) {
-        return repository.count(searchMetod, searchKeyword);
+    public int getCount(String searchMetod, String searchKeyword, Long categoryId) {
+        return repository.count(searchMetod, searchKeyword, categoryId);
     }
 }
