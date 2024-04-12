@@ -2,6 +2,7 @@ package com.newlecmineursprj.entity;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

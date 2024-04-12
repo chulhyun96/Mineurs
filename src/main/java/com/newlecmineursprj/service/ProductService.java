@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface ProductService {
     List<ProductView> getList(Integer page, String searchMethod, String searchKeyword);
-    ProductView getById(Long id);
+    Product getById(Long id);
     String saveProductImg(MultipartFile img, String realPath);
     void reg(Product product);
     void edit(Product product);

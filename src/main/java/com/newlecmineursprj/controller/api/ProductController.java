@@ -15,7 +15,7 @@ public class ProductController {
     private final ProductService service;
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
-        ProductView product = service.getById(id);
+        Product product = service.getById(id);
         model.addAttribute("product", product);
         return PRODUCTS_VIEW + "/detail";
     }
