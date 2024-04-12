@@ -26,7 +26,7 @@
 
     <div class="w:100p border-bottom"></div>
 
-    <form action="members/delete" class="flex flex-col w-full" method="post">
+    <form action="/admin/members/delete" class="flex flex-col w-full" method="post">
         <table class="n-table n-table-style:striped">
             <thead>
             <tr>
@@ -49,7 +49,7 @@
                     />
                 </td>
                 <td scope="col" th:text="${member.name}">고객 이름</td>
-                <td scope="col" th:text="${member.loginId}">아이디</td>
+                <td scope="col" th:text="${member.username}">아이디</td>
                 <td scope="col" th:text="${member.phoneNumber}">전화번호</td>
                 <td scope="col" th:text="${member.email}">이메일</td>
                 <td scope="col" th:text="${#dates.format(member.regDate, 'yyyy년 M월 d일') }">등록일자</td>

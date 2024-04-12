@@ -12,7 +12,7 @@ import java.util.Objects;
 public class Member {
     private long id;
     private String name;
-    private String loginId;
+    private String username;
     private String password;
     private String phoneNumber;
     private Date regDate;

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<header>
+  <h1 class="hidden">감출것</h1>
+  <div style="background-color: #eeeae5;" class="flex text-xs h-8 items-center justify-center">
+    <div class="font-thin">무료 배송 & 반품</div>
+  </div>
+  <div style="background-color: #c3b0a5; height: 8px;" class="w-full border-y-2 border-amber-900"></div>
+  <div class="text-xs flex items-center my-4 flex-col">
+    <div class="mb-12">
+      <a th:href="@{/item/list}"><img src="https://mineurs.co.kr/web/upload/hazel/logo_img.png" alt="" class="h-8"></a>
+    </div>
+    <nav class="flex w-11/12 justify-between mx-4">
+      <div class="flex">
+        <div class="absolute left-8"><a >reg</a></div>
+        <div class="flex">
+          <form  method="get" class="flex items-center">
+            <input type="text" name="q" placeholder="검색어 입력" class="text-xs p-2" />
+            <button type="submit" class="ml-2 text-xs p-2 bg-gray-200">검색</button>
+          </form>
+        </div>
+      </div>
+      <div class="flex-1 flex justify-evenly">
+        <div>New Arrival</div>
+        <div>All</div>
+        <div>Outer</div>
+        <div>Top</div>
+        <div>Bottom</div>
+        <div>Dress</div>
+        <div>ETC</div>
+      </div>
+      <div>Board</div>
+    </nav>
+  </div>
+</header>
+</html>

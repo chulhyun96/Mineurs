@@ -2,22 +2,28 @@ package com.newlecmineursprj.controller.admin;
 
 import java.util.List;
 
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.newlecmineursprj.entity.Category;
 import com.newlecmineursprj.entity.Product;
 import com.newlecmineursprj.entity.ProductView;
 import com.newlecmineursprj.service.CategoryService;
-import com.newlecmineursprj.service.ProductSubImgService;
 import com.newlecmineursprj.service.ProductService;
+import com.newlecmineursprj.service.ProductSubImgService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.multipart.MultipartFile;
 
 @RequestMapping("admin/products")
 @Controller("adminProductController")
@@ -32,19 +38,17 @@ public class ProductController {
     private final ProductSubImgService productSubImgService;
 
     @GetMapping
-    public String list(@RequestParam(required = false) String searchMethod
-            , @RequestParam(defaultValue = "1") Integer page
-            , @RequestParam(defaultValue = "") String searchKeyword
-            , Model model) {
+    public String list(@RequestParam(required = false) String searchMethod,
+            @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "") String searchKeyword,
+            Model model) {
 
-        List<ProductView> list = service.getList(page, searchMethod, searchKeyword.trim());
         int count = service.getCount(searchMethod, searchKeyword.trim());
+        List<ProductView> list = service.getList(page, searchMethod, searchKeyword.trim());
         model.addAttribute("list", list);
         model.addAttribute("count", count);
         return PRODUCTS_VIEW + "/list";
-
     }
-    
+
     @GetMapping("/reg")
     public String regForm(Model model) {
         List<Category> categories = categoryService.getList();
@@ -54,10 +58,10 @@ public class ProductController {
 
     @PostMapping
     public String reg(MultipartFile img,
-                      Product product,
-                      Long categoryId,
-                      HttpServletRequest req,
-                      @RequestParam(value = "sub-imgs") MultipartFile[] subImages) throws FileUploadException {
+            Product product,
+            Long categoryId,
+            HttpServletRequest req,
+            @RequestParam(value = "sub-imgs") MultipartFile[] subImages) throws FileUploadException {
 
         String mainImgPath = "/image/products";
         String fileUploadResult = saveToDir(img, req, mainImgPath);
@@ -86,8 +90,11 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
-        Product product = service.getById(id);
-        log.info("/detail: {}", product);
+        log.debug("서버실행되고 갔음");
+        List<Category> categories = categoryService.getList();
+        model.addAttribute("categories", categories);
+        ProductView product = service.getById(id);
+        log.debug("product = {}", product);
         model.addAttribute("product", product);
         return PRODUCTS_VIEW + "/detail";
     }
@@ -98,9 +105,10 @@ public class ProductController {
         return REDIRECT + PRODUCTS_VIEW;
     }
 
-    @PostMapping("/{id}/edit")
-    public String edit(Product updateProduct) {
-        service.edit(updateProduct);
-        return REDIRECT + PRODUCTS_VIEW;
+    @PutMapping
+    public String edit(@RequestBody Product product) {
+        service.edit(product);
+        return "success";
     }
+
 }

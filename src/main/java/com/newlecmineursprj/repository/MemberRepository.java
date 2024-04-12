@@ -3,14 +3,13 @@ package com.newlecmineursprj.repository;
 import com.newlecmineursprj.entity.Member;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.sql.Date;
 import java.util.List;
 
 @Mapper
 public interface MemberRepository {
     List<Member> findAll(Long id,
                          String name,
-                         String loginId,
+                         String username,
                          String password,
                          String phoneNumber,
                          String email);

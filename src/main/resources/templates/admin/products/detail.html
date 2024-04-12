@@ -1,55 +1,152 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/admin/inc/layout}">
-
-<head>
-    <meta charset="UTF-8">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/admin/inc/layout}"
+>
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
     <script src="/js/admin/products/edit.js"></script>
-</head>
-<body>
-<main layout:fragment="main" class="n-panel n-main-panel ">
-    <!--상세 페이지 폼-->
-    <section class="d:flex fl-grow:1 ai:center mb:8 border-bottom">
-        <form method="post" th:action="@{/admin/products/{id}/edit(id=${product.id})}">
-            <div>
-                <label class="main-img-label">
-                    <span>대표 사진</span>
-                    <input class="main-img-input d:none border" type="file" name="imgPath"/>
-                    <span class="main-img-box d:flex flex-direction:row">
-                        <img id="imgId" th:src="@{'/image/products/' + ${product.imgPath}}" alt="첨부이미지" class=""/>
-                        <span class="d:flex jc:center al-items:center w:5 h:5 bg-color:base-3">
-                        <span class="icon icon:camera icon-size:5  icon-color:base-1"></span>
-                    </span>
-                </span>
-                </label>
-            </div>
+    <script src="/js/admin/products/reg.js"></script>
+  </head>
+  <body>
+    <main layout:fragment="main" class="n-panel n-main-panel">
+      <!--등록 폼-->
+      <form
+        method="post"
+        action="/admin/products"
+        class="n-form n-form-type:outline-box px:10 w:100p"
+        enctype="multipart/form-data"
+      >
+        <div>
+          <label>
+            <span>상품 이름</span>
+            <input
+              type="text"
+              name="name"
+              required
+              th:value="${product.name}"
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            <span>판매가</span>
+            <input
+              type="text"
+              name="sellingPrice"
+              required
+              th:value="${product.sellingPrice}"
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            <span>공급가</span>
+            <input
+              type="text"
+              name="supplyingPrice"
+              required
+              th:value="${product.supplyingPrice}"
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            <span>상품 설명</span>
+            <textarea
+              name="description"
+              required
+              class="height:7"
+              th:text="${product.description}"
+            ></textarea>
+          </label>
+        </div>
+        <!--대표사진-->
+        <div>
+          <label class="main-img-label">
+            <span>대표 사진</span>
+            <input
+              class="main-img-input d:none border"
+              type="file"
+              name="img"
+            />
 
-            <input type="hidden" name="id" class="id" th:value="${product.id}">
-            <label>상품이름</label>
-            <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6 name" name="name"
-                   th:value="${product.name}">
-            <label>판매가</label>
-            <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6 sellingPrice" name="sellingPrice"
-                   th:value="${product.sellingPrice}">
-            <label>공급가</label>
-            <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6 supplyingPrice"
-                   name="supplyingPrice"
-                   th:value="${product.supplyingPrice}">
-            <label>설명</label>
-            <textarea class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6 description" rows="7"
-                      name="description"
-                      th:text="${product.description}"></textarea>
-            <label>등록일자</label>
-            <input class="mt:1 bd border-width:1 bd-radius:3 w:100p p:3 pl:6 " th:value="${product.regDate}">
+            <span class="main-img-box d:flex flex-direction:row">
+              <span
+                class="d:flex jc:center al-items:center w:5 h:5 bg-color:base-3"
+              >
+                <img
+                  id="imgId"
+                  th:src="@{'/image/products/'+${product.img}}"
+                  alt="첨부이미지"
+                  class="w-full h-full"
+                />
+                <span
+                  class="icon icon:camera icon-size:5 icon-color:base-1"
+                ></span>
+              </span>
+            </span>
+          </label>
+        </div>
+        <!--대표사진-->
 
-            <input class="m:4 ml:1 img" type="file" name="paths"/>
-            <button type="submit" class="n-btn mt:4">수정</button>
-            <a type="button" class="n-btn n-btn-color:sub mt:1" th:href="@{/admin/products}">목록</a>
-        </form>
-    </section>
-    <!--상세 페이지 폼-->
-</main>
-</body>
+        <!--서브 사진 등록-->
+        <div class="mb:10">
+          <label class="sub-img-label">
+            <span>디테일 사진</span>
+            <span class="sub-img-box d:flex flex-direction:row items-center">
+              <img
+                th:each="subimg : ${product.productSubImgs}"
+                src=""
+                alt=""
+                th:src="@{'/image/subImg/'+${subimg.path}}"
+                class="w-40"
+              />
+              <span
+                class="d:flex jc:center al-items:center w:5 h:5 bg-color:base-3"
+              >
+                <span
+                  class="icon icon:camera icon-size:5 icon-color:base-1"
+                ></span>
+              </span>
+            </span>
+            <input
+              type="file"
+              name="sub-imgs"
+              class="d:none sub-img-input"
+              multiple
+            />
+          </label>
+        </div>
+        <!--서브 사진 등록-->
+        <!--카테고리-->
+        <label
+          >카테고리
+          <select name="categoryId" class="n-dropdown">
+            <option
+              th:each="category : ${categories}"
+              th:value="${category.id}"
+              value="javascript"
+              class="n-dropdown-item"
+              th:text="${category.name}"
+            >
+              JavaScript
+            </option>
+          </select>
+        </label>
+        <!--카테고리-->
+        <!--버튼-->
+        <div class="d:flex flex-direction:row justify-content:end">
+          <button class="n-btn n-btn-size:3">수정</button>
+          <div>
+            <a href="/admin/products" class="n-btn n-btn-size:3">취소</a>
+          </div>
+        </div>
+        <!--버튼-->
+      </form>
+      <!--등록 폼-->
+    </main>
+  </body>
 </html>

@@ -20,9 +20,9 @@
     </resultMap>
 
     <select id="findAll" resultMap="ProductView">
-        SELECT
-        *
-        FROM product
+        SELECT id, name, reg_date, selling_price, supplying_price, img, description, category_id, category_name, di_id, path, di_product_id
+        FROM product_view
+        GROUP BY id
         <where>
             <if test="searchMethod == 'title'">
                 name like '%${searchKeyword}%'
