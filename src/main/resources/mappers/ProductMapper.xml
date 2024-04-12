@@ -9,7 +9,7 @@
         <result property="regDate" column="reg_date"/>
         <result property="sellingPrice" column="selling_price"/>
         <result property="supplyingPrice" column="supplying_price"/>
-        <result property="img" column="img_path"/>
+        <result property="img" column="img"/>
         <result property="description" column="description"/>
         <result property="categoryName" column="category_name"/>
 
@@ -35,10 +35,10 @@
         limit #{offset},#{size}
     </select>
 
-    <select id="findById" resultType="Product">
+    <select id="findById" resultMap="ProductView">
         SELECT
         *
-        FROM product
+        FROM product_view
         where id = #{id}
     </select>
 
@@ -62,9 +62,11 @@
         VALUES (#{name}, #{sellingPrice}, #{supplyingPrice}, #{description}, #{imgPath}, #{categoryId})
     </insert>
 
-    <update id="updateProductById" parameterType="Product">
+    <update id="updateProductById">
         UPDATE product
-        SET name = #{name},selling_price = #{sellingPrice}, supplying_price = #{supplyingPrice}, description = #{description}, img_path = #{imgPath}  where id = #{id}
+        SET name = #{name},selling_price = #{sellingPrice},
+        supplying_price = #{supplyingPrice}, description = #{description},
+        img_path = #{img}  where id = #{id}
     </update>
 
 

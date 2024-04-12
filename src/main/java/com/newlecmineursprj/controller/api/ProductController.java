@@ -15,13 +15,13 @@ public class ProductController {
     private final ProductService service;
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
-        Product product = service.getById(id);
+        ProductView product = service.getById(id);
         model.addAttribute("product", product);
         return PRODUCTS_VIEW + "/detail";
     }
-    @PutMapping
+    /*@PutMapping
     public String edit(@RequestBody Product product) {
         service.edit(product);
         return "success";
-    }
+    }*/
 }

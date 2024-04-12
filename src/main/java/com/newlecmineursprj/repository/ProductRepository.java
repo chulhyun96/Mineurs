@@ -11,8 +11,8 @@ import java.util.List;
 public interface ProductRepository {
     List<ProductView> findAll(String searchMethod, String searchKeyword, int offset, int size);
     void reg(Product product);
-    Product findById(Long id);
-    void updateProductById(Product product);
+    ProductView findById(Long id);
+    void updateProductById(ProductView product);
     void deleteAll(List<Long> deleteId);
     int count(String searchMethod, String searchKeyword);
 }

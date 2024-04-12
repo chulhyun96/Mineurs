@@ -90,11 +90,9 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
-        log.debug("서버실행되고 갔음");
         List<Category> categories = categoryService.getList();
-        model.addAttribute("categories", categories);
         ProductView product = service.getById(id);
-        log.debug("product = {}", product);
+        model.addAttribute("categories", categories);
         model.addAttribute("product", product);
         return PRODUCTS_VIEW + "/detail";
     }
@@ -105,10 +103,16 @@ public class ProductController {
         return REDIRECT + PRODUCTS_VIEW;
     }
 
-    @PutMapping
-    public String edit(@RequestBody Product product) {
-        service.edit(product);
-        return "success";
-    }
+    @PostMapping("/{id}/edit")
+    public String edit(MultipartFile img,HttpServletRequest req,ProductView updateProduct) {
+        log.info("Updating product {}", updateProduct);
+        log.info("Updating product.getImg {}", updateProduct.getImg());
+        log.info("MultipartFile img = {}", img.getOriginalFilename());
+        String mainImgPath = "/image/products";
+        String fileUploadResult = saveToDir(img, req, mainImgPath);
 
+        updateProduct.setImg(fileUploadResult);
+        /*service.edit(updateProduct);*/
+        return REDIRECT + PRODUCTS_VIEW;
+    }
 }

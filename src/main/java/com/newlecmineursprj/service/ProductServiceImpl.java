@@ -38,8 +38,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void edit(Product product) {
-        repository.updateProductById(product);
+    public void edit(ProductView updateProduct) {
+        ProductView findProduct = repository.findById(updateProduct.getId());
+        log.info("found product: " + findProduct);
+        ProductView updateView = findProduct.update(updateProduct);
+        log.info("updated product: " + updateView);
+        repository.updateProductById(updateView);
     }
 
     @Override
@@ -68,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int getCount(String searchMetod, String searchKeyword) {
-        return repository.count(searchMetod, searchKeyword);
+    public int getCount(String searchMethod, String searchKeyword) {
+        return repository.count(searchMethod, searchKeyword);
     }
 }
