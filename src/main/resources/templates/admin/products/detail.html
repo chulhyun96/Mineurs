@@ -11,7 +11,28 @@
     <script src="/js/admin/products/reg.js"></script>
   </head>
   <body>
-    <main layout:fragment="main" class="n-panel n-main-panel">
+    <main layout:fragment="main" class="container mx-auto px-10 flex flex-col">
+      <header>
+        <h1 class="font-bold text-3xl self-center">상품 수정</h1>
+      </header>
+      <div class="flex">
+        <div th:text="${product.name} + ' (상품코드 : ' + 'POOOOON)'">
+          옷이름
+        </div>
+        <div class="flex">
+          <div>상품등록일 :</div>
+          <div
+            th:text="${#dates.format(product.regDate, 'yyyy년 M월 d일') }"
+          ></div>
+        </div>
+      </div>
+      <div>
+        <tr>
+          <td><a href="">표시설정</a></td>
+          <td><a href="">기본정보</a></td>
+          <td><a href="">이미지정보</a></td>
+        </tr>
+      </div>
       <!--등록 폼-->
       <form
         method="post"
@@ -19,7 +40,7 @@
         class="n-form n-form-type:outline-box px:10 w:100p"
         enctype="multipart/form-data"
       >
-        <div>
+        <div class="space-x-12">
           <label>
             <span>상품 이름</span>
             <input
@@ -27,6 +48,7 @@
               name="name"
               required
               th:value="${product.name}"
+              class="w-full input input-bordered"
             />
           </label>
         </div>
@@ -38,6 +60,7 @@
               name="sellingPrice"
               required
               th:value="${product.sellingPrice}"
+              class="w-full input input-bordered"
             />
           </label>
         </div>
@@ -49,6 +72,7 @@
               name="supplyingPrice"
               required
               th:value="${product.supplyingPrice}"
+              class="w-full input input-bordered"
             />
           </label>
         </div>
@@ -58,7 +82,7 @@
             <textarea
               name="description"
               required
-              class="height:7"
+              class="w-full h-60 input input-bordered"
               th:text="${product.description}"
             ></textarea>
           </label>
@@ -68,7 +92,7 @@
           <label class="main-img-label">
             <span>대표 사진</span>
             <input
-              class="main-img-input d:none border"
+              class="main-img-input d:none border hidden"
               type="file"
               name="img"
             />
@@ -81,7 +105,7 @@
                   id="imgId"
                   th:src="@{'/image/products/'+${product.img}}"
                   alt="첨부이미지"
-                  class="w-full h-full"
+                  class="w-56"
                 />
                 <span
                   class="icon icon:camera icon-size:5 icon-color:base-1"
@@ -96,13 +120,13 @@
         <div class="mb:10">
           <label class="sub-img-label">
             <span>디테일 사진</span>
-            <span class="sub-img-box d:flex flex-direction:row items-center">
+            <span class="sub-img-box flex flex:row items-center">
               <img
                 th:each="subimg : ${product.productSubImgs}"
                 src=""
                 alt=""
                 th:src="@{'/image/subImg/'+${subimg.path}}"
-                class="w-40"
+                class="w-56"
               />
               <span
                 class="d:flex jc:center al-items:center w:5 h:5 bg-color:base-3"
@@ -115,7 +139,7 @@
             <input
               type="file"
               name="sub-imgs"
-              class="d:none sub-img-input"
+              class="hidden sub-img-input"
               multiple
             />
           </label>
@@ -138,10 +162,16 @@
         </label>
         <!--카테고리-->
         <!--버튼-->
-        <div class="d:flex flex-direction:row justify-content:end">
-          <button class="n-btn n-btn-size:3">수정</button>
-          <div>
-            <a href="/admin/products" class="n-btn n-btn-size:3">취소</a>
+        <div class="flex justify-end">
+          <button
+            class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-3"
+          >
+            수정
+          </button>
+          <div
+            class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+          >
+            <a href="/admin/products">취소</a>
           </div>
         </div>
         <!--버튼-->
