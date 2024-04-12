@@ -37,11 +37,12 @@ public class ProductController {
             , @RequestParam(defaultValue = "") String searchKeyword
             , Model model) {
 
-        int count = service.getCount(searchMethod, searchKeyword.trim());
         List<ProductView> list = service.getList(page, searchMethod, searchKeyword.trim());
+        int count = service.getCount(searchMethod, searchKeyword.trim());
         model.addAttribute("list", list);
         model.addAttribute("count", count);
         return PRODUCTS_VIEW + "/list";
+
     }
     
     @GetMapping("/reg")
@@ -67,8 +68,6 @@ public class ProductController {
         product.setCategoryId(categoryId);
         product.setImgPath(fileUploadResult);
 
-
-
         service.reg(product);
         productSubImgService.regAll(subImages, product.getId());
         return REDIRECT + PRODUCTS_VIEW;
@@ -87,7 +86,8 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
-        ProductView product = service.getById(id);
+        Product product = service.getById(id);
+        log.info("/detail: {}", product);
         model.addAttribute("product", product);
         return PRODUCTS_VIEW + "/detail";
     }
@@ -98,10 +98,9 @@ public class ProductController {
         return REDIRECT + PRODUCTS_VIEW;
     }
 
-    @PutMapping
-    public String edit(@RequestBody Product product) {
-        service.edit(product);
-        return "success";
+    @PostMapping("/{id}/edit")
+    public String edit(Product updateProduct) {
+        service.edit(updateProduct);
+        return REDIRECT + PRODUCTS_VIEW;
     }
-
 }

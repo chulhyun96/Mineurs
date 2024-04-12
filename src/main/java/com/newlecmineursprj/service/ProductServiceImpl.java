@@ -3,16 +3,15 @@ package com.newlecmineursprj.service;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.newlecmineursprj.entity.Product;
 import com.newlecmineursprj.entity.ProductView;
 import com.newlecmineursprj.repository.ProductRepository;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -34,18 +33,32 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductView getById(Long id) {
+    public Product getById(Long id) {
         return repository.findById(id);
     }
 
     @Override
-    public void edit(Product product) {
+    public void edit(Product updatedProduct) {
+        Product product = repository.findById(updatedProduct.getId());
+
+        log.info("Updating product " + product);
+        product.setName(updatedProduct.getName());
+        product.setSellingPrice(updatedProduct.getSellingPrice());
+        product.setSupplyingPrice(updatedProduct.getSupplyingPrice());
+        product.setImgPath(updatedProduct.getImgPath());
+        product.setDescription(updatedProduct.getDescription());
+
         repository.updateProductById(product);
     }
 
     @Override
     public void deleteAllById(List<Long> deleteId) {
         repository.deleteAll(deleteId);
+    }
+
+    @Override
+    public int getCount(String searchMethod, String searchKeyword) {
+        return repository.count(searchMethod, searchKeyword);
     }
 
     @Override
@@ -68,8 +81,4 @@ public class ProductServiceImpl implements ProductService {
         return "Failed File Upload";
     }
 
-    @Override
-    public int getCount(String searchMetod,String searchKeyword) {
-        return repository.count(searchMetod,searchKeyword);
-    }
 }
