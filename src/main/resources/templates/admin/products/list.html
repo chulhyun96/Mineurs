@@ -11,7 +11,7 @@
     <title>Title</title>
   </head>
   <body>
-    <main layout:fragment="main" class="flex flex-col">
+    <main layout:fragment="main" class="flex flex-col container mx-auto px-10">
       <h1 class="font-bold text-3xl self-center">관리자 상품목록</h1>
       <!--    검색 -->
 
@@ -212,17 +212,20 @@
                 <td scope="col" th:text="${product.name}">상품 이름</td>
                 <td scope="col" th:text="${product.sellingPrice}">판매가</td>
                 <td scope="col" th:text="${product.supplyingPrice}">공급가</td>
-                <td scope="col" th:text="${product.description}">설명</td>
                 <td scope="col">
-                  <a href="" th:href="@{/admin/products/{id}(id=${product.id})}"
+                  <a
+                    href=""
+                    th:href="@{/admin/products/{id}(id=${product.id})}"
+                    class="flex justify-center"
                     ><img
                       id="imgId"
                       th:src="@{'/image/products/'+${product.img}}"
                       alt="첨부이미지"
-                      class="w:1"
+                      class="h-16"
                     />
                   </a>
                 </td>
+                <td scope="col" th:text="${product.description}">설명</td>
                 <td>No</td>
                 <td
                   scope="col"
@@ -249,7 +252,7 @@
       </section>
       <!-- 페이징 -->
       <section class="mb:5">
-        <h1 class="d:none">페이저</h1>
+        <h1 class="display:none hidden">페이저</h1>
         <ul
           class="join self-center flex space-x-4"
           style="display: flex; justify-content: center"
@@ -257,7 +260,7 @@
             , floatnum=(${page}-1)/5,
             intnum=${T(java.lang.Math).floor(floatnum)},
             startnum=${intnum}*5+1,
-            lastnum = ${count} mod 10 > 0 ? ${count / 10} + 1 : ${count / 10} + 0"
+            lastnum = ${count} mod 9 > 0 ? ${count / 9} + 1 : ${count / 9} + 0"
         >
           <li>
             <a

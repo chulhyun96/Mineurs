@@ -76,6 +76,7 @@ function handleFileLoad(e, imgPreview) {
     setTimeout(() => {
         img.classList.add("fade-in");
         img.classList.add("slide-in");
+        img.classList.add("w-56");
     }, 10);
 
     imgPreview.append(img);
