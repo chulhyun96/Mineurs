@@ -1,318 +1,319 @@
 <!DOCTYPE html>
 <html
-        lang="en"
-        html
-        layout:decorate="~{/admin/inc/layout}"
-        xmlns:layout="http://www.w3.org/1999/xhtml"
-        xmlns:th="http://www.thymeleaf.org"
+  lang="en"
+  html
+  layout:decorate="~{/admin/inc/layout}"
+  xmlns:layout="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
 >
-<head>
-    <meta charset="UTF-8"/>
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
-<main layout:fragment="main" class="flex flex-col">
-    <h1 class="font-bold text-3xl self-center">관리자 상품목록</h1>
-    <!--    검색 -->
-    <section class="overflow-x-auto w-full flex flex-col">
+  </head>
+  <body>
+    <main layout:fragment="main" class="flex flex-col">
+      <h1 class="font-bold text-3xl self-center">관리자 상품목록</h1>
+      <!--    검색 -->
+
+      <section class="overflow-x-auto w-full flex flex-col">
         <h1 class="text-2xl mb-0">결제 정보</h1>
         <table class="table">
-            <colgroup>
-                <col class="bg-base-300"/>
-            </colgroup>
+          <colgroup>
+            <col class="bg-base-300" />
+          </colgroup>
 
-            <tbody>
+          <tbody>
             <tr>
-                <td>검색분류</td>
+              <td>검색분류</td>
 
-                <td colspan="3">
-                    <div>
-                        <!--  검색 모듈 -->
-                        <form
-                                class="n-form md:n-field-label-position:left border:0 w:3/5 mx:auto my:10"
+              <td colspan="3">
+                <div>
+                  <!--  검색 모듈 -->
+                  <form
+                    class="n-form md:n-field-label-position:left border:0 w:3/5 mx:auto my:10"
+                  >
+                    <div class="join">
+                      <select
+                        class="select select-bordered join-item"
+                        name="searchMethod"
+                      >
+                        <option
+                          th:selected="${param.searchMethod} == 'title'"
+                          value="title"
                         >
-                            <div class="join">
-                                <select
-                                        class="select select-bordered join-item"
-                                        name="searchMethod"
-                                >
-                                    <option
-                                            th:selected="${param.searchMethod} == 'title'"
-                                            value="title"
-                                    >
-                                        제목
-                                    </option>
-                                    <option
-                                            th:selected="${{param.searchMethod}} == 'description'"
-                                            value="description"
-                                    >
-                                        내용
-                                    </option>
-                                </select>
-                                <div>
-                                    <div>
-                                        <input
-                                                type="text"
-                                                name="searchKeyword"
-                                                th:value="${#strings.trim(param.searchKeyword)}"
-                                                class="input input-bordered join-item"
-                                                placeholder="검색어를 입력하세요"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>상품분류</td>
-                <td colspan="3">
-                    <select class="select select-sm select-bordered">
-                        <option>Outwear</option>
-                        <option>Top</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>상품등록일</td>
-                <td colspan="3">
-                    <div class="flex space-x-5">
-                        <div class="flex space-x-1">
-                            <label
-                                    class="btn btn-outline btn-sm flex justify-center items-center"
-                            >
-                                <span>오늘</span>
-                                <input type="radio" name="radio-1" class="hidden"/>
-                            </label>
-                            <label
-                                    class="btn btn-outline btn-sm flex justify-center items-center"
-                            >
-                                <span>3일</span>
-                                <input type="radio" name="radio-1" class="hidden"/>
-                            </label>
-                            <label
-                                    class="btn btn-outline btn-sm flex justify-center items-center"
-                            >
-                                <span>7일</span>
-                                <input type="radio" name="radio-1" class="hidden"/>
-                            </label>
-                            <label
-                                    class="btn btn-outline btn-sm flex justify-center items-center"
-                            >
-                                <span>1개월</span>
-                                <input type="radio" name="radio-1" class="hidden"/>
-                            </label>
-                            <label
-                                    class="btn btn-outline btn-sm flex justify-center items-center"
-                            >
-                                <span>3개월</span>
-                                <input type="radio" name="radio-1" class="hidden"/>
-                            </label>
-                            <label
-                                    class="btn btn-outline btn-sm flex justify-center items-center"
-                            >
-                                <span>1년</span>
-                                <input type="radio" name="radio-1" class="hidden"/>
-                            </label>
-                            <label
-                                    class="btn btn-outline btn-sm flex justify-center items-center"
-                            >
-                                <span>전체</span>
-                                <input
-                                        type="radio"
-                                        name="radio-1"
-                                        class="hidden"
-                                        checked
-                                />
-                            </label>
+                          제목
+                        </option>
+                        <option
+                          th:selected="${{param.searchMethod}} == 'description'"
+                          value="description"
+                        >
+                          내용
+                        </option>
+                      </select>
+                      <div>
+                        <div>
+                          <input
+                            type="text"
+                            name="searchKeyword"
+                            th:value="${#strings.trim(param.searchKeyword)}"
+                            class="input input-bordered join-item"
+                            placeholder="검색어를 입력하세요"
+                          />
                         </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>상품분류</td>
+              <td colspan="3">
+                <select class="select select-sm select-bordered">
+                  <option>Outwear</option>
+                  <option>Top</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>상품등록일</td>
+              <td colspan="3">
+                <div class="flex space-x-5">
+                  <div class="flex space-x-1">
+                    <label
+                      class="btn btn-outline btn-sm flex justify-center items-center"
+                    >
+                      <span>오늘</span>
+                      <input type="radio" name="radio-1" class="hidden" />
+                    </label>
+                    <label
+                      class="btn btn-outline btn-sm flex justify-center items-center"
+                    >
+                      <span>3일</span>
+                      <input type="radio" name="radio-1" class="hidden" />
+                    </label>
+                    <label
+                      class="btn btn-outline btn-sm flex justify-center items-center"
+                    >
+                      <span>7일</span>
+                      <input type="radio" name="radio-1" class="hidden" />
+                    </label>
+                    <label
+                      class="btn btn-outline btn-sm flex justify-center items-center"
+                    >
+                      <span>1개월</span>
+                      <input type="radio" name="radio-1" class="hidden" />
+                    </label>
+                    <label
+                      class="btn btn-outline btn-sm flex justify-center items-center"
+                    >
+                      <span>3개월</span>
+                      <input type="radio" name="radio-1" class="hidden" />
+                    </label>
+                    <label
+                      class="btn btn-outline btn-sm flex justify-center items-center"
+                    >
+                      <span>1년</span>
+                      <input type="radio" name="radio-1" class="hidden" />
+                    </label>
+                    <label
+                      class="btn btn-outline btn-sm flex justify-center items-center"
+                    >
+                      <span>전체</span>
+                      <input
+                        type="radio"
+                        name="radio-1"
+                        class="hidden"
+                        checked
+                      />
+                    </label>
+                  </div>
 
-                        <div class="flex space-x-1 items-center">
-                            <input type="date" name="startDate"/>
-                            <span>~</span>
-                            <input type="date" name="endDate"/>
-                        </div>
-                    </div>
-                </td>
+                  <div class="flex space-x-1 items-center">
+                    <input type="date" name="startDate" />
+                    <span>~</span>
+                    <input type="date" name="endDate" />
+                  </div>
+                </div>
+              </td>
             </tr>
             <tr>
-                <td>진열상태</td>
-                <td>
-                    <div class="form-control flex flex-row space-x-2">
-                        <label class="label cursor-pointer space-x-1">
-                            <input type="radio" name="radio-10" class="radio" checked/>
-                            <span class="label-text">전체</span>
-                        </label>
-                        <label class="label cursor-pointer space-x-1">
-                            <input type="radio" name="radio-10" class="radio"/>
-                            <span class="label-text">진열함</span>
-                        </label>
-                        <label class="label cursor-pointer space-x-1">
-                            <input type="radio" name="radio-10" class="radio"/>
-                            <span class="label-text">진열안함</span>
-                        </label>
-                    </div>
-                </td>
-                <td class="bg-base-300">판매상태</td>
-                <td>
-                    <div class="form-control flex flex-row space-x-2">
-                        <label class="label cursor-pointer space-x-1">
-                            <input type="radio" name="radio-10" class="radio" checked/>
-                            <span class="label-text">전체</span>
-                        </label>
-                        <label class="label cursor-pointer space-x-1">
-                            <input type="radio" name="radio-10" class="radio"/>
-                            <span class="label-text">판매함</span>
-                        </label>
-                        <label class="label cursor-pointer space-x-1">
-                            <input type="radio" name="radio-10" class="radio"/>
-                            <span class="label-text">판매안함</span>
-                        </label>
-                    </div>
-                </td>
+              <td>진열상태</td>
+              <td>
+                <div class="form-control flex flex-row space-x-2">
+                  <label class="label cursor-pointer space-x-1">
+                    <input type="radio" name="radio-10" class="radio" checked />
+                    <span class="label-text">전체</span>
+                  </label>
+                  <label class="label cursor-pointer space-x-1">
+                    <input type="radio" name="radio-10" class="radio" />
+                    <span class="label-text">진열함</span>
+                  </label>
+                  <label class="label cursor-pointer space-x-1">
+                    <input type="radio" name="radio-10" class="radio" />
+                    <span class="label-text">진열안함</span>
+                  </label>
+                </div>
+              </td>
+              <td class="bg-base-300">판매상태</td>
+              <td>
+                <div class="form-control flex flex-row space-x-2">
+                  <label class="label cursor-pointer space-x-1">
+                    <input type="radio" name="radio-10" class="radio" checked />
+                    <span class="label-text">전체</span>
+                  </label>
+                  <label class="label cursor-pointer space-x-1">
+                    <input type="radio" name="radio-10" class="radio" />
+                    <span class="label-text">판매함</span>
+                  </label>
+                  <label class="label cursor-pointer space-x-1">
+                    <input type="radio" name="radio-10" class="radio" />
+                    <span class="label-text">판매안함</span>
+                  </label>
+                </div>
+              </td>
             </tr>
-            </tbody>
+          </tbody>
         </table>
         <div class="self-center flex space-x-2">
-            <button class="btn btn-wide">검색</button>
-            <button class="btn btn-wide btn-outline">초기화</button>
+          <button class="btn btn-wide">검색</button>
+          <button class="btn btn-wide btn-outline">초기화</button>
         </div>
-    </section>
+      </section>
 
-    <!--    리스트-->
-    <section class="mt-10">
+      <!--    리스트-->
+      <section class="mt-10">
         <h1 class="text-2xl mb-0">상품 목록</h1>
         <div class="overflow-x-auto w-full">
-            <table class="table table-zebra text-center">
-                <!-- head -->
-                <thead>
-                <tr>
-                    <th scope="col" class="w:2"></th>
-                    <th scope="col">상품 이름</th>
-                    <th scope="col">판매가</th>
-                    <th scope="col">공급가</th>
-                    <th scope="col">이미지</th>
-                    <th scope="col">설명</th>
-                    <th scope="col">등록일자</th>
-                </tr>
-                </thead>
+          <table class="table table-zebra text-center">
+            <!-- head -->
+            <thead>
+              <tr>
+                <th scope="col" class="w:2"></th>
+                <th scope="col">상품 이름</th>
+                <th scope="col">판매가</th>
+                <th scope="col">공급가</th>
+                <th scope="col">이미지</th>
+                <th scope="col">설명</th>
+                <th scope="col">등록일자</th>
+              </tr>
+            </thead>
 
-                <tbody>
-                <tr th:each="product: ${list}">
-                    <td scope="col">
-                        <input
-                                name="deleteId"
-                                type="checkbox"
-                                class="checkbox"
-                                th:value="${product.id}"
-                        />
-                    </td>
-                    <td scope="col" th:text="${product.name}">상품 이름</td>
-                    <td scope="col" th:text="${product.sellingPrice}">판매가</td>
-                    <td scope="col" th:text="${product.supplyingPrice}">공급가</td>
-                    <td scope="col" th:text="${product.description}">설명</td>
-                    <td scope="col">
-                        <a th:href="@{/admin/products/{id}(id=${product.id})}"
-                        ><img
-                                id="imgId"
-                                th:src="@{'/image/products/'+${product.img}}"
-                                alt="첨부이미지"
-                                class="h:16"
-                        />
-                        </a>
-                    </td>
-                    <td>No</td>
-                    <td
-                            scope="col"
-                            th:text="${#dates.format(product.regDate, 'yyyy년 M월 d일') }"
-                    >
-                        등록일자
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <tbody>
+              <tr th:each="product: ${list}">
+                <td scope="col">
+                  <input
+                    name="deleteId"
+                    type="checkbox"
+                    class="checkbox"
+                    th:value="${product.id}"
+                  />
+                </td>
+                <td scope="col" th:text="${product.name}">상품 이름</td>
+                <td scope="col" th:text="${product.sellingPrice}">판매가</td>
+                <td scope="col" th:text="${product.supplyingPrice}">공급가</td>
+                <td scope="col" th:text="${product.description}">설명</td>
+                <td scope="col">
+                  <a href="" th:href="@{/admin/products/{id}(id=${product.id})}"
+                    ><img
+                      id="imgId"
+                      th:src="@{'/image/products/'+${product.img}}"
+                      alt="첨부이미지"
+                      class="w:1"
+                    />
+                  </a>
+                </td>
+                <td>No</td>
+                <td
+                  scope="col"
+                  th:text="${#dates.format(product.regDate, 'yyyy년 M월 d일') }"
+                >
+                  등록일자
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div class="flex justify-between">
-            <div class="flex space-x-1">
-                <button class="btn btn-outline btn-sm">진열함</button>
-                <button class="btn btn-outline btn-sm">진열안함</button>
-                <button class="btn btn-outline btn-sm">판매함</button>
-                <button class="btn btn-outline btn-sm">판매안함</button>
-                <button class="btn btn-outline btn-sm">삭제</button>
-            </div>
-            <div class="flex justify-end">
-                <button class="btn">상품등록</button>
-            </div>
+          <div class="flex space-x-1">
+            <button class="btn btn-outline btn-sm">진열함</button>
+            <button class="btn btn-outline btn-sm">진열안함</button>
+            <button class="btn btn-outline btn-sm">판매함</button>
+            <button class="btn btn-outline btn-sm">판매안함</button>
+            <button class="btn btn-outline btn-sm">삭제</button>
+          </div>
+          <div class="flex justify-end">
+            <button class="btn">상품등록</button>
+          </div>
         </div>
-    </section>
-    <!-- 페이징 -->
-    <section class="mb:5">
+      </section>
+      <!-- 페이징 -->
+      <section class="mb:5">
         <h1 class="d:none">페이저</h1>
         <ul
-                class="join self-center flex space-x-4"
-                style="display: flex; justify-content: center"
-                th:with="page = (${param.page} == null)? 1 : ${{param.page}}
+          class="join self-center flex space-x-4"
+          style="display: flex; justify-content: center"
+          th:with="page = (${param.page} == null)? 1 : ${{param.page}}
             , floatnum=(${page}-1)/5,
             intnum=${T(java.lang.Math).floor(floatnum)},
             startnum=${intnum}*5+1,
             lastnum = ${count} mod 10 > 0 ? ${count / 10} + 1 : ${count / 10} + 0"
         >
-            <li>
-                <a
-                        th:if="${page} ge 6 and ${param.searchKeyword} != null"
-                        href="products?p=1"
-                        th:href="@{./products(page=${startnum}-1,searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword})}"
-                >이전</a
-                >
-                <a
-                        th:if="${page} ge 6 and ${param.searchKeyword} == null"
-                        href="products?p=1"
-                        th:href="@{./products(page=${startnum}-1)}"
-                >이전</a
-                >
-            </li>
-
-            <li
-                    th:each="n : ${#numbers.sequence(startnum,startnum+4)}"
-                    th:class="${{page}} eq ${n}? 'active'"
+          <li>
+            <a
+              th:if="${page} ge 6 and ${param.searchKeyword} != null"
+              href="products?p=1"
+              th:href="@{./products(page=${startnum}-1,searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword})}"
+              >이전</a
             >
-                <a
-                        class="join-item btn"
-                        th:if="${n le lastnum and param.searchKeyword != null}"
-                        href="products?p=1"
-                        th:href="@{./products(page=${n},searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword})}"
-                        th:text="${n}"
-                >1</a
-                >
-                <a
-                        class="join-item btn"
-                        th:if="${n le lastnum and param.searchKeyword == null}"
-                        href="products?p=1"
-                        th:href="@{./products(page=${n})}"
-                        th:text="${n}"
-                >1</a
-                >
-            </li>
-            <li>
-                <a
-                        class="join-item btn"
-                        th:if="${startnum+5 le lastnum and param.searchKeyword != null}"
-                        href="products?p=12"
-                        th:href="@{./products(page=${startnum}+5,searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword})}"
-                >다음</a
-                >
-                <a
-                        class="join-item btn"
-                        th:if="${startnum+5 le lastnum and param.searchKeyword == null}"
-                        href="products?p=12"
-                        th:href="@{./products(page=${startnum}+5)}"
-                >다음</a
-                >
-            </li>
+            <a
+              th:if="${page} ge 6 and ${param.searchKeyword} == null"
+              href="products?p=1"
+              th:href="@{./products(page=${startnum}-1)}"
+              >이전</a
+            >
+          </li>
+
+          <li
+            th:each="n : ${#numbers.sequence(startnum,startnum+4)}"
+            th:class="${{page}} eq ${n}? 'active'"
+          >
+            <a
+              class="join-item btn"
+              th:if="${n le lastnum and param.searchKeyword != null}"
+              href="products?p=1"
+              th:href="@{./products(page=${n},searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword})}"
+              th:text="${n}"
+              >1</a
+            >
+            <a
+              class="join-item btn"
+              th:if="${n le lastnum and param.searchKeyword == null}"
+              href="products?p=1"
+              th:href="@{./products(page=${n})}"
+              th:text="${n}"
+              >1</a
+            >
+          </li>
+          <li>
+            <a
+              class="join-item btn"
+              th:if="${startnum+5 le lastnum and param.searchKeyword != null}"
+              href="products?p=12"
+              th:href="@{./products(page=${startnum}+5,searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword})}"
+              >다음</a
+            >
+            <a
+              class="join-item btn"
+              th:if="${startnum+5 le lastnum and param.searchKeyword == null}"
+              href="products?p=12"
+              th:href="@{./products(page=${startnum}+5)}"
+              >다음</a
+            >
+          </li>
         </ul>
-    </section>
-    <!-- 페이징 -->
-</main>
-</body>
+      </section>
+      <!-- 페이징 -->
+    </main>
+  </body>
 </html>
