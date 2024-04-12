@@ -29,10 +29,11 @@ private final MemberService memberService;
     public String index(@RequestParam(required = false) String searchMethod
             , @RequestParam(defaultValue = "1") Integer page
             , @RequestParam(defaultValue = "") String searchKeyword
+            , @RequestParam(defaultValue = "0") Long categoryId
             , Model model) {
 
-        int count = service.getCount(searchMethod,searchKeyword);
-        List<ProductView> list = service.getList(page, searchMethod, searchKeyword);
+        int count = service.getCount(searchMethod,searchKeyword,categoryId);
+        List<ProductView> list = service.getList(page, searchMethod, searchKeyword, categoryId);
         List<Category> categoryList = categoryService.getList();
         model.addAttribute("list", list);
         model.addAttribute("count", count);

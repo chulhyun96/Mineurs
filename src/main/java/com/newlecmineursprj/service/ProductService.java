@@ -9,10 +9,10 @@ import java.util.Optional;
 
 public interface ProductService {
     List<ProductView> getList(Integer page, String searchMethod, String searchKeyword);
-    ProductView getById(Long id);
+    Product getById(Long id);
     String saveProductImg(MultipartFile img, String realPath);
     void reg(Product product);
-    void edit(ProductView product);
+    void edit(Product product);
     void deleteAllById(List<Long> deleteId);
     int getCount(String searchMethod, String searchKeyword);
 }

@@ -20,9 +20,10 @@
     </resultMap>
 
     <select id="findAll" resultMap="ProductView">
-        SELECT id, name, reg_date, selling_price, supplying_price, img, description, category_id, category_name, di_id, path, di_product_id
+        SELECT 
+        id, name, reg_date, selling_price, supplying_price, img, description, 
+        category_id, category_name, di_id, path, di_product_id
         FROM product_view
-        GROUP BY id
         <where>
             <if test="searchMethod == 'title'">
                 name like '%${searchKeyword}%'
@@ -30,7 +31,11 @@
             <if test="searchMethod == 'description'">
                 description like '%${searchKeyword}%'
             </if>
+            <if test="categoryId != 0">
+                and category_id = #{categoryId}
+            </if>
         </where>
+        GROUP BY id
         ORDER BY id DESC
         limit #{offset},#{size}
     </select>
@@ -50,9 +55,11 @@
             <if test="searchMethod == 'title'">
                 name like '%${searchKeyword}%'
             </if>
-
             <if test="searchMethod == 'description'">
                 description like '%${searchKeyword}%'
+            </if>
+            <if test="categoryId != 0">
+                and category_id = #{categoryId}
             </if>
         </where>
 	</select>
