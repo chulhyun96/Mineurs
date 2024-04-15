@@ -1,3 +1,7 @@
+li{
+    list-style-type: none;
+}
+
 .n-modal {
     transition: transform 0.13s, opacity 0.13s;
 }

@@ -8,20 +8,24 @@
     <title>Board</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="/css/admin/post/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/admin/board/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="/js/admin/post/list.js"></script>
+    <script src="/js/admin/board/list.js"></script>
 </head>
 <body class="h-full w-full">
     <main layout:fragment="main" class="flex flex-col container mx-auto px-10">
         <h1 class="font-bold text-3xl self-center">관리자 게시글목록</h1>
         <section class="overflow-x-auto w-full flex flex-col">
-            <h1 class="text-2xl mb-0">결제 정보</h1>
+            <h1 class="text-2xl mb-0">게시물 관리</h1>
             <form
                     method="get"
                     action="products"
                     class="n-form md:n-field-label-position:left border:0 w:3/5 mx:auto my:10"
             >
+                <ul class="flex bg-base-300">
+                    <li class="px-10">전체 게시물 보기</li>
+                    <li>전체 댓글 보기</li>
+                </ul>
                 <table class="table">
                     <colgroup>
                         <col class="bg-base-300" />
@@ -68,10 +72,17 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>상품분류</td>
-                        <td colspan="3">
+                        <td>게시판 선택</td>
+                        <td colspan="">
                             <select class="select select-sm select-bordered" name="categoryId">
-                                <option value="0" th:selected="${categoryId == 0}">All</option>
+                                <option value="0" th:selected="${categoryId == 0}">전체목록</option>
+                                <option th:each="category: ${categories}"
+                                        th:value="${category.id}"
+                                        th:text="${category.name}"
+                                        th:selected="${categoryId == category.id}"></option>
+                            </select>
+                            <select class="select select-sm select-bordered" name="categoryId">
+                                <option value="0" th:selected="${categoryId == 0}">카테고리 전체</option>
                                 <option th:each="category: ${categories}"
                                         th:value="${category.id}"
                                         th:text="${category.name}"
@@ -80,7 +91,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>상품등록일</td>
+                        <td>작성일</td>
                         <td colspan="3">
                             <div class="flex space-x-5">
                                 <div class="flex space-x-1">
@@ -108,29 +119,6 @@
                                         <span>1개월</span>
                                         <input type="radio"  class="hidden" />
                                     </label>
-                                    <label
-                                            class="btn btn-outline btn-sm flex justify-center items-center"
-                                    >
-                                        <span>3개월</span>
-                                        <input type="radio"  class="hidden" />
-                                    </label>
-                                    <label
-                                            class="btn btn-outline btn-sm flex justify-center items-center"
-                                    >
-                                        <span>1년</span>
-                                        <input type="radio"  class="hidden" />
-                                    </label>
-                                    <label
-                                            class="btn btn-outline btn-sm flex justify-center items-center"
-                                    >
-                                        <span>전체</span>
-                                        <input
-                                                type="radio"
-
-                                                class="hidden"
-                                                checked
-                                        />
-                                    </label>
                                 </div>
 
                                 <div class="flex space-x-1 items-center">
@@ -142,7 +130,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>진열상태</td>
+                        <td>답변상태</td>
                         <td>
                             <div class="form-control flex flex-row space-x-2">
                                 <label class="label cursor-pointer space-x-1">
@@ -151,15 +139,19 @@
                                 </label>
                                 <label class="label cursor-pointer space-x-1">
                                     <input type="radio"  class="radio" />
-                                    <span class="label-text">진열함</span>
+                                    <span class="label-text">답변 전</span>
                                 </label>
                                 <label class="label cursor-pointer space-x-1">
                                     <input type="radio"  class="radio" />
-                                    <span class="label-text">진열안함</span>
+                                    <span class="label-text">처리중</span>
+                                </label>
+                                <label class="label cursor-pointer space-x-1">
+                                    <input type="radio"  class="radio" checked />
+                                    <span class="label-text">답변 완료</span>
                                 </label>
                             </div>
                         </td>
-                        <td class="bg-base-300">판매상태</td>
+                        <td class="bg-base-300">댓글여부</td>
                         <td>
                             <div class="form-control flex flex-row space-x-2">
                                 <label class="label cursor-pointer space-x-1">
@@ -168,11 +160,11 @@
                                 </label>
                                 <label class="label cursor-pointer space-x-1">
                                     <input type="radio"  class="radio" />
-                                    <span class="label-text">판매함</span>
+                                    <span class="label-text">있음</span>
                                 </label>
                                 <label class="label cursor-pointer space-x-1">
                                     <input type="radio"  class="radio" />
-                                    <span class="label-text">판매안함</span>
+                                    <span class="label-text">없음</span>
                                 </label>
                             </div>
                         </td>
@@ -217,8 +209,40 @@
                         <td scope="row" th:text="${board.id}">1</td>
                         <td>Q&A</td>
                         <td th:text="${board.title}">제목</td>
-                        <td th:text="((${{board.status}} == '1')) ? '답변완료':'-'">답변완료</td>
-                        <td><button id="modal-btn" type="button" class="preview n-btn" th:data-id="${board.id}">미리보기</button></button></td>
+                        <td th:text="((${{board.status}} == '1')) ? '-':'답변완료'">답변완료</td>
+                        <td>
+<!--                            <button id="modal-btn" type="button" class="preview n-btn" th:data-id="${board.id}">-->
+<!--                            미리보기-->
+<!--                            </button>-->
+                            <button class="btn" onclick="my_modal_1.showModal()">미리보기</button>
+                            <dialog id="my_modal_1" class="modal">
+                                <div class="modal-box">
+                                    <h3 class="font-bold text-lg">게시글 내용 미리보기</h3>
+                                    <div class="my-3">
+                                        <strong>제목</strong>
+                                        <span class="pl-5" th:text="${board.title}"></span>
+                                    </div>
+                                    <div class="my-3">
+                                        <strong>작성자</strong>
+                                        <span th:text="${board.writer}"></span>
+                                    </div>
+                                    <div class="my-3">
+                                        <strong>답변상태</strong>
+                                        <span th:text="${board.status}"></span>
+                                    </div>
+                                    <div class="my-3 line-clamp-6">
+                                        <strong class="block mb-3">원글</strong>
+                                        <span th:text="${board.content}"></span>
+                                    </div>
+                                    <div class="my-3">
+                                        <form method="dialog">
+                                            <!-- if there is a button in form, it will close the modal -->
+                                            <button class="btn">Close</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </dialog>
+                        </td>
                         <td><button class="n-btn">답변하기</button></td>
                         <td th:text="${board.writer}">작성자</td>
                     </tr>
@@ -228,17 +252,15 @@
         </section>
 
 
-            <div class="d:flex jc:end mt:3">
-                <div class="mr:3">
-                    <a href="members/reg" class="n-btn n-btn-size:3"> 등록 </a>
-                </div>
-                <button class="n-btn n-btn-size:3 n-btn-color:accent mr:3">
-                    삭제
-                </button>
+        <div class="flex justify-between">
+            <div class="flex space-x-1">
+                <button class="btn btn-outline btn-sm">공지글 등록</button>
+                <button class="btn btn-outline btn-sm">공지 해제</button>
+                <button class="btn btn-outline btn-sm">삭제</button>
             </div>
-        </form>
+        </div>
 
-    <section class="n-modal d:none" tabindex="-1">
+    <section class="modal hidden" tabindex="-1">
         <h1 class="n-font:h3 font-weight:3">게시글 미리보기</h1>
 
         <div class="mt:8 text-a:center modal-content">Hello World</div>
