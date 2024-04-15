@@ -34,6 +34,7 @@ build/
 
 ### 디비정보 삭제
 application.yml
+application-*.yml
 
 # Logs
 logs
