@@ -3,6 +3,7 @@ package com.newlecmineursprj.controller.admin;
 import java.util.List;
 
 import com.newlecmineursprj.dto.ProductListDTO;
+import com.newlecmineursprj.entity.ProductSubImg;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -98,9 +99,11 @@ public class ProductController {
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
         List<Category> categories = categoryService.getList();
-        ProductView product = service.getById(id);
+        Product product = service.getById(id);
+        List<ProductSubImg> subImgs = productSubImgService.getListByProductId(id);
         model.addAttribute("categories", categories);
         model.addAttribute("product", product);
+        model.addAttribute("subImgs", subImgs);
         return PRODUCTS_VIEW + "/detail";
     }
 

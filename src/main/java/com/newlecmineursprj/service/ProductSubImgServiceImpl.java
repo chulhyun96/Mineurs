@@ -31,6 +31,10 @@ public class ProductSubImgServiceImpl implements ProductSubImgService {
         repository.reg(productSubImgList);
     }
 
+    public List<ProductSubImg> getListByProductId(long productId){
+        return repository.findAll(productId);
+    }
+
     private boolean isEmpty(MultipartFile[] multipartFiles) {
         return multipartFiles[0].isEmpty();
     }

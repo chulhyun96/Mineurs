@@ -35,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductView getById(Long id) {
+    public Product getById(Long id) {
         return repository.findById(id);
     }
 

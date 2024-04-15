@@ -37,21 +37,21 @@
               type="text"
               name="sellingPrice"
               required
-              th:value="${product.sellingPrice}"
+              th:value="${product.price}"
             />
           </label>
         </div>
-        <div>
-          <label>
-            <span>공급가</span>
-            <input
-              type="text"
-              name="supplyingPrice"
-              required
-              th:value="${product.supplyingPrice}"
-            />
-          </label>
-        </div>
+<!--        <div>-->
+<!--          <label>-->
+<!--            <span>공급가</span>-->
+<!--            <input-->
+<!--              type="text"-->
+<!--              name="supplyingPrice"-->
+<!--              required-->
+<!--              th:value="${product.supplyingPrice}"-->
+<!--            />-->
+<!--          </label>-->
+<!--        </div>-->
         <div>
           <label>
             <span>상품 설명</span>
@@ -79,7 +79,7 @@
               >
                 <img
                   id="imgId"
-                  th:src="@{'/image/products/'+${product.img}}"
+                  th:src="@{'/image/products/'+${product.imgPath}}"
                   alt="첨부이미지"
                   class="w-full h-full"
                 />
@@ -98,7 +98,7 @@
             <span>디테일 사진</span>
             <span class="sub-img-box d:flex flex-direction:row items-center">
               <img
-                th:each="subimg : ${product.productSubImgs}"
+                th:each="subimg : ${subImgs}"
                 src=""
                 alt=""
                 th:src="@{'/image/subImg/'+${subimg.path}}"

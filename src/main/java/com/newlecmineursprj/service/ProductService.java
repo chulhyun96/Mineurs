@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface ProductService {
     List<ProductListDTO> getList(Integer page, String searchMethod, String searchKeyword, long categoryId);
-    ProductView getById(Long id);
+    Product getById(Long id);
     String saveProductImg(MultipartFile img, String realPath);
     void reg(Product product);
     void edit(ProductView product);

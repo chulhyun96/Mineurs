@@ -50,12 +50,12 @@
 <!--        limit #{offset},#{size}-->
     </select>
 
-<!--    <select id="findById" resultMap="ProductView">-->
-<!--        SELECT-->
-<!--        *-->
-<!--        FROM product_view-->
-<!--        where id = #{id}-->
-<!--    </select>-->
+    <select id="findById" resultType="Product">
+        SELECT
+        *
+        FROM product
+        where id = #{id}
+    </select>
 
     <select id="count" resultType="int">
 		select

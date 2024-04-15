@@ -10,4 +10,8 @@
             (#{productSubImg.path}, #{productSubImg.productId})
         </foreach>
     </insert>
+
+    <select id="findAll" resultType="ProductSubImg">
+        select * from product_sub_img where product_id = #{productId}
+    </select>
 </mapper>
