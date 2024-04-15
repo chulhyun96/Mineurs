@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @RequestMapping("admin/board")
-@Controller
+@Controller("adminBoardController")
 public class BoardController {
     @Autowired
     BoardService service;
