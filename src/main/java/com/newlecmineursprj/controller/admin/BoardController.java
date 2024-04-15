@@ -19,12 +19,12 @@ public class BoardController {
     public String list(Model model) {
         List<Board> list = service.getPostList();
         model.addAttribute("list", list);
-        return "admin/post/list";
+        return "admin/board/list";
     }
 
     @GetMapping("preview")
     public String regForm() {
 
-        return "admin/post/preview";
+        return "admin/board/preview";
     }
 }
