@@ -71,11 +71,12 @@
               <td>상품분류</td>
               <td colspan="3">
                 <select class="select select-sm select-bordered" name="categoryId">
-                  <option value="0" th:selected="${categoryId == 0}">All</option>
-                  <option th:each="category: ${categories}" 
-                          th:value="${category.id}" 
-                          th:text="${category.name}"
-                          th:selected="${categoryId == category.id}"></option>
+                  <option value="0" th:selected="${{param.categoryId}} == 0">All</option>
+                  <option th:each="c: ${categories}" 
+                          th:value="${c.id}" 
+                          th:text="${c.name}"
+                          th:selected="${{param.categoryId}} == ${c.id}"
+                          ></option>
                 </select>
               </td>
             </tr>
