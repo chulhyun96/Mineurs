@@ -2,6 +2,7 @@ package com.newlecmineursprj.controller.admin;
 
 import java.util.List;
 
+import com.newlecmineursprj.dto.ProductListDTO;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,10 +47,9 @@ public class ProductController {
             Model model) {
 
         int count = service.getCount(searchMethod, searchKeyword.trim(),categoryId);
-        List<ProductView> list = service.getList(page, searchMethod, searchKeyword.trim(), categoryId);
+        List<ProductListDTO> list = service.getList(page, searchMethod, searchKeyword.trim(), categoryId);
         List<Category> categories = categoryService.getList();
-        
-        
+
         model.addAttribute("list", list);
         model.addAttribute("count", count);
         model.addAttribute("categories",categories);
@@ -112,13 +112,13 @@ public class ProductController {
 
     @PostMapping("/{id}/edit")
     public String edit(MultipartFile img,HttpServletRequest req,ProductView updateProduct) {
-        log.info("Updating product {}", updateProduct);
-        log.info("Updating product.getImg {}", updateProduct.getImg());
-        log.info("MultipartFile img = {}", img.getOriginalFilename());
-        String mainImgPath = "/image/products";
-        String fileUploadResult = saveToDir(img, req, mainImgPath);
-
-        updateProduct.setImg(fileUploadResult);
+//        log.info("Updating product {}", updateProduct);
+//        log.info("Updating product.getImg {}", updateProduct.getImg());
+//        log.info("MultipartFile img = {}", img.getOriginalFilename());
+//        String mainImgPath = "/image/products";
+//        String fileUploadResult = saveToDir(img, req, mainImgPath);
+//
+//        updateProduct.setImg(fileUploadResult);
         /*service.edit(updateProduct);*/
         return REDIRECT + PRODUCTS_VIEW;
     }

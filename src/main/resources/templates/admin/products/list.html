@@ -72,8 +72,8 @@
               <td colspan="3">
                 <select class="select select-sm select-bordered" name="categoryId">
                   <option value="0" th:selected="${{param.categoryId}} == 0">All</option>
-                  <option th:each="c: ${categories}" 
-                          th:value="${c.id}" 
+                  <option th:each="c: ${categories}"
+                          th:value="${c.id}"
                           th:text="${c.name}"
                           th:selected="${{param.categoryId}} == ${c.id}"
                           ></option>
@@ -191,56 +191,71 @@
       <section class="mt-10">
         <h1 class="text-2xl mb-0">상품 목록</h1>
         <div class="overflow-x-auto w-full">
-          <table class="table table-zebra text-center">
-            <!-- head -->
-            <thead>
-              <tr>
-                <th scope="col" class="w:2"></th>
-                <th scope="col">카테고리 이름</th>
-                <th scope="col">상품 이름</th>
-                <th scope="col">판매가</th>
-                <th scope="col">공급가</th>
-                <th scope="col">이미지</th>
-                <th scope="col">설명</th>
-                <th scope="col">등록일자</th>
-              </tr>
-            </thead>
+            <table class="table table-zebra text-center">
+                <!-- head -->
+                <thead>
+                <tr>
+                    <th scope="col" class="w:2"></th>
+                    <!--                <th scope="col">카테고리 이름</th>-->
+                    <th scope="col">상품 이름</th>
+                    <th scope="col">판매가</th>
+                    <!--                <th scope="col">공급가</th>-->
+                    <th scope="col">이미지</th>
+                    <th scope="col">컬러</th>
+                    <th scope="col">사이즈</th>
+                    <!--                <th scope="col">설명</th>-->
+                    <th scope="col">등록일자</th>
+                </tr>
+                </thead>
 
-            <tbody>
-              <tr th:each="product: ${list}">
-                <td scope="col">
-                  <input
-                    name="deleteId"
-                    type="checkbox"
-                    class="checkbox"
-                    th:value="${product.id}"
-                  />
-                </td>
-                <td scope="col" th:text="${product.categoryName}">카테고리 이름</td>
-                <td scope="col" th:text="${product.name}">상품 이름</td>
-                <td scope="col" th:text="${product.sellingPrice}">판매가</td>
-                <td scope="col" th:text="${product.supplyingPrice}">공급가</td>
-                <td scope="col" th:text="${product.description}">설명</td>
-                <td scope="col">
-                  <a href="" th:href="@{/admin/products/{id}(id=${product.id})}"
-                    ><img
-                      id="imgId"
-                      th:src="@{'/image/products/'+${product.img}}"
-                      alt="첨부이미지"
-                      class="w:1"
-                    />
-                  </a>
-                </td>
-                <td>No</td>
-                <td
-                  scope="col"
-                  th:text="${#dates.format(product.regDate, 'yyyy년 M월 d일') }"
-                >
-                  등록일자
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                <tbody>
+                <tr th:each="product: ${list}">
+                    <td scope="col">
+                        <input
+                                name="deleteId"
+                                type="checkbox"
+                                class="checkbox"
+                                th:value="${product.id}"
+                        />
+                    </td>
+                    <!--                <td scope="col" th:text="${product.categoryName}">카테고리 이름</td>-->
+                    <td scope="col" th:text="${product.name}">상품 이름</td>
+                    <td scope="col" th:text="${product.price}">판매가</td>
+                    <!--                <td scope="col" th:text="${product.supplyingPrice}">공급가</td>-->
+                    <!--                <td scope="col" th:text="${product.description}">설명</td>-->
+                    <td scope="col">
+                        <a href="" th:href="@{/admin/products/{id}(id=${product.id})}"
+                        ><img
+                                id="imgId"
+                                th:src="@{'/image/products/'+${product.img}}"
+                                alt="첨부이미지"
+                                class="w:1"
+                        />
+                        </a>
+                    </td>
+                    <td scope="col">
+                        <div class="flex items-center justify-center">
+                            <div th:each="color:${product.colors}" class="w-4 h-4"
+                                 th:style="'background-color:' + ${color.hexCode}">
+                            </div>
+                        </div>
+                    </td>
+                    <td scope="col">
+                        <div class="flex items-center justify-center">
+                            <div th:each="size:${product.sizes}" class="w-4 h-4" th:text="${size.engName}">
+                            </div>
+                        </div>
+                    </td>
+                    <!--                <td>No</td>-->
+                    <td
+                            scope="col"
+                            th:text="${#dates.format(product.regDate, 'yyyy년 M월 d일') }"
+                    >
+                        등록일자
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
         <div class="flex justify-between">
           <div class="flex space-x-1">
