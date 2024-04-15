@@ -1,5 +1,6 @@
 package com.newlecmineursprj.service;
 
+import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.Product;
 import com.newlecmineursprj.entity.ProductView;
 import org.springframework.web.multipart.MultipartFile;
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProductService {
-    List<ProductView> getList(Integer page, String searchMethod, String searchKeyword, long categoryId);
+    List<ProductListDTO> getList(Integer page, String searchMethod, String searchKeyword, long categoryId);
     ProductView getById(Long id);
     String saveProductImg(MultipartFile img, String realPath);
     void reg(Product product);

@@ -1,5 +1,6 @@
 package com.newlecmineursprj.controller;
 
+import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.Category;
 import com.newlecmineursprj.entity.Member;
 import com.newlecmineursprj.entity.ProductView;
@@ -33,7 +34,7 @@ private final MemberService memberService;
             , Model model) {
 
         int count = service.getCount(searchMethod,searchKeyword,categoryId);
-        List<ProductView> list = service.getList(page, searchMethod, searchKeyword, categoryId);
+        List<ProductListDTO> list = service.getList(page, searchMethod, searchKeyword, categoryId);
         List<Category> categoryList = categoryService.getList();
         model.addAttribute("list", list);
         model.addAttribute("count", count);

@@ -4,26 +4,36 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.newlecmineursprj.repository.ProductRepository">
     <resultMap id="ProductView" type="ProductView">
-        <id property="id" column="id"/>
+        <id column="id" property="id" />
         <result property="name" column="name"/>
+        <result property="img" column="main_img_path"/>
+        <result property="isSold" column="is_sold"/>
+        <result property="price" column="price"/>
+        <result property="discountRate" column="discount_rate"/>
+        <result property="isDeliveryToday" column="is_delivery_today"/>
         <result property="regDate" column="reg_date"/>
-        <result property="sellingPrice" column="selling_price"/>
-        <result property="supplyingPrice" column="supplying_price"/>
-        <result property="img" column="img"/>
-        <result property="description" column="description"/>
-        <result property="categoryName" column="category_name"/>
+        <result property="likeCount" column="like_count"/>
+        <result property="currentUserLiked" column="current_user_liked"/>
 
-        <collection property="productSubImgs" ofType="ProductSubImg">
-            <id property="id" column="di_id"/>
-            <result property="path" column="path"/>
+        <collection property="colors" ofType="Color">
+            <id property="id" column="c_id"/>
+            <result property="korName" column="c_kor_name"/>
+            <result property="engName" column="c_eng_name"/>
+            <result property="hexCode" column="c_hex_code"/>
+
+        </collection>
+        <collection property="sizes" ofType="Size">
+            <id property="id" column="s_id"/>
+            <id property="engName" column="s_eng_name"/>
         </collection>
     </resultMap>
 
     <select id="findAll" resultMap="ProductView">
-        SELECT 
-        id, name, reg_date, selling_price, supplying_price, img, description, 
-        category_id, category_name, di_id, path, di_product_id
-        FROM product_view
+        SELECT
+        v.*,
+        CASE WHEN u.id IS NOT NULL THEN 1 ELSE 0 END AS current_user_liked
+        FROM mineurs_db.product_list_view v
+        left join (`like` l join (select * from `member` where id=1) u on l.member_id = u.id) on l.product_id = v.id;
         <where>
             <if test="searchMethod == 'title'">
                 name like '%${searchKeyword}%'
@@ -35,20 +45,20 @@
                 and category_id = #{categoryId}
             </if>
         </where>
-        GROUP BY id
-        ORDER BY id DESC
-        limit #{offset},#{size}
+<!--        GROUP BY id-->
+<!--        ORDER BY id DESC-->
+<!--        limit #{offset},#{size}-->
     </select>
 
-    <select id="findById" resultMap="ProductView">
-        SELECT
-        *
-        FROM product_view
-        where id = #{id}
-    </select>
+<!--    <select id="findById" resultMap="ProductView">-->
+<!--        SELECT-->
+<!--        *-->
+<!--        FROM product_view-->
+<!--        where id = #{id}-->
+<!--    </select>-->
 
     <select id="count" resultType="int">
-		select 
+		select
 	        count(id)
         from product
 		<where>
@@ -64,24 +74,26 @@
         </where>
 	</select>
 
-    <insert id="reg" parameterType="Product" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO product(name,selling_price, supplying_price, description, img_path,category_id)
-        VALUES (#{name}, #{sellingPrice}, #{supplyingPrice}, #{description}, #{imgPath}, #{categoryId})
-    </insert>
+<!--    <insert id="reg" parameterType="Product" useGeneratedKeys="true" keyProperty="id">-->
+<!--        INSERT INTO product(name,selling_price, supplying_price, description, img_path,category_id)-->
+<!--        VALUES (#{name}, #{sellingPrice}, #{supplyingPrice}, #{description}, #{imgPath}, #{categoryId})-->
+<!--    </insert>-->
 
-    <update id="updateProductById">
-        UPDATE product
-        SET name = #{name},selling_price = #{sellingPrice},
-        supplying_price = #{supplyingPrice}, description = #{description},
-        img_path = #{img}  where id = #{id}
-    </update>
+<!--    <update id="updateProductById">-->
+<!--        UPDATE product-->
+<!--        SET name = #{name},-->
+<!--        description = #{description},-->
+<!--        main_img_path = #{img}-->
+
+<!--        where id = #{id}-->
+<!--    </update>-->
 
 
-    <delete id="deleteAll" parameterType="list">
-        DELETE FROM product
-        WHERE id IN
-        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
+<!--    <delete id="deleteAll" parameterType="list">-->
+<!--        DELETE FROM product-->
+<!--        WHERE id IN-->
+<!--        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">-->
+<!--            #{item}-->
+<!--        </foreach>-->
+<!--    </delete>-->
 </mapper>
