@@ -1,7 +1,7 @@
 package com.newlecmineursprj.controller.admin;
 
-import com.newlecmineursprj.entity.Post;
-import com.newlecmineursprj.service.PostService;
+import com.newlecmineursprj.entity.Board;
+import com.newlecmineursprj.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@RequestMapping("admin/post")
+@RequestMapping("admin/board")
 @Controller
-public class PostController {
+public class BoardController {
     @Autowired
-    PostService service;
+    BoardService service;
     @GetMapping
     public String list(Model model) {
-        List<Post> list = service.getPostList();
+        List<Board> list = service.getPostList();
         model.addAttribute("list", list);
         return "admin/post/list";
     }

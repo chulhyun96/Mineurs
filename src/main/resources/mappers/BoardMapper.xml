@@ -2,14 +2,14 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.newlecmineursprj.repository.PostRepository">
-    <select id="findAll" resultType="Post">
+<mapper namespace="com.newlecmineursprj.repository.BoardRepository">
+    <select id="findAll" resultType="Board">
         SELECT
         *
-        FROM post
+        FROM board
     </select>
 
-    <select id="findById" parameterType="Post">
-        select * from post where id=#{id}
+    <select id="findById" parameterType="Board">
+        select * from board where id=#{id}
     </select>
 </mapper>
