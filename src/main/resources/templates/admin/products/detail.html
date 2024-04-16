@@ -1,152 +1,230 @@
 <!DOCTYPE html>
 <html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{/admin/inc/layout}"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{/admin/inc/layout}"
 >
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <title>Title</title>
     <script src="/js/admin/products/edit.js"></script>
-    <script src="/js/admin/products/reg.js"></script>
-  </head>
-  <body>
-    <main layout:fragment="main" class="n-panel n-main-panel">
-      <!--등록 폼-->
-      <form
-        method="post"
-        action="/admin/products"
-        class="n-form n-form-type:outline-box px:10 w:100p"
-        enctype="multipart/form-data"
-      >
-        <div>
-          <label>
-            <span>상품 이름</span>
-            <input
-              type="text"
-              name="name"
-              required
-              th:value="${product.name}"
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            <span>판매가</span>
-            <input
-              type="text"
-              name="sellingPrice"
-              required
-              th:value="${product.price}"
-            />
-          </label>
-        </div>
-<!--        <div>-->
-<!--          <label>-->
-<!--            <span>공급가</span>-->
-<!--            <input-->
-<!--              type="text"-->
-<!--              name="supplyingPrice"-->
-<!--              required-->
-<!--              th:value="${product.supplyingPrice}"-->
-<!--            />-->
-<!--          </label>-->
-<!--        </div>-->
-        <div>
-          <label>
-            <span>상품 설명</span>
-            <textarea
-              name="description"
-              required
-              class="height:7"
-              th:text="${product.description}"
-            ></textarea>
-          </label>
-        </div>
-        <!--대표사진-->
-        <div>
-          <label class="main-img-label">
-            <span>대표 사진</span>
-            <input
-              class="main-img-input d:none border"
-              type="file"
-              name="img"
-            />
+</head>
+<body>
+<main layout:fragment="main" class="flex flex-col container mx-auto px-10">
 
-            <span class="main-img-box d:flex flex-direction:row">
+    <h1>상품 등록</h1>
+    <form
+            id="form"
+            method="post"
+            action="/admin/products"
+            class="n-form n-form-type:outline-box px:10 w:100p"
+            enctype="multipart/form-data"
+    >
+
+        <table class="table">
+            <colgroup>
+                <col class="bg-base-200"/>
+            </colgroup>
+
+            <tbody>
+            <tr>
+                <td>
+                    <span>상품 이름</span>
+                </td>
+
+                <td colspan="3">
+                    <label>
+                        <input th:value="${product.name}" type="text" name="name" required class="block w-3/5"/>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>판매가</span>
+                </td>
+
+                <td colspan="3">
+                    <label>
+                        <input th:value="${product.price}" type="number" name="price" required class="block w-3/5"/>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>상품설명</span>
+                </td>
+
+                <td colspan="3">
+                    <label class="block w-3/5">
+                        <textarea th:text="${product.description}" name="description" required
+                                  class="h-36 w-full"></textarea>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>대표 사진</td>
+                <td colspan="3">
+                    <div>
+                        <label class="main-img-label">
+                            <input
+                                    class="main-img-input hidden border"
+                                    type="file"
+                                    name="mainImg"
+                            />
+
+                            <span class="main-img-box flex flex-row">
               <span
-                class="d:flex jc:center al-items:center w:5 h:5 bg-color:base-3"
+                      class="flex justify-center items-center w-44 h-44 bg-color:base-3"
               >
                 <img
-                  id="imgId"
-                  th:src="@{'/image/products/'+${product.imgPath}}"
-                  alt="첨부이미지"
-                  class="w-full h-full"
+                        id="imgId"
+                        th:src="@{'/image/products/'+${product.mainImgPath}}"
+                        alt="첨부이미지"
+                        class="w-full h-full"
                 />
                 <span
-                  class="icon icon:camera icon-size:5 icon-color:base-1"
+                        class="icon icon:camera icon-size:5 icon-color:base-1"
                 ></span>
               </span>
             </span>
-          </label>
-        </div>
-        <!--대표사진-->
+                        </label>
+                    </div>
 
-        <!--서브 사진 등록-->
-        <div class="mb:10">
-          <label class="sub-img-label">
-            <span>디테일 사진</span>
-            <span class="sub-img-box d:flex flex-direction:row items-center">
-              <img
-                th:each="subimg : ${subImgs}"
-                src=""
-                alt=""
-                th:src="@{'/image/subImg/'+${subimg.path}}"
-                class="w-40"
-              />
+                </td>
+            </tr>
+
+            <tr>
+                <td>추가 사진</td>
+                <td colspan="3">
+                    <div class="mb:10">
+                        <label class="sub-img-label">
+                <span class="sub-img-box flex flex-row items-center">
+              <div class="indicator" th:each="subimg : ${subImgs}">
+                  <div class="relative right-0 top-0">
+                      <button class="btn btn-primary">X</button>
+                  </div>
+                    <img
+
+                            src=""
+                            alt="첨부이미지"
+                            th:src="@{'/image/subImg/'+${subimg.path}}"
+                            class="w-40"
+
+                    />
+                    </div>
               <span
-                class="d:flex jc:center al-items:center w:5 h:5 bg-color:base-3"
+                      class="flex justify-center items-center w-44 h-44 bg-color:base-3"
               >
                 <span
-                  class="icon icon:camera icon-size:5 icon-color:base-1"
+                        class="icon icon:camera icon-size:5 icon-color:base-1"
                 ></span>
               </span>
             </span>
-            <input
-              type="file"
-              name="sub-imgs"
-              class="d:none sub-img-input"
-              multiple
-            />
-          </label>
+                            <input
+                                    type="file"
+                                    name="subImgs"
+                                    class="hidden sub-img-input"
+                                    multiple
+                            />
+                        </label>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td>카테고리</td>
+                <td colspan="3">
+                    <label>
+                        <select name="categoryId" class="n-dropdown">
+                            <option
+                                    th:each="category : ${categories}"
+                                    th:value="${category.id}"
+                                    value="javascript"
+                                    class="n-dropdown-item"
+                                    th:text="${category.name}"
+                                    th:selected="${product.categoryId == category.id}"
+                            >
+                                JavaScript
+                            </option>
+                        </select>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>진열상태</td>
+                <td>
+                    <div class="form-control flex flex-row space-x-2">
+
+                        <label class="label cursor-pointer space-x-1">
+                            <input name="isDisplayed" value="1" type="radio" class="radio"
+                                   th:checked="${product.isDisplayed}"/>
+                            <span class="label-text">진열함</span>
+                        </label>
+                        <label class="label cursor-pointer space-x-1">
+                            <input name="isDisplayed" value="0" type="radio" class="radio"
+                                   th:checked="${!product.isDisplayed}"/>
+                            <span class="label-text">진열안함</span>
+                        </label>
+                    </div>
+                </td>
+                <td class="bg-base-200">판매상태</td>
+                <td>
+                    <div class="form-control flex flex-row space-x-2">
+                        <label class="label cursor-pointer space-x-1">
+                            <input name="isSold" value="1" type="radio" class="radio" th:checked="${product.isSold}"/>
+                            <span class="label-text">판매함</span>
+                        </label>
+                        <label class="label cursor-pointer space-x-1">
+                            <input name="isSold" value="0" type="radio" class="radio" th:checked="${!product.isSold}"/>
+                            <span class="label-text">판매안함</span>
+                        </label>
+                    </div>
+                </td>
+
+            </tr>
+            <tr>
+                <td>상품코드</td>
+                <td colspan="3">
+                    <label>
+                        <input th:value="${product.code}" name="code" type="text" class="block w-3/5">
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>당일배송</td>
+                <td colspan="3">
+                    <div class="form-control flex flex-row space-x-2">
+                        <label class="label cursor-pointer space-x-1">
+                            <input name="isDeliveryToday" value="1" type="radio" class="radio"
+                                   th:checked="${product.isDeliveryToday}"/>
+                            <span class="label-text">당일배송함</span>
+                        </label>
+                        <label class="label cursor-pointer space-x-1">
+                            <input name="isDeliveryToday" value="0" type="radio" class="radio"
+                                   th:checked="${!product.isDeliveryToday}"/>
+                            <span class="label-text">당일배송안함</span>
+                        </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>할인율</td>
+                <td colspan="3">
+                    <label>
+                        <input th:value="${product.discountRate}" name="discountRate" type="number" step="0.01"
+                               class="block w-3/5">
+                    </label>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <div class="flex justify-center space-x-2">
+            <button class="btn btn-wide edit">수정 하기</button>
+            <a href="/admin/products" class="btn btn-wide btn-outline">취소</a>
         </div>
-        <!--서브 사진 등록-->
-        <!--카테고리-->
-        <label
-          >카테고리
-          <select name="categoryId" class="n-dropdown">
-            <option
-              th:each="category : ${categories}"
-              th:value="${category.id}"
-              value="javascript"
-              class="n-dropdown-item"
-              th:text="${category.name}"
-            >
-              JavaScript
-            </option>
-          </select>
-        </label>
-        <!--카테고리-->
-        <!--버튼-->
-        <div class="d:flex flex-direction:row justify-content:end">
-          <button class="n-btn n-btn-size:3">수정</button>
-          <div>
-            <a href="/admin/products" class="n-btn n-btn-size:3">취소</a>
-          </div>
-        </div>
-        <!--버튼-->
-      </form>
-      <!--등록 폼-->
-    </main>
-  </body>
+    </form>
+
+</main>
+</body>
 </html>

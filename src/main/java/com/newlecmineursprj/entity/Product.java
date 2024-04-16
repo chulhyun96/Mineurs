@@ -15,7 +15,7 @@ public class Product {
     private String name;
     private Date regDate;
     private int price;
-    private String imgPath;
+    private String mainImgPath;
     private String description;
     private boolean isDisplayed;
     private boolean isSold;

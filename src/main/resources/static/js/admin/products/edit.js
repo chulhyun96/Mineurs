@@ -1,25 +1,35 @@
-function edit() {
-
+window.addEventListener("load", (e) => {
     const form = document.querySelector("#form"); // detail.html 의 요소(의 id:frm) 선택.
 
-    const product = {                                                    //product객체의 각 요소의 값들을 똑같은 이름의 변수에 담기완료.
-        id: form.querySelector(".id").value,    //현재 적은 방법은 json으로 파싱해서 서버로 데이터 보내려고 하는거고,
-        name: form.querySelector(".name").value,
-        sellingPrice: form.querySelector(".sellingPrice").value,
-        supplyingPrice: form.querySelector(".supplyingPrice").value,
-        description: form.querySelector(".description").value,
-        img: form.querySelector(".img").value
+    const currentUrl = window.location.href;
+    const parts = currentUrl.split('/'); // URL을 '/'로 분할
+    const lastPart = parts[parts.length - 1]; // 마지막 부분 추출
+    const productId = parseInt(lastPart); // 문자열을 숫자로 변환
+
+    const editButton = form.querySelector(".edit")
+
+    console.log("ㅇㅇ")
+    editButton.onclick = (e) => {
+        e.preventDefault();
+        console.log("실행되나");
+        edit(form, productId);
     };
 
-    const xhr = new XMLHttpRequest();                       //비동기통신을 위해 XMLHttpRequest 객체 생성 및 xhr로 참조.
+});
 
-    xhr.open("PUT", "/api/products");                    //서버로 비동기연결 요청메서드(PUT) , url 정보 적어서 보냄. 참고로 html 에선 get , post만 사용가능해서 자바스크립트로 데이터요청보내게됨.
-    xhr.setRequestHeader("Content-Type", "application/json");   //서버로 보낼 데이터 타입 명시해야댐 .
-    xhr.send(JSON.stringify(product));
+async function edit(form, productId) {
+    const formData = new FormData(form);
 
-    xhr.onload = function () {
-        if (xhr.responseText === "success") {
-            window.location.href = "/admin/products";
-        }
-    };
+
+    const response = await fetch('/admin/products/' + productId, {
+        method: "PUT",
+        body: formData,
+    });
+
+    if (response.ok) {
+        console.log(await response.text());
+        await window.location.replace("/admin/products")
+    } else {
+        console.error("File upload failed.");
+    }
 }

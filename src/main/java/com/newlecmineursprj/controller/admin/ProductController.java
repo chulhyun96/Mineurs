@@ -9,6 +9,7 @@ import com.newlecmineursprj.entity.ProductSubImg;
 import com.newlecmineursprj.mapper.ProductMapper;
 import com.newlecmineursprj.mapper.SubImgMapper;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -121,16 +122,17 @@ public class ProductController {
         return REDIRECT + PRODUCTS_VIEW;
     }
 
-    @PostMapping("/{id}/edit")
-    public String edit(MultipartFile img,HttpServletRequest req,ProductView updateProduct) {
-//        log.info("Updating product {}", updateProduct);
-//        log.info("Updating product.getImg {}", updateProduct.getImg());
-//        log.info("MultipartFile img = {}", img.getOriginalFilename());
-//        String mainImgPath = "/image/products";
-//        String fileUploadResult = saveToDir(img, req, mainImgPath);
-//
-//        updateProduct.setImg(fileUploadResult);
-        /*service.edit(updateProduct);*/
-        return REDIRECT + PRODUCTS_VIEW;
+    @PutMapping("/{productId}")
+    public ResponseEntity<String> edit(@PathVariable long productId, ProductRegDTO productRegDTO, List<MultipartFile> subImgs) {
+        log.debug("productId: {}", productId);
+        log.debug("productRegDTO: {}", productRegDTO);
+        log.debug("subImgs: {}", subImgs);
+
+        productRegDTO.setId(productId);
+
+
+        return ResponseEntity.ok("상품 수정 성공");
     }
+
+
 }
