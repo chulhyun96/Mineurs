@@ -3,7 +3,6 @@ package com.newlecmineursprj.controller;
 import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.Category;
 import com.newlecmineursprj.entity.Member;
-import com.newlecmineursprj.entity.ProductView;
 import com.newlecmineursprj.service.CategoryService;
 import com.newlecmineursprj.service.MemberService;
 import com.newlecmineursprj.service.ProductService;

@@ -1,13 +1,12 @@
 package com.newlecmineursprj.controller;
 
-import com.newlecmineursprj.entity.Board;
-import com.newlecmineursprj.service.BoardService;
+import com.newlecmineursprj.entity.PostView;
+import com.newlecmineursprj.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -16,11 +15,11 @@ import java.util.List;
 @Slf4j
 public class BoardController {
 
-    private final BoardService service;
+    private final PostService service;
 
     @GetMapping("notice")
     public String notice(Model model) {
-        List<Board> list = service.getPostList();
+        List<PostView> list = service.getList();
         model.addAttribute("list", list);
         return "/board/notice/list";
     }

@@ -1,7 +1,8 @@
 package com.newlecmineursprj.controller.api;
 
 import com.newlecmineursprj.entity.Board;
-import com.newlecmineursprj.service.BoardService;
+import com.newlecmineursprj.entity.PostView;
+import com.newlecmineursprj.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class BoardController {
 
     @Autowired
-    BoardService service;
+    PostService service;
 
     @GetMapping("{id}")
-    public Board preview(@PathVariable Long id) {
-        return service.getPostById(id);
+    public PostView preview(@PathVariable Long id) {
+        return service.getById(id);
     }
 
 }

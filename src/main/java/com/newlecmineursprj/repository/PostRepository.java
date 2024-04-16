@@ -1,14 +1,15 @@
 package com.newlecmineursprj.repository;
 
 import com.newlecmineursprj.entity.Board;
+import com.newlecmineursprj.entity.PostView;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
-public interface BoardRepository {
+public interface PostRepository {
 
-    List<Board> findAll();
+    List<PostView> findAll();
 
-    Board findById(Long id);
+    PostView findById(Long id);
 }
