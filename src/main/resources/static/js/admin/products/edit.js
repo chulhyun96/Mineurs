@@ -7,6 +7,8 @@ window.addEventListener("load", (e) => {
     const productId = parseInt(lastPart); // 문자열을 숫자로 변환
 
     const editButton = form.querySelector(".edit")
+    const mainImgDelButton = form.querySelector(".mainImgDel")
+    const subImgDelButtons = form.querySelectorAll(".subImgDel")
 
     console.log("ㅇㅇ")
     editButton.onclick = (e) => {
@@ -14,6 +16,27 @@ window.addEventListener("load", (e) => {
         console.log("실행되나");
         edit(form, productId);
     };
+
+    mainImgDelButton.onclick = e => {
+        e.preventDefault()
+        const delButton = e.target
+        const img = delButton.closest('.img-frame').querySelector("img")
+        const isOldImg = img.dataset.isoldimg
+        console.log("isOldImg: {}", isOldImg);
+
+        delButton.remove()
+        img.remove()
+    }
+
+    subImgDelButtons.forEach(btn => btn.onclick = e => {
+        e.preventDefault()
+        const delButton = e.target
+        const img = delButton.closest('.img-frame').querySelector("img")
+        const isOldImg = img.dataset.isoldimg
+
+        delButton.remove()
+        img.remove()
+    })
 
 });
 

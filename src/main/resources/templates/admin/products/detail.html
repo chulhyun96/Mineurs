@@ -76,12 +76,20 @@
               <span
                       class="flex justify-center items-center w-44 h-44 bg-color:base-3"
               >
+
+                 <div class="relative img-frame">
+                     <div class="absolute top-0 right-0">
+                         <button class="btn btn-primary mainImgDel"  >X</button>
+                     </div>
                 <img
                         id="imgId"
                         th:src="@{'/image/products/'+${product.mainImgPath}}"
                         alt="첨부이미지"
                         class="w-full h-full"
+                        th:data-isOldImg="${true}"
                 />
+
+                  </div>
                 <span
                         class="icon icon:camera icon-size:5 icon-color:base-1"
                 ></span>
@@ -99,9 +107,9 @@
                     <div class="mb:10">
                         <label class="sub-img-label">
                 <span class="sub-img-box flex flex-row items-center">
-              <div class="indicator" th:each="subimg : ${subImgs}">
-                  <div class="relative right-0 top-0">
-                      <button class="btn btn-primary">X</button>
+              <div class="relative img-frame" th:each="subimg : ${subImgs}">
+                  <div class="absolute right-0 top-0">
+                      <button class="btn btn-primary subImgDel" >X</button>
                   </div>
                     <img
 
@@ -109,9 +117,11 @@
                             alt="첨부이미지"
                             th:src="@{'/image/subImg/'+${subimg.path}}"
                             class="w-40"
+                            th:data-isOldImg="${true}"
+                            th:data-imgId="${subimg.id}"
 
                     />
-                    </div>
+            </div>
               <span
                       class="flex justify-center items-center w-44 h-44 bg-color:base-3"
               >
