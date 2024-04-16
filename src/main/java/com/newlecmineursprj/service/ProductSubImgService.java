@@ -7,6 +7,6 @@ import java.util.List;
 
 
 public interface ProductSubImgService {
-    void regAll(MultipartFile[] subImgs, Long productId);
+    void regAll(List<ProductSubImg> subImgs);
     public List<ProductSubImg> getListByProductId(long productId);
 }

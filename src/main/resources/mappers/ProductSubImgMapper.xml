@@ -4,7 +4,7 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.newlecmineursprj.repository.ProductSubImgRepository">
     <insert id="reg" parameterType="ProductSubImg">
-        insert into product_sub_img(path, product_id)
+        insert into sub_img(path, product_id)
         values
         <foreach collection="list" item="productSubImg" separator=",">
             (#{productSubImg.path}, #{productSubImg.productId})
@@ -12,6 +12,6 @@
     </insert>
 
     <select id="findAll" resultType="ProductSubImg">
-        select * from product_sub_img where product_id = #{productId}
+        select * from sub_img where product_id = #{productId}
     </select>
 </mapper>

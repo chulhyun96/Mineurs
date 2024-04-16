@@ -1,8 +1,12 @@
 package com.newlecmineursprj.mapper;
 
 import com.newlecmineursprj.dto.ProductListDTO;
+import com.newlecmineursprj.dto.ProductRegDTO;
+import com.newlecmineursprj.entity.Product;
 import com.newlecmineursprj.entity.ProductView;
 import org.springframework.stereotype.Component;
+
+import java.sql.Date;
 
 @Component
 public class ProductMapper {
@@ -20,6 +24,22 @@ public class ProductMapper {
                 .isSold(productView.getIsSold())
                 .img(productView.getImg())
                 .currentUserLiked(productView.getCurrentUserLiked())
+                .build();
+    }
+
+    public static Product toProduct(ProductRegDTO productRegDTO) {
+        return Product.builder()
+                .id(productRegDTO.getId())
+                .name(productRegDTO.getName())
+                .price(productRegDTO.getPrice())
+                .imgPath(productRegDTO.getMainImg().getOriginalFilename())
+                .description(productRegDTO.getDescription())
+                .isDisplayed(productRegDTO.getIsDisplayed() == 1)
+                .isSold(productRegDTO.getIsSold()==1)
+                .isDeliveryToday(productRegDTO.getIsDeliveryToday()==1)
+                .code(productRegDTO.getCode())
+                .discountRate(productRegDTO.getDiscountRate())
+                .categoryId(productRegDTO.getCategoryId())
                 .build();
     }
 

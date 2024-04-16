@@ -1,6 +1,7 @@
 package com.newlecmineursprj.service;
 
 import com.newlecmineursprj.dto.ProductListDTO;
+import com.newlecmineursprj.dto.ProductRegDTO;
 import com.newlecmineursprj.entity.Product;
 import com.newlecmineursprj.entity.ProductView;
 import org.springframework.web.multipart.MultipartFile;

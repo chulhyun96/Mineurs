@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.newlecmineursprj.dto.ProductListDTO;
+import com.newlecmineursprj.dto.ProductRegDTO;
 import com.newlecmineursprj.mapper.ProductMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,6 +32,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void reg(Product product) {
+
+
+
         repository.reg(product);
     }
 
