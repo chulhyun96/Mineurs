@@ -3,7 +3,7 @@
         xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{/admin/inc/layout}"
->
+ lang="en">
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
@@ -32,7 +32,9 @@
                 </td>
 
                 <td colspan="3">
-                    <input type="text" name="name" required class="block w-3/5"/>
+                    <label>
+                        <input type="text" name="name" required class="block w-3/5"/>
+                    </label>
                 </td>
             </tr>
             <tr>
@@ -41,7 +43,9 @@
                 </td>
 
                 <td colspan="3">
-                    <input type="text" name="price" required class="block w-3/5"/>
+                    <label>
+                        <input type="number" name="price" required class="block w-3/5"/>
+                    </label>
                 </td>
             </tr>
             <tr>
@@ -66,7 +70,7 @@
                             <input
                                     class="main-img-input d:none border"
                                     type="file"
-                                    name="img"
+                                    name="imgPath"
                             />
                             <span class="main-img-box d:flex flex-direction:row">
                          <span class="d:flex jc:center al-items:center w:5 h:5 bg-color:base-3">
@@ -115,6 +119,67 @@
                                 JavaScript
                             </option>
                         </select>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>진열상태</td>
+                <td >
+                    <div class="form-control flex flex-row space-x-2">
+
+                        <label class="label cursor-pointer space-x-1">
+                            <input name="isDisplayed" value="true" type="radio"  class="radio" />
+                            <span class="label-text">진열함</span>
+                        </label>
+                        <label class="label cursor-pointer space-x-1">
+                            <input name="isDisplayed" value="false" type="radio"  class="radio" />
+                            <span class="label-text">진열안함</span>
+                        </label>
+                    </div>
+                </td>
+                <td class="bg-base-200">판매상태</td>
+                <td >
+                    <div class="form-control flex flex-row space-x-2">
+                        <label class="label cursor-pointer space-x-1">
+                            <input name="isSold" value="true" type="radio"  class="radio" />
+                            <span class="label-text">판매함</span>
+                        </label>
+                        <label class="label cursor-pointer space-x-1">
+                            <input name="isSold" value="false" type="radio"  class="radio" />
+                            <span class="label-text">판매안함</span>
+                        </label>
+                    </div>
+                </td>
+
+            </tr>
+            <tr>
+                <td>상품코드</td>
+                <td colspan="3">
+                    <label>
+                        <input name="code" type="text" class="block w-3/5">
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>당일배송</td>
+                <td colspan="3">
+                    <div class="form-control flex flex-row space-x-2">
+                        <label class="label cursor-pointer space-x-1">
+                            <input name="isDeliveryToday" value="true" type="radio"  class="radio" />
+                            <span class="label-text">당일배송함</span>
+                        </label>
+                        <label class="label cursor-pointer space-x-1">
+                            <input name="isDeliveryToday" value="false" type="radio"  class="radio" />
+                            <span class="label-text">당일배송안함</span>
+                        </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>할인율</td>
+                <td colspan="3">
+                    <label>
+                        <input name="discountRate" type="number" class="block w-3/5">
                     </label>
                 </td>
             </tr>
