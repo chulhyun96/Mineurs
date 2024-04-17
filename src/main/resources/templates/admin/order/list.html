@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/admin/inc/layout}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main
+      layout:fragment="main"
+      class="n-panel n-main-panel d:flex flex-direction:column"
+    >
+      <h1>관리자 오더 관리 페이지</h1>
+      <section class="mt-10">
+        <h1 class="text-2xl mb-0">상품 목록</h1>
+        <div class="overflow-x-auto w-full">
+          <table class="table table-zebra text-center">
+            <!-- head -->
+            <thead>
+              <tr>
+                <th scope="col" class="w:2"></th>
+                <!--                <th scope="col">카테고리 이름</th>-->
+                <th scope="col">상품 코드</th>
+                <th scope="col">주문일</th>
+                <!--                <th scope="col">공급가</th>-->
+                <th scope="col">주문총액</th>
+                <th scope="col">배송비</th>
+                <th scope="col">할인금액</th>
+                <!--                <th scope="col">설명</th>-->
+                <!-- <th scope="col">등록일자</th> -->
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr th:each="order: ${list}">
+                <td scope="col">
+                  <input
+                    name="deleteId"
+                    type="checkbox"
+                    class="checkbox"
+                    th:value="${order.id}"
+                  />
+                </td>
+                <!--                <td scope="col" th:text="${product.categoryName}">카테고리 이름</td>-->
+                <td scope="col">
+                  <a href="" th:text="${order.code}">상품코드</a>
+                </td>
+                <!--                <td scope="col" th:text="${product.supplyingPrice}">공급가</td>-->
+                <!--                <td scope="col" th:text="${product.description}">설명</td>-->
+                <td
+                  scope="col"
+                  th:text="${#dates.format(order.orderedDatetime, 'yyyy년 M월 d일') }"
+                >
+                  주문일
+                </td>
+                <td scope="col" th:text="${order.totalProductPrice}">
+                  주문총액
+                </td>
+                <td scope="col" th:text="${order.totalDeliveryFee}">배송비</td>
+                <!--                <td>No</td>-->
+                <td scope="col" th:text="${order.totalDiscountAmount}">
+                  할인금액
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="flex justify-between">
+          <div class="flex space-x-1">
+            <button class="btn btn-outline btn-sm">진열함</button>
+            <button class="btn btn-outline btn-sm">진열안함</button>
+            <button class="btn btn-outline btn-sm">판매함</button>
+            <button class="btn btn-outline btn-sm">판매안함</button>
+            <button class="btn btn-outline btn-sm">삭제</button>
+          </div>
+          <div class="flex justify-end">
+            <button class="btn">상품등록</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

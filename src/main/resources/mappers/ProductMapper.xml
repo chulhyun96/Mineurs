@@ -33,16 +33,16 @@
         v.*,
         CASE WHEN u.id IS NOT NULL THEN 1 ELSE 0 END AS current_user_liked
         FROM mineurs_db.product_list_view v
-        left join (`like` l join (select * from `member` where id=1) u on l.member_id = u.id) on l.product_id = v.id;
+        left join (`like` l join (select * from `member` where id=1) u on l.member_id = u.id) on l.product_id = v.id
         <where>
             <if test="searchMethod == 'title'">
-                name like '%${searchKeyword}%'
+                v.name like '%${searchKeyword}%'
             </if>
             <if test="searchMethod == 'description'">
-                description like '%${searchKeyword}%'
+                v.description like '%${searchKeyword}%'
             </if>
             <if test="categoryId != 0">
-                and category_id = #{categoryId}
+                and v.ct_id = #{categoryId}
             </if>
         </where>
         <!--        GROUP BY id-->
