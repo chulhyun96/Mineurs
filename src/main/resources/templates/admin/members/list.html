@@ -11,7 +11,7 @@
 <body>
 <main
         layout:fragment="main"
-        class="n-panel n-main-panel d:flex flex-direction:column">
+        class="n-panel n-main-panel d:flex flex-direction:column container mx-auto px-10">
     <form
             class="n-form md:n-field-label-position:left border:0 w:3/5 mx:auto my:10">
         <div>
@@ -48,11 +48,11 @@
                             th:value="${member.id}"
                     />
                 </td>
-                <td scope="col" th:text="${member.name}">고객 이름</td>
-                <td scope="col" th:text="${member.username}">아이디</td>
-                <td scope="col" th:text="${member.phoneNumber}">전화번호</td>
-                <td scope="col" th:text="${member.email}">이메일</td>
-                <td scope="col" th:text="${#dates.format(member.regDate, 'yyyy년 M월 d일') }">등록일자</td>
+                <td scope="col" class="text-center" ><a th:href="@{./members/detail(id=${member.id})}" th:text="${member.name}">이름</a></td>
+                <td scope="col" class="text-center" th:text="${member.username}">아이디</td>
+                <td scope="col" class="text-center" th:text="${member.phoneNumber}">전화번호</td>
+                <td scope="col" class="text-center" th:text="${member.email}">이메일</td>
+                <td scope="col" class="text-center" th:text="${#dates.format(member.regDate, 'yyyy년 M월 d일') }">등록일자</td>
             </tr>
             </tbody>
         </table>

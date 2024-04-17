@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{/admin/inc/layout}"
+>
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+<main
+        layout:fragment="main"
+        class="n-panel n-main-panel d:flex flex-direction:column container mx-auto px-10">
+        <!-- 멤버 정보 -->
+    <section class="border-2">
+        <h1>고객 정보</h1>
+        <div class="flex">
+            <div class="pr-10 font-bold">이름</div>
+            <div th:text="${member.name}">고객이름</div>
+        </div>
+        <div class="flex">
+            <div class="pr-10 font-bold">아이디</div>
+            <div th:text="${member.username}">아이디</div>
+        </div>
+        <div class="flex">
+            <div class="pr-10 font-bold">전화번호</div>
+            <div th:text="${member.phoneNumber}">전화번호</div>
+        </div>
+        <div class="flex">
+            <div class="pr-10 font-bold">이메일</div>
+            <div th:text="${member.email}">이메일</div>
+        </div>
+        <div class="flex">
+            <div class="pr-10 font-bold">가입일자</div>
+            <div th:text="${member.regDate}">가입일자</div>
+        </div>
+    </section>
+    <!-- 보유 쿠폰 리스트 -->
+    <section class="border-2">
+        <h1>보유 쿠폰</h1>
+        <table class="n-table n-table-style:striped">
+            <thead>
+            <tr>
+                <th scope="col">쿠폰명</th>
+                <th scope="col">내용</th>
+                <th scope="col">할인율</th>
+                <th scope="col">유효기간</th>
+                <th scope="col">최소구매금액</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="coupon: ${coupons}">
+                <td scope="col" class="text-center" th:text="${coupon.name}">쿠폰명</td>
+                <td scope="col" class="text-center" th:text="${coupon.description}">내용</td>
+                <td scope="col" class="text-center" th:text="${coupon.discountRate}">할인율</td>
+                <td scope="col" class="text-center">
+                    <span th:text="${coupon.validDateStart}">유효기간시작</span>
+                    <span>~</span>
+                    <span th:text="${coupon.validDateEnd}">유효기간끝</span>
+                </td>
+                <td scope="col" class="text-center" th:text="${coupon.minimumPurchase}">최소구매금액</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <!-- 작성 리뷰 -->
+    <section class="border-2">
+        <h1>작성 리뷰</h1>
+        <table class="n-table n-table-style:striped">
+            <thead>
+            <tr>
+                <th scope="col">주문내용</th>
+                <th scope="col">내용</th>
+                <th scope="col">작성일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="review: ${reviews}">
+                <td scope="col" class="text-center">주문내용</td>
+                <td scope="col" class="text-center" th:text="${review.content}">내용</td>
+                <td scope="col" class="text-center" th:text="${review.regDatetime}">작성일</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <!-- 작성 Q&A -->
+    <section class="border-2">
+        <h1>작성 Q&A</h1>
+        <table class="n-table n-table-style:striped">
+            <thead>
+            <tr>
+                <th scope="col">주문내용</th>
+                <th scope="col">내용</th>
+                <th scope="col">작성일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="qna: ${qnas}">
+                <td scope="col" class="text-center">주문내용</td>
+                <td scope="col" class="text-center" th:text="${qna.content}">내용</td>
+                <td scope="col" class="text-center" th:text="${qna.regDatetime}">작성일</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>
