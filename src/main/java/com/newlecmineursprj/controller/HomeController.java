@@ -1,8 +1,8 @@
 package com.newlecmineursprj.controller;
 
+import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.Category;
 import com.newlecmineursprj.entity.Member;
-import com.newlecmineursprj.entity.ProductView;
 import com.newlecmineursprj.service.CategoryService;
 import com.newlecmineursprj.service.MemberService;
 import com.newlecmineursprj.service.ProductService;
@@ -29,10 +29,11 @@ private final MemberService memberService;
     public String index(@RequestParam(required = false) String searchMethod
             , @RequestParam(defaultValue = "1") Integer page
             , @RequestParam(defaultValue = "") String searchKeyword
+            , @RequestParam(defaultValue = "0") Long categoryId
             , Model model) {
 
-        int count = service.getCount(searchMethod,searchKeyword);
-        List<ProductView> list = service.getList(page, searchMethod, searchKeyword);
+        int count = service.getCount(searchMethod,searchKeyword,categoryId);
+        List<ProductListDTO> list = service.getList(page, searchMethod, searchKeyword, categoryId);
         List<Category> categoryList = categoryService.getList();
         model.addAttribute("list", list);
         model.addAttribute("count", count);

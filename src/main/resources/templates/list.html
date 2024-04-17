@@ -56,7 +56,7 @@
             >
               <a
                 ><img
-                  th:src="@{'/image/products/'+${product.img}}"
+                  th:src="@{'/image/products/'+${product.mainImgPath}}"
                   alt="첨부이미지"
                   class="object-cover h-full w-full"
               /></a>
@@ -67,7 +67,7 @@
                 <span th:text="${product.name}">상품 이름</span>
               </div>
               <div>
-                <span th:text="${product.sellingPrice}">가격</span
+                <span th:text="${product.price}">가격</span
                 ><span> 원</span>
               </div>
             </div>

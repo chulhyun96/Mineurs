@@ -1,0 +1,54 @@
+<!DOCTYPE >
+<html lang="en" layout:decorate="~{/inc/layout}" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+</head>
+<body>
+<main layout:fragment="main" class="container mx-auto">
+
+    <section class="flex flex-col items-center ">
+        <h1 class="mt-20">NOTICE</h1>
+        <p class="">공지사항 입니다.</p>
+        <div class="">
+            <select class="border" name="searchMethod">
+                <option th:selected="${param.searchMethod} == 'title'" value="title">제목</option>
+                <option th:selected="${{param.searchMethod}} == 'description'" value="description">내용</option>
+            </select>
+            <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요"
+                   th:value="${#strings.trim(param.searchKeyword)}"/>
+            <button class="n-btn n-btn-type:outline-box">검색</button>
+        </div>
+        <div class="overflow-x-auto mx-auto mt-10 container min-w-96  h-full">
+
+            <div class="overflow-x-auto">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Subject</th>
+                        <th>Writer</th>
+                        <th>Date</th>
+                        <th>Hit</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="board : ${list}">
+                        <th th:text="${board.id}">번호</th>
+                        <td th:text="${board.content}">내용</td>
+                        <td th:text="${board.writer}">작성자</td>
+<!--                        <td th:text="${board.regDate}">날짜</td>-->
+<!--                        <td th:text="${board.count}">조회수</td>-->
+                    </tr>
+                    </tbody>
+
+
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

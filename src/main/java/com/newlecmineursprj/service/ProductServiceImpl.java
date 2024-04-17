@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import com.newlecmineursprj.dto.ProductListDTO;
+import com.newlecmineursprj.dto.ProductRegDTO;
+import com.newlecmineursprj.mapper.ProductMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,14 +24,17 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository repository;
 
     @Override
-    public List<ProductView> getList(Integer page, String searchMethod, String searchKeyword) {
+    public List<ProductListDTO> getList(Integer page, String searchMethod, String searchKeyword, long categoryId) {
         int size = 9;
         int offset = (page - 1) * size;
-        return repository.findAll(searchMethod, searchKeyword, offset, size);
+        return repository.findAll(searchMethod, searchKeyword, offset, size, categoryId).stream().map(ProductMapper::toDto).toList();
     }
 
     @Override
     public void reg(Product product) {
+
+
+
         repository.reg(product);
     }
 
@@ -38,8 +44,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void edit(Product product) {
-        repository.updateProductById(product);
+    public void edit(ProductView updateProduct) {
+//        ProductView findProduct = repository.findById(updateProduct.getId());
+//        log.info("found product: " + findProduct);
+//        ProductView updateView = findProduct.update(updateProduct);
+//        log.info("updated product: " + updateView);
+//        repository.updateProductById(updateView);
     }
 
     @Override
@@ -68,7 +78,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int getCount(String searchMetod, String searchKeyword) {
-        return repository.count(searchMetod, searchKeyword);
+    public int getCount(String searchMethod, String searchKeyword, long categoryId) {
+        return repository.count(searchMethod, searchKeyword, categoryId);
     }
 }

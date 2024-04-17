@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en"
+      data-theme="cupcake"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/output.css">
+    <link rel="stylesheet" href="/css/root.css">
+</head>
+<body>
+
+    <!-- header -->
+
+    <!-- main -->
+
+    <section class="flex flex-col items-center">
+        <h1 class=" ">게시판 이름</h1>
+        <div class="mt-[300px]">
+            <select class="border" name="searchMethod">
+                <option th:selected="${param.searchMethod} == 'title'" value="title">제목</option>
+                <option th:selected="${{param.searchMethod}} == 'description'" value="description">내용</option>
+            </select>
+            <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요"
+                   th:value="${#strings.trim(param.searchKeyword)}"/>
+            <button class="n-btn n-btn-type:outline-box">검색</button>
+        </div>
+        <div class="overflow-x-auto m-4">
+            <table class="table table-xs border mx-auto">
+                <thead class="border">
+                <tr>
+                    <th>No</th>
+                    <th>Item</th>
+                    <th>Category</th>
+                    <th>Subject</th>
+                    <th>Writer</th>
+                </tr>
+                </thead>
+                <tbody class="border">
+                <tr th:each="post : ${list}">
+                    <th >게시글 번호</th>
+                    <td th:text="${post.title}">상품</td>
+                    <td th:text="${post.}">카테고리</td>
+                    <td>내용</td>
+                    <td>작성자</td>
+                </tr>
+
+            </table>
+        </div>
+    </section>
+</body>
+</html>

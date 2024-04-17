@@ -1,8 +1,15 @@
 package com.newlecmineursprj.controller.admin;
 
+import java.util.Arrays;
 import java.util.List;
 
+import com.newlecmineursprj.dto.ProductListDTO;
+import com.newlecmineursprj.dto.ProductRegDTO;
+import com.newlecmineursprj.entity.ProductSubImg;
+import com.newlecmineursprj.mapper.ProductMapper;
+import com.newlecmineursprj.mapper.SubImgMapper;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,14 +45,20 @@ public class ProductController {
     private final ProductSubImgService productSubImgService;
 
     @GetMapping
-    public String list(@RequestParam(required = false) String searchMethod,
-            @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "") String searchKeyword,
+    public String list(
+            @RequestParam(defaultValue = "1") Integer page, 
+            @RequestParam(required = false) String searchMethod,
+            @RequestParam(defaultValue = "") String searchKeyword,
+            @RequestParam(defaultValue = "0") Long categoryId,
             Model model) {
 
-        int count = service.getCount(searchMethod, searchKeyword.trim());
-        List<ProductView> list = service.getList(page, searchMethod, searchKeyword.trim());
+        int count = service.getCount(searchMethod, searchKeyword.trim(),categoryId);
+        List<ProductListDTO> list = service.getList(page, searchMethod, searchKeyword.trim(), categoryId);
+        List<Category> categories = categoryService.getList();
+
         model.addAttribute("list", list);
         model.addAttribute("count", count);
+        model.addAttribute("categories",categories);
         return PRODUCTS_VIEW + "/list";
     }
 
@@ -57,27 +70,31 @@ public class ProductController {
     }
 
     @PostMapping
-    public String reg(MultipartFile img,
-            Product product,
-            Long categoryId,
+    public String reg(
+            ProductRegDTO productRegDTO,
             HttpServletRequest req,
-            @RequestParam(value = "sub-imgs") MultipartFile[] subImages) throws FileUploadException {
+            @RequestParam(value = "sub-imgs") List<MultipartFile> subImages) throws FileUploadException {
 
-        String mainImgPath = "/image/products";
-        String fileUploadResult = saveToDir(img, req, mainImgPath);
+        log.debug("productRegDTO: {}", productRegDTO);
 
         String subImgPath = "/image/subImg";
         saveSubImages(subImages, req, subImgPath);
 
-        product.setCategoryId(categoryId);
-        product.setImgPath(fileUploadResult);
+        String mainImgPath = "/image/products";
+        saveToDir(productRegDTO.getMainImg(), req, mainImgPath);
 
+        Product product = ProductMapper.toProduct(productRegDTO);
         service.reg(product);
-        productSubImgService.regAll(subImages, product.getId());
+
+        //  service.reg 이후에 product에 id가 생긴다
+
+        List<ProductSubImg> subImgs = subImages.stream().map(subImg -> SubImgMapper.toSubImg(subImg, product.getId())).toList();
+        log.debug("subImgs: {}", subImgs);
+        productSubImgService.regAll(subImgs);
         return REDIRECT + PRODUCTS_VIEW;
     }
 
-    private void saveSubImages(MultipartFile[] subImages, HttpServletRequest req, String subImgPath) {
+    private void saveSubImages(List<MultipartFile> subImages, HttpServletRequest req, String subImgPath) {
         for (MultipartFile img : subImages) {
             saveToDir(img, req, subImgPath);
         }
@@ -90,12 +107,17 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
-        log.debug("서버실행되고 갔음");
         List<Category> categories = categoryService.getList();
+        Product product = service.getById(id);
+        List<ProductSubImg> subImgs = productSubImgService.getListByProductId(id);
         model.addAttribute("categories", categories);
+<<<<<<< HEAD
         Product product = service.getById(id);
         log.debug("product = {}", product);
+=======
+>>>>>>> d7383771fbef972c8fa13e77a4c7fe46ade525db
         model.addAttribute("product", product);
+        model.addAttribute("subImgs", subImgs);
         return PRODUCTS_VIEW + "/detail";
     }
 
@@ -105,10 +127,17 @@ public class ProductController {
         return REDIRECT + PRODUCTS_VIEW;
     }
 
-    @PutMapping
-    public String edit(@RequestBody Product product) {
-        service.edit(product);
-        return "success";
+    @PutMapping("/{productId}")
+    public ResponseEntity<String> edit(@PathVariable long productId, ProductRegDTO productRegDTO, List<MultipartFile> subImgs) {
+        log.debug("productId: {}", productId);
+        log.debug("productRegDTO: {}", productRegDTO);
+        log.debug("subImgs: {}", subImgs);
+
+        productRegDTO.setId(productId);
+
+
+        return ResponseEntity.ok("상품 수정 성공");
     }
+
 
 }

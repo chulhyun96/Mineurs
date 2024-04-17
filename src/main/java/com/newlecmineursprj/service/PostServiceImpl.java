@@ -1,23 +1,25 @@
 package com.newlecmineursprj.service;
 
-import com.newlecmineursprj.entity.Post;
+import com.newlecmineursprj.entity.PostView;
 import com.newlecmineursprj.repository.PostRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
-    @Autowired
-    PostRepository repository;
+
+    private final PostRepository repository;
+
     @Override
-    public List<Post> getPostList() {
+    public List<PostView> getList() {
         return repository.findAll();
     }
 
     @Override
-    public Post getPostById(Long id) {
+    public PostView getById(Long id) {
         return repository.findById(id);
     }
 }

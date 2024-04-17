@@ -8,88 +8,273 @@
     <title>Board</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.44/dist/style.css" />
     <link rel="stylesheet" type="text/css" href="/css/admin/post/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/js/admin/post/list.js"></script>
-
 </head>
-<body>
-<main layout:fragment="main" class="n-panel n-main-panel d:flex flex-direction:column">
-
-    <form
-            class="n-form md:n-field-label-position:left border:0 w:3/5 mx:auto my:10">
-        <div>
-            <select class="border" name="searchMethod">
-                <option th:selected="${param.searchMethod} == 'name'" value="name">이름</option>
-                <option th:selected="${{param.searchMethod}} == 'login-id'" value="login-id">유저아이디</option>
-            </select>
-            <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요" th:value="${#strings.trim(param.searchKeyword)}"/>
-            <button class="n-btn n-btn-type:outline-box">검색</button>
-        </div>
-    </form>
-
-    <div class="w:100p border-bottom"></div>
-
-    <form action="members/delete" class="flex flex-col w-full" method="post">
-        <table class="n-table n-table-style:striped">
-            <thead>내용
-                <tr>
-                    <th scope="col" class="w:2"></th>
-                    <th scope="col">ID</th>
-                    <th scope="col">분류</th>
-                    <th scope="col">제목</th>
-                    <th scope="col">답변상태</th>
-                    <th scope="col">내용보기</th>
-                    <th scope="col">답변하기</th>
-                    <th scope="col">작성자</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="board :${list}">
-                    <td scope="col">
-                        <input
-                                name=""
-                                type="checkbox"
-                                class="n-toggle n-toggle-type:check-box n-toggle-size:2"
-                        />
-                    </td>
-                    <td scope="row" th:text="${board.id}">1</td>
-                    <td>Q&A</td>
-                    <td th:text="${board.title}">제목</td>
-                    <td th:text="((${{board.status}} == '1')) ? '답변완료':'-'">답변완료</td>
-                    <td><button id="modal-btn" type="button" class="preview n-btn" th:data-id="${board.id}">미리보기</button></button></td>
-                    <td><button class="n-btn">답변하기</button></td>
-                    <td th:text="${board.writer}">작성자</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="d:flex jc:end mt:3">
-            <div class="mr:3">
-                <a href="members/reg" class="n-btn n-btn-size:3"> 등록 </a>
+<body class="h-full w-full">
+    <main layout:fragment="main" class="flex flex-col container mx-auto px-10">
+        <h1 class="font-bold text-3xl self-center">관리자 게시글목록</h1>
+        <section class="overflow-x-auto w-full flex flex-col">
+            <h1 class="text-2xl mb-0">게시물 관리</h1>
+            <div role="tablist" class="tabs tabs-boxed">
+                <a role="tab" class="tab tab-active">전체 게시물 보기</a>
+                <a role="tab" class="tab">전체 댓글 보기</a>
+                <a role="tab" class="tab">신고된 게시물 보기</a>
             </div>
-            <button class="n-btn n-btn-size:3 n-btn-color:accent mr:3">
-                삭제
-            </button>
+            <form
+                    method="get"
+                    action="products"
+                    class="n-form md:n-field-label-position:left border:0 w:3/5 mx:auto my:10"
+            >
+
+                <table class="table">
+                    <colgroup>
+                        <col class="bg-base-300" />
+                    </colgroup>
+
+                    <tbody>
+                    <tr>
+                        <td>검색분류</td>
+
+                        <td colspan="3">
+                            <div>
+                                <!--  검색 모듈 -->
+                                <div class="join">
+                                    <select
+                                            class="select select-bordered join-item"
+                                            name="searchMethod"
+                                    >
+                                        <option
+                                                th:selected="${param.searchMethod} == 'title'"
+                                                value="title"
+                                        >
+                                            제목
+                                        </option>
+                                        <option
+                                                th:selected="${{param.searchMethod}} == 'description'"
+                                                value="description"
+                                        >
+                                            내용
+                                        </option>
+                                    </select>
+                                    <div>
+                                        <div>
+                                            <input
+                                                    type="text"
+                                                    name="searchKeyword"
+                                                    th:value="${#strings.trim(param.searchKeyword)}"
+                                                    class="input input-bordered join-item"
+                                                    placeholder="검색어를 입력하세요"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>게시판 선택</td>
+                        <td colspan="">
+                            <select class="select select-sm select-bordered" name="categoryId">
+                                <option value="0" th:selected="${categoryId == 0}">전체목록</option>
+                                <option th:each="category: ${categories}"
+                                        th:value="${category.id}"
+                                        th:text="${category.name}"
+                                        th:selected="${categoryId == category.id}"></option>
+                            </select>
+                            <select class="select select-sm select-bordered" name="categoryId">
+                                <option value="0" th:selected="${categoryId == 0}">카테고리 전체</option>
+                                <option th:each="category: ${categories}"
+                                        th:value="${category.id}"
+                                        th:text="${category.name}"
+                                        th:selected="${categoryId == category.id}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>작성일</td>
+                        <td colspan="3">
+                            <div class="flex space-x-5">
+                                <div class="flex space-x-1">
+                                    <label
+                                            class="btn btn-outline btn-sm flex justify-center items-center"
+                                    >
+                                        <span>오늘</span>
+                                        <input type="radio"  class="hidden" />
+                                    </label>
+                                    <label
+                                            class="btn btn-outline btn-sm flex justify-center items-center"
+                                    >
+                                        <span>3일</span>
+                                        <input type="radio"  class="hidden" />
+                                    </label>
+                                    <label
+                                            class="btn btn-outline btn-sm flex justify-center items-center"
+                                    >
+                                        <span>7일</span>
+                                        <input type="radio"  class="hidden" />
+                                    </label>
+                                    <label
+                                            class="btn btn-outline btn-sm flex justify-center items-center"
+                                    >
+                                        <span>1개월</span>
+                                        <input type="radio"  class="hidden" />
+                                    </label>
+                                </div>
+
+                                <div class="flex space-x-1 items-center">
+                                    <input type="date"  />
+                                    <span>~</span>
+                                    <input type="date"  />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>답변상태</td>
+                        <td>
+                            <div class="form-control flex flex-row space-x-2">
+                                <label class="label cursor-pointer space-x-1">
+                                    <input type="radio"  class="radio" checked />
+                                    <span class="label-text">전체</span>
+                                </label>
+                                <label class="label cursor-pointer space-x-1">
+                                    <input type="radio"  class="radio" />
+                                    <span class="label-text">답변 전</span>
+                                </label>
+                                <label class="label cursor-pointer space-x-1">
+                                    <input type="radio"  class="radio" />
+                                    <span class="label-text">처리중</span>
+                                </label>
+                                <label class="label cursor-pointer space-x-1">
+                                    <input type="radio"  class="radio" checked />
+                                    <span class="label-text">답변 완료</span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="bg-base-300">댓글여부</td>
+                        <td>
+                            <div class="form-control flex flex-row space-x-2">
+                                <label class="label cursor-pointer space-x-1">
+                                    <input type="radio"  class="radio" checked />
+                                    <span class="label-text">전체</span>
+                                </label>
+                                <label class="label cursor-pointer space-x-1">
+                                    <input type="radio"  class="radio" />
+                                    <span class="label-text">있음</span>
+                                </label>
+                                <label class="label cursor-pointer space-x-1">
+                                    <input type="radio"  class="radio" />
+                                    <span class="label-text">없음</span>
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="self-center flex space-x-2">
+                    <button class="btn btn-wide">검색</button>
+                    <button class="btn btn-wide btn-outline">초기화</button>
+                </div>
+            </form>
+        </section>
+
+        <!--게시글 리스트-->
+        <section class="mt-10">
+            <h1 class="text-2xl mb-0">게시글 목록</h1>
+            <div class="overflow-x-auto w-full">
+                <table class="table table-zebra text-center">
+                    <!-- head -->
+                    <thead>
+                    <tr>
+                        <th scope="col" class="w:2"></th>
+                        <th scope="col">ID</th>
+                        <th scope="col">분류</th>
+                        <th scope="col">제목</th>
+                        <th scope="col">답변상태</th>
+                        <th scope="col">내용보기</th>
+                        <th scope="col">답변하기</th>
+                        <th scope="col">작성자</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="post :${list}">
+                        <td scope="col">
+                            <input
+                                    name="deleteId"
+                                    type="checkbox"
+                                    class="checkbox"
+                            />
+                        </td>
+                        <td scope="row" th:text="${post.id}">1</td>
+                        <td th:text="${post.boardName}">Q&A</td>
+                        <td th:text="${post.summary}">제목</td>
+                        <td th:text="${post.state == 1 ? '답변완료' : '-'}">답변완료</td>
+                        <td>
+<!--                            <button id="modal-btn" type="button" class="preview n-btn" th:data-id="${post.id}">-->
+<!--                            미리보기-->
+<!--                            </button>-->
+                            <button class="btn" onclick="my_modal_1.showModal()">미리보기</button>
+                            <dialog id="my_modal_1" class="modal">
+                                <div class="modal-box">
+                                    <h3 class="font-bold text-lg">게시글 내용 미리보기</h3>
+                                    <div class="my-3">
+                                        <strong>제목</strong>
+                                        <span class="pl-5" th:text="${post.summary}"></span>
+                                    </div>
+                                    <div class="my-3">
+                                        <strong>작성자</strong>
+                                        <span th:text="${post.memberName}"></span>
+                                    </div>
+                                    <div class="my-3">
+                                        <strong>답변상태</strong>
+                                        <span th:text="${post.state}"></span>
+                                    </div>
+                                    <div class="my-3 line-clamp-6">
+                                        <strong class="block mb-3">원글</strong>
+                                        <span th:text="${post.content}"></span>
+                                    </div>
+                                    <div class="my-3">
+                                        <form method="dialog">
+                                            <!-- if there is a button in form, it will close the modal -->
+                                            <button class="btn">Close</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </dialog>
+                        </td>
+                        <td><button class="n-btn">답변하기</button></td>
+                        <td th:text="${post.memberName}">작성자</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+        <div class="flex justify-between">
+            <div class="flex space-x-1">
+                <button class="btn btn-outline btn-sm">공지글 등록</button>
+                <button class="btn btn-outline btn-sm">공지 해제</button>
+                <button class="btn btn-outline btn-sm">삭제</button>
+            </div>
         </div>
-    </form>
-
-    <ul class="n-pager mx:auto">
-        <li class="active"><a>1</a></li>
-        <li><a>2</a></li>
-        <li><a>3</a></li>
-    </ul>
-<section class="n-modal d:none" tabindex="-1">
-    <h1 class="n-font:h3 font-weight:3">게시글 미리보기</h1>
-
-    <div class="mt:8 text-a:center modal-content">Hello World</div>
-
-    <div class="d:flex fl-direction:column gap:2 mt:8 w:10">
-        <button type="button" class="n-btn n-btn-size:3 close-button">닫기</button>
-    </div>
-</section>
 
 
-</main>
+        <!-- 모달 -->
+        <section class="modal" tabindex="-1">
+            <h1 class="n-font:h3 font-weight:3">모달 예시</h1>
+
+            <div class="mt:8 text-a:center">Hello World</div>
+
+            <div class="d:flex fl-direction:column gap:2 mt:8">
+                <button type="button" class="n-btn n-btn-size:3">확인</button>
+                <button type="button" class="n-btn n-btn:void n-btn-size:3">닫기</button>
+            </div>
+        </section>
+    </main>
+
 </body>
 </html>

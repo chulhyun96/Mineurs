@@ -9,4 +9,5 @@ import com.newlecmineursprj.entity.ProductSubImg;
 @Mapper
 public interface ProductSubImgRepository {
     void reg(List<ProductSubImg> dimgs);
+    List<ProductSubImg> findAll(long productId);
 }

@@ -19,9 +19,9 @@ public class ProductController {
         model.addAttribute("product", product);
         return PRODUCTS_VIEW + "/detail";
     }
-    @PutMapping
+    /*@PutMapping
     public String edit(@RequestBody Product product) {
         service.edit(product);
         return "success";
-    }
+    }*/
 }

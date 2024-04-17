@@ -3,7 +3,7 @@ window.addEventListener('load', function () {
     let preview = document.querySelector(".preview");
     const previewId = preview.getAttribute("data-id");
     const closeButton = document.querySelector('.close-button');
-
+    modal = document.querySelector('.modal');
     //관리자 미리보기 클릭 이벤트 데이터요청영역
     preview.onclick = function () {
         $.ajax({
@@ -16,11 +16,12 @@ window.addEventListener('load', function () {
             }
         })
     };
+
+
     //미리보기 열린 후 닫기 버튼 이벤트 처리 영역
     closeButton.addEventListener('click', function () {
-        modal = document.querySelector('.n-modal');
         setTimeout(() => {
-            modal.classList.add('d:none');
+            modal.classList.add('hidden');
         }, 130);
     });
 
@@ -28,9 +29,8 @@ window.addEventListener('load', function () {
 
 //미리보기 클릭후에 데이터 받아서 모달에 데이터 뿌려주는 영역
 function postView(post) {
-    modal = document.querySelector('.n-modal');
     modalContent = document.querySelector('.modal-content');
-    modal.classList.remove('d:none');
+    modal.classList.remove('hidden');
     modalContent.innerHTML = `
         <label>
             제목

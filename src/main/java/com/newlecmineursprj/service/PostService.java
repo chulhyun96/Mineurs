@@ -1,11 +1,13 @@
 package com.newlecmineursprj.service;
 
-import com.newlecmineursprj.entity.Post;
+import com.newlecmineursprj.entity.Board;
+import com.newlecmineursprj.entity.PostView;
 
 import java.util.List;
 
 public interface PostService {
-    List<Post> getPostList();
 
-    Post getPostById(Long id);
+    List<PostView> getList();
+
+    PostView getById(Long id);
 }
