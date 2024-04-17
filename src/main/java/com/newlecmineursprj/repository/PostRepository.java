@@ -9,7 +9,9 @@ import java.util.List;
 @Mapper
 public interface PostRepository {
 
-    List<PostView> findAll();
+    List<PostView> findAll(Integer page, String searchMethod, String searchKeyword, Integer boardId, String qnaCategory);
 
     PostView findById(Long id);
+
+    int count(Integer page, String searchMethod,String searchKeyword,Integer boardId,String qnaCategory);
 }

@@ -1,24 +1,47 @@
 package com.newlecmineursprj.controller.admin;
 
+import com.newlecmineursprj.entity.Category;
 import com.newlecmineursprj.entity.PostView;
+import com.newlecmineursprj.entity.QnaCategory;
 import com.newlecmineursprj.service.PostService;
+import com.newlecmineursprj.service.QnaCategoryService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @RequestMapping("admin/post")
 @Controller("adminPostController")
+@RequiredArgsConstructor
 public class PostController {
-    @Autowired
-    PostService service;
+
+private final PostService service;
+private final QnaCategoryService categoryService;
+
     @GetMapping
-    public String list(Model model) {
-        List<PostView> list = service.getList();
+    public String list(
+            @RequestParam(required = false,defaultValue = "1") Integer page,
+            @RequestParam(required = false,defaultValue = "") String searchMethod,
+            @RequestParam(required = false,defaultValue = "") String searchKeyword,
+            @RequestParam(required = false,defaultValue = "0") Integer boardId,
+            @RequestParam(required = false,defaultValue = "") String qnaCategory,
+            Model model) {
+
+        int count = service.getCount(page,searchMethod,searchKeyword,boardId,qnaCategory);
+
+        List<PostView> list = service.getList(page,searchMethod,searchKeyword.trim(),boardId,qnaCategory);
+        List<QnaCategory> categories = categoryService.getList();
+
+//        System.out.println(list.get(0).getBoardName());
         model.addAttribute("list", list);
+        model.addAttribute("count", count);
+        model.addAttribute("categories", categories);
+
         return "admin/post/list";
     }
 
