@@ -24,47 +24,26 @@
         </div>
     </form>
 
-    <div class="w:100p border-bottom"></div>
-
-    <form action="/admin/members/delete" class="flex flex-col w-full" method="post">
-        <table class="n-table n-table-style:striped">
-            <thead>
-            <tr>
-                <th scope="col" class="w:2"></th>
-                <th scope="col">고객 이름</th>
-                <th scope="col">아이디</th>
-                <th scope="col">전화번호</th>
-                <th scope="col">이메일</th>
-                <th scope="col">등록일자</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="member: ${list}">
-                <td scope="col">
-                    <input
-                            name="deleteId"
-                            type="checkbox"
-                            class="n-toggle n-toggle-type:check-box n-toggle-size:2"
-                            th:value="${member.id}"
-                    />
-                </td>
-                <td scope="col" class="text-center" ><a th:href="@{./members/detail(id=${member.id})}" th:text="${member.name}">이름</a></td>
-                <td scope="col" class="text-center" th:text="${member.username}">아이디</td>
-                <td scope="col" class="text-center" th:text="${member.phoneNumber}">전화번호</td>
-                <td scope="col" class="text-center" th:text="${member.email}">이메일</td>
-                <td scope="col" class="text-center" th:text="${#dates.format(member.regDate, 'yyyy년 M월 d일') }">등록일자</td>
-            </tr>
-            </tbody>
-        </table>
-        <div class="d:flex jc:end mt:3">
-            <div class="mr:3">
-                <a href="members/reg" class="n-btn n-btn-size:3"> 등록 </a>
-            </div>
-            <button class="n-btn n-btn-size:3 n-btn-color:accent mr:3">
-                삭제
-            </button>
-        </div>
-    </form>
+    <table class="n-table n-table-style:striped">
+        <thead>
+        <tr>
+            <th scope="col">고객 이름</th>
+            <th scope="col">아이디</th>
+            <th scope="col">전화번호</th>
+            <th scope="col">이메일</th>
+            <th scope="col">등록일자</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="member: ${list}">
+            <td scope="col" class="text-center" ><a th:href="@{./members/detail(id=${member.id})}" th:text="${member.name}">이름</a></td>
+            <td scope="col" class="text-center" th:text="${member.username}">아이디</td>
+            <td scope="col" class="text-center" th:text="${member.phoneNumber}">전화번호</td>
+            <td scope="col" class="text-center" th:text="${member.email}">이메일</td>
+            <td scope="col" class="text-center" th:text="${#dates.format(member.regDate, 'yyyy년 M월 d일') }">등록일자</td>
+        </tr>
+        </tbody>
+    </table>
     <ul class="n-pager mx:auto">
         <li class="active"><a>1</a></li>
         <li><a>2</a></li>
