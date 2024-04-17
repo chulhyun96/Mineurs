@@ -93,7 +93,7 @@ public class ProductController {
         log.debug("서버실행되고 갔음");
         List<Category> categories = categoryService.getList();
         model.addAttribute("categories", categories);
-        ProductView product = service.getById(id);
+        Product product = service.getById(id);
         log.debug("product = {}", product);
         model.addAttribute("product", product);
         return PRODUCTS_VIEW + "/detail";
