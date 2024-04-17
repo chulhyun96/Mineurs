@@ -38,7 +38,7 @@ INSERT INTO `mineurs_db`.`member` (`membername`, `name`, `phone_number`, `passwo
 ALTER TABLE `mineurs_db`.`notice` AUTO_INCREMENT = 1;
 INSERT INTO `mineurs_db`.`notice` (`title`, `content`) VALUES ('* 모델 사이즈 *', '모델 사이즈');
 
--- order
+-- order_state
 ALTER TABLE `mineurs_db`.`order_state` AUTO_INCREMENT = 1;
 INSERT INTO `mineurs_db`.`order_state` (`name`) VALUES ('결제완료');
 INSERT INTO `mineurs_db`.`order_state` (`name`) VALUES ('상품준비중');
@@ -130,7 +130,7 @@ INSERT INTO `mineurs_db`.`payment_method` (`name`, `card_number`, `member_id`) V
 -- order
 ALTER TABLE `mineurs_db`.`order` AUTO_INCREMENT = 1;
 INSERT INTO `mineurs_db`.`order` (`code`, `total_product_price`, `total_delivery_fee`, `total_discount_amount`, `member_id`, `delivery_info_id`, `coupon_id`, `payment_method_id`) VALUES ('49192933', '69800', '6000', '4000', '1', '1', '1', '1');
-
+INSERT INTO `mineurs_db`.`order` (`code`, `total_product_price`, `total_delivery_fee`, `total_discount_amount`, `member_id`, `delivery_info_id`, `coupon_id`, `payment_method_id`) VALUES ('jisoo123', '15570', '2000', '2000', '4', '2', '2', '2');
 -- order_item
 ALTER TABLE `mineurs_db`.`order_item` AUTO_INCREMENT = 1;
 INSERT INTO `mineurs_db`.`order_item` (`qty`, `total_price`, `code`, `delivery_fee`, `estimated_delivery_days`, `order_id`, `order_state_id`, `product_item_id`) VALUES ('2', '39900', '723857', '3000', '2', '1', '1', '1');
