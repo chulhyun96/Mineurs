@@ -8,9 +8,9 @@
     <title>Board</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="/css/admin/board/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/admin/post/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="/js/admin/board/list.js"></script>
+    <script src="/js/admin/post/list.js"></script>
 </head>
 <body class="h-full w-full">
     <main layout:fragment="main" class="flex flex-col container mx-auto px-10">
@@ -200,7 +200,7 @@
                     </thead>
 
                     <tbody>
-                    <tr th:each="board :${list}">
+                    <tr th:each="post :${list}">
                         <td scope="col">
                             <input
                                     name="deleteId"
@@ -208,12 +208,12 @@
                                     class="checkbox"
                             />
                         </td>
-                        <td scope="row" th:text="${board.id}">1</td>
-                        <td>Q&A</td>
-                        <td th:text="${board.title}">제목</td>
-                        <td th:text="((${{board.status}} == '1')) ? '-':'답변완료'">답변완료</td>
+                        <td scope="row" th:text="${post.id}">1</td>
+                        <td th:text="${post.boardName}">Q&A</td>
+                        <td th:text="${post.summary}">제목</td>
+                        <td th:text="${post.state == 1 ? '답변완료' : '-'}">답변완료</td>
                         <td>
-<!--                            <button id="modal-btn" type="button" class="preview n-btn" th:data-id="${board.id}">-->
+<!--                            <button id="modal-btn" type="button" class="preview n-btn" th:data-id="${post.id}">-->
 <!--                            미리보기-->
 <!--                            </button>-->
                             <button class="btn" onclick="my_modal_1.showModal()">미리보기</button>
@@ -222,19 +222,19 @@
                                     <h3 class="font-bold text-lg">게시글 내용 미리보기</h3>
                                     <div class="my-3">
                                         <strong>제목</strong>
-                                        <span class="pl-5" th:text="${board.title}"></span>
+                                        <span class="pl-5" th:text="${post.summary}"></span>
                                     </div>
                                     <div class="my-3">
                                         <strong>작성자</strong>
-                                        <span th:text="${board.writer}"></span>
+                                        <span th:text="${post.memberName}"></span>
                                     </div>
                                     <div class="my-3">
                                         <strong>답변상태</strong>
-                                        <span th:text="${board.status}"></span>
+                                        <span th:text="${post.state}"></span>
                                     </div>
                                     <div class="my-3 line-clamp-6">
                                         <strong class="block mb-3">원글</strong>
-                                        <span th:text="${board.content}"></span>
+                                        <span th:text="${post.content}"></span>
                                     </div>
                                     <div class="my-3">
                                         <form method="dialog">
@@ -246,7 +246,7 @@
                             </dialog>
                         </td>
                         <td><button class="n-btn">답변하기</button></td>
-                        <td th:text="${board.writer}">작성자</td>
+                        <td th:text="${post.memberName}">작성자</td>
                     </tr>
                     </tbody>
                 </table>
@@ -262,18 +262,19 @@
             </div>
         </div>
 
-    <section class="modal hidden" tabindex="-1">
-        <h1 class="n-font:h3 font-weight:3">게시글 미리보기</h1>
 
-        <div class="mt:8 text-a:center modal-content">Hello World</div>
+        <!-- 모달 -->
+        <section class="modal" tabindex="-1">
+            <h1 class="n-font:h3 font-weight:3">모달 예시</h1>
 
-        <div class="d:flex fl-direction:column gap:2 mt:8 w:10">
-            <button type="button" class="n-btn n-btn-size:3 close-button">닫기</button>
-        </div>
-    </section>
+            <div class="mt:8 text-a:center">Hello World</div>
 
-
-
+            <div class="d:flex fl-direction:column gap:2 mt:8">
+                <button type="button" class="n-btn n-btn-size:3">확인</button>
+                <button type="button" class="n-btn n-btn:void n-btn-size:3">닫기</button>
+            </div>
+        </section>
     </main>
+
 </body>
 </html>

@@ -25,7 +25,7 @@ public class ProductListDTO {
     private boolean isDeliveryToday;
     private Boolean isSold;
     private Date regDate;
-    private String img;
+    private String mainImgPath;
     private Boolean currentUserLiked;
     private Long likeCount;
 

@@ -22,7 +22,7 @@ public class ProductMapper {
                 .sizes(productView.getSizes())
                 .isDeliveryToday(productView.isDeliveryToday())
                 .isSold(productView.getIsSold())
-                .img(productView.getImg())
+                .mainImgPath(productView.getMainImgPath())
                 .currentUserLiked(productView.getCurrentUserLiked())
                 .build();
     }
@@ -32,7 +32,7 @@ public class ProductMapper {
                 .id(productRegDTO.getId())
                 .name(productRegDTO.getName())
                 .price(productRegDTO.getPrice())
-                .imgPath(productRegDTO.getMainImg().getOriginalFilename())
+                .mainImgPath(productRegDTO.getMainImg().getOriginalFilename())
                 .description(productRegDTO.getDescription())
                 .isDisplayed(productRegDTO.getIsDisplayed() == 1)
                 .isSold(productRegDTO.getIsSold()==1)
