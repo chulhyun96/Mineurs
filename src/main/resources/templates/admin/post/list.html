@@ -20,11 +20,10 @@
             <div role="tablist" class="tabs tabs-boxed">
                 <a role="tab" class="tab tab-active">전체 게시물 보기</a>
                 <a role="tab" class="tab">전체 댓글 보기</a>
-                <a role="tab" class="tab">신고된 게시물 보기</a>
             </div>
             <form
                     method="get"
-                    action="products"
+                    action="/admin/post"
                     class="n-form md:n-field-label-position:left border:0 w:3/5 mx:auto my:10"
             >
 
@@ -46,14 +45,14 @@
                                             name="searchMethod"
                                     >
                                         <option
-                                                th:selected="${param.searchMethod} == 'title'"
-                                                value="title"
+                                                th:selected="${param.searchMethod} == 'summary'"
+                                                value="summary"
                                         >
                                             제목
                                         </option>
                                         <option
-                                                th:selected="${{param.searchMethod}} == 'description'"
-                                                value="description"
+                                                th:selected="${{param.searchMethod}} == 'content'"
+                                                value="content"
                                         >
                                             내용
                                         </option>
@@ -76,19 +75,19 @@
                     <tr>
                         <td>게시판 선택</td>
                         <td colspan="">
-                            <select class="select select-sm select-bordered" name="categoryId">
-                                <option value="0" th:selected="${categoryId == 0}">전체목록</option>
-                                <option th:each="category: ${categories}"
-                                        th:value="${category.id}"
-                                        th:text="${category.name}"
-                                        th:selected="${categoryId == category.id}"></option>
+                            <select class="select select-sm select-bordered" name="boardId">
+                                <option value="0">전체목록</option>
+                                <option th:each="post : ${list}"
+                                        th:value="${post.boardId}"
+                                        th:text="${post.boardName}"
+                                        ></option>
                             </select>
-                            <select class="select select-sm select-bordered" name="categoryId">
-                                <option value="0" th:selected="${categoryId == 0}">카테고리 전체</option>
-                                <option th:each="category: ${categories}"
+                            <select class="select select-sm select-bordered" name="qnaCategory">
+                                <option value="0">카테고리 전체</option>
+                                <option th:each="category : ${categories}"
                                         th:value="${category.id}"
                                         th:text="${category.name}"
-                                        th:selected="${categoryId == category.id}"></option>
+                                        ></option>
                             </select>
                         </td>
                     </tr>
@@ -262,7 +261,72 @@
             </div>
         </div>
 
+        <!-- 페이저  -->
+<!--        <section class="mb:5">-->
+<!--            <h1 class="d:none">페이저</h1>-->
+<!--            <ul-->
+<!--                    class="join self-center flex space-x-4"-->
+<!--                    style="display: flex; justify-content: center"-->
+<!--                    th:with="page = (${param.page} == null) ? 1 : ${{param.page}}-->
+<!--            , floatnum=(${page}-1)/5,-->
+<!--            intnum=${T(java.lang.Math).floor(floatnum)},-->
+<!--            startnum=${intnum}*5+1,-->
+<!--            lastnum = ${count} mod 10 > 0 ? ${count / 10} + 1 : ${count / 10} + 0"-->
+<!--            >-->
+<!--                <li>-->
+<!--                    <a-->
+<!--                            th:if="${page} ge 6 and ${param.searchKeyword} != null"-->
+<!--                            href="products?p=1"-->
+<!--                            th:href="@{./products(page=${startnum}-1,searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId})}"-->
+<!--                    >이전</a-->
+<!--                    >-->
+<!--                    <a-->
+<!--                            th:if="${page} ge 6 and ${param.searchKeyword} == null"-->
+<!--                            href="products?p=1"-->
+<!--                            th:href="@{./products(page=${startnum}-1),categoryId=${param.categoryId}}"-->
+<!--                    >이전</a-->
+<!--                    >-->
+<!--                </li>-->
 
+<!--                <li-->
+<!--                        th:each="n : ${#numbers.sequence(startnum,startnum+4)}"-->
+<!--                        th:class="${{page}} eq ${n}? 'active'"-->
+<!--                >-->
+<!--                    <a-->
+<!--                            class="join-item btn"-->
+<!--                            th:if="${n le lastnum and param.searchKeyword != null}"-->
+<!--                            href="products?p=1"-->
+<!--                            th:href="@{./products(page=${n},searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId})}"-->
+<!--                            th:text="${n}"-->
+<!--                    >1</a-->
+<!--                    >-->
+<!--                    <a-->
+<!--                            class="join-item btn"-->
+<!--                            th:if="${n le lastnum and param.searchKeyword == null}"-->
+<!--                            href="products?p=1"-->
+<!--                            th:href="@{./products(page=${n},categoryId=${param.categoryId})}"-->
+<!--                            th:text="${n}"-->
+<!--                    >1</a-->
+<!--                    >-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a-->
+<!--                            class="join-item btn"-->
+<!--                            th:if="${startnum+5 le lastnum and param.searchKeyword != null}"-->
+<!--                            href="products?p=12"-->
+<!--                            th:href="@{./products(page=${startnum}+5,searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId})}"-->
+<!--                    >다음</a-->
+<!--                    >-->
+<!--                    <a-->
+<!--                            class="join-item btn"-->
+<!--                            th:if="${startnum+5 le lastnum and param.searchKeyword == null}"-->
+<!--                            href="products?p=12"-->
+<!--                            th:href="@{./products(page=${startnum}+5),categoryId=${param.categoryId}}"-->
+<!--                    >다음</a-->
+<!--                    >-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </section>-->
         <!-- 모달 -->
         <section class="modal" tabindex="-1">
             <h1 class="n-font:h3 font-weight:3">모달 예시</h1>

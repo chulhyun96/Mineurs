@@ -17,10 +17,10 @@ public class Product {
     private int price;
     private String mainImgPath;
     private String description;
-    private boolean isDisplayed;
-    private boolean isSold;
+    private boolean displayed;
+    private boolean sold;
     private String code;
-    private boolean isDeliveryToday;
+    private boolean deliveryToday;
     private double discountRate;
     private Long categoryId;
 }

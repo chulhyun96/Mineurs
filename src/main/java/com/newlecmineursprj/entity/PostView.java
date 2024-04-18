@@ -11,9 +11,10 @@ import java.util.Date;
 public class PostView {
 
     private String boardName;
+    private Long boardId;
     private String summary;
     private String content;
-    private boolean state;
+    private Long state;
     private String memberName;
     private Date regDateTime;
     private Long id;

@@ -1,6 +1,5 @@
 package com.newlecmineursprj.controller.api;
 
-import com.newlecmineursprj.entity.Board;
 import com.newlecmineursprj.entity.PostView;
 import com.newlecmineursprj.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("api/post")
 @RestController("adminRestPostController")
-public class BoardController {
+public class PostController {
 
     @Autowired
     PostService service;
