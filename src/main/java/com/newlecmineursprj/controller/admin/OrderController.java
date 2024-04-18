@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.newlecmineursprj.entity.Order;
+import com.newlecmineursprj.entity.OrderView;
 import com.newlecmineursprj.service.OrderService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class OrderController {
 
     @GetMapping("list")
     public String list(Model model, @RequestParam(defaultValue = "1") Integer page) {
-        List<Order> list = service.getList();
+        List<OrderView> list = service.getList();
         model.addAttribute("list", list);
 
         return ORDER_VIEW + "/list";

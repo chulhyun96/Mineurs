@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.newlecmineursprj.entity.Order;
+import com.newlecmineursprj.entity.OrderView;
 import com.newlecmineursprj.repository.OrderRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository repository;
 
     @Override
-    public List<Order> getList() {
+    public List<OrderView> getList() {
         return repository.findAll();
     }
 

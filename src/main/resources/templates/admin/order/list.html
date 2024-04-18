@@ -140,10 +140,10 @@
                 <!--                <th scope="col">공급가</th>-->
                 <th scope="col">주문자</th>
                 <th scope="col">상품명</th>
-                <th scope="col">상품개수</th>
                 <th scope="col">총 상품구매금액</th>
                 <th scope="col">총 실결제금액</th>
                 <th scope="col">결제수단</th>
+                <th scope="col">주문상태</th>
               </tr>
             </thead>
 
@@ -162,8 +162,18 @@
                 <td scope="col" th:text="${order.code}">상품코드</td>
                 <!--                <td scope="col" th:text="${product.supplyingPrice}">공급가</td>-->
                 <!--                <td scope="col" th:text="${product.description}">설명</td>-->
-                <td scope="col" th:text="${order.memberId}">주문자</td>
-                <td scope="col" th:text="${order.productId}">상품명</td>
+                <td scope="col" th:text="${order.userName}">주문자</td>
+                <td scope="col">
+                  <span
+                    th:each="productName : ${order.productNames}"
+                    th:text="${productName}"
+                  >
+                    상품명
+                  </span>
+                  <div th:if="${order.productsCount > 1}">
+                    <span th:text="|외 ${order.productsCount-1}개|">개수</span>
+                  </div>
+                </td>
                 <td scope="col" th:text="${order.totalProductPrice}">
                   총 상품구매금액
                 </td>
@@ -173,8 +183,9 @@
                 >
                   총 실결제금액
                 </td>
-                <td scope="col" th:text="${order.paymentMethodId}">결제수단</td>
+                <td scope="col" th:text="${order.paymentMethod}">결제수단</td>
                 <!--                <td>No</td>-->
+                <td scope="col" th:text="${order.orderState}">주문상태</td>
               </tr>
             </tbody>
           </table>
@@ -186,7 +197,7 @@
 
       <!-- 페이징 -->
 
-      <section class="mb:5">
+      <!-- <section class="mb:5">
         <h1 class="d:none">페이저</h1>
         <ul
           class="join self-center flex space-x-4"
@@ -250,7 +261,7 @@
             >
           </li>
         </ul>
-      </section>
+      </section> -->
       <!-- 페이징 -->
     </main>
   </body>

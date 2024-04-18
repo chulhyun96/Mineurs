@@ -13,13 +13,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class OrderView {
+    private Long id;
     private String code;
     private Date orderedDatetime;
     private String userName;
-    private List<String> productName;
+    private List<String> productNames;
     private int totalProductPrice;
-    private int totalPaymentAmount;
+    private int totalDiscountAmount;
+    private int totalDeliveryFee;
     private String paymentMethod;
     private String orderState;
+    private int productsCount;
 
 }
