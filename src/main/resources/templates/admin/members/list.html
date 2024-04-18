@@ -45,21 +45,35 @@
         </tbody>
     </table>
     <!-- 페이저 -->
-    <div class="join flex justify-center"
+    <section class="join flex justify-center"
         th:with="page = (${param.p} == null)? 1 : ${{param.p}} 
                 , floatnum=(${page}-1)/5,
                 intnum=${T(java.lang.Math).floor(floatnum)},
                 startnum=${intnum}*5+1,
                 lastnum = ${count} mod 10 > 0 ? ${count / 10} + 1 : ${count / 10} + 0">
-        <a  th:each="n : ${#numbers.sequence(startnum,startnum+4)}"
-            th:href="@{./members(p=${n},searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword})}"
-            th:if="${n} le ${lastnum}">
-                <button class="join-item btn"
+        <h1 class="hidden">페이저</h1>
+        <div>
+            <span th:if="${page} lt 6" class="btn">이전</span>
+            <a th:if="${page} ge 6" th:href="@{./members(p=${startnum}-1,searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword})}">
+                이전
+            </a>
+        </div>
+        <div>
+            <a  th:each="n : ${#numbers.sequence(startnum,startnum+4)}"
+                th:href="@{./members(p=${n},searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword})}"
+                th:if="${n} le ${lastnum}"
+                class="btn"
                 th:classappend = "${{param.p}} eq ${n}? 'btn-active'"
-                th:text="${n}">
-                1</button>
-        </a>
-    </div>
+                th:text="${n}">1
+            </a>
+        </div>
+        <div>
+            <span th:if="${startnum+5} gt ${lastnum}" class="btn">다음</span>
+            <a th:if="${startnum+5} le ${lastnum}" th:href="@{./members(p=${startnum}+5,searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword})}">
+                다음
+            </a>
+        </div>
+    </section>
 </main>
 </body>
 </html>
