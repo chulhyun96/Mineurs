@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -37,13 +38,16 @@ private final QnaCategoryService categoryService;
         List<PostView> list = service.getList(page,searchMethod,searchKeyword.trim(),boardId,qnaCategory);
         List<QnaCategory> categories = categoryService.getList();
 
-//        System.out.println(list.get(0).getBoardName());
         model.addAttribute("list", list);
         model.addAttribute("count", count);
         model.addAttribute("categories", categories);
 
         return "admin/post/list";
     }
+
+    @PostMapping
+
+
 
     @GetMapping("preview")
     public String regForm() {

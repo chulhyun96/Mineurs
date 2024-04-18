@@ -36,11 +36,14 @@ public class MemberController {
     @GetMapping("members")
     public String list(@RequestParam(required = false) String searchMethod
             , @RequestParam(defaultValue = "") String searchKeyword
+            , @RequestParam(name = "p", required = false, defaultValue = "1") Integer page
             , Model model) {
 
+        List<Member> list = service.getList(page, searchMethod, searchKeyword.trim());
+        int count = service.getCount(searchMethod,searchKeyword);
 
-        List<Member> list = service.getList(searchMethod, searchKeyword.trim());
         model.addAttribute("list", list);
+        model.addAttribute("count", count);
         return MEMBERS_VIEW + "/list";
     }
 
@@ -48,7 +51,7 @@ public class MemberController {
     public String detail(@RequestParam(name = "id", required = false) Long id,
                         Model model) {
 
-        Member member = service.findById(id);
+        Member member = service.getById(id);
         List<Coupon> coupons = couponService.getListByMemberId(id);
         List<Review> reviews = reviewService.getListByMemberId(id);
         List<Qna> qnas = qnaService.getListByMemberId(id);

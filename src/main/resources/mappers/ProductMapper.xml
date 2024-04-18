@@ -46,7 +46,7 @@
             </if>
         </where>
         <!--        GROUP BY id-->
-        <!--        ORDER BY id DESC-->
+                ORDER BY id DESC
         <!--        limit #{offset},#{size}-->
     </select>
 
@@ -92,10 +92,10 @@
         #{description},
         #{mainImgPath},
         #{categoryId},
-        #{isDisplayed},
-        #{isSold},
+        #{displayed},
+        #{sold},
         #{code},
-        #{isDeliveryToday},
+        #{deliveryToday},
         #{discountRate})
     </insert>
 

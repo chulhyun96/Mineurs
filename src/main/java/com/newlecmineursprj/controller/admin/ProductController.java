@@ -1,5 +1,6 @@
 package com.newlecmineursprj.controller.admin;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -66,45 +67,36 @@ public class ProductController {
     public String regForm(Model model) {
         List<Category> categories = categoryService.getList();
         model.addAttribute("categories", categories);
+        model.addAttribute("product", new Product());
         return PRODUCTS_VIEW + "/reg";
     }
 
     @PostMapping
     public String reg(
-            ProductRegDTO productRegDTO,
-            HttpServletRequest req,
-            @RequestParam(value = "sub-imgs") List<MultipartFile> subImages) throws FileUploadException {
+            Product product,
+            MultipartFile mainImg,
+            @RequestParam(value = "sub-imgs")
+            List<MultipartFile> subImages) throws IOException {
 
-        log.debug("productRegDTO: {}", productRegDTO);
-
-        String subImgPath = "/image/subImg";
-        saveSubImages(subImages, req, subImgPath);
-
-        String mainImgPath = "/image/products";
-        saveToDir(productRegDTO.getMainImg(), req, mainImgPath);
-
-        Product product = ProductMapper.toProduct(productRegDTO);
-        service.reg(product);
-
-        // service.reg 이후에 product에 id가 생긴다
-
-        List<ProductSubImg> subImgs = subImages.stream().map(subImg -> SubImgMapper.toSubImg(subImg, product.getId()))
+        /*List<String> list = subImages.stream()
+                .map(MultipartFile::getOriginalFilename)
                 .toList();
-        log.debug("subImgs: {}", subImgs);
-        productSubImgService.regAll(subImgs);
+
+        for (String subImg : list) {
+            ProductSubImg.builder()
+                    .path(subImg)
+                    .productId(product.getId());
+        }*/
+
+        service.reg(product,mainImg, subImages);
+
+
+        /*List<ProductSubImg> subImgs = subImages.stream().map(subImg -> SubImgMapper.toSubImg(subImg, product.getId()))
+                .toList();
+        productSubImgService.regAll(subImgs);*/
         return REDIRECT + PRODUCTS_VIEW;
     }
 
-    private void saveSubImages(List<MultipartFile> subImages, HttpServletRequest req, String subImgPath) {
-        for (MultipartFile img : subImages) {
-            saveToDir(img, req, subImgPath);
-        }
-    }
-
-    private String saveToDir(MultipartFile img, HttpServletRequest req, String path) {
-        String realPath = req.getServletContext().getRealPath(path);
-        return service.saveProductImg(img, realPath);
-    }
 
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {

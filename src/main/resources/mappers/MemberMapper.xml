@@ -4,35 +4,21 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.newlecmineursprj.repository.MemberRepository">
 
-    <select id="findAll" resultType="Member">
-        SELECT
-        *
-        FROM member
-
-        <where>
-            <if test="id != null">
-                id like '%${id}%'
-            </if>
-            <if test="name != null">
-                name like '%${name}%'
-            </if>
-            <if test="username != null">
-                username like '%${username}%'
-            </if>
-            <if test="password != null">
-                password like '%${password}%'
-            </if>
-            <if test="phoneNumber != null">
-                phone_number like '%${phoneNumber}%'
-            </if>
-            <if test="email != null">
-                email like '%${email}%'
-            </if>
-
-
-        </where>
-        ORDER BY id DESC
-    </select>
+    <select id="findAll" resultType="member">
+		select
+		*
+		from member
+		<where>
+			<if test="searchMethod == 'name'">
+				name like '%${searchKeyword}%'
+			</if>
+			<if test="searchMethod == 'login-id'">
+				and username LIKE '%${searchKeyword}%'
+			</if>
+		</where>
+		order by reg_date desc
+        limit #{offset},#{size}
+	</select>
 
     <select id="findById" resultType="Member">
         SELECT
@@ -71,4 +57,18 @@
         delete from member
         where id = #{id}
     </delete>
+
+    <select id="count" resultType="int">
+		select 
+			count(member.id) count
+		from member
+		<where>
+			<if test="searchMethod == 'name'">
+				name like '%${searchKeyword}%'
+			</if>
+			<if test="searchMethod == 'login-id'">
+				and username LIKE '%${searchKeyword}%'
+			</if>
+		</where>
+	</select>
 </mapper>
