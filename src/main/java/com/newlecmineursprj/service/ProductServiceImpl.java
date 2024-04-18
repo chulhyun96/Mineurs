@@ -40,11 +40,11 @@ public class ProductServiceImpl implements ProductService {
         //메인 이미지 저장
         String storageMainImgName = imgStorage.getStorageImgName(mainImg);
         product.setMainImgPath(storageMainImgName);
-        Product savedProduct = repository.reg(product);
+        Long savedProductId = repository.reg(product);
 
         //서브 이미지 저장
         List<String> storageSubImgName = imgStorage.getStorageSubImgName(subImgs);
-        List<ProductSubImg> productSubImgs = ProductSubImg.saveSubImg(storageSubImgName, savedProduct.getId());
+        List<ProductSubImg> productSubImgs = ProductSubImg.saveSubImg(storageSubImgName, savedProductId);
         subImgRepository.reg(productSubImgs);
 
     }
