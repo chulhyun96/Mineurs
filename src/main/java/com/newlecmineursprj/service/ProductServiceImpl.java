@@ -32,9 +32,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void reg(Product product) {
-
-
-
         repository.reg(product);
     }
 

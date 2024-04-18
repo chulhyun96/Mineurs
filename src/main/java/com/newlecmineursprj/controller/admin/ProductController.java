@@ -66,32 +66,22 @@ public class ProductController {
     public String regForm(Model model) {
         List<Category> categories = categoryService.getList();
         model.addAttribute("categories", categories);
+        model.addAttribute("product", new Product());
         return PRODUCTS_VIEW + "/reg";
     }
 
     @PostMapping
     public String reg(
-            ProductRegDTO productRegDTO,
-            HttpServletRequest req,
+            Product product,
+            MultipartFile mainImg,
             @RequestParam(value = "sub-imgs") List<MultipartFile> subImages) throws FileUploadException {
-
-        log.debug("productRegDTO: {}", productRegDTO);
-
-        String subImgPath = "/image/subImg";
-        saveSubImages(subImages, req, subImgPath);
-
-        String mainImgPath = "/image/products";
-        saveToDir(productRegDTO.getMainImg(), req, mainImgPath);
-
-        Product product = ProductMapper.toProduct(productRegDTO);
-        service.reg(product);
-
-        // service.reg 이후에 product에 id가 생긴다
-
-        List<ProductSubImg> subImgs = subImages.stream().map(subImg -> SubImgMapper.toSubImg(subImg, product.getId()))
+        log.info("Product = {}", product);
+        log.info("MainImg = {}", mainImg.getOriginalFilename());
+        log.info("subImages = {}", subImages);
+        /*service.reg(product);*/
+        /*List<ProductSubImg> subImgs = subImages.stream().map(subImg -> SubImgMapper.toSubImg(subImg, product.getId()))
                 .toList();
-        log.debug("subImgs: {}", subImgs);
-        productSubImgService.regAll(subImgs);
+        productSubImgService.regAll(subImgs);*/
         return REDIRECT + PRODUCTS_VIEW;
     }
 

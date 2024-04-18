@@ -92,10 +92,10 @@
         #{description},
         #{mainImgPath},
         #{categoryId},
-        #{isDisplayed},
-        #{isSold},
+        #{displayed},
+        #{sold},
         #{code},
-        #{isDeliveryToday},
+        #{deliveryToday},
         #{discountRate})
     </insert>
 
