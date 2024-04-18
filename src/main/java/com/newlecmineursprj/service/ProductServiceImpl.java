@@ -46,7 +46,6 @@ public class ProductServiceImpl implements ProductService {
         List<String> storageSubImgName = imgStorage.getStorageSubImgName(subImgs);
         List<ProductSubImg> productSubImgs = ProductSubImg.saveSubImg(storageSubImgName, savedProductId);
         subImgRepository.reg(productSubImgs);
-
     }
 
     @Override
