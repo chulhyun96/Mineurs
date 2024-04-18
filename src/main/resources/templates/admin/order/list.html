@@ -1,43 +1,154 @@
 <!DOCTYPE html>
 <html
   lang="en"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  html
   layout:decorate="~{/admin/inc/layout}"
+  xmlns:layout="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
 >
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Title</title>
   </head>
   <body>
-    <main
-      layout:fragment="main"
-      class="n-panel n-main-panel d:flex flex-direction:column"
-    >
-      <h1>관리자 오더 관리 페이지</h1>
+    <main layout:fragment="main" class="flex flex-col container mx-auto px-10">
+      <h1 class="font-bold text-3xl self-center">관리자 상품목록</h1>
+      <!--    검색 -->
+
+      <section class="overflow-x-auto w-full flex flex-col">
+        <h1 class="text-2xl mb-0">결제 정보</h1>
+        <form
+          method="get"
+          action="products"
+          class="n-form md:n-field-label-position:left border:0 w:3/5 mx:auto my:10"
+        >
+          <table class="table">
+            <colgroup>
+              <col class="bg-base-300" />
+            </colgroup>
+
+            <tbody>
+              <tr>
+                <td>검색분류</td>
+
+                <td colspan="3">
+                  <div>
+                    <!--  검색 모듈 -->
+                    <div class="join">
+                      <select
+                        class="select select-bordered join-item"
+                        name="searchMethod"
+                      >
+                        <option value="title">제목</option>
+                        <option value="description">내용</option>
+                      </select>
+                      <div>
+                        <div>
+                          <input
+                            type="text"
+                            name="searchKeyword"
+                            class="input input-bordered join-item"
+                            placeholder="검색어를 입력하세요"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>주문일</td>
+                <td colspan="3">
+                  <div class="flex space-x-5">
+                    <div class="flex space-x-1">
+                      <label
+                        class="btn btn-outline btn-sm flex justify-center items-center"
+                      >
+                        <span>오늘</span>
+                        <input type="radio" class="hidden" />
+                      </label>
+                      <label
+                        class="btn btn-outline btn-sm flex justify-center items-center"
+                      >
+                        <span>3일</span>
+                        <input type="radio" class="hidden" />
+                      </label>
+                      <label
+                        class="btn btn-outline btn-sm flex justify-center items-center"
+                      >
+                        <span>7일</span>
+                        <input type="radio" class="hidden" />
+                      </label>
+                      <label
+                        class="btn btn-outline btn-sm flex justify-center items-center"
+                      >
+                        <span>1개월</span>
+                        <input type="radio" class="hidden" />
+                      </label>
+                      <label
+                        class="btn btn-outline btn-sm flex justify-center items-center"
+                      >
+                        <span>3개월</span>
+                        <input type="radio" class="hidden" />
+                      </label>
+                      <label
+                        class="btn btn-outline btn-sm flex justify-center items-center"
+                      >
+                        <span>1년</span>
+                        <input type="radio" class="hidden" />
+                      </label>
+                      <label
+                        class="btn btn-outline btn-sm flex justify-center items-center"
+                      >
+                        <span>전체</span>
+                        <input type="radio" class="hidden" checked />
+                      </label>
+                    </div>
+
+                    <div class="flex space-x-1 items-center">
+                      <input type="date" />
+                      <span>~</span>
+                      <input type="date" />
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="self-center flex space-x-2 justify-center">
+            <button class="btn btn-wide">검색</button>
+            <button class="btn btn-wide btn-outline">초기화</button>
+          </div>
+        </form>
+      </section>
+
+      <!--    리스트-->
       <section class="mt-10">
-        <h1 class="text-2xl mb-0">상품 목록</h1>
+        <h1 class="text-2xl mb-0">주문 목록</h1>
         <div class="overflow-x-auto w-full">
+          <div class="flex justify-end">
+            <button class="btn">엑셀 다운로드</button>
+          </div>
           <table class="table table-zebra text-center">
             <!-- head -->
             <thead>
               <tr>
                 <th scope="col" class="w:2"></th>
                 <!--                <th scope="col">카테고리 이름</th>-->
-                <th scope="col">상품 코드</th>
                 <th scope="col">주문일</th>
+                <th scope="col">상품코드</th>
                 <!--                <th scope="col">공급가</th>-->
-                <th scope="col">주문총액</th>
-                <th scope="col">배송비</th>
-                <th scope="col">할인금액</th>
-                <!--                <th scope="col">설명</th>-->
-                <!-- <th scope="col">등록일자</th> -->
+                <th scope="col">주문자</th>
+                <th scope="col">상품명</th>
+                <th scope="col">상품개수</th>
+                <th scope="col">총 상품구매금액</th>
+                <th scope="col">총 실결제금액</th>
+                <th scope="col">결제수단</th>
               </tr>
             </thead>
 
             <tbody>
-              <tr th:each="order: ${list}">
+              <tr th:each="order : ${list}">
                 <td scope="col">
                   <input
                     name="deleteId"
@@ -47,42 +158,100 @@
                   />
                 </td>
                 <!--                <td scope="col" th:text="${product.categoryName}">카테고리 이름</td>-->
-                <td scope="col">
-                  <a href="" th:text="${order.code}">상품코드</a>
-                </td>
+                <td scope="col" th:text="${order.orderedDatetime}">주문일</td>
+                <td scope="col" th:text="${order.code}">상품코드</td>
                 <!--                <td scope="col" th:text="${product.supplyingPrice}">공급가</td>-->
                 <!--                <td scope="col" th:text="${product.description}">설명</td>-->
+                <td scope="col" th:text="${order.memberId}">주문자</td>
+                <td scope="col" th:text="${order.productId}">상품명</td>
+                <td scope="col" th:text="${order.totalProductPrice}">
+                  총 상품구매금액
+                </td>
                 <td
                   scope="col"
-                  th:text="${#dates.format(order.orderedDatetime, 'yyyy년 M월 d일') }"
+                  th:text="${order.totalProductPrice} - ${order.totalDiscountAmount}"
                 >
-                  주문일
+                  총 실결제금액
                 </td>
-                <td scope="col" th:text="${order.totalProductPrice}">
-                  주문총액
-                </td>
-                <td scope="col" th:text="${order.totalDeliveryFee}">배송비</td>
+                <td scope="col" th:text="${order.paymentMethodId}">결제수단</td>
                 <!--                <td>No</td>-->
-                <td scope="col" th:text="${order.totalDiscountAmount}">
-                  할인금액
-                </td>
               </tr>
             </tbody>
           </table>
-        </div>
-        <div class="flex justify-between">
-          <div class="flex space-x-1">
-            <button class="btn btn-outline btn-sm">진열함</button>
-            <button class="btn btn-outline btn-sm">진열안함</button>
-            <button class="btn btn-outline btn-sm">판매함</button>
-            <button class="btn btn-outline btn-sm">판매안함</button>
-            <button class="btn btn-outline btn-sm">삭제</button>
-          </div>
           <div class="flex justify-end">
-            <button class="btn">상품등록</button>
+            <button class="btn">엑셀 다운로드</button>
           </div>
         </div>
       </section>
+
+      <!-- 페이징 -->
+
+      <section class="mb:5">
+        <h1 class="d:none">페이저</h1>
+        <ul
+          class="join self-center flex space-x-4"
+          style="display: flex; justify-content: center"
+          th:with="page = (${param.page} == null)? 1 : ${{param.page}}
+            , floatnum=(${page}-1)/5,
+            intnum=${T(java.lang.Math).floor(floatnum)},
+            startnum=${intnum}*5+1,
+            lastnum = ${count} mod 10 > 0 ? ${count / 10} + 1 : ${count / 10} + 0"
+        >
+          <li>
+            <a
+              th:if="${page} ge 6 and ${param.searchKeyword} != null"
+              href="products?p=1"
+              th:href="@{./products(page=${startnum}-1,searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId})}"
+              >이전</a
+            >
+            <a
+              th:if="${page} ge 6 and ${param.searchKeyword} == null"
+              href="products?p=1"
+              th:href="@{./products(page=${startnum}-1),categoryId=${param.categoryId}}"
+              >이전</a
+            >
+          </li>
+
+          <li
+            th:each="n : ${#numbers.sequence(startnum,startnum+4)}"
+            th:class="${{page}} eq ${n}? 'active'"
+          >
+            <a
+              class="join-item btn"
+              th:if="${n le lastnum and param.searchKeyword != null}"
+              href="products?p=1"
+              th:href="@{./products(page=${n},searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId})}"
+              th:text="${n}"
+              >1</a
+            >
+            <a
+              class="join-item btn"
+              th:if="${n le lastnum and param.searchKeyword == null}"
+              href="products?p=1"
+              th:href="@{./products(page=${n},categoryId=${param.categoryId})}"
+              th:text="${n}"
+              >1</a
+            >
+          </li>
+          <li>
+            <a
+              class="join-item btn"
+              th:if="${startnum+5 le lastnum and param.searchKeyword != null}"
+              href="products?p=12"
+              th:href="@{./products(page=${startnum}+5,searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId})}"
+              >다음</a
+            >
+            <a
+              class="join-item btn"
+              th:if="${startnum+5 le lastnum and param.searchKeyword == null}"
+              href="products?p=12"
+              th:href="@{./products(page=${startnum}+5),categoryId=${param.categoryId}}"
+              >다음</a
+            >
+          </li>
+        </ul>
+      </section>
+      <!-- 페이징 -->
     </main>
   </body>
 </html>

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.newlecmineursprj.entity.Order;
 import com.newlecmineursprj.service.OrderService;
@@ -21,7 +22,7 @@ public class OrderController {
     private final OrderService service;
 
     @GetMapping("list")
-    public String list(Model model) {
+    public String list(Model model, @RequestParam(defaultValue = "1") Integer page) {
         List<Order> list = service.getList();
         model.addAttribute("list", list);
 
