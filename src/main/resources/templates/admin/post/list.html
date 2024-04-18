@@ -96,36 +96,16 @@
                         <td colspan="3">
                             <div class="flex space-x-5">
                                 <div class="flex space-x-1">
-                                    <label
-                                            class="btn btn-outline btn-sm flex justify-center items-center"
-                                    >
-                                        <span>오늘</span>
-                                        <input type="radio"  class="hidden" />
-                                    </label>
-                                    <label
-                                            class="btn btn-outline btn-sm flex justify-center items-center"
-                                    >
-                                        <span>3일</span>
-                                        <input type="radio"  class="hidden" />
-                                    </label>
-                                    <label
-                                            class="btn btn-outline btn-sm flex justify-center items-center"
-                                    >
-                                        <span>7일</span>
-                                        <input type="radio"  class="hidden" />
-                                    </label>
-                                    <label
-                                            class="btn btn-outline btn-sm flex justify-center items-center"
-                                    >
-                                        <span>1개월</span>
-                                        <input type="radio"  class="hidden" />
-                                    </label>
+                                    <button type="button" class="btn btn-outline btn-sm flex justify-center items-center today-btn">오늘</button>
+                                    <button type="button" class="btn btn-outline btn-sm flex justify-center items-center three-day-btn">3일</button>
+                                    <button type="button" class="btn btn-outline btn-sm flex justify-center items-center seven-day-btn">7일</button>
+                                    <button type="button" class="btn btn-outline btn-sm flex justify-center items-center one-month-btn">1개월</button>
                                 </div>
 
                                 <div class="flex space-x-1 items-center">
-                                    <input type="date"  />
+                                    <input class="before-date-input" type="date"/>
                                     <span>~</span>
-                                    <input type="date"  />
+                                    <input class="after-date-input" type="date"/>
                                 </div>
                             </div>
                         </td>

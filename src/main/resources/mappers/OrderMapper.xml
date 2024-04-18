@@ -3,10 +3,29 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.newlecmineursprj.repository.OrderRepository">
-    <select id="findAll" resultType="order">
-        SELECT
-        *
-        FROM `order`
-        order by id
+<resultMap id="OrderView" type="OrderView">
+        <id column="id" property="id"/>
+        <result property="code" column="code"/>
+        <result property="orderedDatetime" column="ordered_datetime"/>
+        <result property="userName" column="m_name"/>
+        <!-- <result property="productName" column="p_name"/> -->
+        <result property="totalProductPrice" column="total_product_price"/>
+        <result property="totalDiscountAmount" column="total_discount_amount"/>
+        <result property="totalDeliveryFee" column="total_delivery_fee"/>
+        <result property="paymentMethod" column="pm_name"/>
+        <result property="orderState" column="os_name"/>
+        <result property="productsCount" column="p_count"/>
+        
+
+        <collection property="productNames" ofType="String">
+            <result column="p_name"/>
+        </collection>
+    </resultMap>
+    <select id="findAll" resultMap="OrderView">
+       select
+       *
+       FROM
+       order_list_view
+       order by ordered_datetime
     </select>
 </mapper>
