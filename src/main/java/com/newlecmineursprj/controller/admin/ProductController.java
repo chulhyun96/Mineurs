@@ -1,5 +1,6 @@
 package com.newlecmineursprj.controller.admin;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -74,27 +75,28 @@ public class ProductController {
     public String reg(
             Product product,
             MultipartFile mainImg,
-            @RequestParam(value = "sub-imgs") List<MultipartFile> subImages) throws FileUploadException {
-        log.info("Product = {}", product);
-        log.info("MainImg = {}", mainImg.getOriginalFilename());
-        log.info("subImages = {}", subImages);
-        /*service.reg(product);*/
+            @RequestParam(value = "sub-imgs")
+            List<MultipartFile> subImages) throws IOException {
+
+        /*List<String> list = subImages.stream()
+                .map(MultipartFile::getOriginalFilename)
+                .toList();
+
+        for (String subImg : list) {
+            ProductSubImg.builder()
+                    .path(subImg)
+                    .productId(product.getId());
+        }*/
+
+        service.reg(product,mainImg, subImages);
+
+
         /*List<ProductSubImg> subImgs = subImages.stream().map(subImg -> SubImgMapper.toSubImg(subImg, product.getId()))
                 .toList();
         productSubImgService.regAll(subImgs);*/
         return REDIRECT + PRODUCTS_VIEW;
     }
 
-    private void saveSubImages(List<MultipartFile> subImages, HttpServletRequest req, String subImgPath) {
-        for (MultipartFile img : subImages) {
-            saveToDir(img, req, subImgPath);
-        }
-    }
-
-    private String saveToDir(MultipartFile img, HttpServletRequest req, String path) {
-        String realPath = req.getServletContext().getRealPath(path);
-        return service.saveProductImg(img, realPath);
-    }
 
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {

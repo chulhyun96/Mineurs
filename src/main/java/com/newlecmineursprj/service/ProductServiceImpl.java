@@ -4,9 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import com.newlecmineursprj.domain.file.ImgStorage;
 import com.newlecmineursprj.dto.ProductListDTO;
-import com.newlecmineursprj.dto.ProductRegDTO;
+import com.newlecmineursprj.entity.ProductSubImg;
 import com.newlecmineursprj.mapper.ProductMapper;
+import com.newlecmineursprj.mapper.SubImgMapper;
+import com.newlecmineursprj.repository.ProductSubImgRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository repository;
+    private final ProductSubImgRepository subImgRepository;
+    private final ImgStorage imgStorage;
 
     @Override
     public List<ProductListDTO> getList(Integer page, String searchMethod, String searchKeyword, long categoryId) {
@@ -31,8 +36,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void reg(Product product) {
-        repository.reg(product);
+    public void reg(Product product,MultipartFile mainImg ,List<MultipartFile> subImgs) throws IOException {
+        //메인 이미지 저장
+        String storageMainImgName = imgStorage.getStorageImgName(mainImg);
+        product.setMainImgPath(storageMainImgName);
+        Product savedProduct = repository.reg(product);
+
+        //서브 이미지 저장
+        List<String> storageSubImgName = imgStorage.getStorageSubImgName(subImgs);
+        List<ProductSubImg> productSubImgs = ProductSubImg.saveSubImg(storageSubImgName, savedProduct.getId());
+        subImgRepository.reg(productSubImgs);
+
     }
 
     @Override
@@ -54,25 +68,6 @@ public class ProductServiceImpl implements ProductService {
         repository.deleteAll(deleteId);
     }
 
-    @Override
-    public String saveProductImg(MultipartFile img, String realPath) {
-        String fileName = img.getOriginalFilename();
-        if (img != null && !img.isEmpty()) {
-
-            File pathFile = new File(realPath);
-            if (!pathFile.exists()) {
-                pathFile.mkdirs();
-            }
-            File file = new File(realPath + File.separator + fileName);
-            try {
-                img.transferTo(file);
-                return fileName;
-            } catch (IOException e) {
-                log.error("Failed to save product image = {}", e.getMessage());
-            }
-        }
-        return "Failed File Upload";
-    }
 
     @Override
     public int getCount(String searchMethod, String searchKeyword, long categoryId) {
