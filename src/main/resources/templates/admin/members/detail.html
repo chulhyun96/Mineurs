@@ -12,6 +12,7 @@
 <main
         layout:fragment="main"
         class="n-panel n-main-panel d:flex flex-direction:column container mx-auto px-10">
+        <a href="/admin/members"><div class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg mb-5">뒤로가기</div></a>
         <!-- 멤버 정보 -->
     <section class="border-2">
         <h1>고객 정보</h1>
@@ -33,7 +34,7 @@
         </div>
         <div class="flex">
             <div class="pr-10 font-bold">가입일자</div>
-            <div th:text="${member.regDate}">가입일자</div>
+            <div th:text="${#dates.format(member.regDate, 'yyyy년 M월 d일 HH:mm:ss') }">가입일자</div>
         </div>
     </section>
     <!-- 보유 쿠폰 리스트 -->
@@ -49,8 +50,8 @@
                 <th scope="col">최소구매금액</th>
             </tr>
             </thead>
-            <tbody>
-            <tr th:each="coupon: ${coupons}">
+            <tbody th:with ="couponList=${coupons}">
+            <tr th:if="!${#lists.isEmpty(couponList)}" th:each="coupon: ${coupons}">
                 <td scope="col" class="text-center" th:text="${coupon.name}">쿠폰명</td>
                 <td scope="col" class="text-center" th:text="${coupon.description}">내용</td>
                 <td scope="col" class="text-center" th:text="${coupon.discountRate}">할인율</td>
@@ -61,12 +62,19 @@
                 </td>
                 <td scope="col" class="text-center" th:text="${coupon.minimumPurchase}">최소구매금액</td>
             </tr>
+            <tr th:if="${#lists.isEmpty(couponList)}">
+                <td scope="col" class="text-center"></td>
+                <td scope="col" class="text-center"></td>
+                <td scope="col" class="text-center">사용 가능한 쿠폰이 없습니다.</td>
+                <td scope="col" class="text-center"></td>
+                <td scope="col" class="text-center"></td>
+            </tr>
             </tbody>
         </table>
     </section>
     <!-- 작성 리뷰 -->
     <section class="border-2">
-        <h1>작성 리뷰</h1>
+        <h1>작성한 리뷰</h1>
         <table class="n-table n-table-style:striped">
             <thead>
             <tr>
@@ -75,18 +83,23 @@
                 <th scope="col">작성일</th>
             </tr>
             </thead>
-            <tbody>
-            <tr th:each="review: ${reviews}">
+            <tbody th:with ="reviewList=${reviews}">
+            <tr th:if="!${#lists.isEmpty(reviewList)}" th:each="review: ${reviewList}">
                 <td scope="col" class="text-center">주문내용</td>
                 <td scope="col" class="text-center" th:text="${review.content}">내용</td>
                 <td scope="col" class="text-center" th:text="${review.regDatetime}">작성일</td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(reviewList)}">
+                <td scope="col" class="text-center"></td>
+                <td scope="col" class="text-center">작성한 리뷰가 없습니다.</td>
+                <td scope="col" class="text-center"></td>
             </tr>
             </tbody>
         </table>
     </section>
     <!-- 작성 Q&A -->
     <section class="border-2">
-        <h1>작성 Q&A</h1>
+        <h1>작성한 QnA</h1>
         <table class="n-table n-table-style:striped">
             <thead>
             <tr>
@@ -95,13 +108,18 @@
                 <th scope="col">작성일</th>
             </tr>
             </thead>
-            <tbody>
-            <tr th:each="qna: ${qnas}">
-                <td scope="col" class="text-center">주문내용</td>
-                <td scope="col" class="text-center" th:text="${qna.content}">내용</td>
-                <td scope="col" class="text-center" th:text="${qna.regDatetime}">작성일</td>
-            </tr>
-            </tbody>
+            <tbody th:with ="qnaList=${qnas}">
+                <tr th:if="!${#lists.isEmpty(qnaList)}" th:each="qna: ${qnaList}">
+                    <td scope="col" class="text-center">주문내용</td>
+                    <td scope="col" class="text-center" th:text="${qna.content}">내용</td>
+                    <td scope="col" class="text-center" th:text="${qna.regDatetime}">작성일</td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(qnaList)}">
+                    <td scope="col" class="text-center"></td>
+                    <td scope="col" class="text-center">작성한 QnA가 없습니다.</td>
+                    <td scope="col" class="text-center"></td>
+                </tr>
+                </tbody>
         </table>
     </section>
 </main>

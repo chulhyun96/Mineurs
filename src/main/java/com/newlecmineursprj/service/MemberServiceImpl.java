@@ -15,31 +15,24 @@ public class MemberServiceImpl implements MemberService {
 
 
     @Override
-    public Member findById(long id) {
+    public List<Member> getList(Integer page) {
+        return getList(page,null,null);
+    }
+
+    @Override
+    public List<Member> getList(Integer page, String searchMethod, String searchKeyword) {
+        
+        int size = 10;
+        int offset = (page-1) * size; 
+
+        return repository.findAll(searchMethod,searchKeyword,offset,size);
+    }
+    
+    
+    @Override
+    public Member getById(long id) {
         return repository.findById(id);
     }
-
-    @Override
-    public List<Member> getList(String searchMethod, String searchKeyword) {
-        if (searchMethod == null)
-            return repository.findAll(null, null, null, null, null, null);
-        return switch (searchMethod) {
-            case "name" -> findByName(searchMethod.trim());
-            case "login-id" -> List.of(findByUsername(searchKeyword.trim()));
-            default -> null;
-        };
-    }
-
-    @Override
-    public List<Member> findByName(String name) {
-        return repository.findAll(null, name, null, null, null, null);
-    }
-
-    @Override
-    public Member findByUsername(String username) {
-        return repository.findAll(null, null, username, null, null, null).get(0);
-    }
-
 
     @Override
     public void save(Member member) {
@@ -59,5 +52,15 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void deleteAll(List<Long> ids) {
         repository.deleteAll(ids);
+    }
+
+    @Override
+    public int getCount() {
+        return getCount(null,null);
+    }
+
+    @Override
+    public int getCount(String searchMethod, String searchKeyword) {
+        return repository.count(searchMethod, searchKeyword);
     }
 }

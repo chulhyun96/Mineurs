@@ -44,11 +44,22 @@
         </tr>
         </tbody>
     </table>
-    <ul class="n-pager mx:auto">
-        <li class="active"><a>1</a></li>
-        <li><a>2</a></li>
-        <li><a>3</a></li>
-    </ul>
+    <!-- 페이저 -->
+    <div class="join flex justify-center"
+        th:with="page = (${param.p} == null)? 1 : ${{param.p}} 
+                , floatnum=(${page}-1)/5,
+                intnum=${T(java.lang.Math).floor(floatnum)},
+                startnum=${intnum}*5+1,
+                lastnum = ${count} mod 10 > 0 ? ${count / 10} + 1 : ${count / 10} + 0">
+        <a  th:each="n : ${#numbers.sequence(startnum,startnum+4)}"
+            th:href="@{./members(p=${n},searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword})}"
+            th:if="${n} le ${lastnum}">
+                <button class="join-item btn"
+                th:classappend = "${{param.p}} eq ${n}? 'btn-active'"
+                th:text="${n}">
+                1</button>
+        </a>
+    </div>
 </main>
 </body>
 </html>

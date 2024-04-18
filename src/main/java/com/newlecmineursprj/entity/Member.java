@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Data
@@ -15,6 +16,6 @@ public class Member {
     private String username;
     private String password;
     private String phoneNumber;
-    private Date regDate;
+    private Timestamp regDate;
     private String email;
 }

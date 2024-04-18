@@ -7,12 +7,9 @@ import java.util.List;
 
 @Mapper
 public interface MemberRepository {
-    List<Member> findAll(Long id,
-                         String name,
-                         String username,
-                         String password,
-                         String phoneNumber,
-                         String email);
+
+    List<Member> findAll(String searchMethod,String searchKeyword,int offset,int size);
+
     Member findById(long id);
 
     void save(Member member);
@@ -22,4 +19,6 @@ public interface MemberRepository {
     void deleteById(long id);
 
     void deleteAll(List<Long> ids);
+
+    int count(String searchMethod, String searchKeyword);
 }

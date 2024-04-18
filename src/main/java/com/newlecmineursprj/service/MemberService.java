@@ -5,10 +5,12 @@ import com.newlecmineursprj.entity.Member;
 import java.util.List;
 
 public interface MemberService {
-    List<Member> getList(String searchMethod, String searchKeyword);
-    List<Member> findByName(String name);
-    Member findByUsername(String username);
-    Member findById(long id);
+
+    List<Member> getList(Integer page);
+
+    List<Member> getList(Integer page, String searchMethod, String searchKeyword);
+    
+    Member getById(long id);
 
     void save(Member member);
 
@@ -17,4 +19,8 @@ public interface MemberService {
     void deleteById(long id);
 
     void deleteAll(List<Long> ids);
+
+    int getCount();
+
+    int getCount(String searchMethod,String searchKeyword);
 }
