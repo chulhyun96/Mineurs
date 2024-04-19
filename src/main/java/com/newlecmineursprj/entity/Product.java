@@ -23,4 +23,10 @@ public class Product {
     private double discountRate;
     private Long categoryId;
     private Date regDate;
+
+    public static Product saveImg(String mainImgPath) {
+        return Product.builder()
+                .mainImgPath(mainImgPath)
+                .build();
+    }
 }

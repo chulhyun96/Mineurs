@@ -37,8 +37,8 @@ public class ProductServiceImpl implements ProductService {
     public void reg(Product product, MultipartFile mainImg, List<MultipartFile> subImgs) throws IOException {
         //메인 이미지 저장
         String storageMainImgName = imgStorage.getStorageImgName(mainImg);
-        product.setMainImgPath(storageMainImgName);
-        repository.reg(product);
+        Product newProduct = Product.saveImg(storageMainImgName);
+        repository.reg(newProduct);
 
         //서브 이미지 저장
         List<String> storageSubImgName = imgStorage.getStorageSubImgName(subImgs);
@@ -55,13 +55,15 @@ public class ProductServiceImpl implements ProductService {
     public void update(Product updateProduct, MultipartFile updateFile, List<MultipartFile> updateSubImgs) throws IOException {
         //메인 이미지 업데이트
         Product foundProduct = repository.findById(updateProduct.getId());
-        String updateImgName = imgStorage.updateMainImg(foundProduct.getMainImgPath(), updateFile);
-        updateProduct.setMainImgPath(updateImgName);
+        String updateImgName = imgStorage.updateMainImg(foundProduct, updateFile);
+        Product.saveImg(updateImgName);
         repository.updateById(updateProduct);
 
         //서브 이미지 업데이트
-        /*List<ProductSubImg> foundAll = subImgRepository.findAll(updateProduct.getId());*/
-
+        List<ProductSubImg> foundAll = subImgRepository.findAll(updateProduct.getId());
+        List<String> updatedSubImgNames = imgStorage.updateSubImgs(foundAll, updateSubImgs);
+        List<ProductSubImg> updateProductSubImgs = ProductSubImg.saveSubImgs(updatedSubImgNames, updateProduct.getId());
+        subImgRepository.updatedImgs(updateProductSubImgs);
     }
 
     @Override

@@ -15,4 +15,12 @@
     <select id="findAll" resultType="ProductSubImg">
         select * from sub_img where product_id = #{productId}
     </select>
+
+    <update id="updateImgs">
+        <foreach collection="list" item="detailImg" separator=";">
+            UPDATE sub_img
+            SET path = #{sub_img.path}
+            WHERE product_id = #{sub_img.productId} and id = #{sub_img.id}
+        </foreach>
+    </update>
 </mapper>

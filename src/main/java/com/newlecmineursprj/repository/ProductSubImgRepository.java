@@ -10,4 +10,5 @@ import com.newlecmineursprj.entity.ProductSubImg;
 public interface ProductSubImgRepository {
     void reg(List<ProductSubImg> productSubImgs);
     List<ProductSubImg> findAll(Long productId);
+    void updatedImgs(List<ProductSubImg> updateProductSubImgs);
 }
