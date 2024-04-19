@@ -16,7 +16,7 @@
     <form
             id="form"
             method="post"
-            action="/admin/products"
+            th:action="@{/admin/products/{id}/edit(id=${product.id})}"
             class="n-form n-form-type:outline-box px:10 w:100p"
             enctype="multipart/form-data"
             th:object="${product}"
@@ -83,8 +83,8 @@
                         <label>
                             <input class="hidden img-input"
                                    type="file"
-                                   name="mainImg"
-                            >
+                                   name="updateImg"
+                            />
                             <!--          이미지 미리보기            -->
                             <span class="img-preview flex">
                                 <span class="img-frame flex relative w-44 h-44">
@@ -130,7 +130,7 @@
 
                             <input class="hidden img-input"
                                    type="file"
-                                   name="subImgs"
+                                   name="updateSubImgs"
                                    multiple
                             >
                         </label>

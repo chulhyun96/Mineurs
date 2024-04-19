@@ -52,9 +52,15 @@
                 and v.ct_id = #{categoryId}
             </if>
         </where>
+<<<<<<< HEAD
                <!-- GROUP BY id -->
                 ORDER BY id DESC
                <!-- limit #{offset},#{size} -->
+=======
+        <!--        GROUP BY id-->
+        ORDER BY id DESC
+        <!--        limit #{offset},#{size}-->
+>>>>>>> origin/main
     </select>
 
     <select id="findById" resultType="Product" resultMap="MappingBoolean">
@@ -81,7 +87,7 @@
         </where>
     </select>
 
-    <insert id="reg" parameterType="Product"  useGeneratedKeys="true" keyProperty="id">
+    <insert id="reg" parameterType="Product" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO product(
         name,
         price,
@@ -106,14 +112,20 @@
         #{discountRate})
     </insert>
 
-    <!--    <update id="updateProductById">-->
-    <!--        UPDATE product-->
-    <!--        SET name = #{name},-->
-    <!--        description = #{description},-->
-    <!--        main_img_path = #{img}-->
-
-    <!--        where id = #{id}-->
-    <!--    </update>-->
+    <update id="updateById">
+        UPDATE product
+        SET name = #{name},
+        price = #{price},
+        main_img_path = #{mainImgPath},
+        description = #{description},
+        is_displayed = #{displayed},
+        is_sold = #{sold},
+        code = #{code},
+        is_delivery_today = #{deliveryToday},
+        discount_rate = #{discountRate},
+        category_id = #{categoryId}
+        where id = #{id}
+    </update>
 
 
     <!--    <delete id="deleteAll" parameterType="list">-->

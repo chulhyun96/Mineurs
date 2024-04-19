@@ -8,11 +8,11 @@ import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.ProductSubImg;
 import com.newlecmineursprj.mapper.ProductMapper;
 import com.newlecmineursprj.repository.ProductSubImgRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.newlecmineursprj.entity.Product;
-import com.newlecmineursprj.entity.ProductView;
 import com.newlecmineursprj.repository.ProductRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -32,17 +32,17 @@ public class ProductServiceImpl implements ProductService {
         int offset = (page - 1) * size;
         return repository.findAll(searchMethod, searchKeyword, offset, size, categoryId).stream().map(ProductMapper::toDto).toList();
     }
-
+    @Transactional
     @Override
-    public void reg(Product product, MultipartFile mainImg, List<MultipartFile> subImgs) throws IOException {
+    public void reg(Product newProduct, MultipartFile mainImg, List<MultipartFile> subImgs) throws IOException {
         //메인 이미지 저장
         String storageMainImgName = imgStorage.getStorageImgName(mainImg);
-        product.setMainImgPath(storageMainImgName);
-        repository.reg(product);
+        Product.saveImg(storageMainImgName,newProduct);
+        repository.reg(newProduct);
 
         //서브 이미지 저장
         List<String> storageSubImgName = imgStorage.getStorageSubImgName(subImgs);
-        List<ProductSubImg> productSubImgs = ProductSubImg.saveSubImgs(storageSubImgName, product.getId());
+        List<ProductSubImg> productSubImgs = ProductSubImg.saveSubImgs(storageSubImgName, newProduct);
         subImgRepository.reg(productSubImgs);
     }
 
@@ -52,12 +52,21 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void edit(ProductView updateProduct) {
-//        ProductView findProduct = repository.findById(updateProduct.getId());
-//        log.info("found product: " + findProduct);
-//        ProductView updateView = findProduct.update(updateProduct);
-//        log.info("updated product: " + updateView);
-//        repository.updateProductById(updateView);
+    public void update(Product updateProduct, MultipartFile updateFile, List<MultipartFile> updateSubImgs) throws IOException {
+        //메인 이미지 업데이트
+        Product foundProduct = repository.findById(updateProduct.getId());
+        String updateImgName = imgStorage.updateMainImg(foundProduct, updateFile);
+        Product.saveImg(updateImgName, updateProduct);
+        repository.updateById(updateProduct);
+
+        //서브 이미지 업데이트
+        List<ProductSubImg> foundAll = subImgRepository.findAll(updateProduct.getId());
+        List<String> updatedSubImgNames = imgStorage.updateSubImgs(foundAll, updateSubImgs);
+        List<ProductSubImg> updateProductSubImgs = ProductSubImg.saveSubImgs(updatedSubImgNames, updateProduct);
+        subImgRepository.updatedImgs(updateProductSubImgs);
+        for (ProductSubImg productSubImg : updateProductSubImgs) {
+            log.info("Update ProductSubImgs = {}", productSubImg);
+        }
     }
 
     @Override

@@ -5,31 +5,23 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.newlecmineursprj.dto.ProductListDTO;
-import com.newlecmineursprj.dto.ProductRegDTO;
 import com.newlecmineursprj.entity.ProductSubImg;
-import com.newlecmineursprj.mapper.ProductMapper;
-import com.newlecmineursprj.mapper.SubImgMapper;
-import org.apache.tomcat.util.http.fileupload.FileUploadException;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.newlecmineursprj.entity.Category;
 import com.newlecmineursprj.entity.Product;
-import com.newlecmineursprj.entity.ProductView;
 import com.newlecmineursprj.service.CategoryService;
 import com.newlecmineursprj.service.ProductService;
 import com.newlecmineursprj.service.ProductSubImgService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -72,12 +64,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public String reg(
-            Product product,
-            MultipartFile mainImg,
-            @RequestParam(value = "sub-imgs")
-            List<MultipartFile> subImages) throws IOException {
-        service.reg(product,mainImg, subImages);
+    public String reg(Product product, MultipartFile mainImg, @RequestParam(value = "sub-imgs") List<MultipartFile> subImages) throws IOException {
+        service.reg(product, mainImg, subImages);
         return REDIRECT + PRODUCTS_VIEW;
     }
 
@@ -85,11 +73,8 @@ public class ProductController {
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
         Product product = service.getById(id);
-        /*Product를 가지고 올 때 상태에 대한 테이블의 값을 바인딩 하지 못함*/
-        log.info("Detail Product = {}", product);
         List<Category> categories = categoryService.getList();
         List<ProductSubImg> subImgs = productSubImgService.getListByProductId(product.getId());
-        log.info("subimgsSize = {}", subImgs.size());
 
         model.addAttribute("categories", categories);
         model.addAttribute("product", product);
@@ -102,16 +87,10 @@ public class ProductController {
         service.deleteAllById(deleteId);
         return REDIRECT + PRODUCTS_VIEW;
     }
-
-    @PutMapping("/{productId}")
-    public ResponseEntity<String> edit(@PathVariable long productId, ProductRegDTO productRegDTO,
-            List<MultipartFile> subImgs) {
-        log.debug("productId: {}", productId);
-        log.debug("productRegDTO: {}", productRegDTO);
-        log.debug("subImgs: {}", subImgs);
-
-        productRegDTO.setId(productId);
-
-        return ResponseEntity.ok("상품 수정 성공");
+    // Response 어떻게 사용하지 몰라서 일단 Post로 대체함.
+    @PostMapping("/{id}/edit")
+    public String edit(@PathVariable Long id, Product updateProduct, MultipartFile updateImg , List<MultipartFile> updateSubImgs) throws IOException {
+        service.update(updateProduct,updateImg,updateSubImgs);
+        return REDIRECT + PRODUCTS_VIEW;
     }
 }
