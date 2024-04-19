@@ -28,6 +28,13 @@
         </collection>
     </resultMap>
 
+    <resultMap id="MappingBoolean" type="Product">
+        <result property="displayed" column="is_displayed" javaType="boolean" jdbcType="BOOLEAN"/>
+        <result property="sold" column="is_sold" javaType="boolean" jdbcType="BOOLEAN"/>
+        <result property="deliveryToday" column="is_delivery_today" javaType="boolean" jdbcType="BOOLEAN"/>
+    </resultMap>
+
+
     <select id="findAll" resultMap="ProductView">
         SELECT
         v.*,
@@ -50,7 +57,7 @@
         <!--        limit #{offset},#{size}-->
     </select>
 
-    <select id="findById" resultType="Product">
+    <select id="findById" resultType="Product" resultMap="MappingBoolean">
         SELECT
         *
         FROM product
@@ -74,7 +81,7 @@
         </where>
     </select>
 
-    <insert id="reg" parameterType="Product" useGeneratedKeys="true" keyProperty="id">
+    <insert id="reg" parameterType="Product"  useGeneratedKeys="true" keyProperty="id">
         INSERT INTO product(
         name,
         price,

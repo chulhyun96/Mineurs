@@ -5,7 +5,5 @@ import com.newlecmineursprj.entity.QnaCategory;
 import java.util.List;
 
 public interface QnaCategoryService {
-
-
     List<QnaCategory> getList();
 }

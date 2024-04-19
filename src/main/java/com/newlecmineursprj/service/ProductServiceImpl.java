@@ -1,6 +1,5 @@
 package com.newlecmineursprj.service;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import com.newlecmineursprj.domain.file.ImgStorage;
 import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.ProductSubImg;
 import com.newlecmineursprj.mapper.ProductMapper;
-import com.newlecmineursprj.mapper.SubImgMapper;
 import com.newlecmineursprj.repository.ProductSubImgRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,21 +34,23 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void reg(Product product,MultipartFile mainImg ,List<MultipartFile> subImgs) throws IOException {
+    public void reg(Product product, MultipartFile mainImg, List<MultipartFile> subImgs) throws IOException {
         //메인 이미지 저장
         String storageMainImgName = imgStorage.getStorageImgName(mainImg);
         product.setMainImgPath(storageMainImgName);
-        Long savedProductId = repository.reg(product);
+        repository.reg(product);
 
         //서브 이미지 저장
         List<String> storageSubImgName = imgStorage.getStorageSubImgName(subImgs);
-        List<ProductSubImg> productSubImgs = ProductSubImg.saveSubImg(storageSubImgName, savedProductId);
+        List<ProductSubImg> productSubImgs = ProductSubImg.saveSubImgs(storageSubImgName, product.getId());
         subImgRepository.reg(productSubImgs);
     }
 
     @Override
     public Product getById(Long id) {
-        return repository.findById(id);
+        Product byId = repository.findById(id);
+        log.info("Repository By Id = {}",byId);
+        return byId;
     }
 
     @Override

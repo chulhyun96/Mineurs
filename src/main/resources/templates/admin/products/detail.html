@@ -19,6 +19,7 @@
             action="/admin/products"
             class="n-form n-form-type:outline-box px:10 w:100p"
             enctype="multipart/form-data"
+            th:object="${product}"
     >
 
         <table class="table">
@@ -35,9 +36,8 @@
               <td colspan="3">
                 <label>
                   <input
-                    th:value="${product.name}"
+                    th:field="*{name}"
                     type="text"
-                    name="name"
                     required
                     class="block w-3/5"
                   />
@@ -52,9 +52,8 @@
               <td colspan="3">
                 <label>
                   <input
-                    th:value="${product.price}"
+                    th:field="*{price}"
                     type="number"
-                    name="price"
                     required
                     class="block w-3/5"
                   />
@@ -69,8 +68,7 @@
               <td colspan="3">
                 <label class="block w-3/5">
                   <textarea
-                    th:text="${product.description}"
-                    name="description"
+                    th:field="*{description}"
                     required
                     class="h-36 w-full"
                   ></textarea>
@@ -145,7 +143,7 @@
                 <td>카테고리</td>
                 <td colspan="3">
                     <label>
-                        <select name="categoryId" class="n-dropdown">
+                        <select name="categoryId" th:value="${product.categoryId}" class="n-dropdown">
                             <option
                                     th:each="category : ${categories}"
                                     th:value="${category.id}"
@@ -166,13 +164,15 @@
                     <div class="form-control flex flex-row space-x-2">
 
                         <label class="label cursor-pointer space-x-1">
-                            <input name="isDisplayed" value="1" type="radio" class="radio"
-                                   th:checked="${product.isDisplayed}"/>
+                            <input name="displayed" value="1" type="radio" class="radio"
+                                   th:value="${product.displayed}"
+                            th:checked="${product.displayed}"/>
                             <span class="label-text">진열함</span>
                         </label>
                         <label class="label cursor-pointer space-x-1">
-                            <input name="isDisplayed" value="0" type="radio" class="radio"
-                                   th:checked="${!product.isDisplayed}"/>
+                            <input name="displayed" value="0" type="radio" class="radio"
+                                   th:value="${product.displayed}"
+                                   th:checked="${!product.displayed}"/>
                             <span class="label-text">진열안함</span>
                         </label>
                     </div>
@@ -181,22 +181,21 @@
                 <td>
                     <div class="form-control flex flex-row space-x-2">
                         <label class="label cursor-pointer space-x-1">
-                            <input name="isSold" value="1" type="radio" class="radio" th:checked="${product.isSold}"/>
+                            <input name="sold" th:value="${product.sold}" value="1" type="radio" class="radio" th:checked="${product.sold}"/>
                             <span class="label-text">판매함</span>
                         </label>
                         <label class="label cursor-pointer space-x-1">
-                            <input name="isSold" value="0" type="radio" class="radio" th:checked="${!product.isSold}"/>
+                            <input name="sold" th:value="${product.sold}" value="0" type="radio" class="radio" th:checked="${!product.sold}"/>
                             <span class="label-text">판매안함</span>
                         </label>
                     </div>
                 </td>
-
             </tr>
             <tr>
                 <td>상품코드</td>
                 <td colspan="3">
                     <label>
-                        <input th:value="${product.code}" name="code" type="text" class="block w-3/5">
+                        <input th:field="*{code}" name="code" type="text" class="block w-3/5">
                     </label>
                 </td>
             </tr>
@@ -205,13 +204,15 @@
                 <td colspan="3">
                     <div class="form-control flex flex-row space-x-2">
                         <label class="label cursor-pointer space-x-1">
-                            <input name="isDeliveryToday" value="1" type="radio" class="radio"
-                                   th:checked="${product.isDeliveryToday}"/>
+                            <input name="deliveryToday" value="1" type="radio" class="radio"
+                                   th:checked="${product.deliveryToday}"
+                                   th:value="${product.deliveryToday}"/>
                             <span class="label-text">당일배송함</span>
                         </label>
                         <label class="label cursor-pointer space-x-1">
                             <input name="isDeliveryToday" value="0" type="radio" class="radio"
-                                   th:checked="${!product.isDeliveryToday}"/>
+                                   th:checked="${!product.deliveryToday}"
+                                   th:value="${product.deliveryToday}"/>
                             <span class="label-text">당일배송안함</span>
                         </label>
                     </div>
@@ -221,7 +222,7 @@
                 <td>할인율</td>
                 <td colspan="3">
                     <label>
-                        <input th:value="${product.discountRate}" name="discountRate" type="number" step="0.01"
+                        <input th:field="*{discountRate}" name="discountRate" type="number" step="0.01"
                                class="block w-3/5">
                     </label>
                 </td>
