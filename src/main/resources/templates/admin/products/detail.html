@@ -90,7 +90,7 @@
                                 <span class="img-frame flex relative w-44 h-44">
                                     <button class="btn btn-primary absolute top-0 right-0 img-del-btn">X</button>
                                     <img
-                                            th:src="@{'/image/products/'+${product.mainImgPath}}"
+                                            th:src="@{'/webapp/image/products/'+${product.mainImgPath}}"
                                             alt="첨부이미지"
                                             class="my-0"
                                             th:data-isOldImg="${true}"
@@ -117,7 +117,7 @@
                             <span class="img-frame flex relative w-44 h-44" th:each="subimg : ${subImgs}">
                                 <button class="btn btn-primary absolute top-0 right-0 img-del-btn">X</button>
                                 <img
-                                        th:src="@{'/image/subImg/'+${subimg.path}}"
+                                        th:src="@{'/webapp/image/subImg/'+${subimg.path}}"
                                         alt="첨부이미지"
                                         class="my-0"
                                         th:data-isOldImg="${true}"

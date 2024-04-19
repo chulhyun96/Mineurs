@@ -48,9 +48,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getById(Long id) {
-        Product byId = repository.findById(id);
-        log.info("Repository By Id = {}",byId);
-        return byId;
+        return repository.findById(id);
     }
 
     @Override
