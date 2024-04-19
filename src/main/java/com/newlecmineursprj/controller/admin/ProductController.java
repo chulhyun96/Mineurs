@@ -5,31 +5,23 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.newlecmineursprj.dto.ProductListDTO;
-import com.newlecmineursprj.dto.ProductRegDTO;
 import com.newlecmineursprj.entity.ProductSubImg;
-import com.newlecmineursprj.mapper.ProductMapper;
-import com.newlecmineursprj.mapper.SubImgMapper;
-import org.apache.tomcat.util.http.fileupload.FileUploadException;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.newlecmineursprj.entity.Category;
 import com.newlecmineursprj.entity.Product;
-import com.newlecmineursprj.entity.ProductView;
 import com.newlecmineursprj.service.CategoryService;
 import com.newlecmineursprj.service.ProductService;
 import com.newlecmineursprj.service.ProductSubImgService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -95,10 +87,10 @@ public class ProductController {
         service.deleteAllById(deleteId);
         return REDIRECT + PRODUCTS_VIEW;
     }
-
-    @PutMapping("/{productId}")
-    public ResponseEntity<String> edit(Product updateProduct, MultipartFile updateFile ,List<MultipartFile> updateSubImgs) {
-        service.update(updateProduct,updateFile,updateSubImgs);
-        return ResponseEntity.ok("상품 수정 성공");
+    // Response 어떻게 사용하지 몰라서 일단 Post로 대체함.
+    @PostMapping("/{id}/edit")
+    public String edit(@PathVariable Long id, Product updateProduct, MultipartFile updateImg , List<MultipartFile> updateSubImgs) throws IOException {
+        service.update(updateProduct,updateImg,updateSubImgs);
+        return REDIRECT + PRODUCTS_VIEW;
     }
 }

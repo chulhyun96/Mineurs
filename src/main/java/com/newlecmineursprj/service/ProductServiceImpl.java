@@ -57,10 +57,11 @@ public class ProductServiceImpl implements ProductService {
         Product foundProduct = repository.findById(updateProduct.getId());
         String updateImgName = imgStorage.updateMainImg(foundProduct.getMainImgPath(), updateFile);
         updateProduct.setMainImgPath(updateImgName);
-        repository.updateById(updateProduct);
+        /*repository.updateById(updateProduct);*/
+        log.info("UpdateProduct = {} ", updateProduct);
 
         //서브 이미지 업데이트
-        subImgRepository.findAll(updateProduct.getId());
+        /*subImgRepository.findAll(updateProduct.getId());*/
 
     }
 
