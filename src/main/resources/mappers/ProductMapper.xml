@@ -109,8 +109,15 @@
         <update id="updateById">
             UPDATE product
             SET name = #{name},
+            price = #{price},
+            main_img_path = #{mainImgPath},
             description = #{description},
-            main_img_path = #{img}
+            is_displayed = #{displayed},
+            is_sold = #{sold},
+            code = #{code},
+            is_delivery_today = #{deliveryToday},
+            discount_rate = #{discountRate}
+            category_id = #{categoryId}
             where id = #{id}
         </update>
 

@@ -8,6 +8,7 @@ import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.ProductSubImg;
 import com.newlecmineursprj.mapper.ProductMapper;
 import com.newlecmineursprj.repository.ProductSubImgRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
         int offset = (page - 1) * size;
         return repository.findAll(searchMethod, searchKeyword, offset, size, categoryId).stream().map(ProductMapper::toDto).toList();
     }
-
+    @Transactional
     @Override
     public void reg(Product product, MultipartFile mainImg, List<MultipartFile> subImgs) throws IOException {
         //메인 이미지 저장
@@ -51,10 +52,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void update(Product updateProduct, MultipartFile updateFile, List<MultipartFile> updateSubImgs) {
-        Product findProduct = repository.findById(updateProduct.getId());
-        log.info("found product: " + findProduct);
-        repository.updateById(findProduct);
+    public void update(Product updateProduct, MultipartFile updateFile, List<MultipartFile> updateSubImgs) throws IOException {
+        //메인 이미지 업데이트
+        Product foundProduct = repository.findById(updateProduct.getId());
+        String updateImgName = imgStorage.updateMainImg(foundProduct.getMainImgPath(), updateFile);
+        updateProduct.setMainImgPath(updateImgName);
+        repository.updateById(updateProduct);
+
+        //서브 이미지 업데이트
+        subImgRepository.findAll(updateProduct.getId());
+
     }
 
     @Override

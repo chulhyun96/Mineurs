@@ -13,7 +13,6 @@ import lombok.*;
 public class Product {
     private Long id;
     private String name;
-    private Date regDate;
     private int price;
     private String mainImgPath;
     private String description;
@@ -23,4 +22,5 @@ public class Product {
     private boolean deliveryToday;
     private double discountRate;
     private Long categoryId;
+    private Date regDate;
 }

@@ -11,7 +11,7 @@ public interface ProductService {
     List<ProductListDTO> getList(Integer page, String searchMethod, String searchKeyword, long categoryId);
     Product getById(Long id);
     void reg(Product product,MultipartFile mainImg ,List<MultipartFile> subImgs) throws IOException;
-    void update(Product updateProduct, MultipartFile updateFile, List<MultipartFile> updateSubImgs);
+    void update(Product updateProduct, MultipartFile updateFile, List<MultipartFile> updateSubImgs) throws IOException;
     void deleteAllById(List<Long> deleteId);
     int getCount(String searchMethod, String searchKeyword, long categoryId);
 }

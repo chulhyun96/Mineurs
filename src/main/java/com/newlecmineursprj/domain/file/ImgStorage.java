@@ -12,7 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.stream.IntStream;
 
 @Component
 @Getter
@@ -31,6 +30,22 @@ public class ImgStorage {
         makeFileDir(fullMainPath);
         imgFile.transferTo(new File(fullMainPath));
         return imgFile.getOriginalFilename();
+    }
+    public String updateMainImg(String foundImg, MultipartFile updateImg) throws IOException {
+        // 이미지 업데이트
+        String updateMainImgPath = getFullMainPath(updateImg.getOriginalFilename());
+        Path updateMainPath = Paths.get(updateMainImgPath);
+        Files.write(updateMainPath, updateImg.getBytes());
+
+        // 기존 이미지 삭제
+        String pastImgName = getFullMainPath(foundImg);
+        Path oldImgPath = Paths.get(pastImgName);
+        Files.delete(oldImgPath);
+        return updateImg.getOriginalFilename();
+    }
+    public String updateSubImgs(List<String> foundImgs, List<MultipartFile> updateImgs) {
+
+        return "";
     }
 
     public List<String> getStorageSubImgName(List<MultipartFile> subImgs) throws IOException {
