@@ -7,6 +7,5 @@ import java.util.List;
 
 
 public interface ProductSubImgService {
-    void regAll(List<ProductSubImg> subImgs);
-    public List<ProductSubImg> getListByProductId(long productId);
+    List<ProductSubImg> getListByProductId(long productId);
 }

@@ -16,14 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class ProductSubImgServiceImpl implements ProductSubImgService {
     private final ProductSubImgRepository repository;
-
-    public void regAll(List<ProductSubImg> subImgs) {
-        if (!subImgs.isEmpty())
-            repository.reg(subImgs);
-    }
-
     public List<ProductSubImg> getListByProductId(long productId) {
         return repository.findAll(productId);
     }
-
 }

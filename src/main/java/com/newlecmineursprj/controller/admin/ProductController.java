@@ -77,32 +77,20 @@ public class ProductController {
             MultipartFile mainImg,
             @RequestParam(value = "sub-imgs")
             List<MultipartFile> subImages) throws IOException {
-
-        /*List<String> list = subImages.stream()
-                .map(MultipartFile::getOriginalFilename)
-                .toList();
-
-        for (String subImg : list) {
-            ProductSubImg.builder()
-                    .path(subImg)
-                    .productId(product.getId());
-        }*/
-
         service.reg(product,mainImg, subImages);
-
-
-        /*List<ProductSubImg> subImgs = subImages.stream().map(subImg -> SubImgMapper.toSubImg(subImg, product.getId()))
-                .toList();
-        productSubImgService.regAll(subImgs);*/
         return REDIRECT + PRODUCTS_VIEW;
     }
 
 
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
-        List<Category> categories = categoryService.getList();
         Product product = service.getById(id);
-        List<ProductSubImg> subImgs = productSubImgService.getListByProductId(id);
+        /*Product를 가지고 올 때 상태에 대한 테이블의 값을 바인딩 하지 못함*/
+        log.info("Detail Product = {}", product);
+        List<Category> categories = categoryService.getList();
+        List<ProductSubImg> subImgs = productSubImgService.getListByProductId(product.getId());
+        log.info("subimgsSize = {}", subImgs.size());
+
         model.addAttribute("categories", categories);
         model.addAttribute("product", product);
         model.addAttribute("subImgs", subImgs);
