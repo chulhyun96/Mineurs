@@ -56,32 +56,35 @@ public class ImgStorage {
     public String updateMainImg(Product foundImg, MultipartFile updateImg) throws IOException {
         if (updateImg.isEmpty())
             throw FileDoesNotExist("UpdateMainFile does not exist");
-        // 기존 이미지 삭제
-        String pastImgName = getFullMainPath(foundImg.getMainImgPath());
-        Path oldImgPath = Paths.get(pastImgName);
-        Files.delete(oldImgPath);
         // 메인 이미지 업데이트
         String updateMainImgPath = getFullMainPath(updateImg.getOriginalFilename());
         Path updateMainPath = Paths.get(updateMainImgPath);
         Files.write(updateMainPath, updateImg.getBytes());
+        // 기존 이미지 삭제
+        String pastImgName = getFullMainPath(foundImg.getMainImgPath());
+        Path oldImgPath = Paths.get(pastImgName);
+        log.info("oldImgPath = {}", oldImgPath);
+        Files.delete(oldImgPath);
         return updateImg.getOriginalFilename();
     }
     public List<String> updateSubImgs(List<ProductSubImg> foundImgs, List<MultipartFile> updateImgs) throws IOException {
         if(updateImgs.isEmpty())
             throw FileDoesNotExist("UpdateSubFile does not exist");
 
-        for (ProductSubImg foundImg : foundImgs) {
-            String pastImgName = getFullSubPath(foundImg.getPath());
-            Path oldImgPath = Paths.get(pastImgName);
-            Files.delete(oldImgPath);
-        }
-
         List<String> updateImgNames = new ArrayList<>();
         for (MultipartFile updateImg : updateImgs) {
             String updatedSubImgName = getFullSubPath(updateImg.getOriginalFilename());
             Path updatedSubImgPath = Paths.get(updatedSubImgName);
-            Files.write(updatedSubImgPath, updateImg.getBytes());
+            log.info("updatedSubImgPath = {}", updatedSubImgPath);
+            /*Files.write(updatedSubImgPath, updateImg.getBytes());*/
             updateImgNames.add(updateImg.getOriginalFilename());
+        }
+
+        for (ProductSubImg foundImg : foundImgs) {
+            String pastImgName = getFullSubPath(foundImg.getPath());
+            Path oldImgPath = Paths.get(pastImgName);
+            /*Files.delete(oldImgPath);*/
+            log.info("Update subImgs Delete");
         }
         return updateImgNames;
     }

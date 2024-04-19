@@ -13,11 +13,11 @@ public class ProductSubImg {
     private String path;
     private Long id;
 
-    public static List<ProductSubImg> saveSubImgs(List<String> storageSubImgName, Long productId) {
+    public static List<ProductSubImg> saveSubImgs(List<String> storageSubImgName,Product newProduct) {
         return storageSubImgName.stream()
                 .map(imgName -> ProductSubImg.builder()
                         .path(imgName)
-                        .productId(productId)
+                        .productId(newProduct.getId())
                         .build())
                 .toList();
     }

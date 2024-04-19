@@ -34,15 +34,15 @@ public class ProductServiceImpl implements ProductService {
     }
     @Transactional
     @Override
-    public void reg(Product product, MultipartFile mainImg, List<MultipartFile> subImgs) throws IOException {
+    public void reg(Product newProduct, MultipartFile mainImg, List<MultipartFile> subImgs) throws IOException {
         //메인 이미지 저장
         String storageMainImgName = imgStorage.getStorageImgName(mainImg);
-        Product newProduct = Product.saveImg(storageMainImgName);
+        Product.saveImg(storageMainImgName,newProduct);
         repository.reg(newProduct);
 
         //서브 이미지 저장
         List<String> storageSubImgName = imgStorage.getStorageSubImgName(subImgs);
-        List<ProductSubImg> productSubImgs = ProductSubImg.saveSubImgs(storageSubImgName, product.getId());
+        List<ProductSubImg> productSubImgs = ProductSubImg.saveSubImgs(storageSubImgName, newProduct);
         subImgRepository.reg(productSubImgs);
     }
 
@@ -56,14 +56,17 @@ public class ProductServiceImpl implements ProductService {
         //메인 이미지 업데이트
         Product foundProduct = repository.findById(updateProduct.getId());
         String updateImgName = imgStorage.updateMainImg(foundProduct, updateFile);
-        Product.saveImg(updateImgName);
+        Product.saveImg(updateImgName, updateProduct);
         repository.updateById(updateProduct);
 
         //서브 이미지 업데이트
-        List<ProductSubImg> foundAll = subImgRepository.findAll(updateProduct.getId());
+        /*List<ProductSubImg> foundAll = subImgRepository.findAll(updateProduct.getId());
         List<String> updatedSubImgNames = imgStorage.updateSubImgs(foundAll, updateSubImgs);
-        List<ProductSubImg> updateProductSubImgs = ProductSubImg.saveSubImgs(updatedSubImgNames, updateProduct.getId());
+        List<ProductSubImg> updateProductSubImgs = ProductSubImg.saveSubImgs(updatedSubImgNames, updateProduct);
         subImgRepository.updatedImgs(updateProductSubImgs);
+        for (ProductSubImg productSubImg : updateProductSubImgs) {
+            log.info("Update ProductSubImgs = {}", productSubImg);
+        }*/
     }
 
     @Override

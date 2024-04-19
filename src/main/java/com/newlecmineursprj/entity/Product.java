@@ -24,9 +24,7 @@ public class Product {
     private Long categoryId;
     private Date regDate;
 
-    public static Product saveImg(String mainImgPath) {
-        return Product.builder()
-                .mainImgPath(mainImgPath)
-                .build();
+    public static void saveImg(String mainImgPath, Product newProduct) {
+        newProduct.setMainImgPath(mainImgPath);
     }
 }

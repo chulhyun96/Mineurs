@@ -16,7 +16,7 @@
         select * from sub_img where product_id = #{productId}
     </select>
 
-    <update id="updateImgs">
+    <update id="updatedImgs">
         <foreach collection="list" item="detailImg" separator=";">
             UPDATE sub_img
             SET path = #{sub_img.path}
