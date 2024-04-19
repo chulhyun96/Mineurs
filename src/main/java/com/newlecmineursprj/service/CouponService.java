@@ -8,4 +8,6 @@ public interface CouponService {
     List<Coupon> getList();
     Coupon getById(long id);
     List<Coupon> getListByMemberId(long id);
+    List<Coupon> getValidByMemberId(long id);
+    List<Coupon> getInvalidByMemberId(long id);
 }

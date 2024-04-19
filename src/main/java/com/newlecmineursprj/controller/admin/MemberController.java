@@ -52,7 +52,7 @@ public class MemberController {
                         Model model) {
 
         Member member = service.getById(id);
-        List<Coupon> coupons = couponService.getListByMemberId(id);
+        List<Coupon> coupons = couponService.getValidByMemberId(id);
         List<Review> reviews = reviewService.getListByMemberId(id);
         List<Qna> qnas = qnaService.getListByMemberId(id);
 

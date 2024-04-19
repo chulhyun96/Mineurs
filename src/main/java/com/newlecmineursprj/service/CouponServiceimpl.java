@@ -28,5 +28,17 @@ public class CouponServiceimpl implements CouponService {
     public List<Coupon> getListByMemberId(long id) {
         return repository.findAllByMemberId(id);
     }
+
+    @Override
+    public List<Coupon> getValidByMemberId(long id) {
+        return repository.findValidByMemberId(id);
+    }
+
+    @Override
+    public List<Coupon> getInvalidByMemberId(long id) {
+       return repository.findInvalidByMemberId(id);
+    }
+
+    
     
 }

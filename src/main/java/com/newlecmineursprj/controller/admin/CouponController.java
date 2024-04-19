@@ -24,9 +24,10 @@ public class CouponController {
     public String detail(@RequestParam(name = "memberId", required = false, defaultValue = "1") Long memberId,
                         Model model){
 
-        List<Coupon> list = service.getListByMemberId(memberId);
+        List<Coupon> list = service.getInvalidByMemberId(memberId);
 
         model.addAttribute("list", list);
+        model.addAttribute("memberId", memberId);
 
         return COUPON_VIEW + "/detail";
     }    
