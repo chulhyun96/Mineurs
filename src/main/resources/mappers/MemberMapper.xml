@@ -27,6 +27,13 @@
         where id = #{id}
     </select>
 
+    <select id="findByUsername" resultType="Member">
+        SELECT
+        *
+        FROM member
+        where username = #{username}
+    </select>
+
     <insert id="save" parameterType="Member" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO member(name, username, password, phone_number, email)
         VALUES (#{name}, #{username}, #{password}, #{phoneNumber}, #{email})
