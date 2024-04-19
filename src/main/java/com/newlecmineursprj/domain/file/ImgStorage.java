@@ -71,7 +71,7 @@ public class ImgStorage {
     public List<String> updateSubImgs(List<ProductSubImg> foundImgs, List<MultipartFile> updateImgs) throws IOException {
         if (updateImgs.isEmpty())
             throw FileDoesNotExist("UpdateSubFile does not exist");
-
+        // 서브 이미지 업데이트
         List<String> updateImgNames = new ArrayList<>();
         for (MultipartFile updateImg : updateImgs) {
             String updatedSubImgName = getFullSubPath(updateImg.getOriginalFilename());
@@ -79,6 +79,7 @@ public class ImgStorage {
             Files.write(updatedSubImgPath, updateImg.getBytes());
             updateImgNames.add(updateImg.getOriginalFilename());
         }
+        //서브 이미지 삭제
         for (ProductSubImg foundImg : foundImgs) {
             String pastImgName = getFullSubPath(foundImg.getPath());
             Path oldImgPath = Paths.get(pastImgName);
