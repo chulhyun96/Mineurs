@@ -10,9 +10,9 @@ import java.util.List;
 @Mapper
 public interface ProductRepository {
     List<ProductView> findAll(String searchMethod, String searchKeyword, int offset, int size, Long categoryId);
-    Long reg(Product product);
+    void reg(Product product);
     Product findById(Long id);
-    void updateProductById(ProductView product);
+    void updateById(Product product);
     void deleteAll(List<Long> deleteId);
     int count(String searchMethod,String searchKeyword,Long categoryId);
 }

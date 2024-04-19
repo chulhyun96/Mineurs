@@ -54,4 +54,7 @@ private final MemberService memberService;
     public String checkout(){
         return "checkout";
     }
+
+    @GetMapping("signin")
+    public String signin(){return "signin";}
 }

@@ -11,6 +11,7 @@ public interface MemberRepository {
     List<Member> findAll(String searchMethod,String searchKeyword,int offset,int size);
 
     Member findById(long id);
+    Member findByUsername(String username);
 
     void save(Member member);
 

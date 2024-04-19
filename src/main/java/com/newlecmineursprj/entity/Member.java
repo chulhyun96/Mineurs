@@ -17,5 +17,6 @@ public class Member {
     private String password;
     private String phoneNumber;
     private Timestamp regDate;
+    private String paymentPassword;
     private String email;
 }

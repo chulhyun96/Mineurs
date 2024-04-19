@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.newlecmineursprj.entity.Order;
 import com.newlecmineursprj.entity.OrderView;
 import com.newlecmineursprj.service.OrderService;
 
@@ -23,9 +22,15 @@ public class OrderController {
     private final OrderService service;
 
     @GetMapping("list")
-    public String list(Model model, @RequestParam(defaultValue = "1") Integer page) {
-        List<OrderView> list = service.getList();
+    public String list(Model model, @RequestParam(defaultValue = "1") Integer page,
+            @RequestParam(required = false) String searchMethod,
+            @RequestParam(defaultValue = "") String searchKeyword) {
+
+        int count = service.getCount(searchMethod, searchKeyword.trim());
+
+        List<OrderView> list = service.getList(page, searchMethod, searchKeyword);
         model.addAttribute("list", list);
+        model.addAttribute("count", count);
 
         return ORDER_VIEW + "/list";
     }
