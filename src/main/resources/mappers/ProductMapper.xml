@@ -52,15 +52,9 @@
                 and v.ct_id = #{categoryId}
             </if>
         </where>
-<<<<<<< HEAD
-               <!-- GROUP BY id -->
-                ORDER BY id DESC
-               <!-- limit #{offset},#{size} -->
-=======
         <!--        GROUP BY id-->
         ORDER BY id DESC
         <!--        limit #{offset},#{size}-->
->>>>>>> origin/main
     </select>
 
     <select id="findById" resultType="Product" resultMap="MappingBoolean">
