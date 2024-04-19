@@ -58,7 +58,7 @@ public class ImgStorage {
         // 기존 이미지 삭제
         String pastImgName = getFullMainPath(foundImg);
         Path oldImgPath = Paths.get(pastImgName);
-        /*Files.delete(oldImgPath);*/
+        Files.delete(oldImgPath);
         log.info("OldImgPath = {}" , oldImgPath);
         return updateImg.getOriginalFilename();
     }
