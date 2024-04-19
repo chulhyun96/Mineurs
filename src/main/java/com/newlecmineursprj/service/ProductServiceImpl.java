@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.newlecmineursprj.entity.Product;
-import com.newlecmineursprj.entity.ProductView;
 import com.newlecmineursprj.repository.ProductRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -52,12 +51,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void edit(ProductView updateProduct) {
-//        ProductView findProduct = repository.findById(updateProduct.getId());
-//        log.info("found product: " + findProduct);
-//        ProductView updateView = findProduct.update(updateProduct);
-//        log.info("updated product: " + updateView);
-//        repository.updateProductById(updateView);
+    public void update(Product updateProduct, MultipartFile updateFile, List<MultipartFile> updateSubImgs) {
+        Product findProduct = repository.findById(updateProduct.getId());
+        log.info("found product: " + findProduct);
+        repository.updateById(findProduct);
     }
 
     @Override

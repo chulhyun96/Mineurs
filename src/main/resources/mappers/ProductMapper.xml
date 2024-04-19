@@ -106,14 +106,13 @@
         #{discountRate})
     </insert>
 
-    <!--    <update id="updateProductById">-->
-    <!--        UPDATE product-->
-    <!--        SET name = #{name},-->
-    <!--        description = #{description},-->
-    <!--        main_img_path = #{img}-->
-
-    <!--        where id = #{id}-->
-    <!--    </update>-->
+        <update id="updateById">
+            UPDATE product
+            SET name = #{name},
+            description = #{description},
+            main_img_path = #{img}
+            where id = #{id}
+        </update>
 
 
     <!--    <delete id="deleteAll" parameterType="list">-->

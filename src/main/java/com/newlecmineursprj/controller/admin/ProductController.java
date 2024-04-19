@@ -72,12 +72,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public String reg(
-            Product product,
-            MultipartFile mainImg,
-            @RequestParam(value = "sub-imgs")
-            List<MultipartFile> subImages) throws IOException {
-        service.reg(product,mainImg, subImages);
+    public String reg(Product product, MultipartFile mainImg, @RequestParam(value = "sub-imgs") List<MultipartFile> subImages) throws IOException {
+        service.reg(product, mainImg, subImages);
         return REDIRECT + PRODUCTS_VIEW;
     }
 
@@ -85,11 +81,8 @@ public class ProductController {
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
         Product product = service.getById(id);
-        /*Product를 가지고 올 때 상태에 대한 테이블의 값을 바인딩 하지 못함*/
-        log.info("Detail Product = {}", product);
         List<Category> categories = categoryService.getList();
         List<ProductSubImg> subImgs = productSubImgService.getListByProductId(product.getId());
-        log.info("subimgsSize = {}", subImgs.size());
 
         model.addAttribute("categories", categories);
         model.addAttribute("product", product);
@@ -104,14 +97,8 @@ public class ProductController {
     }
 
     @PutMapping("/{productId}")
-    public ResponseEntity<String> edit(@PathVariable long productId, ProductRegDTO productRegDTO,
-            List<MultipartFile> subImgs) {
-        log.debug("productId: {}", productId);
-        log.debug("productRegDTO: {}", productRegDTO);
-        log.debug("subImgs: {}", subImgs);
-
-        productRegDTO.setId(productId);
-
+    public ResponseEntity<String> edit(Product updateProduct, MultipartFile updateFile ,List<MultipartFile> updateSubImgs) {
+        service.update(updateProduct,updateFile,updateSubImgs);
         return ResponseEntity.ok("상품 수정 성공");
     }
 }
