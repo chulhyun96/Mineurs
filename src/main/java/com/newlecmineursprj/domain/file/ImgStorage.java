@@ -63,27 +63,28 @@ public class ImgStorage {
         // 기존 이미지 삭제
         String pastImgName = getFullMainPath(foundImg.getMainImgPath());
         Path oldImgPath = Paths.get(pastImgName);
-        log.info("oldImgPath = {}", oldImgPath);
-        Files.delete(oldImgPath);
+        if (Files.exists(oldImgPath))
+            Files.delete(oldImgPath);
         return updateImg.getOriginalFilename();
     }
+
     public List<String> updateSubImgs(List<ProductSubImg> foundImgs, List<MultipartFile> updateImgs) throws IOException {
-        if(updateImgs.isEmpty())
+        if (updateImgs.isEmpty())
             throw FileDoesNotExist("UpdateSubFile does not exist");
 
         List<String> updateImgNames = new ArrayList<>();
         for (MultipartFile updateImg : updateImgs) {
             String updatedSubImgName = getFullSubPath(updateImg.getOriginalFilename());
             Path updatedSubImgPath = Paths.get(updatedSubImgName);
-            log.info("updatedSubImgPath = {}", updatedSubImgPath);
-            /*Files.write(updatedSubImgPath, updateImg.getBytes());*/
+            Files.write(updatedSubImgPath, updateImg.getBytes());
             updateImgNames.add(updateImg.getOriginalFilename());
         }
-
         for (ProductSubImg foundImg : foundImgs) {
             String pastImgName = getFullSubPath(foundImg.getPath());
             Path oldImgPath = Paths.get(pastImgName);
-            /*Files.delete(oldImgPath);*/
+            if (Files.exists(oldImgPath)) {
+                Files.delete(oldImgPath);
+            }
             log.info("Update subImgs Delete");
         }
         return updateImgNames;
