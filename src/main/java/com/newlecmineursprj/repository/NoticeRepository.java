@@ -16,4 +16,6 @@ public interface NoticeRepository {
     void reg(@Param("notice") Notice notice, @Param("memberId") Long memberId);
 
     void deleteAll(List<Long> noticeIds);
+
+    void update(@Param("notice")Notice notice, @Param("memberId") Long id);
 }

@@ -58,4 +58,19 @@ public class NoticeController {
 
         return "redirect:/notices";
     }
+
+    @GetMapping("{id}/edit")
+    public String editForm(Model model, @PathVariable Long id){
+        model.addAttribute("notice", service.findById(id));
+        return "/board/notice/edit";
+    }
+    @PostMapping("{id}/edit")
+    public String edit(@PathVariable Long id, Notice notice, @AuthenticationPrincipal WebUserDetails webUserDetails){
+        if (webUserDetails != null) {
+            notice.setId(id);
+            service.update(notice, webUserDetails.getId());
+            return "redirect:/notices";
+        }
+        return "redirect:/notices";
+    }
 }

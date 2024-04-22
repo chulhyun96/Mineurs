@@ -12,4 +12,6 @@ public interface NoticeService {
     void reg(Notice notice, Long memberId);
 
     void deleteAll(List<Long> noticeIds);
+
+    void update(Notice notice, Long id);
 }

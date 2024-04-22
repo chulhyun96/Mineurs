@@ -21,5 +21,17 @@
         </foreach>
     </delete>
 
+    <update id="update" >
+        update notice
+        set
+
+        summary = #{notice.title},
+        content = #{notice.content},
+        board_id = 1,
+        member_id = #{memberId}
+
+        where id = #{notice.id}
+    </update>
+
 
 </mapper>
