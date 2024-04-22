@@ -21,4 +21,9 @@ public class NoticeServiceImpl implements NoticeService {
     public Notice findById(Long id) {
         return repository.findById(id);
     }
+
+    @Override
+    public void reg(Notice notice, Long memberId) {
+        repository.reg(notice, memberId);
+    }
 }

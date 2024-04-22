@@ -8,4 +8,6 @@ public interface NoticeService {
     List<Notice> findAll();
 
     Notice findById(Long id);
+
+    void reg(Notice notice, Long memberId);
 }

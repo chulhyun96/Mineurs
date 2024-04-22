@@ -9,5 +9,8 @@
     <select id="findById" resultType="Notice">
         select id, summary title, reg_datetime reg_date_time, content from notice where id = #{id};
     </select>
+    <insert id="reg" >
+        insert into notice(summary, content, board_id, member_id) values (#{notice.title}, #{notice.content}, 1, #{memberId})
+    </insert>
 
 </mapper>

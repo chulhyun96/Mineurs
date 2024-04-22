@@ -1,12 +1,18 @@
 package com.newlecmineursprj.controller;
 
+import com.newlecmineursprj.config.security.WebUserDetails;
+import com.newlecmineursprj.entity.Notice;
 import com.newlecmineursprj.service.NoticeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.security.Principal;
 
 @RequestMapping("notices")
 @Controller
@@ -28,5 +34,20 @@ public class NoticeController {
     public String detail(Model model, @PathVariable Long id){
         model.addAttribute("notice", service.findById(id));
         return "board/notice/detail";
+    }
+
+    @GetMapping("reg")
+    public String regForm(){
+        return "board/notice/new";
+    }
+
+    @PostMapping("reg")
+    public String reg(Notice notice, @AuthenticationPrincipal WebUserDetails webUserDetails){
+        if (webUserDetails != null) {
+
+            service.reg(notice, webUserDetails.getId());
+            return "redirect:/notices";
+        }
+        return "redirect:/notices";
     }
 }
