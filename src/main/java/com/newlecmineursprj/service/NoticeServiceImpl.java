@@ -16,4 +16,9 @@ public class NoticeServiceImpl implements NoticeService {
     public List<Notice> findAll() {
         return repository.findAll();
     }
+
+    @Override
+    public Notice findById(Long id) {
+        return repository.findById(id);
+    }
 }

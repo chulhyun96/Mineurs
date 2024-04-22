@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface NoticeService {
     List<Notice> findAll();
+
+    Notice findById(Long id);
 }

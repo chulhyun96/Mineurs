@@ -6,4 +6,8 @@
     <select id="findAll" resultType="Notice">
         select id, summary title, reg_datetime reg_date_time, content from notice;
     </select>
+    <select id="findById" resultType="Notice">
+        select id, summary title, reg_datetime reg_date_time, content from notice where id = #{id};
+    </select>
+
 </mapper>

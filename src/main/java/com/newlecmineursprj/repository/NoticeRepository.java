@@ -9,4 +9,6 @@ import java.util.List;
 public interface NoticeRepository {
 
     List<Notice> findAll();
+
+    Notice findById(Long id);
 }
