@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -31,7 +32,7 @@ public class ImgStorage {
 
     public String getStorageImgName(MultipartFile imgFile) throws IOException {
         if (imgFile.isEmpty())
-            throw FileDoesNotExist("MainImg File dose not exist");
+            return "Non-Img";
 
         String fullMainPath = getFullMainPath(imgFile.getOriginalFilename());
         makeFileDir(fullMainPath);
@@ -40,8 +41,8 @@ public class ImgStorage {
     }
 
     public List<String> getStorageSubImgName(List<MultipartFile> subImgs) throws IOException {
-        if (subImgs.isEmpty())
-            throw FileDoesNotExist("SubImgs File dose not exist");
+        if (subImgs.stream().allMatch(MultipartFile::isEmpty))
+            return List.of("Non-Img");
 
         String fullSubPath = getFullSubPath(subImgs.get(0).getOriginalFilename());
         makeFileDir(fullSubPath);
@@ -56,10 +57,12 @@ public class ImgStorage {
     public String updateMainImg(Product foundImg, MultipartFile updateImg) throws IOException {
         if (updateImg.isEmpty())
             throw FileDoesNotExist("UpdateMainFile does not exist");
+
         // 메인 이미지 업데이트
         String updateMainImgPath = getFullMainPath(updateImg.getOriginalFilename());
         Path updateMainPath = Paths.get(updateMainImgPath);
         Files.write(updateMainPath, updateImg.getBytes());
+
         // 기존 이미지 삭제
         String pastImgName = getFullMainPath(foundImg.getMainImgPath());
         Path oldImgPath = Paths.get(pastImgName);
