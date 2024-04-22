@@ -29,18 +29,16 @@
                     <tr>
                         <th>No</th>
                         <th>Subject</th>
-                        <th>Writer</th>
+                        <th>Content</th>
                         <th>Date</th>
-                        <th>Hit</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="board : ${list}">
                         <th th:text="${board.id}">번호</th>
+                        <td th:text="${board.title}">제목</td>
                         <td th:text="${board.content}">내용</td>
-                        <td th:text="${board.writer}">작성자</td>
-<!--                        <td th:text="${board.regDate}">날짜</td>-->
-<!--                        <td th:text="${board.count}">조회수</td>-->
+                        <td th:text="${board.regDateTime}">날짜</td>
                     </tr>
                     </tbody>
 
