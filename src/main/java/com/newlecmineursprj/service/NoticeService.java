@@ -10,4 +10,6 @@ public interface NoticeService {
     Notice findById(Long id);
 
     void reg(Notice notice, Long memberId);
+
+    void deleteAll(List<Long> noticeIds);
 }

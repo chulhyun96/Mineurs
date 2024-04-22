@@ -4,19 +4,19 @@ import com.newlecmineursprj.config.security.WebUserDetails;
 import com.newlecmineursprj.entity.Notice;
 import com.newlecmineursprj.service.NoticeService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RequestMapping("notices")
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class NoticeController {
 
     private final NoticeService service;
@@ -48,6 +48,14 @@ public class NoticeController {
             service.reg(notice, webUserDetails.getId());
             return "redirect:/notices";
         }
+        return "redirect:/notices";
+    }
+
+    @PostMapping("delete")
+    public String delete(@RequestParam List<Long> noticeIds){
+        log.debug("noticeIds: {}", noticeIds);
+        service.deleteAll(noticeIds);
+
         return "redirect:/notices";
     }
 }

@@ -26,4 +26,9 @@ public class NoticeServiceImpl implements NoticeService {
     public void reg(Notice notice, Long memberId) {
         repository.reg(notice, memberId);
     }
+
+    @Override
+    public void deleteAll(List<Long> noticeIds) {
+        repository.deleteAll(noticeIds);
+    }
 }
