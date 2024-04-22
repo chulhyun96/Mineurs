@@ -62,10 +62,10 @@ public class ProductServiceImpl implements ProductService {
         //서브 이미지 업데이트
         List<ProductSubImg> foundAll = subImgRepository.findAll(updateProduct.getId());
         List<String> updatedSubImgNames = imgStorage.updateSubImgs(foundAll, updateSubImgs);
-        List<ProductSubImg> updateProductSubImgs = ProductSubImg.saveSubImgs(updatedSubImgNames, updateProduct);
+        List<ProductSubImg> updateProductSubImgs = ProductSubImg.updateSubImgs(updatedSubImgNames, foundAll);
         subImgRepository.updatedImgs(updateProductSubImgs);
-        for (ProductSubImg productSubImg : updateProductSubImgs) {
-            log.info("Update ProductSubImgs = {}", productSubImg);
+        for (ProductSubImg updateProductSubImg : updateProductSubImgs) {
+            log.info("UpdateProductSubImg: {}", updateProductSubImg);
         }
     }
 

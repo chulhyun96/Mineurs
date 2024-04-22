@@ -4,7 +4,7 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.newlecmineursprj.repository.ProductSubImgRepository">
 
-    <insert id="reg" parameterType="ProductSubImg">
+    <insert id="reg" parameterType="ProductSubImg" useGeneratedKeys="true" keyProperty="id">
         insert into sub_img(path, product_id)
         values
         <foreach collection="list" item="productSubImg" separator=",">
