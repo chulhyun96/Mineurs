@@ -47,26 +47,23 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getById(Long id) {
-        return repository.findById(id);
-    }
-
-    @Override
     public void update(Product updateProduct, MultipartFile updateFile, List<MultipartFile> updateSubImgs) throws IOException {
         //메인 이미지 업데이트
         Product foundProduct = repository.findById(updateProduct.getId());
-        String updateImgName = imgStorage.updateMainImg(foundProduct, updateFile);
-        Product.saveImg(updateImgName, updateProduct);
+        Product.saveImg(imgStorage.updateMainImg(foundProduct, updateFile), updateProduct);
         repository.updateById(updateProduct);
 
         //서브 이미지 업데이트
         List<ProductSubImg> foundAll = subImgRepository.findAll(updateProduct.getId());
-        List<String> updatedSubImgNames = imgStorage.updateSubImgs(foundAll, updateSubImgs);
-        List<ProductSubImg> updateProductSubImgs = ProductSubImg.updateSubImgs(updatedSubImgNames, foundAll);
+        List<ProductSubImg> updateProductSubImgs = ProductSubImg.updateSubImgs(
+                imgStorage.updateSubImgs(foundAll, updateSubImgs), foundAll
+        );
         subImgRepository.updatedImgs(updateProductSubImgs);
-        for (ProductSubImg updateProductSubImg : updateProductSubImgs) {
-            log.info("UpdateProductSubImg: {}", updateProductSubImg);
-        }
+    }
+
+    @Override
+    public Product getById(Long id) {
+        return repository.findById(id);
     }
 
     @Override

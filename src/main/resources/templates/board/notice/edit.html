@@ -7,16 +7,19 @@
 </head>
 <body>
 <main layout:fragment="main" class="container mx-auto px-10">
-    <form class="flex flex-col" action="" method="post">
-        <label>제목
-        <input name="title" />
+    <form action="" method="post" class="flex flex-col">
+        <label>
+            제목
+            <input name="title" th:value="${notice.title}"/>
+        </label>
+        <label>
+            내용
+            <textarea name="content" th:text="${notice.content}">
+
+            </textarea>
         </label>
 
-        <label>내용
-        <textarea name="content"></textarea>
-        </label>
-
-        <button>등록</button>
+        <button class="btn self-end">수정</button>
     </form>
 </main>
 </body>

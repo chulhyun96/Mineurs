@@ -31,6 +31,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/member/**").hasAnyRole("MEMBER", "ADMIN")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/notices/reg").hasRole("ADMIN")
                         .anyRequest().permitAll())
                 .formLogin((form) -> form
                         .loginPage("/signin")

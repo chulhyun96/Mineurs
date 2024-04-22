@@ -121,12 +121,11 @@
         where id = #{id}
     </update>
 
-
-    <!--    <delete id="deleteAll" parameterType="list">-->
-    <!--        DELETE FROM product-->
-    <!--        WHERE id IN-->
-    <!--        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">-->
-    <!--            #{item}-->
-    <!--        </foreach>-->
-    <!--    </delete>-->
+    <delete id="deleteAll" parameterType="list">
+        DELETE FROM product
+        WHERE id IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 </mapper>

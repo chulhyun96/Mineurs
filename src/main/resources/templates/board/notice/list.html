@@ -1,6 +1,6 @@
 <!DOCTYPE >
 <html lang="en" layout:decorate="~{/inc/layout}" xmlns:layout="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -9,7 +9,7 @@
 <body>
 <main layout:fragment="main" class="container mx-auto">
 
-    <section class="flex flex-col items-center ">
+    <form class="flex flex-col items-center "  action="/notices/delete" method="post">
         <h1 class="mt-20">NOTICE</h1>
         <p class="">공지사항 입니다.</p>
         <div class="">
@@ -27,28 +27,42 @@
                 <table class="table">
                     <thead>
                     <tr>
+                        <th sec:authorize="hasRole('ADMIN')">
+
+                        </th>
                         <th>No</th>
                         <th>Subject</th>
-                        <th>Writer</th>
+                        <th>Content</th>
                         <th>Date</th>
-                        <th>Hit</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="board : ${list}">
-                        <th th:text="${board.id}">번호</th>
-                        <td th:text="${board.content}">내용</td>
-                        <td th:text="${board.writer}">작성자</td>
-<!--                        <td th:text="${board.regDate}">날짜</td>-->
-<!--                        <td th:text="${board.count}">조회수</td>-->
+                    <tr th:each="notice : ${list}">
+                        <td sec:authorize="hasRole('ADMIN')">
+                            <input type="checkbox" checked="checked" class="checkbox" name="noticeIds"
+                                   th:value="${notice.id}"/>
+                        </td>
+                        <td th:text="${notice.id}">번호</td>
+                        <td><a th:text="${notice.title}" th:href="@{/notices/{noticeId}(noticeId=${notice.id})}">제목</a>
+                        </td>
+                        <td th:text="${notice.content}">내용</td>
+                        <td th:text="${notice.regDateTime}">날짜</td>
                     </tr>
                     </tbody>
 
 
                 </table>
+
             </div>
+
+
         </div>
-    </section>
+        <div sec:authorize="hasRole('ADMIN')" class="self-end flex space-x-4">
+            <button class="btn btn-secondary">삭제</button>
+            <a class="btn" href="/notices/reg">등록</a>
+
+        </div>
+    </form>
 </main>
 </body>
 </html>

@@ -1,12 +1,10 @@
 package com.newlecmineursprj.controller.admin;
 
-import com.newlecmineursprj.entity.Category;
 import com.newlecmineursprj.entity.PostView;
 import com.newlecmineursprj.entity.QnaCategory;
 import com.newlecmineursprj.service.PostService;
 import com.newlecmineursprj.service.QnaCategoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +35,7 @@ private final QnaCategoryService categoryService;
 
         List<PostView> list = service.getList(page,searchMethod,searchKeyword.trim(),boardId,qnaCategory);
         List<QnaCategory> categories = categoryService.getList();
+
 
         model.addAttribute("list", list);
         model.addAttribute("count", count);
