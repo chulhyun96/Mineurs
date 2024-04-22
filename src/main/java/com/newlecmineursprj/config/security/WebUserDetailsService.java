@@ -21,12 +21,14 @@ public class WebUserDetailsService implements UserDetailsService {
 
     private final MemberRepository repository;
     private final RoleRepository roleRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member member = repository.findByUsername(username);
         List<Role> roles = roleRepository.findAllByMemberId(member.getId());
 
-        List<GrantedAuthority> authorities = roles.stream().map(role-> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+        List<GrantedAuthority> authorities = roles.stream().map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toList());
 
         return WebUserDetails.builder()
                 .id(member.getId())
