@@ -23,6 +23,7 @@ public class NoticeController {
     @GetMapping
     public String list(Model model){
 
+        model.addAttribute("searchMethods", service.findAllSearchMethods());
 
         model.addAttribute("list", service.findAll());
         return "board/notice/list";

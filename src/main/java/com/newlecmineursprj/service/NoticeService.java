@@ -1,6 +1,7 @@
 package com.newlecmineursprj.service;
 
 import com.newlecmineursprj.entity.Notice;
+import com.newlecmineursprj.entity.SearchMethod;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface NoticeService {
     void deleteAll(List<Long> noticeIds);
 
     void update(Notice notice, Long id);
+
+    List<SearchMethod> findAllSearchMethods();
 }
