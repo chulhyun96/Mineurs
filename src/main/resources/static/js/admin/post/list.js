@@ -4,10 +4,10 @@
 window.addEventListener('load', function () {
 // *요소*
 
-const preview = document.querySelector(".preview");
-const closeButton = document.querySelector('.close-button');
-const beforeDateInput = document.querySelector('.before-date-input')
-const afterDateInput = document.querySelector('.after-date-input')
+    const preview = document.querySelector(".preview");
+    const closeButton = document.querySelector('.close-button');
+    const beforeDateInput = document.querySelector('.before-date-input')
+    const afterDateInput = document.querySelector('.after-date-input')
 
     //HTML 요소 변수 매핑 영역
     // const previewId = preview.getAttribute("data-id");
@@ -32,8 +32,20 @@ const afterDateInput = document.querySelector('.after-date-input')
     //     }, 130);
     // });
 
-// #1 검색폼 작성일 설정
-const today = new Date();
+    // #util Form필드를 초기화하는 reset button
+    document.querySelector('button[type="reset"]').addEventListener('click', () => {
+        // 기본 reset 이벤트를 막습니다. 이렇게 하지 않으면 폼은 페이지를 새로고침하게 됩니다.
+        event.preventDefault();
+
+        // 텍스트 필드를 비웁니다.
+        document.querySelector('input[name="searchKeyword"]').value = '';
+
+        // 여기에 다른 폼 필드를 비우는 코드를 추가할 수 있습니다.
+        // 예: document.querySelector('input[name="otherField"]').value = '';
+    });
+
+    // #1 검색폼 작성일 설정
+    const today = new Date();
     beforeDateInput.value = `${today.getFullYear()}-${String(today.getMonth()).padStart(2, '0')}-${String(today.getDate()+1).padStart(2, '0')}`;
     afterDateInput.value = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 

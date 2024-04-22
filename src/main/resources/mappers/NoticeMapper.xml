@@ -13,4 +13,25 @@
         insert into notice(summary, content, board_id, member_id) values (#{notice.title}, #{notice.content}, 1, #{memberId})
     </insert>
 
+    <delete id="deleteAll" parameterType="list">
+        delete from notice
+        where  id in
+        <foreach item="id" index="index" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update" >
+        update notice
+        set
+
+        summary = #{notice.title},
+        content = #{notice.content},
+        board_id = 1,
+        member_id = #{memberId}
+
+        where id = #{notice.id}
+    </update>
+
+
 </mapper>
