@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Board {
     private Long id;
-    private String title;
-    private String content;
-    private boolean status;
-    private String writer;
+    private String name;
+
 }

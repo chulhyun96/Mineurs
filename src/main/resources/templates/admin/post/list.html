@@ -14,7 +14,7 @@
 </head>
 <body class="h-full w-full">
     <main layout:fragment="main" class="flex flex-col container mx-auto px-10">
-        <h1 class="font-bold text-3xl self-center">관리자 게시글목록</h1>
+        <h1 class="font-bold text-3xl self-center mt-10"><a href="/admin/post">관리자 게시글목록</a></h1>
         <section class="overflow-x-auto w-full flex flex-col">
             <h1 class="text-2xl mb-0">게시물 관리</h1>
             <div role="tablist" class="tabs tabs-boxed">
@@ -75,7 +75,7 @@
                     <tr>
                         <td>게시판 선택</td>
                         <td colspan="">
-                            <select class="select select-sm select-bordered" name="boardId">
+                            <select class="select select-sm select-bordered" name="boardId" th:checked="${param.boardId}">
                                 <option value="0">전체목록</option>
                                 <option th:each="post : ${list}"
                                         th:value="${post.boardId}"
@@ -115,19 +115,15 @@
                         <td>
                             <div class="form-control flex flex-row space-x-2">
                                 <label class="label cursor-pointer space-x-1">
-                                    <input type="radio"  class="radio" checked />
+                                    <input type="radio" class="radio" name="responseStatus"/>
                                     <span class="label-text">전체</span>
                                 </label>
                                 <label class="label cursor-pointer space-x-1">
-                                    <input type="radio"  class="radio" />
+                                    <input type="radio" class="radio" name="responseStatus"/>
                                     <span class="label-text">답변 전</span>
                                 </label>
                                 <label class="label cursor-pointer space-x-1">
-                                    <input type="radio"  class="radio" />
-                                    <span class="label-text">처리중</span>
-                                </label>
-                                <label class="label cursor-pointer space-x-1">
-                                    <input type="radio"  class="radio" checked />
+                                    <input type="radio" class="radio"  name="responseStatus"/>
                                     <span class="label-text">답변 완료</span>
                                 </label>
                             </div>
@@ -154,7 +150,7 @@
                 </table>
                 <div class="self-center flex space-x-2">
                     <button class="btn btn-wide">검색</button>
-                    <button class="btn btn-wide btn-outline">초기화</button>
+                    <button type="reset" class="btn btn-wide btn-outline">초기화</button>
                 </div>
             </form>
         </section>
@@ -231,7 +227,6 @@
                 </table>
             </div>
         </section>
-
 
         <div class="flex justify-between">
             <div class="flex space-x-1">
