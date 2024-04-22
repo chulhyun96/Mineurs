@@ -2,6 +2,7 @@ package com.newlecmineursprj.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Stream;
 
 import com.newlecmineursprj.domain.file.ImgStorage;
 import com.newlecmineursprj.dto.ProductListDTO;
@@ -55,10 +56,24 @@ public class ProductServiceImpl implements ProductService {
 
         //서브 이미지 업데이트
         List<ProductSubImg> foundAll = subImgRepository.findAll(updateProduct.getId());
-        List<ProductSubImg> updateProductSubImgs = ProductSubImg.updateSubImgs(
-                imgStorage.updateSubImgs(foundAll, updateSubImgs), foundAll
-        );
-        subImgRepository.updatedImgs(updateProductSubImgs);
+        List<String> storageSubImgName = imgStorage.getStorageSubImgName(updateSubImgs);
+
+        List<ProductSubImg> updatedProductSubImgs;
+        if (updateSubImgs.size() > foundAll.size()) {
+            List<String> extraStorageSubImgName = storageSubImgName.subList(foundAll.size(), updateSubImgs.size());
+            List<ProductSubImg> newProductSubImgs = ProductSubImg.saveSubImgs(extraStorageSubImgName, updateProduct);
+            subImgRepository.reg(newProductSubImgs);
+            updatedProductSubImgs = Stream.concat(foundAll.stream(), newProductSubImgs.stream()).toList();
+
+        } else if (updateSubImgs.size() < foundAll.size()) {
+            List<ProductSubImg> remainingSubImgs = foundAll.subList(0, updateSubImgs.size());
+            List<ProductSubImg> extraSubImgsToDelete = foundAll.subList(updateSubImgs.size(), foundAll.size());
+            subImgRepository.deleteAll(extraSubImgsToDelete);
+            updatedProductSubImgs = ProductSubImg.updateSubImgs(storageSubImgName, remainingSubImgs);
+        } else {
+            updatedProductSubImgs = ProductSubImg.updateSubImgs(storageSubImgName, foundAll);
+        }
+        subImgRepository.updatedImgs(updatedProductSubImgs);
     }
 
     @Override
