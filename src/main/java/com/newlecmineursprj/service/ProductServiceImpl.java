@@ -2,9 +2,8 @@ package com.newlecmineursprj.service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Stream;
 
-import com.newlecmineursprj.domain.file.ImgStorage;
+import com.newlecmineursprj.domain.file.ImgStore;
 import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.ProductSubImg;
 import com.newlecmineursprj.mapper.ProductMapper;
@@ -25,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository repository;
     private final ProductSubImgRepository subImgRepository;
-    private final ImgStorage imgStorage;
+    private final ImgStore imgStore;
 
     @Override
     public List<ProductListDTO> getList(Integer page, String searchMethod, String searchKeyword, long categoryId) {
@@ -33,16 +32,17 @@ public class ProductServiceImpl implements ProductService {
         int offset = (page - 1) * size;
         return repository.findAll(searchMethod, searchKeyword, offset, size, categoryId).stream().map(ProductMapper::toDto).toList();
     }
+
     @Transactional
     @Override
     public void reg(Product newProduct, MultipartFile mainImg, List<MultipartFile> subImgs) throws IOException {
         //메인 이미지 저장
-        String storageMainImgName = imgStorage.getStorageImgName(mainImg);
-        Product.saveImg(storageMainImgName,newProduct);
+        String storageMainImgName = imgStore.getStorageMainImgName(mainImg);
+        Product.saveImg(storageMainImgName, newProduct);
         repository.reg(newProduct);
 
         //서브 이미지 저장
-        List<String> storageSubImgName = imgStorage.getStorageSubImgName(subImgs);
+        List<String> storageSubImgName = imgStore.getStorageSubImgName(subImgs);
         List<ProductSubImg> productSubImgs = ProductSubImg.saveSubImgs(storageSubImgName, newProduct);
         subImgRepository.reg(productSubImgs);
     }
@@ -51,29 +51,38 @@ public class ProductServiceImpl implements ProductService {
     public void update(Product updateProduct, MultipartFile updateFile, List<MultipartFile> updateSubImgs) throws IOException {
         //메인 이미지 업데이트
         Product foundProduct = repository.findById(updateProduct.getId());
-        Product.saveImg(imgStorage.updateMainImg(foundProduct, updateFile), updateProduct);
+        Product.saveImg(imgStore.updateMainImgFile(foundProduct, updateFile), updateProduct);
         repository.updateById(updateProduct);
 
         //서브 이미지 업데이트
         List<ProductSubImg> foundAll = subImgRepository.findAll(updateProduct.getId());
-        List<String> storageSubImgName = imgStorage.getStorageSubImgName(updateSubImgs);
+        List<String> storageSubImgName = imgStore.updateSubImgFiles(foundAll, updateSubImgs);
+        updateSubImgs(updateProduct, updateSubImgs, foundAll, storageSubImgName);
+    }
 
-        List<ProductSubImg> updatedProductSubImgs;
+    private void updateSubImgs(Product updateProduct, List<MultipartFile> updateSubImgs, List<ProductSubImg> foundAll, List<String> storageSubImgName) {
+        //기존의 파일보다 요청한 파일이 더 많을 경우
         if (updateSubImgs.size() > foundAll.size()) {
-            List<String> extraStorageSubImgName = storageSubImgName.subList(foundAll.size(), updateSubImgs.size());
-            List<ProductSubImg> newProductSubImgs = ProductSubImg.saveSubImgs(extraStorageSubImgName, updateProduct);
-            subImgRepository.reg(newProductSubImgs);
-            updatedProductSubImgs = Stream.concat(foundAll.stream(), newProductSubImgs.stream()).toList();
-
-        } else if (updateSubImgs.size() < foundAll.size()) {
+            List<String> extraSubImgNames = storageSubImgName.subList(foundAll.size(), updateSubImgs.size());
+            subImgRepository.reg(
+                    ProductSubImg.saveSubImgs(extraSubImgNames, updateProduct)
+            );
+            return;
+        }
+        //기존의 파일보다 요청한 파일이 더 적을 경우
+        if (updateSubImgs.size() < foundAll.size()) {
             List<ProductSubImg> remainingSubImgs = foundAll.subList(0, updateSubImgs.size());
             List<ProductSubImg> extraSubImgsToDelete = foundAll.subList(updateSubImgs.size(), foundAll.size());
             subImgRepository.deleteAll(extraSubImgsToDelete);
-            updatedProductSubImgs = ProductSubImg.updateSubImgs(storageSubImgName, remainingSubImgs);
-        } else {
-            updatedProductSubImgs = ProductSubImg.updateSubImgs(storageSubImgName, foundAll);
+            subImgRepository.updatedImgs(
+                    ProductSubImg.updateSubImgs(storageSubImgName, remainingSubImgs)
+            );
+            return;
         }
-        subImgRepository.updatedImgs(updatedProductSubImgs);
+        //같을 경우
+        subImgRepository.updatedImgs(
+                ProductSubImg.updateSubImgs(storageSubImgName, foundAll)
+        );
     }
 
     @Override

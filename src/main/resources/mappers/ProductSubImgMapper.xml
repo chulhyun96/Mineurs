@@ -25,10 +25,10 @@
     </update>
 
     <delete id="deleteAll" parameterType="list">
-        DELETE FROM product
+        DELETE FROM sub_img
         WHERE id IN
         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
-            #{item}
+            #{item.id}
         </foreach>
     </delete>
 </mapper>

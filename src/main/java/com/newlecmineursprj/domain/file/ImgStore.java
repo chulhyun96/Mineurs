@@ -5,7 +5,6 @@ import com.newlecmineursprj.entity.ProductSubImg;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.ssl.SslProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,21 +15,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 @Slf4j
 @Component
 @Getter
 @Setter
 @ConfigurationProperties("file")
-public class ImgStorage {
+public class ImgStore {
     private String mainImg;
     private String subImg;
 
-
-    public String getStorageImgName(MultipartFile imgFile) throws IOException {
+    public String getStorageMainImgName(MultipartFile imgFile) throws IOException {
         if (imgFile.isEmpty())
             return "Non-Img";
 
@@ -54,7 +50,7 @@ public class ImgStorage {
                 .toList();
     }
 
-    public String updateMainImg(Product foundImg, MultipartFile updateImg) throws IOException {
+    public String updateMainImgFile(Product foundImg, MultipartFile updateImg) throws IOException {
         if (updateImg.isEmpty())
             return "Non-Img";
 
@@ -68,7 +64,7 @@ public class ImgStorage {
         return updateImg.getOriginalFilename();
     }
 
-    public List<String> updateSubImgs(List<ProductSubImg> foundImgs, List<MultipartFile> updateImgs) throws IOException {
+    public List<String> updateSubImgFiles(List<ProductSubImg> foundImgs, List<MultipartFile> updateImgs) throws IOException {
         if (updateImgs.stream().allMatch(MultipartFile::isEmpty))
             return List.of("Non-Img");
 
@@ -98,7 +94,6 @@ public class ImgStorage {
             Files.delete(oldImgPath);
         }
     }
-
     private void makeFileDir(String fullPath) throws IOException {
         Path path = Paths.get(fullPath);
         if (!Files.exists(path)) {
@@ -112,9 +107,5 @@ public class ImgStorage {
 
     private String getFullSubPath(String fileName) {
         return System.getProperty("user.dir") + subImg + fileName;
-    }
-
-    private RuntimeException FileDoesNotExist(String errorMessage) {
-        return new RuntimeException(errorMessage);
     }
 }

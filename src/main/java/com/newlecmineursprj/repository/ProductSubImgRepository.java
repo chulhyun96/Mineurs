@@ -11,5 +11,5 @@ public interface ProductSubImgRepository {
     void reg(List<ProductSubImg> productSubImgs);
     List<ProductSubImg> findAll(Long productId);
     void updatedImgs(List<ProductSubImg> updateProductSubImgs);
-    void deleteAll(List<ProductSubImg> deleteSubImgs);
+    void deleteAll(List<ProductSubImg> updateSubImgs);
 }
