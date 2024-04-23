@@ -1,7 +1,9 @@
 package com.newlecmineursprj.service;
 
 import com.newlecmineursprj.entity.Notice;
+import com.newlecmineursprj.entity.SearchMethod;
 import com.newlecmineursprj.repository.NoticeRepository;
+import com.newlecmineursprj.repository.NoticeSearchMethodRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import java.util.List;
 public class NoticeServiceImpl implements NoticeService {
 
     private final NoticeRepository repository;
+    private final NoticeSearchMethodRepository noticeSearchMethodRepository;
     @Override
     public List<Notice> findAll() {
         return repository.findAll();
@@ -35,5 +38,10 @@ public class NoticeServiceImpl implements NoticeService {
     @Override
     public void update(Notice notice, Long id) {
         repository.update(notice, id);
+    }
+
+    @Override
+    public List<SearchMethod> findAllSearchMethods() {
+        return noticeSearchMethodRepository.findAll();
     }
 }

@@ -23,6 +23,7 @@ public class ProductSubImg {
                         .build())
                 .toList();
     }
+
     public static List<ProductSubImg> saveSubImgs(List<String> storageSubImgName, Product newProduct) {
         return storageSubImgName.stream()
                 .map(imgName -> ProductSubImg.builder()
