@@ -1,253 +1,329 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/inc/layout}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/css/output.css"/>
+    <link rel="stylesheet" href="/css/output.css" />
     <script src="/js/input.js"></script>
-</head>
-<body class="bg-white">
+  </head>
+  <body class="bg-white">
+    <!--main-->
+    <main layout:fragment="main" class="container mx-auto">
+      <div class="text-center text-base">All</div>
 
-<!--main-->
-<div class="text-center">All</div>
-
-<section class="py-10 px-8 border-b">
-    <div class="mx-auto container">
-        <div class="flex justify-between border-black">
-            <div>Total 195 items.</div>
-            <nav>
-                <ul class="flex gap-4 justify-items-end text-sm ">
-                    <li>
-                        <button>Low Price</button>
-                    </li>
-                    <li>
-                        <button>High Price</button>
-                    </li>
-                    <li>
-                        <button>Name</button>
-                    </li>
-                    <li>
-                        <button>New</button>
-                    </li>
-                    <li>
-                        <button>Hit</button>
-                    </li>
-                </ul>
-            </nav>
+      <section class="py-10 px-8 border-b">
+        <div class="flex justify-between">
+          <div class="text-xs flex items-center">Total 195 items.</div>
+          <nav>
+            <ul class="flex gap-4 justify-items-end text-sm list-none">
+              <li>
+                <button>Low Price</button>
+              </li>
+              <li>
+                <button>High Price</button>
+              </li>
+              <li>
+                <button>Name</button>
+              </li>
+              <li>
+                <button>New</button>
+              </li>
+              <li>
+                <button>Hit</button>
+              </li>
+            </ul>
+          </nav>
         </div>
 
-        <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3 mt-10">
-            <div class="relative flex flex-col rounded-xl">
-                <div class="h-full">
-                    <img
-                            src="https://mineurs.co.kr/web/product/medium/202404/db3647b11a1b780f3440993e154c1895.gif"
-                            alt=""
-                            class="h-full w-full"
-                    />
-                </div>
-                <div class="mt-3">
-                    <div>
-                        <span class="inline-block h-5 w-5 rounded border border-gray-900 bg-brown-300"></span>
-                        <span class="inline-block h-5 w-5 rounded border border-blue-gray-100"></span>
-                        <span class="inline-block h-5 w-5 rounded border border-blue-gray-100 bg-gray-900"></span>
-                    </div>
-                    <div class="text-center">
-                        <h2>(당일) Berry tweed pants</h2>
-                        <h3 class="font-bold mt-2">45,000원</h3>
-                        <p class="mt-2">L사이즈 당일발송 - 이외 옵션은 평균 출고 참고하셔서<Br>
-                            구매 부탁드립니다.</p>
-                    </div>
-                </div>
+        <div
+          class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3 mt-10"
+        >
+          <div class="relative flex flex-col rounded-xl">
+            <div class="h-full">
+              <img
+                src="https://mineurs.co.kr/web/product/medium/202404/db3647b11a1b780f3440993e154c1895.gif"
+                alt=""
+                class="h-full w-full"
+              />
             </div>
+            <div class="mt-3">
+              <div>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-gray-900 bg-brown-300"
+                ></span>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-blue-gray-100"
+                ></span>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-blue-gray-100 bg-gray-900"
+                ></span>
+              </div>
+              <div class="text-center">
+                <h2>(당일) Berry tweed pants</h2>
+                <h3 class="font-bold mt-2">45,000원</h3>
+                <p class="mt-2">
+                  L사이즈 당일발송 - 이외 옵션은 평균 출고 참고하셔서<br />
+                  구매 부탁드립니다.
+                </p>
+              </div>
+            </div>
+          </div>
 
-            <div class="relative flex flex-col rounded-xl">
-                <div class="h-full">
-                    <img
-                            src="https://mineurs.co.kr/web/product/medium/202404/db3647b11a1b780f3440993e154c1895.gif"
-                            alt=""
-                            class="h-full w-full"
-                    />
-                </div>
-                <div class="mt-3">
-                    <div>
-                        <span class="inline-block h-5 w-5 rounded border border-gray-900 bg-brown-300"></span>
-                        <span class="inline-block h-5 w-5 rounded border border-blue-gray-100"></span>
-                        <span class="inline-block h-5 w-5 rounded border border-blue-gray-100 bg-gray-900"></span>
-                    </div>
-                    <div class="text-center">
-                        <h2>(당일) Berry tweed pants</h2>
-                        <h3 class="font-bold mt-2">45,000원</h3>
-                        <p class="mt-2">L사이즈 당일발송 - 이외 옵션은 평균 출고 참고하셔서<Br>
-                            구매 부탁드립니다.</p>
-                    </div>
-                </div>
+          <div class="relative flex flex-col rounded-xl">
+            <div class="h-full">
+              <img
+                src="https://mineurs.co.kr/web/product/medium/202404/db3647b11a1b780f3440993e154c1895.gif"
+                alt=""
+                class="h-full w-full"
+              />
             </div>
+            <div class="mt-3">
+              <div>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-gray-900 bg-brown-300"
+                ></span>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-blue-gray-100"
+                ></span>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-blue-gray-100 bg-gray-900"
+                ></span>
+              </div>
+              <div class="text-center">
+                <h2>(당일) Berry tweed pants</h2>
+                <h3 class="font-bold mt-2">45,000원</h3>
+                <p class="mt-2">
+                  L사이즈 당일발송 - 이외 옵션은 평균 출고 참고하셔서<br />
+                  구매 부탁드립니다.
+                </p>
+              </div>
+            </div>
+          </div>
 
-            <div class="relative flex flex-col rounded-xl">
-                <div class="h-full">
-                    <img
-                            src="https://mineurs.co.kr/web/product/medium/202404/db3647b11a1b780f3440993e154c1895.gif"
-                            alt=""
-                            class="h-full w-full"
-                    />
-                </div>
-                <div class="mt-3">
-                    <div>
-                        <span class="inline-block h-5 w-5 rounded border border-gray-900 bg-brown-300"></span>
-                        <span class="inline-block h-5 w-5 rounded border border-blue-gray-100"></span>
-                        <span class="inline-block h-5 w-5 rounded border border-blue-gray-100 bg-gray-900"></span>
-                    </div>
-                    <div class="text-center">
-                        <h2>(당일) Berry tweed pants</h2>
-                        <h3 class="font-bold mt-2">45,000원</h3>
-                        <p class="mt-2">L사이즈 당일발송 - 이외 옵션은 평균 출고 참고하셔서<Br>
-                            구매 부탁드립니다.</p>
-                    </div>
-                </div>
+          <div class="relative flex flex-col rounded-xl">
+            <div class="h-full">
+              <img
+                src="https://mineurs.co.kr/web/product/medium/202404/db3647b11a1b780f3440993e154c1895.gif"
+                alt=""
+                class="h-full w-full"
+              />
             </div>
+            <div class="mt-3">
+              <div>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-gray-900 bg-brown-300"
+                ></span>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-blue-gray-100"
+                ></span>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-blue-gray-100 bg-gray-900"
+                ></span>
+              </div>
+              <div class="text-center">
+                <h2>(당일) Berry tweed pants</h2>
+                <h3 class="font-bold mt-2">45,000원</h3>
+                <p class="mt-2">
+                  L사이즈 당일발송 - 이외 옵션은 평균 출고 참고하셔서<br />
+                  구매 부탁드립니다.
+                </p>
+              </div>
+            </div>
+          </div>
 
-            <div class="relative flex flex-col rounded-xl">
-                <div class="h-full">
-                    <img
-                            src="https://mineurs.co.kr/web/product/medium/202404/db3647b11a1b780f3440993e154c1895.gif"
-                            alt=""
-                            class="h-full w-full"
-                    />
-                </div>
-                <div class="mt-3">
-                    <div>
-                        <span class="inline-block h-5 w-5 rounded border border-gray-900 bg-brown-300"></span>
-                        <span class="inline-block h-5 w-5 rounded border border-blue-gray-100"></span>
-                        <span class="inline-block h-5 w-5 rounded border border-blue-gray-100 bg-gray-900"></span>
-                    </div>
-                    <div class="text-center">
-                        <h2>(당일) Berry tweed pants</h2>
-                        <h3 class="font-bold mt-2">45,000원</h3>
-                        <p class="mt-2">L사이즈 당일발송 - 이외 옵션은 평균 출고 참고하셔서<Br>
-                            구매 부탁드립니다.</p>
-                    </div>
-                </div>
+          <div class="relative flex flex-col rounded-xl">
+            <div class="h-full">
+              <img
+                src="https://mineurs.co.kr/web/product/medium/202404/db3647b11a1b780f3440993e154c1895.gif"
+                alt=""
+                class="h-full w-full"
+              />
             </div>
+            <div class="mt-3">
+              <div>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-gray-900 bg-brown-300"
+                ></span>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-blue-gray-100"
+                ></span>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-blue-gray-100 bg-gray-900"
+                ></span>
+              </div>
+              <div class="text-center">
+                <h2>(당일) Berry tweed pants</h2>
+                <h3 class="font-bold mt-2">45,000원</h3>
+                <p class="mt-2">
+                  L사이즈 당일발송 - 이외 옵션은 평균 출고 참고하셔서<br />
+                  구매 부탁드립니다.
+                </p>
+              </div>
+            </div>
+          </div>
 
-            <div class="relative flex flex-col rounded-xl">
-                <div class="h-full">
-                    <img
-                            src="https://mineurs.co.kr/web/product/medium/202404/db3647b11a1b780f3440993e154c1895.gif"
-                            alt=""
-                            class="h-full w-full"
-                    />
-                </div>
-                <div class="mt-3">
-                    <div>
-                        <span class="inline-block h-5 w-5 rounded border border-gray-900 bg-brown-300"></span>
-                        <span class="inline-block h-5 w-5 rounded border border-blue-gray-100"></span>
-                        <span class="inline-block h-5 w-5 rounded border border-blue-gray-100 bg-gray-900"></span>
-                    </div>
-                    <div class="text-center">
-                        <h2>(당일) Berry tweed pants</h2>
-                        <h3 class="font-bold mt-2">45,000원</h3>
-                        <p class="mt-2">L사이즈 당일발송 - 이외 옵션은 평균 출고 참고하셔서<Br>
-                            구매 부탁드립니다.</p>
-                    </div>
-                </div>
+          <div class="relative flex flex-col rounded-xl">
+            <div class="h-full">
+              <img
+                src="https://mineurs.co.kr/web/product/medium/202404/db3647b11a1b780f3440993e154c1895.gif"
+                alt=""
+                class="h-full w-full"
+              />
             </div>
+            <div class="mt-3">
+              <div>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-gray-900 bg-brown-300"
+                ></span>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-blue-gray-100"
+                ></span>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-blue-gray-100 bg-gray-900"
+                ></span>
+              </div>
+              <div class="text-center">
+                <h2>(당일) Berry tweed pants</h2>
+                <h3 class="font-bold mt-2">45,000원</h3>
+                <p class="mt-2">
+                  L사이즈 당일발송 - 이외 옵션은 평균 출고 참고하셔서<br />
+                  구매 부탁드립니다.
+                </p>
+              </div>
+            </div>
+          </div>
 
-            <div class="relative flex flex-col rounded-xl">
-                <div class="h-full">
-                    <img
-                            src="https://mineurs.co.kr/web/product/medium/202404/db3647b11a1b780f3440993e154c1895.gif"
-                            alt=""
-                            class="h-full w-full"
-                    />
-                </div>
-                <div class="mt-3">
-                    <div>
-                        <span class="inline-block h-5 w-5 rounded border border-gray-900 bg-brown-300"></span>
-                        <span class="inline-block h-5 w-5 rounded border border-blue-gray-100"></span>
-                        <span class="inline-block h-5 w-5 rounded border border-blue-gray-100 bg-gray-900"></span>
-                    </div>
-                    <div class="text-center">
-                        <h2>(당일) Berry tweed pants</h2>
-                        <h3 class="font-bold mt-2">45,000원</h3>
-                        <p class="mt-2">L사이즈 당일발송 - 이외 옵션은 평균 출고 참고하셔서<Br>
-                            구매 부탁드립니다.</p>
-                    </div>
-                </div>
+          <div class="relative flex flex-col rounded-xl">
+            <div class="h-full">
+              <img
+                src="https://mineurs.co.kr/web/product/medium/202404/db3647b11a1b780f3440993e154c1895.gif"
+                alt=""
+                class="h-full w-full"
+              />
             </div>
+            <div class="mt-3">
+              <div>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-gray-900 bg-brown-300"
+                ></span>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-blue-gray-100"
+                ></span>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-blue-gray-100 bg-gray-900"
+                ></span>
+              </div>
+              <div class="text-center">
+                <h2>(당일) Berry tweed pants</h2>
+                <h3 class="font-bold mt-2">45,000원</h3>
+                <p class="mt-2">
+                  L사이즈 당일발송 - 이외 옵션은 평균 출고 참고하셔서<br />
+                  구매 부탁드립니다.
+                </p>
+              </div>
+            </div>
+          </div>
 
-            <div class="relative flex flex-col rounded-xl">
-                <div class="h-full">
-                    <img
-                            src="https://mineurs.co.kr/web/product/medium/202404/db3647b11a1b780f3440993e154c1895.gif"
-                            alt=""
-                            class="h-full w-full"
-                    />
-                </div>
-                <div class="mt-3">
-                    <div>
-                        <span class="inline-block h-5 w-5 rounded border border-gray-900 bg-brown-300"></span>
-                        <span class="inline-block h-5 w-5 rounded border border-blue-gray-100"></span>
-                        <span class="inline-block h-5 w-5 rounded border border-blue-gray-100 bg-gray-900"></span>
-                    </div>
-                    <div class="text-center">
-                        <h2>(당일) Berry tweed pants</h2>
-                        <h3 class="font-bold mt-2">45,000원</h3>
-                        <p class="mt-2">L사이즈 당일발송 - 이외 옵션은 평균 출고 참고하셔서<Br>
-                            구매 부탁드립니다.</p>
-                    </div>
-                </div>
+          <div class="relative flex flex-col rounded-xl">
+            <div class="h-full">
+              <img
+                src="https://mineurs.co.kr/web/product/medium/202404/db3647b11a1b780f3440993e154c1895.gif"
+                alt=""
+                class="h-full w-full"
+              />
             </div>
+            <div class="mt-3">
+              <div>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-gray-900 bg-brown-300"
+                ></span>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-blue-gray-100"
+                ></span>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-blue-gray-100 bg-gray-900"
+                ></span>
+              </div>
+              <div class="text-center">
+                <h2>(당일) Berry tweed pants</h2>
+                <h3 class="font-bold mt-2">45,000원</h3>
+                <p class="mt-2">
+                  L사이즈 당일발송 - 이외 옵션은 평균 출고 참고하셔서<br />
+                  구매 부탁드립니다.
+                </p>
+              </div>
+            </div>
+          </div>
 
-            <div class="relative flex flex-col rounded-xl">
-                <div class="h-full">
-                    <img
-                            src="https://mineurs.co.kr/web/product/medium/202404/db3647b11a1b780f3440993e154c1895.gif"
-                            alt=""
-                            class="h-full w-full"
-                    />
-                </div>
-                <div class="mt-3">
-                    <div>
-                        <span class="inline-block h-5 w-5 rounded border border-gray-900 bg-brown-300"></span>
-                        <span class="inline-block h-5 w-5 rounded border border-blue-gray-100"></span>
-                        <span class="inline-block h-5 w-5 rounded border border-blue-gray-100 bg-gray-900"></span>
-                    </div>
-                    <div class="text-center">
-                        <h2>(당일) Berry tweed pants</h2>
-                        <h3 class="font-bold mt-2">45,000원</h3>
-                        <p class="mt-2">L사이즈 당일발송 - 이외 옵션은 평균 출고 참고하셔서<Br>
-                            구매 부탁드립니다.</p>
-                    </div>
-                </div>
+          <div class="relative flex flex-col rounded-xl">
+            <div class="h-full">
+              <img
+                src="https://mineurs.co.kr/web/product/medium/202404/db3647b11a1b780f3440993e154c1895.gif"
+                alt=""
+                class="h-full w-full"
+              />
             </div>
+            <div class="mt-3">
+              <div>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-gray-900 bg-brown-300"
+                ></span>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-blue-gray-100"
+                ></span>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-blue-gray-100 bg-gray-900"
+                ></span>
+              </div>
+              <div class="text-center">
+                <h2>(당일) Berry tweed pants</h2>
+                <h3 class="font-bold mt-2">45,000원</h3>
+                <p class="mt-2">
+                  L사이즈 당일발송 - 이외 옵션은 평균 출고 참고하셔서<br />
+                  구매 부탁드립니다.
+                </p>
+              </div>
+            </div>
+          </div>
 
-            <div class="relative flex flex-col rounded-xl">
-                <div class="h-full">
-                    <img
-                            src="https://mineurs.co.kr/web/product/medium/202404/db3647b11a1b780f3440993e154c1895.gif"
-                            alt=""
-                            class="h-full w-full"
-                    />
-                </div>
-                <div class="mt-3">
-                    <div>
-                        <span class="inline-block h-5 w-5 rounded border border-gray-900 bg-brown-300"></span>
-                        <span class="inline-block h-5 w-5 rounded border border-blue-gray-100"></span>
-                        <span class="inline-block h-5 w-5 rounded border border-blue-gray-100 bg-gray-900"></span>
-                    </div>
-                    <div class="text-center">
-                        <h2>(당일) Berry tweed pants</h2>
-                        <h3 class="font-bold mt-2">45,000원</h3>
-                        <p class="mt-2">L사이즈 당일발송 - 이외 옵션은 평균 출고 참고하셔서<Br>
-                            구매 부탁드립니다.</p>
-                    </div>
-                </div>
+          <div class="relative flex flex-col rounded-xl">
+            <div class="h-full">
+              <img
+                src="https://mineurs.co.kr/web/product/medium/202404/db3647b11a1b780f3440993e154c1895.gif"
+                alt=""
+                class="h-full w-full"
+              />
             </div>
+            <div class="mt-3">
+              <div>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-gray-900 bg-brown-300"
+                ></span>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-blue-gray-100"
+                ></span>
+                <span
+                  class="inline-block h-5 w-5 rounded border border-blue-gray-100 bg-gray-900"
+                ></span>
+              </div>
+              <div class="text-center">
+                <h2>(당일) Berry tweed pants</h2>
+                <h3 class="font-bold mt-2">45,000원</h3>
+                <p class="mt-2">
+                  L사이즈 당일발송 - 이외 옵션은 평균 출고 참고하셔서<br />
+                  구매 부탁드립니다.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-
-</section>
-
-</body>
+      </section>
+    </main>
+  </body>
 </html>
