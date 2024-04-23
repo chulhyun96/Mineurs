@@ -34,4 +34,9 @@ public class OrderServiceImpl implements OrderService {
         return repository.count(searchMethod, searchKeyword);
     }
 
+    @Override
+    public OrderView getById(Long id) {
+        return repository.findById(id);
+    }
+
 }
