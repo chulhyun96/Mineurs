@@ -13,20 +13,68 @@
           <img
             src="https://mineurs.co.kr/web/upload/hazel/logo_img.png"
             alt=""
-            class="w-52"
+            class="w-52 px-2"
           />
         </a>
       </div>
       <div class="flex-none">
+        <div class="dropdown dropdown-hover">
+          <div tabindex="0" role="button" class="summary text-base">Hover</div>
+          <!-- <ul
+            tabindex="0"
+            class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            <li><a>Item 1</a></li>
+            <li><a>Item 2</a></li>
+          </ul> -->
+        </div>
         <ul class="menu menu-horizontal px-1">
           <li class="m-4"><a href="">About</a></li>
-          <li class="m-4"><a href="">Shop</a></li>
-          <li class="m-4"><a href="">Board</a></li>
-          <li class="m-4"><a href="">Account</a></li>
+          <li class="m-4">
+            <details>
+              <summary class="summary">Shop</summary>
+              <ul class="p-2 bg-base-100 rounded-t-none shop-dropdown">
+                <li><a href="">샘플 세일</a></li>
+                <li><a href="">당일 발송</a></li>
+                <li><a href="">NEW ARRIVALS</a></li>
+                <li><a href="">ALL</a></li>
+                <li><a href="">OutWear</a></li>
+                <li><a href="">Top</a></li>
+                <li><a href="">Bottom</a></li>
+                <li><a href="">Dress</a></li>
+                <li><a href="">ETC</a></li>
+              </ul>
+            </details>
+          </li>
+          <li class="m-4">
+            <details>
+              <summary class="summary">Board</summary>
+              <ul class="p-2 bg-base-100 rounded-t-none shop-dropdown">
+                <li><a href="">NOTICE</a></li>
+                <li><a href="">Q&A</a></li>
+                <li><a href="">REVIEW</a></li>
+                <li><a href="">DELAY</a></li>
+                <li><a href="">OH On : 오온</a></li>
+              </ul>
+            </details>
+          </li>
+          <li class="m-4">
+            <details>
+              <summary class="summary">Account</summary>
+              <ul class="p-2 bg-base-100 rounded-t-none shop-dropdown">
+                <li><a href="">Login</a></li>
+                <li><a href="">Register</a></li>
+                <li><a href="/myshop/order">Order</a></li>
+                <li><a href="/myshop/index">My Page</a></li>
+              </ul>
+            </details>
+          </li>
         </ul>
       </div>
       <div>
-        <img src="/css/img/cart.svg" alt="" />
+        <a href="">
+          <img src="/css/img/cart.svg" alt="" />
+        </a>
       </div>
       <div class="m-4">
         <img src="/css/img/search.svg" alt="" />
