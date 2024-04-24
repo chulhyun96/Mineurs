@@ -1,13 +1,7 @@
 package com.newlecmineursprj.controller;
 
-import com.newlecmineursprj.entity.Color;
-import com.newlecmineursprj.entity.Product;
-import com.newlecmineursprj.entity.ProductSubImg;
-import com.newlecmineursprj.entity.Size;
-import com.newlecmineursprj.service.ColorService;
-import com.newlecmineursprj.service.ProductService;
-import com.newlecmineursprj.service.ProductSubImgService;
-import com.newlecmineursprj.service.SizeService;
+import com.newlecmineursprj.entity.*;
+import com.newlecmineursprj.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,10 +20,14 @@ public class ProductController {
     private final ColorService colorService;
     private final SizeService sizeService;
     private final ProductSubImgService productSubImgService;
+    private final CategoryService categoryService;
 
     @GetMapping("{id}")
     public String list(@PathVariable long id
     , Model model){
+
+        List<Category> categoryList = categoryService.getList();
+        model.addAttribute("categoryList",categoryList);
 
         Product product = service.getById(id);
         model.addAttribute("product", product);

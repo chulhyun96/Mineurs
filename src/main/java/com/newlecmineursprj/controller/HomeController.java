@@ -36,16 +36,17 @@ private final MemberService memberService;
             , @RequestParam(defaultValue = "0") Long categoryId
             , Model model) {
 
-        CustomPageImpl<ProductListDTO> productPage = service.getList(pageNumber, pageSize, sortMethod, sortDirection, 5, searchMethod, searchKeyword, categoryId);
         List<Category> categoryList = categoryService.getList();
-
-        model.addAttribute("productPage", productPage);
         model.addAttribute("categoryList",categoryList);
+
+        CustomPageImpl<ProductListDTO> productPage = service.getList(pageNumber, pageSize, sortMethod, sortDirection, 5, searchMethod, searchKeyword, categoryId);
+        model.addAttribute("productPage", productPage);
 
         String categoryName = "All";
         if (categoryId != 0)
             categoryName = categoryService.getById(categoryId).getName();
         model.addAttribute("categoryName", categoryName);
+
         return "list";
     }
 

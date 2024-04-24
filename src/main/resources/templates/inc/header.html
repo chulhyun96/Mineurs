@@ -6,7 +6,8 @@
     <title>Document</title>
   </head>
   <body>
-    <header class="navbar bg-white mb-10">
+    <header class="navbar  mb-10 fixed top-0 z-50
+transition-[background-color, opacity] duration-300 ease-in-out hover:bg-white hover:opacity-90 hover:shadow-sm">
       <h1 class="hidden">헤더</h1>
       <div class="flex-1">
         <a href="/">
@@ -41,7 +42,7 @@
             <li><a href="">샘플 세일</a></li>
             <li><a href="">당일 발송</a></li>
             <li><a href="">NEW ARRIVALS</a></li>
-            <li><a th:href="@{''(categoryId='')}">ALL</a></li>
+            <li><a th:href="@{/(categoryId='')}">ALL</a></li>
             <li th:each="category:${categoryList}"><a th:href="@{''(categoryId=${category.id})}" href="" th:text="${category.name}">OutWear</a></li>
 <!--            <li><a href="">Top</a></li>-->
 <!--            <li><a href="">Bottom</a></li>-->
