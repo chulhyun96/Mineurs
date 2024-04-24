@@ -3,6 +3,9 @@ package com.newlecmineursprj.controller.admin;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -45,6 +48,9 @@ public class OrderController {
     public void excel(HttpServletResponse response
                         ,@RequestParam(defaultValue = "0") List<Long> orderId) throws IOException{
         Workbook workbook = new XSSFWorkbook();
+        CreationHelper creationHelper = workbook.getCreationHelper();
+        CellStyle dateCellStyle = workbook.createCellStyle();
+        dateCellStyle.setDataFormat(creationHelper.createDataFormat().getFormat("yyyy-MM-dd HH:mm:ss"));
         Sheet sheet = workbook.createSheet("게시판글들");
         int rowNo = 0;
 
@@ -71,9 +77,12 @@ public class OrderController {
                 productName = productName +  " 외 " + productCount + "개";
             }
 
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=======" + orderView.getOrderedDatetime());
 
             Row row = sheet.createRow(rowNo++);
-            row.createCell(0).setCellValue(orderView.getOrderedDatetime());
+            Cell cell0 = row.createCell(0);
+            cell0.setCellValue(orderView.getOrderedDatetime());
+            cell0.setCellStyle(dateCellStyle);
             row.createCell(1).setCellValue(orderView.getCode());
             row.createCell(2).setCellValue(orderView.getUserName());
             row.createCell(3).setCellValue(productName);
@@ -84,8 +93,17 @@ public class OrderController {
 
         }
 
+        sheet.setColumnWidth(0, 6000);
+        sheet.setColumnWidth(1, 3000);
+        sheet.setColumnWidth(2, 3000);
+        sheet.setColumnWidth(3, 6000);
+        sheet.setColumnWidth(4, 3000);
+        sheet.setColumnWidth(5, 3000);
+        sheet.setColumnWidth(6, 3000);
+        sheet.setColumnWidth(7, 3000);
+
         response.setContentType("ms-vnd/excel");
-        response.setHeader("Content-Disposition", "attachment;filename=boardlist.xlsx");
+        response.setHeader("Content-Disposition", "attachment;filename=orderList.xlsx");
     
         workbook.write(response.getOutputStream());
         workbook.close();
