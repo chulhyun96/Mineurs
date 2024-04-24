@@ -10,4 +10,6 @@ import com.newlecmineursprj.entity.Category;
 public interface CategoryRepository {
     List<Category> findAll();
 
+    Category findById(long id);
+
 }

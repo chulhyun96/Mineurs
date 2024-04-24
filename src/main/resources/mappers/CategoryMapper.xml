@@ -9,4 +9,11 @@
         FROM category
         order by `order`
     </select>
+
+    <select id="findById" resultType="Category">
+        SELECT
+        *
+        FROM category
+        where id = #{id}
+    </select>
 </mapper>
