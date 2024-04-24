@@ -57,7 +57,7 @@
         <if test="pageRequest.sort.sorted">
 
             <foreach item="order" index="i" collection="pageRequest.sort" separator=", ">
-                ORDER BY ${order.property} DESC
+                ORDER BY ${order.property} ${order.direction}
             </foreach>
         </if>
                 limit #{pageRequest.offset}, #{pageRequest.pageSize}

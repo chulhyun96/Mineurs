@@ -39,7 +39,21 @@ public class ProductServiceImpl implements ProductService {
             , String searchKeyword
             , long categoryId) {
 
-        Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize, Sort.by(sortMethod));
+
+
+        return getList(pageNumber
+                , pageSize
+                , sortMethod
+                , "DESC"
+                , pageGroupSize
+                , searchMethod
+                , searchKeyword
+                , categoryId);
+    }
+
+    @Override
+    public CustomPageImpl<ProductListDTO> getList(Integer pageNumber, Integer pageSize, String sortMethod, String sortDirection, Integer pageGroupSize, String searchMethod, String searchKeyword, long categoryId) {
+        Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.fromString(sortDirection), sortMethod));
 
         List<ProductListDTO> content = repository.findAll(pageRequest, searchMethod, searchKeyword, categoryId)
                 .stream().map(ProductMapper::toDto).toList();
