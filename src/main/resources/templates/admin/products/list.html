@@ -209,7 +209,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="product: ${list}">
+                    <tr th:each="product: ${productPage.content}">
                         <td scope="col">
                             <input
                                     name="deleteId"
@@ -269,72 +269,33 @@
     </section>
 
     <!-- 페이징 -->
+    <div class="join self-center"
+         th:object="${productPage}"
+         th:if="${!productPage.isEmpty()}"
+    >
+        <!--   이전버튼     -->
+        <a th:if="*{hasPrevPageGroup()}"
+           th:href="@{''(p=*{pageGroupStartNumber} - 1, s=${param.s}, searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId} )}"
+           class="join-item btn">«
+        </a>
 
-    <section class="mb:5">
-        <h1 class="d:none">페이저</h1>
-        <ul
-                class="join self-center flex space-x-4"
-                style="display: flex; justify-content: center"
-                th:with="page = (${param.page} == null)? 1 : ${{param.page}}
-            , floatnum=(${page}-1)/5,
-            intnum=${T(java.lang.Math).floor(floatnum)},
-            startnum=${intnum}*5+1,
-            lastnum = ${count} mod 10 > 0 ? ${count / 10} + 1 : ${count / 10} + 0"
-        >
-            <li>
-                <a
-                        th:if="${page} ge 6 and ${param.searchKeyword} != null"
-                        href="products?p=1"
-                        th:href="@{./products(page=${startnum}-1,searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId})}"
-                >이전</a
-                >
-                <a
-                        th:if="${page} ge 6 and ${param.searchKeyword} == null"
-                        href="products?p=1"
-                        th:href="@{./products(page=${startnum}-1),categoryId=${param.categoryId}}"
-                >이전</a
-                >
-            </li>
+        <!--   숫자버튼     -->
+        <a
+                th:each="pageNumber: *{#numbers.sequence(pageGroupStartNumber, pageGroupEndNumber)}"
+                th:text="${pageNumber}"
+                class="join-item btn"
+                th:classappend="(*{number+1} eq ${pageNumber}) ? 'btn-active'"
+                th:href="@{''(p=${pageNumber}, s=${param.s}, searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId} )}"
 
-            <li
-                    th:each="n : ${#numbers.sequence(startnum,startnum+4)}"
-                    th:class="${{page}} eq ${n}? 'active'"
-            >
-                <a
-                        class="join-item btn"
-                        th:if="${n le lastnum and param.searchKeyword != null}"
-                        href="products?p=1"
-                        th:href="@{./products(page=${n},searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId})}"
-                        th:text="${n}"
-                >1</a
-                >
-                <a
-                        class="join-item btn"
-                        th:if="${n le lastnum and param.searchKeyword == null}"
-                        href="products?p=1"
-                        th:href="@{./products(page=${n},categoryId=${param.categoryId})}"
-                        th:text="${n}"
-                >1</a
-                >
-            </li>
-            <li>
-                <a
-                        class="join-item btn"
-                        th:if="${startnum+5 le lastnum and param.searchKeyword != null}"
-                        href="products?p=12"
-                        th:href="@{./products(page=${startnum}+5,searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId})}"
-                >다음</a
-                >
-                <a
-                        class="join-item btn"
-                        th:if="${startnum+5 le lastnum and param.searchKeyword == null}"
-                        href="products?p=12"
-                        th:href="@{./products(page=${startnum}+5),categoryId=${param.categoryId}}"
-                >다음</a
-                >
-            </li>
-        </ul>
-    </section>
+
+        >1</a>
+
+        <!--    다음버튼    -->
+        <a th:if="*{hasNextPageGroup()}"
+           th:href="@{''(p=*{pageGroupEndNumber} + 1, s=${param.s}, searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId})}"
+           class="join-item btn">»
+        </a>
+    </div>
     <!-- 페이징 -->
 </main>
 </body>

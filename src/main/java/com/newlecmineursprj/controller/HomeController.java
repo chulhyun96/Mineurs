@@ -6,6 +6,7 @@ import com.newlecmineursprj.entity.Member;
 import com.newlecmineursprj.service.CategoryService;
 import com.newlecmineursprj.service.MemberService;
 import com.newlecmineursprj.service.ProductService;
+import com.newlecmineursprj.util.CustomPageImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -33,12 +34,11 @@ private final MemberService memberService;
             , Model model) {
 
         int count = service.getCount(searchMethod,searchKeyword,categoryId);
-        List<ProductListDTO> list = service.getList(page, searchMethod, searchKeyword, categoryId);
+        CustomPageImpl<ProductListDTO> list = service.getList(page, 10, "reg_date", 5, searchMethod, searchKeyword, categoryId);
         List<Category> categoryList = categoryService.getList();
         model.addAttribute("list", list);
         model.addAttribute("count", count);
         model.addAttribute("categoryList",categoryList);
-        System.out.println(list.get(0));
         return "list";
     }
 

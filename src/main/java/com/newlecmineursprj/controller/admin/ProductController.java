@@ -9,6 +9,7 @@ import com.newlecmineursprj.domain.file.ImgStore;
 import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.ProductSubImg;
 
+import com.newlecmineursprj.util.CustomPageImpl;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,17 +39,25 @@ public class ProductController {
 
     @GetMapping
     public String list(
-            @RequestParam(defaultValue = "1") Integer page,
+            @RequestParam(value = "p", defaultValue = "1") Integer page,
+            @RequestParam(value = "s", defaultValue = "10") Integer pageSize,
             @RequestParam(required = false) String searchMethod,
             @RequestParam(defaultValue = "") String searchKeyword,
             @RequestParam(defaultValue = "0") Long categoryId,
             Model model) {
 
         int count = service.getCount(searchMethod, searchKeyword.trim(), categoryId);
-        List<ProductListDTO> list = service.getList(page, searchMethod, searchKeyword.trim(), categoryId);
+        CustomPageImpl<ProductListDTO> productPage = service.getList(
+                page
+                , pageSize
+                , "reg_date"
+                , 5
+                , searchMethod
+                , searchKeyword.trim()
+                , categoryId);
         List<Category> categories = categoryService.getList();
 
-        model.addAttribute("list", list);
+        model.addAttribute("productPage", productPage);
         model.addAttribute("count", count);
         model.addAttribute("categories", categories);
         return PRODUCTS_VIEW + "/list";
@@ -86,10 +95,11 @@ public class ProductController {
         service.deleteAllById(deleteId);
         return REDIRECT + PRODUCTS_VIEW;
     }
+
     // Response 어떻게 사용하지 몰라서 일단 Post로 대체함.
     @PostMapping("/{id}/edit")
-    public String edit(@PathVariable Long id, Product updateProduct, MultipartFile updateImg , List<MultipartFile> updateSubImgs) throws IOException {
-        service.update(updateProduct,updateImg,updateSubImgs);
+    public String edit(@PathVariable Long id, Product updateProduct, MultipartFile updateImg, List<MultipartFile> updateSubImgs) throws IOException {
+        service.update(updateProduct, updateImg, updateSubImgs);
         return REDIRECT + PRODUCTS_VIEW;
     }
 }

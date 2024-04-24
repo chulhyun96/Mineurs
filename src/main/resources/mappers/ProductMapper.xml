@@ -37,24 +37,30 @@
 
     <select id="findAll" resultMap="ProductView">
         SELECT
-        v.*,
-        CASE WHEN u.id IS NOT NULL THEN 1 ELSE 0 END AS current_user_liked
-        FROM mineurs_db.product_list_view v
-        left join (`like` l join (select * from `member` where id=1) u on l.member_id = u.id) on l.product_id = v.id
+        plv.*,
+        nvl(l.member_id IS NOT NULL, 0) current_user_liked
+
+        FROM mineurs_db.product_list_view plv
+        left join `like` l on l.member_id = 1 and l.product_id = plv.id
         <where>
             <if test="searchMethod == 'title'">
-                v.name like '%${searchKeyword}%'
+                plv.name like '%${searchKeyword}%'
             </if>
             <if test="searchMethod == 'description'">
-                v.description like '%${searchKeyword}%'
+                plv.description like '%${searchKeyword}%'
             </if>
             <if test="categoryId != 0">
-                and v.ct_id = #{categoryId}
+                and plv.ct_id = #{categoryId}
             </if>
         </where>
-        <!--        GROUP BY id-->
-        ORDER BY id DESC
-        <!--        limit #{offset},#{size}-->
+                GROUP BY id
+        <if test="pageRequest.sort.sorted">
+
+            <foreach item="order" index="i" collection="pageRequest.sort" separator=", ">
+                ORDER BY ${order.property} DESC
+            </foreach>
+        </if>
+                limit #{pageRequest.offset}, #{pageRequest.pageSize}
     </select>
 
     <select id="findById" resultType="Product" resultMap="MappingBoolean">
@@ -64,7 +70,7 @@
         where id = #{id}
     </select>
 
-    <select id="count" resultType="int">
+    <select id="getCount" resultType="int">
         select
         count(id)
         from product
