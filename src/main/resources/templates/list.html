@@ -25,19 +25,19 @@
           <nav>
             <ul class="flex gap-4 justify-items-end text-sm list-none">
               <li>
-                <a class="no-underline font-normal" th:href="@{''(sm='price', sd='ASC')}">Low Price</a>
+                <a class="no-underline font-normal" th:href="@{/(sm='price', sd='ASC')}">Low Price</a>
               </li>
               <li>
-                <a class="no-underline font-normal" th:href="@{''(sm='price', sd='DESC')}">High Price</a>
+                <a class="no-underline font-normal" th:href="@{/(sm='price', sd='DESC')}">High Price</a>
               </li>
               <li>
-                <a class="no-underline font-normal" th:href="@{''(sm='name', sd='ASC')}">Name</a>
+                <a class="no-underline font-normal" th:href="@{/(sm='name', sd='ASC')}">Name</a>
               </li>
               <li>
-                <a class="no-underline font-normal" th:href="@{''(sm='reg_date', sd='DESC')}">New</a>
+                <a class="no-underline font-normal" th:href="@{/(sm='reg_date', sd='DESC')}">New</a>
               </li>
               <li>
-                <a class="no-underline font-normal" th:href="@{''(sm='like_count', sd='DESC')}">Hit</a>
+                <a class="no-underline font-normal" th:href="@{/(sm='like_count', sd='DESC')}">Hit</a>
               </li>
             </ul>
           </nav>
@@ -50,11 +50,13 @@
           <!--  상품 카드       -->
           <div th:each="product:${productPage.content}" class="relative flex flex-col rounded-xl">
             <div class="h-full">
-              <img
-                src="https://mineurs.co.kr/web/product/medium/202404/db3647b11a1b780f3440993e154c1895.gif"
-                alt=""
-                class="h-full w-full"
-              />
+              <a th:href="@{products/{productId}(productId=${product.id})}">
+                <img
+                        src="https://mineurs.co.kr/web/product/medium/202404/db3647b11a1b780f3440993e154c1895.gif"
+                        alt=""
+                        class="h-full w-full"
+                />
+              </a>
             </div>
             <div class="mt-3">
               <div>
@@ -89,7 +91,7 @@
         >
           <!--   이전버튼     -->
           <a th:if="*{hasPrevPageGroup()}"
-             th:href="@{''(p=*{pageGroupStartNumber} - 1, s=${param.s}, searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId} )}"
+             th:href="@{/(p=*{pageGroupStartNumber} - 1, s=${param.s}, searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId} )}"
              class="join-item btn">«
           </a>
 
@@ -99,14 +101,14 @@
                   th:text="${pageNumber}"
                   class="join-item btn"
                   th:classappend="(*{number+1} eq ${pageNumber}) ? 'btn-active'"
-                  th:href="@{''(p=${pageNumber}, s=${param.s}, searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId} )}"
+                  th:href="@{/(p=${pageNumber}, s=${param.s}, searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId} )}"
 
 
           >1</a>
 
           <!--    다음버튼    -->
           <a th:if="*{hasNextPageGroup()}"
-             th:href="@{''(p=*{pageGroupEndNumber} + 1, s=${param.s}, searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId})}"
+             th:href="@{/(p=*{pageGroupEndNumber} + 1, s=${param.s}, searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId})}"
              class="join-item btn">»
           </a>
         </div>
