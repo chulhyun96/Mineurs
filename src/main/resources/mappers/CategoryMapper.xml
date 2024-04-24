@@ -7,6 +7,6 @@
         SELECT
         *
         FROM category
-        order by id
+        order by `order`
     </select>
 </mapper>
