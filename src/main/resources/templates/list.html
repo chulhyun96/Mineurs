@@ -15,29 +15,29 @@
   <body class="bg-white">
     <!--main-->
     <main layout:fragment="main" class="container mx-auto">
-      <div class="text-center text-base">All</div>
+      <div class="text-center text-base" th:text="${categoryName}">All</div>
 
       <section class="py-10 px-8 border-b flex flex-col">
 
         <!--   카테고리, 정렬     -->
         <div class="flex justify-between">
-          <div class="text-xs flex items-center">Total 195 items.</div>
+          <div class="text-xs flex items-center" th:text="|Total ${productPage.totalElements} items.|">Total 195 items.</div>
           <nav>
             <ul class="flex gap-4 justify-items-end text-sm list-none">
               <li>
-                <button>Low Price</button>
+                <a class="no-underline font-normal" th:href="@{''(sm='price', sd='ASC')}">Low Price</a>
               </li>
               <li>
-                <button>High Price</button>
+                <a class="no-underline font-normal" th:href="@{''(sm='price', sd='DESC')}">High Price</a>
               </li>
               <li>
-                <button>Name</button>
+                <a class="no-underline font-normal" th:href="@{''(sm='name', sd='ASC')}">Name</a>
               </li>
               <li>
-                <button>New</button>
+                <a class="no-underline font-normal" th:href="@{''(sm='reg_date', sd='DESC')}">New</a>
               </li>
               <li>
-                <button>Hit</button>
+                <a class="no-underline font-normal" th:href="@{''(sm='like_count', sd='DESC')}">Hit</a>
               </li>
             </ul>
           </nav>

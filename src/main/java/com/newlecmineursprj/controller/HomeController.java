@@ -41,6 +41,11 @@ private final MemberService memberService;
 
         model.addAttribute("productPage", productPage);
         model.addAttribute("categoryList",categoryList);
+
+        String categoryName = "All";
+        if (categoryId != 0)
+            categoryName = categoryService.getById(categoryId).getName();
+        model.addAttribute("categoryName", categoryName);
         return "list";
     }
 
