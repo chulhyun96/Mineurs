@@ -40,7 +40,6 @@ public class ProductServiceImpl implements ProductService {
             , long categoryId) {
 
 
-
         return getList(pageNumber
                 , pageSize
                 , sortMethod
