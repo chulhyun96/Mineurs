@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -66,13 +66,25 @@ transition-[background-color, opacity] duration-300 ease-in-out hover:bg-white h
             tabindex="0"
             class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
           >
-            <li><a href="">Login</a></li>
-            <li><a href="">Register</a></li>
-            <li><a href="">Order</a></li>
-            <li><a href="">My Page</a></li>
+            <li sec:authorize="isAnonymous()">
+              <a href="/signin">Login</a>
+            </li>
+
+            <li sec:authorize="isAuthenticated()">
+              <a  href="/signout">Logout</a>
+            </li>
+
+            <li sec:authorize="isAnonymous()"><a href="">Register</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/myshop/order/list">Order</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/myshop">My Page</a></li>
           </ul>
         </div>
       </div>
+
+      <div class="mr-10 text-xs text-gray-400 space-x-4" sec:authorize="isAuthenticated()">
+        <span>Welcome!,</span> <span sec:authentication="name">망한거임</span>
+      </div>
+
       <div>
         <a href="">
           <img src="/css/img/cart.svg" alt="" />

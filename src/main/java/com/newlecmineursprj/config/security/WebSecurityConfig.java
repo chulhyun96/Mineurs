@@ -32,6 +32,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/member/**").hasAnyRole("MEMBER", "ADMIN")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/notices/reg").hasRole("ADMIN")
+                        .requestMatchers("/myshop/**").hasRole("MEMBER")
                         .anyRequest().permitAll())
                 .formLogin((form) -> form
                         .loginPage("/signin")
