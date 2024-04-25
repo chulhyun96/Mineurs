@@ -1,33 +1,50 @@
 <!DOCTYPE >
-<html lang="en" layout:decorate="~{/inc/layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/inc/layout}">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/output.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="/util/summernote/summernote.js"></script>
+    <script src="/util/summernote/summernote-lite.js"></script>
+    <script src="/util/summernote/summernote-ko-KR.js"></script>
+    <script src="/js/board/qnaNew.js"></script>
+    <link rel="stylesheet" type="text/css" href="/util/summernote/summernote-lite.css">
+
     <title>Document</title>
 </head>
 <body>
-<main layout:fragment="main">
-    <div class="flex flex-col ">
-        <h1 class="font-bold text-3xl">글 상세</h1>
-        <sapn class="font-thin">main 세상에 이런 폰트 1234567890</sapn>
-        <sapn class="font-black">main 세상에 이런 폰트 1234567890</sapn>
-    </div>
+<main layout:fragment="main" class="container mx-auto">
+    <section>
+        <h1 class="text-center text-3xl">QnA</h1>
+        <form class="mt-16" action="/reg" method="post">
+            <div class="my-2">
+                <label>
+                    제목
+                    <span class="flex">
 
-    <div>
-        <article>
-            <h1>Garlic bread with cheese: What the science tells us</h1>
-            <p>
-                For years parents have espoused the health benefits of eating garlic bread with cheese to their
-                children, with the food earning such an iconic status in our culture that kids will often dress
-                up as warm, cheesy loaf for Halloween.
-            </p>
-            <p>
-                But a recent study shows that the celebrated appetizer may be linked to a series of rabies cases
-                springing up around the country.
-            </p>
-            <!-- ... -->
-        </article>
-    </div>
+                        1
+                    </span>
+                </label>
+            </div>
+            <div>
+                <label class="form-control">
+                    <div class="label">
+                        <span class="label-text text-lg">내용</span>
+                    </div>
+                    <textarea class="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
+                </label>
+            </div>
+
+            <div class="text-end my-4">
+                <button class="btn">등록하기</button>
+                <button class="btn"><a href="/qna">목록으로</a></button>
+            </div>
+        </form>
+    </section>
 </main>
 </body>
 </html>

@@ -5,7 +5,9 @@ import com.newlecmineursprj.entity.Category;
 import com.newlecmineursprj.entity.Member;
 import com.newlecmineursprj.service.CategoryService;
 import com.newlecmineursprj.service.MemberService;
+import com.newlecmineursprj.service.PostService;
 import com.newlecmineursprj.service.ProductService;
+import com.newlecmineursprj.util.CustomPageImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -24,21 +26,29 @@ public class HomeController {
 private final ProductService service;
 private final CategoryService categoryService;
 private final MemberService memberService;
+private final PostService postService;
 
     @GetMapping
-    public String index(@RequestParam(required = false) String searchMethod
-            , @RequestParam(defaultValue = "1") Integer page
+    public String index(@RequestParam(value= "p", defaultValue = "1")int pageNumber
+            , @RequestParam(value = "s", defaultValue = "12")int pageSize
+            , @RequestParam(value = "sm", defaultValue = "reg_date")String sortMethod
+            , @RequestParam(value = "sd", defaultValue = "DESC")String sortDirection
+            , @RequestParam(defaultValue = "") String searchMethod
             , @RequestParam(defaultValue = "") String searchKeyword
             , @RequestParam(defaultValue = "0") Long categoryId
             , Model model) {
 
-        int count = service.getCount(searchMethod,searchKeyword,categoryId);
-        List<ProductListDTO> list = service.getList(page, searchMethod, searchKeyword, categoryId);
         List<Category> categoryList = categoryService.getList();
-        model.addAttribute("list", list);
-        model.addAttribute("count", count);
         model.addAttribute("categoryList",categoryList);
-        System.out.println(list.get(0));
+
+        CustomPageImpl<ProductListDTO> productPage = service.getList(pageNumber, pageSize, sortMethod, sortDirection, 5, searchMethod, searchKeyword, categoryId);
+        model.addAttribute("productPage", productPage);
+
+        String categoryName = "All";
+        if (categoryId != 0)
+            categoryName = categoryService.getById(categoryId).getName();
+        model.addAttribute("categoryName", categoryName);
+
         return "list";
     }
 
@@ -57,4 +67,5 @@ private final MemberService memberService;
 
     @GetMapping("signin")
     public String signin(){return "signin";}
+
 }

@@ -11,4 +11,6 @@ public interface OrderService {
     List<OrderView> getList(Integer page, String searchMethod, String searchKeyword);
 
     int getCount(String searchMethod, String searchKeyword);
+
+    OrderView getById(Long id);
 }

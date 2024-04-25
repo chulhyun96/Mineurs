@@ -142,72 +142,70 @@
       <section class="mt-10">
         <h1 class="text-2xl mb-0">주문 목록</h1>
         <div class="overflow-x-auto w-full">
-          <div class="flex justify-end">
-            <button class="btn">엑셀 다운로드</button>
-          </div>
-          <table class="table table-zebra text-center">
-            <!-- head -->
-            <thead>
-              <tr>
-                <th scope="col" class="w:2"></th>
-                <!--                <th scope="col">카테고리 이름</th>-->
-                <th scope="col">주문일</th>
-                <th scope="col">상품코드</th>
-                <!--                <th scope="col">공급가</th>-->
-                <th scope="col">주문자</th>
-                <th scope="col">상품명</th>
-                <th scope="col">총 상품구매금액</th>
-                <th scope="col">총 실결제금액</th>
-                <th scope="col">결제수단</th>
-                <th scope="col">주문상태</th>
-              </tr>
-            </thead>
+          <form method="get" action="excel">
+            <table class="table table-zebra text-center">
+              <!-- head -->
+              <thead>
+                <tr>
+                  <th scope="col" class="w:2"></th>
+                  <!--                <th scope="col">카테고리 이름</th>-->
+                  <th scope="col">주문일</th>
+                  <th scope="col">상품코드</th>
+                  <!--                <th scope="col">공급가</th>-->
+                  <th scope="col">주문자</th>
+                  <th scope="col">상품명</th>
+                  <th scope="col">총 상품구매금액</th>
+                  <th scope="col">총 실결제금액</th>
+                  <th scope="col">결제수단</th>
+                  <th scope="col">주문상태</th>
+                </tr>
+              </thead>
 
-            <tbody>
-              <tr th:each="order : ${list}">
-                <td scope="col">
-                  <input
-                    name="deleteId"
-                    type="checkbox"
-                    class="checkbox"
-                    th:value="${order.id}"
-                  />
-                </td>
-                <!--                <td scope="col" th:text="${product.categoryName}">카테고리 이름</td>-->
-                <td scope="col" th:text="${order.orderedDatetime}">주문일</td>
-                <td scope="col" th:text="${order.code}">상품코드</td>
-                <!--                <td scope="col" th:text="${product.supplyingPrice}">공급가</td>-->
-                <!--                <td scope="col" th:text="${product.description}">설명</td>-->
-                <td scope="col" th:text="${order.userName}">주문자</td>
-                <td scope="col">
-                  <span
-                    th:each="productName : ${order.productNames}"
-                    th:text="${productName}"
-                  >
-                    상품명
-                  </span>
-                  <div th:if="${order.productsCount > 1}">
-                    <span th:text="|외 ${order.productsCount-1}개|">개수</span>
-                  </div>
-                </td>
-                <td scope="col" th:text="${order.totalProductPrice}">
-                  총 상품구매금액
-                </td>
-                <td
-                  scope="col"
-                  th:text="${order.totalProductPrice} - ${order.totalDiscountAmount}"
-                >
-                  총 실결제금액
-                </td>
-                <td scope="col" th:text="${order.paymentMethod}">결제수단</td>
-                <!--                <td>No</td>-->
-                <td scope="col" th:text="${order.orderState}">주문상태</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="flex justify-end">
+              <tbody>
+
+                  <tr th:each="order : ${list}">
+                    <td scope="col">
+                      <input
+                        name="orderId"
+                        type="checkbox"
+                        class="checkbox"
+                        th:value="${order.id}"
+                      />
+                    </td>
+                    <!--                <td scope="col" th:text="${product.categoryName}">카테고리 이름</td>-->
+                    <td scope="col" th:text="${order.orderedDatetime}">주문일</td>
+                    <td scope="col" th:text="${order.code}">상품코드</td>
+                    <!--                <td scope="col" th:text="${product.supplyingPrice}">공급가</td>-->
+                    <!--                <td scope="col" th:text="${product.description}">설명</td>-->
+                    <td scope="col" th:text="${order.userName}">주문자</td>
+                    <td scope="col">
+                      <span
+                        th:each="productName : ${order.productNames}"
+                        th:text="${productName}"
+                      >
+                        상품명
+                      </span>
+                      <div th:if="${order.productsCount > 1}">
+                        <span th:text="|외 ${order.productsCount-1}개|">개수</span>
+                      </div>
+                    </td>
+                    <td scope="col" th:text="${order.totalProductPrice}">
+                      총 상품구매금액
+                    </td>
+                    <td
+                      scope="col"
+                      th:text="${order.totalProductPrice} - ${order.totalDiscountAmount}"
+                    >
+                      총 실결제금액
+                    </td>
+                    <td scope="col" th:text="${order.paymentMethod}">결제수단</td>
+                    <!--                <td>No</td>-->
+                    <td scope="col" th:text="${order.orderState}">주문상태</td>
+                  </tr>
+                </tbody>
+              </table>
             <button class="btn">엑셀 다운로드</button>
-          </div>
+          </form>
         </div>
       </section>
 

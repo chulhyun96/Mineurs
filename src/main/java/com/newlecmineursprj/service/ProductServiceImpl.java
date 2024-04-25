@@ -8,7 +8,11 @@ import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.ProductSubImg;
 import com.newlecmineursprj.mapper.ProductMapper;
 import com.newlecmineursprj.repository.ProductSubImgRepository;
+import com.newlecmineursprj.util.CustomPageImpl;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,10 +31,36 @@ public class ProductServiceImpl implements ProductService {
     private final ImgStore imgStore;
 
     @Override
-    public List<ProductListDTO> getList(Integer page, String searchMethod, String searchKeyword, long categoryId) {
-        int size = 9;
-        int offset = (page - 1) * size;
-        return repository.findAll(searchMethod, searchKeyword, offset, size, categoryId).stream().map(ProductMapper::toDto).toList();
+    public CustomPageImpl<ProductListDTO> getList(Integer pageNumber
+            , Integer pageSize
+            , String sortMethod
+            , Integer pageGroupSize
+            , String searchMethod
+            , String searchKeyword
+            , long categoryId) {
+
+
+
+        return getList(pageNumber
+                , pageSize
+                , sortMethod
+                , "DESC"
+                , pageGroupSize
+                , searchMethod
+                , searchKeyword
+                , categoryId);
+    }
+
+    @Override
+    public CustomPageImpl<ProductListDTO> getList(Integer pageNumber, Integer pageSize, String sortMethod, String sortDirection, Integer pageGroupSize, String searchMethod, String searchKeyword, long categoryId) {
+        Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.fromString(sortDirection), sortMethod));
+
+        List<ProductListDTO> content = repository.findAll(pageRequest, searchMethod, searchKeyword, categoryId)
+                .stream().map(ProductMapper::toDto).toList();
+
+        long count = repository.getCount(searchMethod, searchKeyword, categoryId);
+
+        return new CustomPageImpl<ProductListDTO>(content, pageRequest, count, pageGroupSize);
     }
 
     @Transactional
@@ -98,6 +128,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public int getCount(String searchMethod, String searchKeyword, long categoryId) {
-        return repository.count(searchMethod, searchKeyword, categoryId);
+        return repository.getCount(searchMethod, searchKeyword, categoryId);
     }
 }

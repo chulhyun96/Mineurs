@@ -1,53 +1,110 @@
 <!DOCTYPE html>
 <html lang="en"
-      data-theme="cupcake"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/inc/layout}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/output.css">
-    <link rel="stylesheet" href="/css/root.css">
+
 </head>
 <body>
 
     <!-- header -->
 
     <!-- main -->
-
-    <section class="flex flex-col items-center">
-        <h1 class=" ">게시판 이름</h1>
-        <div class="mt-[300px]">
-            <select class="border" name="searchMethod">
-                <option th:selected="${param.searchMethod} == 'title'" value="title">제목</option>
-                <option th:selected="${{param.searchMethod}} == 'description'" value="description">내용</option>
+    <main layout:fragment="main" class="container mx-auto mt-24">
+        <section class="text-center">
+            <h1 class="text-3xl">QnA</h1>
+            <p>상품 사용후기입니다.</p>
+        </section>
+        <form>
+            <select class="select select-bordered select-sm w-full max-w-64 border mt-12">
+                <option disabled selected>전체</option>
+                <option>-문의유형을 선택후 작성해주세요</option>
+                <option>상품 문의</option>
+                <option>교환 / 반품 문의</option>
+                <option>배송 전 변경사항 문의</option>
+                <option>배송 문의</option>
+                <option>입금 / 기타 문의</option>
             </select>
-            <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요"
-                   th:value="${#strings.trim(param.searchKeyword)}"/>
-            <button class="n-btn n-btn-type:outline-box">검색</button>
-        </div>
-        <div class="overflow-x-auto m-4">
-            <table class="table table-xs border mx-auto">
-                <thead class="border">
-                <tr>
-                    <th>No</th>
-                    <th>Item</th>
-                    <th>Category</th>
-                    <th>Subject</th>
-                    <th>Writer</th>
-                </tr>
-                </thead>
-                <tbody class="border">
-                <tr th:each="post : ${list}">
-                    <th >게시글 번호</th>
-                    <td th:text="${post.title}">상품</td>
-                    <td th:text="${post.}">카테고리</td>
-                    <td>내용</td>
-                    <td>작성자</td>
-                </tr>
+            <select class="select select-bordered select-sm w-full max-w-48 border mt-12">
+                <option disabled selected>전체 글보기</option>
+                <option>답변전 글보기</option>
+                <option>답변완료 글보기</option>
+            </select>
 
-            </table>
+                <table class="table mt-2 mb-4">
+                    <thead>
+                    <tr class="bg-stone-50">
+                        <th class="text-center text-sm w-16">번호</th>
+                        <th class="text-center text-sm w-40">상품</th>
+                        <th class="text-center text-sm">내용</th>
+                        <th class="text-center text-sm w-16">작성자</th>
+                        <th class="text-center text-sm w-16">등록날짜</th>
+                        <th class="text-center text-sm w-16">조회수</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="qna :${list}">
+                        <th class="text-center text-sm" th:text="${qna.id}">No</th>
+                        <td class="text-center text-sm">
+                            <img class="w-36 h-36 bg-cover" src="" alt="" th:src="@{'/webapp/image/products/'+${qna.mainImgPath}}"/>
+                        </td>
+                        <td class="text-center"><a href="" th:href="@{/qna/{id}(id=${qna.id})}" th:text="${qna.summary}">내용</a></td>
+                        <td class="text-center text-sm" th:text="${qna.userName}">작성자</td>
+                        <th class="text-center text-sm" th:text="${#dates.format(qna.regDateTime,'yyyy-MM-dd HH:mm:ss')}">날짜</th>
+                        <td class="text-center text-sm" th:text="${qna.views}">조회수</td>
+                    </tr>
+                </table>
+
+                <section class="mb-10 flex">
+                    <select class="select select-bordered select-sm w-full max-w-28 border mt-0">
+                        <option disabled selected>전체</option>
+                        <option>일주일</option>
+                        <option>한달</option>
+                        <option>세달</option>
+                    </select>
+                    <select class="select select-bordered select-sm w-full max-w-28 border mt-0">
+                        <option disabled selected>제목</option>
+                        <option>내용</option>
+                        <option>작성자</option>
+                        <option>상품명</option>
+                    </select>
+                    <div class="join">
+                        <input type="text" placeholder="내용" class="input input-bordered border input-sm w-full max-w-xs" />
+                        <button class="btn btn-sm">Search</button>
+                    </div>
+                    <div class="grow flex justify-end">
+                        <a href="" th:href="@{qna/reg}" class="btn btn-wide deco icon:pencil_simple icon-size:4">등록하기</a>
+                    </div>
+                </section>
+        </form>
+
+<!-- 페이저-->
+        <div class="flex items-center gap-4 justify-center my-16">
+            <button disabled
+                    class="flex items-center gap-2 px-6 py-3 font-sans text-xs text-center text-gray-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    type="button">
+                <<
+            </button>
+            <div class="flex items-center gap-2">
+                <button
+                        class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg bg-gray-900 text-center align-middle font-sans text-xs font-medium uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                        type="button">
+      <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+        1
+      </span>
+                </button>
+            </div>
+            <button
+                    class="flex items-center gap-2 px-6 py-3 font-sans text-xs text-center text-gray-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    type="button">
+                >>
+            </button>
         </div>
-    </section>
+    </main>
 </body>
 </html>

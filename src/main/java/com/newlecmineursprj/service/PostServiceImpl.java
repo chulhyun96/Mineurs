@@ -1,7 +1,7 @@
 package com.newlecmineursprj.service;
 
 import com.newlecmineursprj.entity.PostView;
-import com.newlecmineursprj.repository.PostRepository;
+import com.newlecmineursprj.repository.admin.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

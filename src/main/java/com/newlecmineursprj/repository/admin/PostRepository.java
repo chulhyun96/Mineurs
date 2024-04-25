@@ -1,4 +1,4 @@
-package com.newlecmineursprj.repository;
+package com.newlecmineursprj.repository.admin;
 
 import com.newlecmineursprj.entity.Board;
 import com.newlecmineursprj.entity.PostView;

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("api/products")
 @RequiredArgsConstructor
-@RestController
+@RestController("productApiController")
 public class ProductController {
     private static final String PRODUCTS_VIEW = "/admin/products";
     private final ProductService service;

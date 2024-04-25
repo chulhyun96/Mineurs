@@ -4,15 +4,20 @@ import com.newlecmineursprj.entity.Product;
 import com.newlecmineursprj.entity.ProductView;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 @Mapper
 public interface ProductRepository {
-    List<ProductView> findAll(String searchMethod, String searchKeyword, int offset, int size, Long categoryId);
+    List<ProductView> findAll(@Param("pageRequest") Pageable pageRequest
+            , @Param("searchMethod")String searchMethod
+            , @Param("searchKeyword")String searchKeyword
+            , @Param("categoryId")Long categoryId);
     void reg(Product product);
     Product findById(Long id);
     void updateById(Product product);
     void deleteAll(List<Long> deleteId);
-    int count(String searchMethod,String searchKeyword,Long categoryId);
+    int getCount(String searchMethod,String searchKeyword,Long categoryId);
 }

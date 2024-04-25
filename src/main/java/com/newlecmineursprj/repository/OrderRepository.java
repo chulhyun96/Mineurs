@@ -12,4 +12,6 @@ public interface OrderRepository {
     List<OrderView> findAll(String searchMethod, String searchKeyword, int offset, int size);
 
     int count(String searchMethod, String searchKeyword);
+
+    OrderView findById(Long id);
 }
