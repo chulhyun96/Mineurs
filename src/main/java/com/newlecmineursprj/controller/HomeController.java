@@ -5,6 +5,7 @@ import com.newlecmineursprj.entity.Category;
 import com.newlecmineursprj.entity.Member;
 import com.newlecmineursprj.service.CategoryService;
 import com.newlecmineursprj.service.MemberService;
+import com.newlecmineursprj.service.PostService;
 import com.newlecmineursprj.service.ProductService;
 import com.newlecmineursprj.util.CustomPageImpl;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class HomeController {
 private final ProductService service;
 private final CategoryService categoryService;
 private final MemberService memberService;
+private final PostService postService;
 
     @GetMapping
     public String index(@RequestParam(value= "p", defaultValue = "1")int pageNumber
@@ -65,4 +67,5 @@ private final MemberService memberService;
 
     @GetMapping("signin")
     public String signin(){return "signin";}
+
 }

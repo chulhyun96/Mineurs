@@ -1,7 +1,7 @@
 package com.newlecmineursprj.service;
 
 import com.newlecmineursprj.entity.QnaCategory;
-import com.newlecmineursprj.repository.QnaCategoryRepository;
+import com.newlecmineursprj.repository.admin.QnaCategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.newlecmineursprj.repository;
+package com.newlecmineursprj.repository.admin;
 
 import com.newlecmineursprj.entity.QnaCategory;
 import org.apache.ibatis.annotations.Mapper;

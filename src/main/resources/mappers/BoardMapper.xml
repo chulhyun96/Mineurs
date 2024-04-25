@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newlecmineursprj.repository.BoardRepository">
+
+    <resultMap id="PostView" type="QnaView">
+        <id column="id" property="id"/>
+        <result property="mainImgPath" column="main_img_path"/>
+        <result property="summary" column="summary"/>
+        <result property="userName" column="username"/>
+        <result property="regDateTime" column="reg_datetime"/>
+        <result property="views" column="views"/>
+    </resultMap>
+
+    <select id="findAll" resultType="QnaView">
+        select * from qna_list_view
+    </select>
+
+    <select id="findById" parameterType="Qna">
+        select * from qna where id=#{id}
+    </select>
+</mapper>
