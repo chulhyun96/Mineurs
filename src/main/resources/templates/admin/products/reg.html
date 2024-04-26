@@ -34,7 +34,8 @@
 
                 <td colspan="3">
                     <label>
-                        <input type="text" name="name" th:field="*{name}" class="block w-3/5"/>
+                        <input type="text" name="name" th:field="*{name}" required class="block w-3/5"/>
+                        <div th:errors="*{name}"></div>
                     </label>
                 </td>
             </tr>
@@ -45,7 +46,8 @@
 
                 <td colspan="3">
                     <label>
-                        <input type="number" name="price" th:field="*{price}" class="block w-3/5"/>
+                        <input name="price" th:field="*{price}" required class="block w-3/5"/>
+                        <div th:errors="*{price}"></div>
                     </label>
                 </td>
             </tr>
@@ -56,7 +58,8 @@
 
                 <td colspan="3">
                     <label class="block w-3/5">
-                        <textarea name="description" th:field="*{description}" class="h-36 w-full"></textarea>
+                        <textarea name="description" th:field="*{description}" required class="h-36 w-full"></textarea>
+                        <div th:errors="*{description}"></div>
                     </label>
                 </td>
             </tr>
@@ -107,7 +110,8 @@
                 <td>카테고리</td>
                 <td colspan="3">
                     <label>
-                        <select name="categoryId" th:field="*{categoryId}" class="n-dropdown">
+                        <select name="categoryId" th:field="*{categoryId}" required class="n-dropdown">
+                            <option value="">Category</option>
                             <option
                                     th:each="category : ${categories}"
                                     th:value="${category.id}"

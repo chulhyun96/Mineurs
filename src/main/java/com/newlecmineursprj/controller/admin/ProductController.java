@@ -76,13 +76,22 @@ public class ProductController {
     }
 
     @PostMapping
-    public String reg(@Validated Product product, BindingResult bindingResult, MultipartFile mainImg, @RequestParam(value = "sub-imgs") List<MultipartFile> subImages) throws IOException {
+    public String reg(@Validated  Product product, BindingResult bindingResult,Model model,
+                      MultipartFile mainImg, @RequestParam(value = "sub-imgs") List<MultipartFile> subImages) throws IOException {
         if (bindingResult.hasErrors()) {
+            ifCategoryNull(product, model);
             log.error("Reg Form Error : {}", bindingResult + "\n");
             return PRODUCTS_VIEW + "/reg";
         }
         service.reg(product, mainImg, subImages);
         return REDIRECT + PRODUCTS_VIEW;
+    }
+
+    private void ifCategoryNull(Product product, Model model) {
+        if (product.getCategoryId() == null) {
+            List<Category> categories = categoryService.getList();
+            model.addAttribute("categories", categories);
+        }
     }
 
 
