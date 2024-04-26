@@ -29,6 +29,8 @@ public class Product {
     private String code;
     private boolean deliveryToday;
     private double discountRate;
+
+    @NotNull
     private Long categoryId;
     private Date regDate;
 

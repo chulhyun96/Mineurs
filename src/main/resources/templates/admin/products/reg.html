@@ -110,7 +110,8 @@
                 <td>카테고리</td>
                 <td colspan="3">
                     <label>
-                        <select name="categoryId" th:field="*{categoryId}" required class="n-dropdown">
+                        <div th:errors="*{categoryId}"></div>
+                        <select name="categoryId" th:field="*{categoryId}" class="n-dropdown">
                             <option value="">Category</option>
                             <option
                                     th:each="category : ${categories}"
