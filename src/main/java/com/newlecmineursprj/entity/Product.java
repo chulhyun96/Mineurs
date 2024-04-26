@@ -1,12 +1,8 @@
 package com.newlecmineursprj.entity;
 
 import java.sql.Date;
-import java.util.Objects;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.validator.constraints.Range;
 
 @Data
 @ToString
@@ -27,7 +23,10 @@ public class Product {
     private Long categoryId;
     private Date regDate;
 
-    public static void saveImg(String mainImgPath, Product newProduct) {
+    public static void saveNewImg(String mainImgPath, Product newProduct) {
         newProduct.setMainImgPath(mainImgPath);
+    }
+    public String getCurrentImg(String mainImgPath) {
+        return mainImgPath;
     }
 }

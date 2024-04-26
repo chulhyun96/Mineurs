@@ -50,16 +50,16 @@ public class ImgStore {
                 .toList();
     }
 
-    public String updateMainImgFile(Product foundImg, MultipartFile updateImg) throws IOException {
+    public String updateMainImgFile(Product foundProduct, MultipartFile updateImg) throws IOException {
         if (updateImg.isEmpty())
-            return "Non-Img";
+            return foundProduct.getCurrentImg(foundProduct.getMainImgPath());
 
         // 메인 이미지 업데이트
         String updateMainImgPath = getFullMainPath(updateImg.getOriginalFilename());
         updateImg(updateImg, updateMainImgPath);
 
         // 기존 이미지 삭제
-        String pastImgName = getFullMainPath(foundImg.getMainImgPath());
+        String pastImgName = getFullMainPath(foundProduct.getMainImgPath());
         deleteImg(pastImgName);
         return updateImg.getOriginalFilename();
     }
