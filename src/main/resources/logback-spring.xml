@@ -1,0 +1,31 @@
+<!-- logback-spring.xml 파일 -->
+<configuration debug="true">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <!--로그기록을 남길 경로, logPath는 경로를 담은 변수-->
+    <property name="logPath" value="./src/main/resources/log/method"/>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--performance.log 파일에 기록을 남김-->
+        <file>${logPath}/performance.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--어떤식으로 남길지에 대한 포맷팅-->
+            <Pattern>%date [%thread] %msg%n</Pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--날짜가 지날 경우, 날짜에 따른 새로운 로그파일으 만드는데, 만들어질 이름의 포맷-->
+            <fileNamePattern>performance.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!--기존의 로그 파일은 이틀 지나면 사라지게 설정-->
+            <maxHistory>2</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!--해당 패키지 이름에서 어떤 로그의 형식을 적용시킬지를 정한 후, 기록될 로그 레벨을 정함. info 레벨만 기록됨.-->
+    <logger name="com.newlecmineursprj.aspect.AspectService" level="info" additivity="false">
+        <appender-ref ref="FILE" />
+    </logger>
+
+    <!--기본 설정-->
+    <root level="warn">
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>

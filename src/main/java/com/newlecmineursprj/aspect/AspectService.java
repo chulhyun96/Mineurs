@@ -10,11 +10,13 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Aspect
 public class AspectService {
+    private final String line = "--------------------------------------";
 
     @Around("@within(PerfLogger)")
     public Object perfLogAspect(ProceedingJoinPoint pjp) throws Throwable {
         long begin = System.currentTimeMillis();
         Object retVal = pjp.proceed();
+        log.info(line);
         log.info("Method name = [{}]",pjp.getSignature().getName());
         logExecutionTime(System.currentTimeMillis() - begin);
         return retVal;
@@ -23,5 +25,6 @@ public class AspectService {
     private void logExecutionTime(long executionTimeMillis) {
         double executionTime = executionTimeMillis / 1000.0;
         log.info("Execution time: {}s", String.format("%.3f", executionTime));
+        log.info(line);
     }
 }
