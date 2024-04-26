@@ -1,7 +1,6 @@
 package com.newlecmineursprj.entity;
 
 import java.sql.Date;
-import java.util.Objects;
 
 import lombok.*;
 
@@ -12,7 +11,6 @@ import lombok.*;
 @Builder
 public class Product {
     private Long id;
-
     private String name;
     private int price;
     private String mainImgPath;
@@ -25,7 +23,10 @@ public class Product {
     private Long categoryId;
     private Date regDate;
 
-    public static void saveImg(String mainImgPath, Product newProduct) {
+    public static void saveNewImg(String mainImgPath, Product newProduct) {
         newProduct.setMainImgPath(mainImgPath);
+    }
+    public String getCurrentImg(String mainImgPath) {
+        return mainImgPath;
     }
 }

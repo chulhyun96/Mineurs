@@ -40,7 +40,6 @@ public class ProductServiceImpl implements ProductService {
             , long categoryId) {
 
 
-
         return getList(pageNumber
                 , pageSize
                 , sortMethod
@@ -68,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
     public void reg(Product newProduct, MultipartFile mainImg, List<MultipartFile> subImgs) throws IOException {
         //메인 이미지 저장
         String storageMainImgName = imgStore.getStorageMainImgName(mainImg);
-        Product.saveImg(storageMainImgName, newProduct);
+        Product.saveNewImg(storageMainImgName, newProduct);
         repository.reg(newProduct);
 
         //서브 이미지 저장
@@ -81,7 +80,7 @@ public class ProductServiceImpl implements ProductService {
     public void update(Product updateProduct, MultipartFile updateFile, List<MultipartFile> updateSubImgs) throws IOException {
         //메인 이미지 업데이트
         Product foundProduct = repository.findById(updateProduct.getId());
-        Product.saveImg(imgStore.updateMainImgFile(foundProduct, updateFile), updateProduct);
+        Product.saveNewImg(imgStore.updateMainImgFile(foundProduct, updateFile), updateProduct);
         repository.updateById(updateProduct);
 
         //서브 이미지 업데이트
@@ -94,25 +93,27 @@ public class ProductServiceImpl implements ProductService {
         //기존의 파일보다 요청한 파일이 더 많을 경우
         if (updateSubImgs.size() > foundAll.size()) {
             List<String> extraSubImgNames = storageSubImgName.subList(foundAll.size(), updateSubImgs.size());
-            subImgRepository.reg(
-                    ProductSubImg.saveSubImgs(extraSubImgNames, updateProduct)
-            );
+            List<ProductSubImg> productSubImgs = ProductSubImg.saveSubImgs(extraSubImgNames, updateProduct);
+            subImgRepository.reg(productSubImgs);
+
+            List<String> overWriteImgNames = storageSubImgName.subList(0, foundAll.size());
+            List<ProductSubImg> overWriteSubImgList = ProductSubImg.updateSubImgs(overWriteImgNames, foundAll);
+            subImgRepository.updatedImgs(overWriteSubImgList);
             return;
         }
         //기존의 파일보다 요청한 파일이 더 적을 경우
         if (updateSubImgs.size() < foundAll.size()) {
-            List<ProductSubImg> remainingSubImgs = foundAll.subList(0, updateSubImgs.size());
             List<ProductSubImg> extraSubImgsToDelete = foundAll.subList(updateSubImgs.size(), foundAll.size());
             subImgRepository.deleteAll(extraSubImgsToDelete);
-            subImgRepository.updatedImgs(
-                    ProductSubImg.updateSubImgs(storageSubImgName, remainingSubImgs)
-            );
+
+            List<ProductSubImg> remainingSubImgs = foundAll.subList(0, updateSubImgs.size());
+            List<ProductSubImg> productSubImgs = ProductSubImg.updateSubImgs(storageSubImgName, remainingSubImgs);
+            subImgRepository.updatedImgs(productSubImgs);
             return;
         }
         //같을 경우
-        subImgRepository.updatedImgs(
-                ProductSubImg.updateSubImgs(storageSubImgName, foundAll)
-        );
+        List<ProductSubImg> productSubImgs = ProductSubImg.updateSubImgs(storageSubImgName, foundAll);
+        subImgRepository.updatedImgs(productSubImgs);
     }
 
     @Override

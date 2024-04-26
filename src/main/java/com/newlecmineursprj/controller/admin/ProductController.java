@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.util.Arrays;
 import java.util.List;
 
+import com.newlecmineursprj.aspect.PerfLogger;
 import com.newlecmineursprj.domain.file.ImgStore;
 import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.ProductSubImg;
@@ -13,6 +14,8 @@ import com.newlecmineursprj.util.CustomPageImpl;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,6 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("admin/products")
 @Controller("adminProductController")
 @RequiredArgsConstructor
+@PerfLogger
 @Slf4j
 public class ProductController {
     private static final String PRODUCTS_VIEW = "/admin/products";
@@ -72,7 +76,11 @@ public class ProductController {
     }
 
     @PostMapping
-    public String reg(Product product, MultipartFile mainImg, @RequestParam(value = "sub-imgs") List<MultipartFile> subImages) throws IOException {
+    public String reg(@Validated Product product, BindingResult bindingResult, MultipartFile mainImg, @RequestParam(value = "sub-imgs") List<MultipartFile> subImages) throws IOException {
+        if (bindingResult.hasErrors()) {
+            log.error("Reg Form Error : {}", bindingResult + "\n");
+            return PRODUCTS_VIEW + "/reg";
+        }
         service.reg(product, mainImg, subImages);
         return REDIRECT + PRODUCTS_VIEW;
     }

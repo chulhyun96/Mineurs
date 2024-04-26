@@ -43,12 +43,10 @@
         FROM mineurs_db.product_list_view plv
         left join `like` l on l.member_id = 1 and l.product_id = plv.id
         <where>
-            <if test="searchMethod == 'title'">
-                plv.name like '%${searchKeyword}%'
+            <if test="searchKeyword != ''">
+                plv.${searchMethod} like '%${searchKeyword}%'
             </if>
-            <if test="searchMethod == 'description'">
-                plv.description like '%${searchKeyword}%'
-            </if>
+
             <if test="categoryId != 0">
                 and plv.ct_id = #{categoryId}
             </if>
@@ -75,11 +73,8 @@
         count(id)
         from product
         <where>
-            <if test="searchMethod == 'title'">
-                name like '%${searchKeyword}%'
-            </if>
-            <if test="searchMethod == 'description'">
-                description like '%${searchKeyword}%'
+            <if test="searchKeyword != ''">
+                ${searchMethod} like '%${searchKeyword}%'
             </if>
             <if test="categoryId != 0">
                 and category_id = #{categoryId}

@@ -125,9 +125,7 @@
         font-family: Score, Pretendard, Arial, Helvetica, sans-serif;
     }
 
-    main {
-        @apply prose sm:prose-sm md:prose-base lg:prose-lg;
-    }
+
 
 
 }

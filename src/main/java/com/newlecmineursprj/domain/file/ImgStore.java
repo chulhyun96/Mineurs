@@ -50,23 +50,23 @@ public class ImgStore {
                 .toList();
     }
 
-    public String updateMainImgFile(Product foundImg, MultipartFile updateImg) throws IOException {
+    public String updateMainImgFile(Product foundProduct, MultipartFile updateImg) throws IOException {
         if (updateImg.isEmpty())
-            return "Non-Img";
+            return foundProduct.getCurrentImg(foundProduct.getMainImgPath());
 
         // 메인 이미지 업데이트
         String updateMainImgPath = getFullMainPath(updateImg.getOriginalFilename());
         updateImg(updateImg, updateMainImgPath);
 
         // 기존 이미지 삭제
-        String pastImgName = getFullMainPath(foundImg.getMainImgPath());
+        String pastImgName = getFullMainPath(foundProduct.getMainImgPath());
         deleteImg(pastImgName);
         return updateImg.getOriginalFilename();
     }
 
-    public List<String> updateSubImgFiles(List<ProductSubImg> foundImgs, List<MultipartFile> updateImgs) throws IOException {
+    public List<String> updateSubImgFiles(List<ProductSubImg> foundProducts, List<MultipartFile> updateImgs) throws IOException {
         if (updateImgs.stream().allMatch(MultipartFile::isEmpty))
-            return List.of("Non-Img");
+            return ProductSubImg.getCurrentImgs(foundProducts);
 
         // 서브 이미지 업데이트
         List<String> updateImgNames = new ArrayList<>();
@@ -76,7 +76,7 @@ public class ImgStore {
             updateImgNames.add(updateImg.getOriginalFilename());
         }
         //서브 이미지 삭제
-        for (ProductSubImg foundImg : foundImgs) {
+        for (ProductSubImg foundImg : foundProducts) {
             String pastImgName = getFullSubPath(foundImg.getPath());
             deleteImg(pastImgName);
         }
@@ -94,6 +94,7 @@ public class ImgStore {
             Files.delete(oldImgPath);
         }
     }
+
     private void makeFileDir(String fullPath) throws IOException {
         Path path = Paths.get(fullPath);
         if (!Files.exists(path)) {
