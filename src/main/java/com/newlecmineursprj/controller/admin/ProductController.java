@@ -31,6 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("admin/products")
 @Controller("adminProductController")
 @RequiredArgsConstructor
+@PerfLogger
 @Slf4j
 public class ProductController {
     private static final String PRODUCTS_VIEW = "/admin/products";
@@ -66,7 +67,6 @@ public class ProductController {
         return PRODUCTS_VIEW + "/list";
     }
 
-    @PerfLogger
     @GetMapping("/reg")
     public String regForm(Model model) {
         List<Category> categories = categoryService.getList();

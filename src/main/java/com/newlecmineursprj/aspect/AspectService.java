@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class AspectService {
 
-    @Around("@annotation(PerfLogger)")
+    @Around("@within(PerfLogger)")
     public Object perfLogAspect(ProceedingJoinPoint pjp) throws Throwable {
         long begin = System.currentTimeMillis();
         Object retVal = pjp.proceed();
