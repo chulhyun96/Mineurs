@@ -37,4 +37,7 @@ public class ProductSubImg {
                         .build())
                 .toList();
     }
+    public static List<String> getCurrentImgs(List<ProductSubImg> foundProducts) {
+        return foundProducts.stream().map(ProductSubImg::getPath).toList();
+    }
 }

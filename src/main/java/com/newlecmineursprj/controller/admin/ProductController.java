@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.util.Arrays;
 import java.util.List;
 
+import com.newlecmineursprj.aspect.PerfLogger;
 import com.newlecmineursprj.domain.file.ImgStore;
 import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.ProductSubImg;
@@ -65,6 +66,7 @@ public class ProductController {
         return PRODUCTS_VIEW + "/list";
     }
 
+    @PerfLogger
     @GetMapping("/reg")
     public String regForm(Model model) {
         List<Category> categories = categoryService.getList();
