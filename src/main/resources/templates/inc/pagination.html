@@ -11,7 +11,7 @@
 <!-- 페이징 -->
 <div th:fragment="pagination(pageObject)" class="join self-center"
      th:object="${pageObject}"
-     th:if="${!pageObject.isEmpty()}"
+     th:if="${!pageObject.isEmpty() and pageObject.totalPages gt 1}"
 >
     <!--   이전버튼     -->
     <a th:if="*{hasPrevPageGroup()}"
