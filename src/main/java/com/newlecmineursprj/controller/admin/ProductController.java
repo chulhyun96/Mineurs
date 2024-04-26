@@ -78,7 +78,7 @@ public class ProductController {
     @PostMapping
     public String reg(@Validated Product product, BindingResult bindingResult, MultipartFile mainImg, @RequestParam(value = "sub-imgs") List<MultipartFile> subImages) throws IOException {
         if (bindingResult.hasErrors()) {
-            log.info("Reg Form Error : {}", bindingResult + "\n");
+            log.error("Reg Form Error : {}", bindingResult + "\n");
             return PRODUCTS_VIEW + "/reg";
         }
         service.reg(product, mainImg, subImages);

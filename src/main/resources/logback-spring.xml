@@ -1,9 +1,8 @@
 <!-- logback-spring.xml 파일 -->
 <configuration debug="true">
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-    <!--로그기록을 남길 경로, logPath는 경로를 담은 변수-->
-    <property name="logPath" value="./src/main/resources/log/method"/>
-
+    <!--로그기록을 남길 경로, logPath 경로를 담은 변수-->
+    <property name="logPath" value="./src/main/log/method"/>
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--performance.log 파일에 기록을 남김-->
         <file>${logPath}/performance.log</file>
@@ -12,7 +11,7 @@
             <Pattern>%date [%thread] %msg%n</Pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!--날짜가 지날 경우, 날짜에 따른 새로운 로그파일으 만드는데, 만들어질 이름의 포맷-->
+            <!--날짜가 지날 경우, 날짜에 따른 새로운 로그파일을 만드는데, 만들어질 이름의 포맷-->
             <fileNamePattern>performance.%d{yyyy-MM-dd}.log</fileNamePattern>
             <!--기존의 로그 파일은 이틀 지나면 사라지게 설정-->
             <maxHistory>2</maxHistory>
@@ -24,8 +23,25 @@
         <appender-ref ref="FILE" />
     </logger>
 
-    <!--기본 설정-->
-    <root level="warn">
-        <appender-ref ref="FILE" />
+
+    <property name="errorPath" value="./src/main/log/errors"/>
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${errorPath}/error.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%date [%thread] %msg%n</Pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>error.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>2</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="com.newlecmineursprj.controller.admin.ProductController" level="error" additivity="false">
+        <appender-ref ref="ERROR_FILE" />
+    </logger>
+
+    <!--기본 값-->
+    <root level="WARN">
+        <appender-ref ref="ERROR_FILE" />
     </root>
 </configuration>
