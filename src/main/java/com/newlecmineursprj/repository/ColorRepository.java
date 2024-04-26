@@ -1,6 +1,8 @@
 package com.newlecmineursprj.repository;
 
 import com.newlecmineursprj.entity.Color;
+import com.newlecmineursprj.entity.ProductItem;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -9,4 +11,5 @@ import java.util.List;
 public interface ColorRepository {
 
     List<Color> findAll(long productId);
+    Color findById(Long id);
 }

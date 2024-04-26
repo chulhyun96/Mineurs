@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{/inc/layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main layout:fragment="main" class="container mx-auto mt-16">
+    <!-- 장바구니 -->
+    <section class="border-2">
+        <h1 class="text-center">장바구니</h1>
+        <table class="n-table n-table-style:striped">
+            <thead>
+            <tr>
+                <th scope="col" class="text-center">체크박스</th>
+                <th scope="col" class="text-center">이미지</th>
+                <th scope="col" class="text-center">상품정보</th>
+                <th scope="col" class="text-center">수량</th>
+                <th scope="col" class="text-center">상품구매금액</th>
+                <th scope="col" class="text-center">선택</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="i : ${#numbers.sequence(0, productList.size() - 1)}">
+                <th scope="col" class="text-center">체크박스</th>
+                <th scope="col" class="text-center">
+                    <img th:src="@{'/webapp/image/products/'+${productList[i].mainImgPath}}" class="max-h-40 mx-auto my-6" alt="이미지"/>
+                </th>
+                <th scope="col" class="text-center">
+                    <span th:text="${productList[i].name}"></span>
+                    <br>
+                    <span th:text="'[옵션: '+${colorList[i].engName} + '/' +${sizeList[i].engName}+']'"></span>
+                </th>
+                <th scope="col" th:text="${cartList[i].qty}" class="text-center">수량</th>
+                <th scope="col" th:text="${cartList[i].qty}*${productList[i].price}" class="text-center">상품구매금액</th>
+                <th scope="col" class="text-center">선택</th>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    </main>
+</body>
+</html>
