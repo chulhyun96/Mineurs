@@ -11,6 +11,7 @@ createApp({
     methods: {
         searchModalClickHandler()  {
             this.isSearchModalActive = !this.isSearchModalActive
+            this.$refs.searchInput.focus()
         }
     },
 
