@@ -1,10 +1,12 @@
 package com.newlecmineursprj.entity;
 
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.stream.IntStream;
 
+@Slf4j
 @Data
 @Builder
 @AllArgsConstructor
@@ -13,8 +15,11 @@ public class ProductSubImg {
     private Long productId;
     private String path;
     private Long id;
-
+        // 123 , abc
     public static List<ProductSubImg> updateSubImgs(List<String> storageSubImgName, List<ProductSubImg> foundAll) {
+        for (String overWriteSubImgNames : storageSubImgName) {
+            log.info("overWriteSubImgNames = {}", overWriteSubImgNames);
+        }
         return IntStream.range(0, storageSubImgName.size())
                 .mapToObj(i -> ProductSubImg.builder()
                         .id(foundAll.get(i).getId())

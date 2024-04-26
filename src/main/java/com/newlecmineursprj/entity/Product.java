@@ -3,7 +3,10 @@ package com.newlecmineursprj.entity;
 import java.sql.Date;
 import java.util.Objects;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.validator.constraints.Range;
 
 @Data
 @ToString
@@ -12,7 +15,6 @@ import lombok.*;
 @Builder
 public class Product {
     private Long id;
-
     private String name;
     private int price;
     private String mainImgPath;

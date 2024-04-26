@@ -13,6 +13,8 @@ import com.newlecmineursprj.util.CustomPageImpl;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -72,7 +74,11 @@ public class ProductController {
     }
 
     @PostMapping
-    public String reg(Product product, MultipartFile mainImg, @RequestParam(value = "sub-imgs") List<MultipartFile> subImages) throws IOException {
+    public String reg(@Validated Product product, BindingResult bindingResult, MultipartFile mainImg, @RequestParam(value = "sub-imgs") List<MultipartFile> subImages) throws IOException {
+        if (bindingResult.hasErrors()) {
+            log.info("Reg Form Error : {}", bindingResult + "\n");
+            return PRODUCTS_VIEW + "/reg";
+        }
         service.reg(product, mainImg, subImages);
         return REDIRECT + PRODUCTS_VIEW;
     }

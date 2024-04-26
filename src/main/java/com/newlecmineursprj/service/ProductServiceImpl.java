@@ -93,25 +93,28 @@ public class ProductServiceImpl implements ProductService {
         //기존의 파일보다 요청한 파일이 더 많을 경우
         if (updateSubImgs.size() > foundAll.size()) {
             List<String> extraSubImgNames = storageSubImgName.subList(foundAll.size(), updateSubImgs.size());
-            subImgRepository.reg(
-                    ProductSubImg.saveSubImgs(extraSubImgNames, updateProduct)
-            );
+            // 추가 엔티티 생성 및 저장
+            List<ProductSubImg> productSubImgs = ProductSubImg.saveSubImgs(extraSubImgNames, updateProduct);
+            subImgRepository.reg(productSubImgs);
+            // 덮어씌워질 엔티티
+            List<String> overWriteImgNames = storageSubImgName.subList(0, foundAll.size());
+            List<ProductSubImg> overWriteSubImgList = ProductSubImg.updateSubImgs(overWriteImgNames, foundAll);
+            subImgRepository.updatedImgs(overWriteSubImgList);
             return;
         }
         //기존의 파일보다 요청한 파일이 더 적을 경우
         if (updateSubImgs.size() < foundAll.size()) {
-            List<ProductSubImg> remainingSubImgs = foundAll.subList(0, updateSubImgs.size());
             List<ProductSubImg> extraSubImgsToDelete = foundAll.subList(updateSubImgs.size(), foundAll.size());
             subImgRepository.deleteAll(extraSubImgsToDelete);
-            subImgRepository.updatedImgs(
-                    ProductSubImg.updateSubImgs(storageSubImgName, remainingSubImgs)
-            );
+
+            List<ProductSubImg> remainingSubImgs = foundAll.subList(0, updateSubImgs.size());
+            List<ProductSubImg> productSubImgs = ProductSubImg.updateSubImgs(storageSubImgName, remainingSubImgs);
+            subImgRepository.updatedImgs(productSubImgs);
             return;
         }
         //같을 경우
-        subImgRepository.updatedImgs(
-                ProductSubImg.updateSubImgs(storageSubImgName, foundAll)
-        );
+        List<ProductSubImg> productSubImgs = ProductSubImg.updateSubImgs(storageSubImgName, foundAll);
+        subImgRepository.updatedImgs(productSubImgs);
     }
 
     @Override
