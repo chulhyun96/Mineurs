@@ -17,50 +17,44 @@
     <title>Document</title>
 </head>
 <body>
-<main layout:fragment="main" class="container mx-auto">
+<main layout:fragment="main" class="container mx-auto mt-24">
     <section>
         <h1 class="text-center text-3xl">QnA</h1>
-        <form class="mt-16" action="/reg" method="post">
+        <form class="mt-16" action="/qna/reg" method="post">
+            <input type="hidden" value="3" name="boardId">
+            <div>
+                나중에 문의할 사진 등록할 곳
+            </div>
             <div class="my-2">
                 <label >
                    제목
                     <span class="flex">
-                        <select class="w-60 border text-sm" name="category">
+                        <select class="w-60 border text-sm" name="categoryId">
                             <option>-문의유형을 선택후 작성해주세요</option>
-                            <option>상품 문의</option>
-                            <option>교환 / 반품 문의</option>
-                            <option>배송 전 변경사항 문의</option>
-                            <option>배송 문의</option>
-                            <option>입금 / 기타 문의</option>
+                            <option value="1">교환 / 반품 문의</option>
+                            <option value="2">배송 문의</option>
+                            <option value="3">상품 문의</option>
+                            <option value="4">배송 전 변경사항 문의</option>
+                            <option value="5">입금 / 기타 문의</option>
                         </select>
                         <input class="border w-full" type="text" name="summary">
                     </span>
                 </label>
             </div>
-            <div class="my-2">
-                <label >
-                    이메일
-                    <span class="flex">
-                        <input class="border w-64" type="text" name="localpart">
-                        <span class="mx-2">@</span>
-                        <input class="border w-64" type="text" name="domainpart">
-                        <select class="w-60 border text-sm" id="domain-select">
-                            <option>직접입력</option>
-                            <option>naver.com</option>
-                            <option>daum.net</option>
-                            <option>nate.com</option>
-                            <option>gmail.com</option>
-                        </select>
-                    </span>
+            <textarea id="summernote" name="content"></textarea>
+            <div class="flex justify-between my-4">
+                <label>
+                    비밀번호
+                    <input class="border" type="password">
                 </label>
-            </div>
-            <textarea id="summernote" name="editordata"></textarea>
-            <div class="text-end my-4">
-                <button class="btn">등록하기</button>
-                <button class="btn"><a href="/qna">목록으로</a></button>
+                <span>
+                    <button class="btn">등록하기</button>
+                    <a class="btn" href="/qna">목록으로</a>
+                </span>
             </div>
         </form>
     </section>
+
 </main>
 </body>
 </html>
