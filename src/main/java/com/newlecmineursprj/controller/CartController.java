@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -65,6 +66,33 @@ public class CartController {
         model.addAttribute("colorList", colorList);
             
         return "cart/list";
+    }
+
+    @PostMapping("delete")
+    public String delete(@RequestParam("deleteId") Long deleteId,
+                        @RequestParam("mid") Long mid){
+
+        cartService.delete(deleteId);
+
+        return "redirect:/cart?mid="+mid;
+    }
+
+    @PostMapping("qty")
+    public String qty(@RequestParam("qtyJudge") int qtyJudge,
+                    @RequestParam("cartId") Long cartId,
+                    @RequestParam(defaultValue = "0", value = "qty") int qty,
+                    @RequestParam("mid") Long mid){
+
+        Cart cart = cartService.getById(cartId);
+        ProductItem productItem = productItemService.getById(cart.getProductItemId());
+        int stock = productItem.getQty();
+
+        if(qtyJudge == 1 && stock > qty)
+            cartService.increase(cartId);
+        else if(qtyJudge == 0 && qty > 1)
+            cartService.decrease(cartId);
+
+        return "redirect:/cart?mid="+mid;
     }
 
 }
