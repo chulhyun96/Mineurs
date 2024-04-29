@@ -15,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class ProductListDTO {
-
     private long id;
     private String name;
     private int price;
@@ -28,5 +27,4 @@ public class ProductListDTO {
     private String mainImgPath;
     private Boolean currentUserLiked;
     private Long likeCount;
-
 }
