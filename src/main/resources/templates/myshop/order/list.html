@@ -13,123 +13,118 @@
   </head>
   <body>
     <main layout:fragment="main" class="container mx-auto px-10 mt-20">
-
       <h1 class="font-bold text-3xl self-center">주문 내역</h1>
       <!--    검색 -->
 
       <section class="overflow-x-auto w-full flex flex-col">
-        <form
-                method="get"
-                action="/admin/order/list"
-                class=""
-        >
+        <form method="get" action="/myshop/order/list" class="">
           <table class="table">
             <colgroup>
               <col class="bg-base-300" />
             </colgroup>
 
             <tbody>
-            <tr>
-              <td>검색분류</td>
+              <tr>
+                <td>검색분류</td>
 
-              <td colspan="3">
-                <div>
-                  <!--  검색 모듈 -->
-                  <div class="join">
-                    <select
-                            class="select select-bordered join-item"
-                            name="searchMethod"
-                    >
-                      <option
-                              th:selected="${param.searchMethod} == 'name'"
-                              value="name"
+                <td colspan="3">
+                  <div>
+                    <!--  검색 모듈 -->
+                    <div class="join">
+                      <select
+                        class="select select-bordered join-item"
+                        name="searchMethod"
                       >
-                        상품이름
-                      </option>
-                      <option
-                              th:selected="${param.searchMethod} == userName"
-                              value="userName"
-                      >
-                        주문자이름
-                      </option>
-                      <option
-                              th:selected="${param.searchMethod} == 'code'"
-                              value="code"
-                      >
-                        상품코드
-                      </option>
-                    </select>
-                    <div>
+                        <option
+                          th:selected="${param.searchMethod} == 'name'"
+                          value="name"
+                        >
+                          상품이름
+                        </option>
+                        <option
+                          th:selected="${param.searchMethod} == userName"
+                          value="userName"
+                        >
+                          주문자이름
+                        </option>
+                        <option
+                          th:selected="${param.searchMethod} == 'code'"
+                          value="code"
+                        >
+                          상품코드
+                        </option>
+                      </select>
                       <div>
-                        <input
-                                type="text"
-                                name="searchKeyword"
-                                class="input input-bordered join-item"
-                                placeholder="검색어를 입력하세요"
-                        />
+                        <div>
+                          <input
+                            type="text"
+                            name="searchKeyword"
+                            class="input input-bordered join-item"
+                            placeholder="검색어를 입력하세요"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>주문일</td>
-              <td colspan="3">
-                <div class="flex space-x-5">
-                  <div class="flex space-x-1">
-                    <label
-                            class="btn btn-outline btn-sm flex justify-center items-center"
-                    >
-                      <span>오늘</span>
-                      <input type="radio" class="hidden" />
-                    </label>
-                    <label
-                            class="btn btn-outline btn-sm flex justify-center items-center"
-                    >
-                      <span>3일</span>
-                      <input type="radio" class="hidden" />
-                    </label>
-                    <label
-                            class="btn btn-outline btn-sm flex justify-center items-center"
-                    >
-                      <span>7일</span>
-                      <input type="radio" class="hidden" />
-                    </label>
-                    <label
-                            class="btn btn-outline btn-sm flex justify-center items-center"
-                    >
-                      <span>1개월</span>
-                      <input type="radio" class="hidden" />
-                    </label>
-                    <label
-                            class="btn btn-outline btn-sm flex justify-center items-center"
-                    >
-                      <span>3개월</span>
-                      <input type="radio" class="hidden" />
-                    </label>
-                    <label
-                            class="btn btn-outline btn-sm flex justify-center items-center"
-                    >
-                      <span>1년</span>
-                      <input type="radio" class="hidden" />
-                    </label>
-                    <label
-                            class="btn btn-outline btn-sm flex justify-center items-center"
-                    >
-                      <span>전체</span>
-                      <input type="radio" class="hidden" checked />
-                    </label>
-                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>주문일</td>
+                <td colspan="3">
+                  <div class="flex space-x-5">
+                    <div class="flex space-x-1">
+                      <label
+                        class="btn btn-outline btn-sm flex justify-center items-center"
+                      >
+                        <span>오늘</span>
+                        <input type="radio" class="hidden" />
+                      </label>
+                      <label
+                        class="btn btn-outline btn-sm flex justify-center items-center"
+                      >
+                        <span>3일</span>
+                        <input type="radio" class="hidden" />
+                      </label>
+                      <label
+                        class="btn btn-outline btn-sm flex justify-center items-center"
+                      >
+                        <span>7일</span>
+                        <input type="radio" class="hidden" />
+                      </label>
+                      <label
+                        class="btn btn-outline btn-sm flex justify-center items-center"
+                      >
+                        <span>1개월</span>
+                        <input type="radio" class="hidden" />
+                      </label>
+                      <label
+                        class="btn btn-outline btn-sm flex justify-center items-center"
+                      >
+                        <span>3개월</span>
+                        <input type="radio" class="hidden" />
+                      </label>
+                      <label
+                        class="btn btn-outline btn-sm flex justify-center items-center"
+                      >
+                        <span>1년</span>
+                        <input type="radio" class="hidden" />
+                      </label>
+                      <label
+                        class="btn btn-outline btn-sm flex justify-center items-center"
+                      >
+                        <span>전체</span>
+                        <input type="radio" class="hidden" checked />
+                      </label>
+                    </div>
 
-                  <div class="flex space-x-1 items-center">
-                    <input type="date" />
-                    <span>~</span>
-                    <input type="date" />
+                    <div class="flex space-x-1 items-center">
+                      <input type="date" />
+                      <span>~</span>
+                      <input type="date" />
+                    </div>
                   </div>
-                </div>
-              </td>
-            </tr>
+                </td>
+              </tr>
             </tbody>
           </table>
           <div class="self-center flex space-x-2 justify-center">
@@ -147,70 +142,68 @@
             <table class="table table-zebra text-center">
               <!-- head -->
               <thead>
-              <tr>
-                <th scope="col" class="w:2"></th>
-                <!--                <th scope="col">카테고리 이름</th>-->
-                <th scope="col">주문일</th>
-                <th scope="col">상품코드</th>
-                <!--                <th scope="col">공급가</th>-->
-                <th scope="col">주문자</th>
-                <th scope="col">상품명</th>
-                <th scope="col">총 상품구매금액</th>
-                <th scope="col">총 실결제금액</th>
-                <th scope="col">결제수단</th>
-                <th scope="col">주문상태</th>
-              </tr>
+                <tr>
+                  <th scope="col" class="w:2"></th>
+                  <!--                <th scope="col">카테고리 이름</th>-->
+                  <th scope="col">주문일</th>
+                  <th scope="col">상품코드</th>
+                  <!--                <th scope="col">공급가</th>-->
+                  <th scope="col">주문자</th>
+                  <th scope="col">상품명</th>
+                  <th scope="col">총 상품구매금액</th>
+                  <th scope="col">총 실결제금액</th>
+                  <th scope="col">결제수단</th>
+                  <th scope="col">주문상태</th>
+                </tr>
               </thead>
 
               <tbody>
-
-              <tr th:each="order : ${orderPage.content}">
-                <td scope="col">
-                  <input
-                          name="orderId"
-                          type="checkbox"
-                          class="checkbox"
-                          th:value="${order.id}"
-                  />
-                </td>
-                <!--                <td scope="col" th:text="${product.categoryName}">카테고리 이름</td>-->
-                <td scope="col" th:text="${order.orderedDatetime}">주문일</td>
-                <td scope="col" th:text="${order.code}">상품코드</td>
-                <!--                <td scope="col" th:text="${product.supplyingPrice}">공급가</td>-->
-                <!--                <td scope="col" th:text="${product.description}">설명</td>-->
-                <td scope="col" th:text="${order.userName}">주문자</td>
-                <td scope="col">
-                      <span
-                              th:each="productName : ${order.productNames}"
-                              th:text="${productName}"
+                <tr th:each="order : ${orderPage.content}">
+                  <td scope="col">
+                    <input
+                      name="orderId"
+                      type="checkbox"
+                      class="checkbox"
+                      th:value="${order.id}"
+                    />
+                  </td>
+                  <!--                <td scope="col" th:text="${product.categoryName}">카테고리 이름</td>-->
+                  <td scope="col" th:text="${order.orderedDatetime}">주문일</td>
+                  <td scope="col" th:text="${order.code}">상품코드</td>
+                  <!--                <td scope="col" th:text="${product.supplyingPrice}">공급가</td>-->
+                  <!--                <td scope="col" th:text="${product.description}">설명</td>-->
+                  <td scope="col" th:text="${order.userName}">주문자</td>
+                  <td scope="col">
+                    <span
+                      th:each="productName : ${order.productNames}"
+                      th:text="${productName}"
+                    >
+                      상품명
+                    </span>
+                    <div th:if="${order.productsCount > 1}">
+                      <span th:text="|외 ${order.productsCount-1}개|"
+                        >개수</span
                       >
-                        상품명
-                      </span>
-                  <div th:if="${order.productsCount > 1}">
-                    <span th:text="|외 ${order.productsCount-1}개|">개수</span>
-                  </div>
-                </td>
-                <td scope="col" th:text="${order.totalProductPrice}">
-                  총 상품구매금액
-                </td>
-                <td
-                        scope="col"
-                        th:text="${order.totalProductPrice} - ${order.totalDiscountAmount}"
-                >
-                  총 실결제금액
-                </td>
-                <td scope="col" th:text="${order.paymentMethod}">결제수단</td>
-                <!--                <td>No</td>-->
-                <td scope="col" th:text="${order.orderState}">주문상태</td>
-              </tr>
+                    </div>
+                  </td>
+                  <td scope="col" th:text="${order.totalProductPrice}">
+                    총 상품구매금액
+                  </td>
+                  <td
+                    scope="col"
+                    th:text="${order.totalProductPrice} - ${order.totalDiscountAmount}"
+                  >
+                    총 실결제금액
+                  </td>
+                  <td scope="col" th:text="${order.paymentMethod}">결제수단</td>
+                  <!--                <td>No</td>-->
+                  <td scope="col" th:text="${order.orderState}">주문상태</td>
+                </tr>
               </tbody>
             </table>
           </form>
         </div>
       </section>
-
-
-
     </main>
   </body>
 </html>

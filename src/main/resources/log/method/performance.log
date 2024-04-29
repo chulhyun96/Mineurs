@@ -1,0 +1,733 @@
+2024-04-26 15:06:57,359 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:06:59,576 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:15:30,774 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:15:33,788 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:15:56,242 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:16:24,078 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:16:27,315 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:37:27,309 [http-nio-8083-exec-8] ==>  Preparing: SELECT * FROM member where username = ?
+2024-04-26 15:37:27,309 [http-nio-8083-exec-8] ==> Parameters: jy(String)
+2024-04-26 15:37:27,315 [http-nio-8083-exec-8] <==    Columns: id, username, name, phone_number, password, email, payment_password, reg_date
+2024-04-26 15:37:27,315 [http-nio-8083-exec-8] <==        Row: 1, jy, 이재용, 01046467979, $2a$12$UyzUlEwXanQRPYBbhi9pweaHGeONWbE45joP6MZ2.f2sJMl5Sd5WC, fjiww@gmail.com, 1234, 2024-04-16 15:54:26
+2024-04-26 15:37:27,317 [http-nio-8083-exec-8] <==      Total: 1
+2024-04-26 15:37:27,318 [http-nio-8083-exec-8] ==>  Preparing: SELECT r.name FROM role r join member_role mr on r.id = mr.role_id and mr.member_id = ?
+2024-04-26 15:37:27,318 [http-nio-8083-exec-8] ==> Parameters: 1(Long)
+2024-04-26 15:37:27,325 [http-nio-8083-exec-8] <==    Columns: name
+2024-04-26 15:37:27,326 [http-nio-8083-exec-8] <==        Row: ROLE_MEMBER
+2024-04-26 15:37:27,326 [http-nio-8083-exec-8] <==        Row: ROLE_ADMIN
+2024-04-26 15:37:27,326 [http-nio-8083-exec-8] <==      Total: 2
+2024-04-26 15:37:27,698 [http-nio-8083-exec-9] ==>  Preparing: SELECT * FROM category order by `order`
+2024-04-26 15:37:27,698 [http-nio-8083-exec-9] ==> Parameters: 
+2024-04-26 15:37:27,705 [http-nio-8083-exec-9] <==    Columns: id, name, order
+2024-04-26 15:37:27,705 [http-nio-8083-exec-9] <==        Row: 3, Top, 1
+2024-04-26 15:37:27,705 [http-nio-8083-exec-9] <==        Row: 2, Bottom, 2
+2024-04-26 15:37:27,706 [http-nio-8083-exec-9] <==        Row: 4, Dress, 3
+2024-04-26 15:37:27,706 [http-nio-8083-exec-9] <==        Row: 1, Outer, 4
+2024-04-26 15:37:27,706 [http-nio-8083-exec-9] <==        Row: 5, ETC, 5
+2024-04-26 15:37:27,706 [http-nio-8083-exec-9] <==      Total: 5
+2024-04-26 15:37:27,707 [http-nio-8083-exec-9] ==>  Preparing: SELECT plv.*, nvl(l.member_id IS NOT NULL, 0) current_user_liked FROM mineurs_db.product_list_view plv left join `like` l on l.member_id = 1 and l.product_id = plv.id GROUP BY id ORDER BY reg_date DESC limit ?, ?
+2024-04-26 15:37:27,707 [http-nio-8083-exec-9] ==> Parameters: 0(Long), 12(Integer)
+2024-04-26 15:37:27,762 [http-nio-8083-exec-9] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id, like_count, ct_id, ct_name, pi_id, pi_qty, pi_code, pi_product_id, pi_size_id, pi_color_id, s_id, s_eng_name, c_id, c_kor_name, c_eng_name, c_hex_code, current_user_liked
+2024-04-26 15:37:27,762 [http-nio-8083-exec-9] <==        Row: 46, ghfghfgh, Non-Img, null, werwer, 1, 1, sdfg, 1, 0, 123123, 2024-04-26 10:12:22, 4, 0, 4, Dress, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:27,763 [http-nio-8083-exec-9] <==        Row: 44, asdfasdf, ?????????? 2024-04-18 21.34.44.png, null, qweqwe, 1, 1, , 1, 0, 123124, 2024-04-22 16:53:34, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:27,763 [http-nio-8083-exec-9] <==        Row: 43, ㄴㅇㄹㅎㄴㅇㄹㅎㄴㅇㄹㅎ, ?????????? 2024-04-16 14.26.32.png, null, 123124214, 1, 1, qweqwe, 1, 0.4, 123123, 2024-04-22 16:49:46, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:27,763 [http-nio-8083-exec-9] <==        Row: 42, ㅇㄴㅎㄹㅇㄹㅎ, ?????????? 2024-03-14 22.34.39.png, null, 123123424, 0, 0, , 0, 0, 12312, 2024-04-22 16:49:26, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:27,764 [http-nio-8083-exec-9] <==        Row: 41, cvbcvb, ?????????? 2024-04-12 07.15.51.png, null, asdasd, 0, 0, , 0, 0, 234234, 2024-04-22 16:47:16, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:27,764 [http-nio-8083-exec-9] <==        Row: 40, asdfasdfasdfsadfasdf, ?????????? 2024-03-17 17.59.22.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:47:03, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:27,764 [http-nio-8083-exec-9] <==        Row: 39, ㅁㄴㅇㅁㄴㅇ, ?????????? 2024-04-22 16.19.33.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:45:54, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:27,764 [http-nio-8083-exec-9] <==        Row: 37, 사진 등록안하고 등록, ?????????? 2024-04-17 23.02.27.png, null, 123, 1, 1, qweqwe, 1, 0.4, 123, 2024-04-22 16:41:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:27,764 [http-nio-8083-exec-9] <==        Row: 34, asdasd, ?????????? 2024-04-05 11.45.38.png, null, qweqwe, 1, 1, qwe, 1, 0.3, 123, 2024-04-19 16:58:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:27,764 [http-nio-8083-exec-9] <==        Row: 33, 얘도수정, ?????????? 2024-04-16 14.26.32.png, null, 123, 1, 1, , 1, 0, 12, 2024-04-19 13:12:27, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:27,765 [http-nio-8083-exec-9] <==        Row: 31, 업데이트, ?????????? 2024-04-16 14.31.48.png, null, 123, 1, 1, , 1, 0, 12, 2024-04-19 13:12:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:27,765 [http-nio-8083-exec-9] <==        Row: 30, ajdwld, ?????????? 2024-03-21 14.43.09.png, null, 123, 1, 1, , 1, 0, 123, 2024-04-19 13:08:30, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:27,765 [http-nio-8083-exec-9] <==      Total: 12
+2024-04-26 15:37:27,767 [http-nio-8083-exec-9] ==>  Preparing: select count(id) from product
+2024-04-26 15:37:27,767 [http-nio-8083-exec-9] ==> Parameters: 
+2024-04-26 15:37:27,773 [http-nio-8083-exec-9] <==    Columns: count(id)
+2024-04-26 15:37:27,773 [http-nio-8083-exec-9] <==        Row: 35
+2024-04-26 15:37:27,774 [http-nio-8083-exec-9] <==      Total: 1
+2024-04-26 15:37:31,105 [http-nio-8083-exec-5] ==>  Preparing: SELECT * FROM category order by `order`
+2024-04-26 15:37:31,105 [http-nio-8083-exec-5] ==> Parameters: 
+2024-04-26 15:37:31,108 [http-nio-8083-exec-5] <==    Columns: id, name, order
+2024-04-26 15:37:31,108 [http-nio-8083-exec-5] <==        Row: 3, Top, 1
+2024-04-26 15:37:31,108 [http-nio-8083-exec-5] <==        Row: 2, Bottom, 2
+2024-04-26 15:37:31,108 [http-nio-8083-exec-5] <==        Row: 4, Dress, 3
+2024-04-26 15:37:31,108 [http-nio-8083-exec-5] <==        Row: 1, Outer, 4
+2024-04-26 15:37:31,108 [http-nio-8083-exec-5] <==        Row: 5, ETC, 5
+2024-04-26 15:37:31,108 [http-nio-8083-exec-5] <==      Total: 5
+2024-04-26 15:37:31,108 [http-nio-8083-exec-5] ==>  Preparing: SELECT plv.*, nvl(l.member_id IS NOT NULL, 0) current_user_liked FROM mineurs_db.product_list_view plv left join `like` l on l.member_id = 1 and l.product_id = plv.id GROUP BY id ORDER BY reg_date DESC limit ?, ?
+2024-04-26 15:37:31,108 [http-nio-8083-exec-5] ==> Parameters: 0(Long), 12(Integer)
+2024-04-26 15:37:31,115 [http-nio-8083-exec-5] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id, like_count, ct_id, ct_name, pi_id, pi_qty, pi_code, pi_product_id, pi_size_id, pi_color_id, s_id, s_eng_name, c_id, c_kor_name, c_eng_name, c_hex_code, current_user_liked
+2024-04-26 15:37:31,115 [http-nio-8083-exec-5] <==        Row: 46, ghfghfgh, Non-Img, null, werwer, 1, 1, sdfg, 1, 0, 123123, 2024-04-26 10:12:22, 4, 0, 4, Dress, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:31,117 [http-nio-8083-exec-5] <==        Row: 44, asdfasdf, ?????????? 2024-04-18 21.34.44.png, null, qweqwe, 1, 1, , 1, 0, 123124, 2024-04-22 16:53:34, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:31,117 [http-nio-8083-exec-5] <==        Row: 43, ㄴㅇㄹㅎㄴㅇㄹㅎㄴㅇㄹㅎ, ?????????? 2024-04-16 14.26.32.png, null, 123124214, 1, 1, qweqwe, 1, 0.4, 123123, 2024-04-22 16:49:46, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:31,118 [http-nio-8083-exec-5] <==        Row: 42, ㅇㄴㅎㄹㅇㄹㅎ, ?????????? 2024-03-14 22.34.39.png, null, 123123424, 0, 0, , 0, 0, 12312, 2024-04-22 16:49:26, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:31,122 [http-nio-8083-exec-5] <==        Row: 41, cvbcvb, ?????????? 2024-04-12 07.15.51.png, null, asdasd, 0, 0, , 0, 0, 234234, 2024-04-22 16:47:16, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:31,123 [http-nio-8083-exec-5] <==        Row: 40, asdfasdfasdfsadfasdf, ?????????? 2024-03-17 17.59.22.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:47:03, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:31,124 [http-nio-8083-exec-5] <==        Row: 39, ㅁㄴㅇㅁㄴㅇ, ?????????? 2024-04-22 16.19.33.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:45:54, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:31,124 [http-nio-8083-exec-5] <==        Row: 37, 사진 등록안하고 등록, ?????????? 2024-04-17 23.02.27.png, null, 123, 1, 1, qweqwe, 1, 0.4, 123, 2024-04-22 16:41:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:31,124 [http-nio-8083-exec-5] <==        Row: 34, asdasd, ?????????? 2024-04-05 11.45.38.png, null, qweqwe, 1, 1, qwe, 1, 0.3, 123, 2024-04-19 16:58:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:31,124 [http-nio-8083-exec-5] <==        Row: 33, 얘도수정, ?????????? 2024-04-16 14.26.32.png, null, 123, 1, 1, , 1, 0, 12, 2024-04-19 13:12:27, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:31,124 [http-nio-8083-exec-5] <==        Row: 31, 업데이트, ?????????? 2024-04-16 14.31.48.png, null, 123, 1, 1, , 1, 0, 12, 2024-04-19 13:12:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:31,124 [http-nio-8083-exec-5] <==        Row: 30, ajdwld, ?????????? 2024-03-21 14.43.09.png, null, 123, 1, 1, , 1, 0, 123, 2024-04-19 13:08:30, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:31,124 [http-nio-8083-exec-5] <==      Total: 12
+2024-04-26 15:37:31,125 [http-nio-8083-exec-5] ==>  Preparing: select count(id) from product
+2024-04-26 15:37:31,125 [http-nio-8083-exec-5] ==> Parameters: 
+2024-04-26 15:37:31,128 [http-nio-8083-exec-5] <==    Columns: count(id)
+2024-04-26 15:37:31,128 [http-nio-8083-exec-5] <==        Row: 35
+2024-04-26 15:37:31,128 [http-nio-8083-exec-5] <==      Total: 1
+2024-04-26 15:37:47,593 [http-nio-8083-exec-3] ==>  Preparing: SELECT * FROM category order by `order`
+2024-04-26 15:37:47,593 [http-nio-8083-exec-3] ==> Parameters: 
+2024-04-26 15:37:47,599 [http-nio-8083-exec-3] <==    Columns: id, name, order
+2024-04-26 15:37:47,599 [http-nio-8083-exec-3] <==        Row: 3, Top, 1
+2024-04-26 15:37:47,599 [http-nio-8083-exec-3] <==        Row: 2, Bottom, 2
+2024-04-26 15:37:47,599 [http-nio-8083-exec-3] <==        Row: 4, Dress, 3
+2024-04-26 15:37:47,599 [http-nio-8083-exec-3] <==        Row: 1, Outer, 4
+2024-04-26 15:37:47,599 [http-nio-8083-exec-3] <==        Row: 5, ETC, 5
+2024-04-26 15:37:47,599 [http-nio-8083-exec-3] <==      Total: 5
+2024-04-26 15:37:47,599 [http-nio-8083-exec-3] ==>  Preparing: SELECT plv.*, nvl(l.member_id IS NOT NULL, 0) current_user_liked FROM mineurs_db.product_list_view plv left join `like` l on l.member_id = 1 and l.product_id = plv.id GROUP BY id ORDER BY reg_date DESC limit ?, ?
+2024-04-26 15:37:47,599 [http-nio-8083-exec-3] ==> Parameters: 0(Long), 12(Integer)
+2024-04-26 15:37:47,611 [http-nio-8083-exec-3] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id, like_count, ct_id, ct_name, pi_id, pi_qty, pi_code, pi_product_id, pi_size_id, pi_color_id, s_id, s_eng_name, c_id, c_kor_name, c_eng_name, c_hex_code, current_user_liked
+2024-04-26 15:37:47,611 [http-nio-8083-exec-3] <==        Row: 46, ghfghfgh, Non-Img, null, werwer, 1, 1, sdfg, 1, 0, 123123, 2024-04-26 10:12:22, 4, 0, 4, Dress, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:47,612 [http-nio-8083-exec-3] <==        Row: 44, asdfasdf, ?????????? 2024-04-18 21.34.44.png, null, qweqwe, 1, 1, , 1, 0, 123124, 2024-04-22 16:53:34, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:47,612 [http-nio-8083-exec-3] <==        Row: 43, ㄴㅇㄹㅎㄴㅇㄹㅎㄴㅇㄹㅎ, ?????????? 2024-04-16 14.26.32.png, null, 123124214, 1, 1, qweqwe, 1, 0.4, 123123, 2024-04-22 16:49:46, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:47,612 [http-nio-8083-exec-3] <==        Row: 42, ㅇㄴㅎㄹㅇㄹㅎ, ?????????? 2024-03-14 22.34.39.png, null, 123123424, 0, 0, , 0, 0, 12312, 2024-04-22 16:49:26, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:47,612 [http-nio-8083-exec-3] <==        Row: 41, cvbcvb, ?????????? 2024-04-12 07.15.51.png, null, asdasd, 0, 0, , 0, 0, 234234, 2024-04-22 16:47:16, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:47,613 [http-nio-8083-exec-3] <==        Row: 40, asdfasdfasdfsadfasdf, ?????????? 2024-03-17 17.59.22.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:47:03, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:47,613 [http-nio-8083-exec-3] <==        Row: 39, ㅁㄴㅇㅁㄴㅇ, ?????????? 2024-04-22 16.19.33.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:45:54, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:47,613 [http-nio-8083-exec-3] <==        Row: 37, 사진 등록안하고 등록, ?????????? 2024-04-17 23.02.27.png, null, 123, 1, 1, qweqwe, 1, 0.4, 123, 2024-04-22 16:41:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:47,613 [http-nio-8083-exec-3] <==        Row: 34, asdasd, ?????????? 2024-04-05 11.45.38.png, null, qweqwe, 1, 1, qwe, 1, 0.3, 123, 2024-04-19 16:58:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:47,613 [http-nio-8083-exec-3] <==        Row: 33, 얘도수정, ?????????? 2024-04-16 14.26.32.png, null, 123, 1, 1, , 1, 0, 12, 2024-04-19 13:12:27, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:47,613 [http-nio-8083-exec-3] <==        Row: 31, 업데이트, ?????????? 2024-04-16 14.31.48.png, null, 123, 1, 1, , 1, 0, 12, 2024-04-19 13:12:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:47,613 [http-nio-8083-exec-3] <==        Row: 30, ajdwld, ?????????? 2024-03-21 14.43.09.png, null, 123, 1, 1, , 1, 0, 123, 2024-04-19 13:08:30, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:37:47,613 [http-nio-8083-exec-3] <==      Total: 12
+2024-04-26 15:37:47,613 [http-nio-8083-exec-3] ==>  Preparing: select count(id) from product
+2024-04-26 15:37:47,613 [http-nio-8083-exec-3] ==> Parameters: 
+2024-04-26 15:37:47,613 [http-nio-8083-exec-3] <==    Columns: count(id)
+2024-04-26 15:37:47,613 [http-nio-8083-exec-3] <==        Row: 35
+2024-04-26 15:37:47,613 [http-nio-8083-exec-3] <==      Total: 1
+2024-04-26 15:38:29,805 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:38:53,302 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:39:11,715 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:39:56,826 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:41:20,302 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:41:36,877 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:42:06,547 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:42:16,251 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:42:20,483 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:42:22,544 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:42:24,719 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:42:35,397 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:42:39,723 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:44:16,328 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:44:53,265 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:45:11,622 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:45:21,142 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:46:09,144 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:46:37,335 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:46:43,797 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:46:48,049 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:46:50,074 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:46:52,199 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:46:54,348 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:47:09,416 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:47:14,786 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:47:16,887 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:47:19,966 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:48:38,781 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:49:22,728 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:49:39,501 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:59:20,340 [http-nio-8083-exec-4] ==>  Preparing: SELECT * FROM member where username = ?
+2024-04-26 15:59:20,341 [http-nio-8083-exec-4] ==> Parameters: jy(String)
+2024-04-26 15:59:20,351 [http-nio-8083-exec-4] <==    Columns: id, username, name, phone_number, password, email, payment_password, reg_date
+2024-04-26 15:59:20,351 [http-nio-8083-exec-4] <==        Row: 1, jy, 이재용, 01046467979, $2a$12$UyzUlEwXanQRPYBbhi9pweaHGeONWbE45joP6MZ2.f2sJMl5Sd5WC, fjiww@gmail.com, 1234, 2024-04-16 15:54:26
+2024-04-26 15:59:20,352 [http-nio-8083-exec-4] <==      Total: 1
+2024-04-26 15:59:20,353 [http-nio-8083-exec-4] ==>  Preparing: SELECT r.name FROM role r join member_role mr on r.id = mr.role_id and mr.member_id = ?
+2024-04-26 15:59:20,353 [http-nio-8083-exec-4] ==> Parameters: 1(Long)
+2024-04-26 15:59:20,360 [http-nio-8083-exec-4] <==    Columns: name
+2024-04-26 15:59:20,360 [http-nio-8083-exec-4] <==        Row: ROLE_MEMBER
+2024-04-26 15:59:20,360 [http-nio-8083-exec-4] <==        Row: ROLE_ADMIN
+2024-04-26 15:59:20,360 [http-nio-8083-exec-4] <==      Total: 2
+2024-04-26 15:59:20,595 [http-nio-8083-exec-1] ==>  Preparing: SELECT * FROM category order by `order`
+2024-04-26 15:59:20,595 [http-nio-8083-exec-1] ==> Parameters: 
+2024-04-26 15:59:20,636 [http-nio-8083-exec-1] <==    Columns: id, name, order
+2024-04-26 15:59:20,636 [http-nio-8083-exec-1] <==        Row: 3, Top, 1
+2024-04-26 15:59:20,638 [http-nio-8083-exec-1] <==        Row: 2, Bottom, 2
+2024-04-26 15:59:20,638 [http-nio-8083-exec-1] <==        Row: 4, Dress, 3
+2024-04-26 15:59:20,638 [http-nio-8083-exec-1] <==        Row: 1, Outer, 4
+2024-04-26 15:59:20,638 [http-nio-8083-exec-1] <==        Row: 5, ETC, 5
+2024-04-26 15:59:20,638 [http-nio-8083-exec-1] <==      Total: 5
+2024-04-26 15:59:20,641 [http-nio-8083-exec-1] ==>  Preparing: SELECT plv.*, nvl(l.member_id IS NOT NULL, 0) current_user_liked FROM mineurs_db.product_list_view plv left join `like` l on l.member_id = 1 and l.product_id = plv.id GROUP BY id ORDER BY reg_date DESC limit ?, ?
+2024-04-26 15:59:20,641 [http-nio-8083-exec-1] ==> Parameters: 0(Long), 12(Integer)
+2024-04-26 15:59:20,655 [http-nio-8083-exec-1] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id, like_count, ct_id, ct_name, pi_id, pi_qty, pi_code, pi_product_id, pi_size_id, pi_color_id, s_id, s_eng_name, c_id, c_kor_name, c_eng_name, c_hex_code, current_user_liked
+2024-04-26 15:59:20,655 [http-nio-8083-exec-1] <==        Row: 46, ghfghfgh, Non-Img, null, werwer, 1, 1, sdfg, 1, 0, 123123, 2024-04-26 10:12:22, 4, 0, 4, Dress, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:20,656 [http-nio-8083-exec-1] <==        Row: 44, asdfasdf, ?????????? 2024-04-18 21.34.44.png, null, qweqwe, 1, 1, , 1, 0, 123124, 2024-04-22 16:53:34, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:20,656 [http-nio-8083-exec-1] <==        Row: 43, ㄴㅇㄹㅎㄴㅇㄹㅎㄴㅇㄹㅎ, ?????????? 2024-04-16 14.26.32.png, null, 123124214, 1, 1, qweqwe, 1, 0.4, 123123, 2024-04-22 16:49:46, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:20,656 [http-nio-8083-exec-1] <==        Row: 42, ㅇㄴㅎㄹㅇㄹㅎ, ?????????? 2024-03-14 22.34.39.png, null, 123123424, 0, 0, , 0, 0, 12312, 2024-04-22 16:49:26, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:20,656 [http-nio-8083-exec-1] <==        Row: 41, cvbcvb, ?????????? 2024-04-12 07.15.51.png, null, asdasd, 0, 0, , 0, 0, 234234, 2024-04-22 16:47:16, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:20,657 [http-nio-8083-exec-1] <==        Row: 40, asdfasdfasdfsadfasdf, ?????????? 2024-03-17 17.59.22.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:47:03, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:20,657 [http-nio-8083-exec-1] <==        Row: 39, ㅁㄴㅇㅁㄴㅇ, ?????????? 2024-04-22 16.19.33.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:45:54, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:20,657 [http-nio-8083-exec-1] <==        Row: 37, 사진 등록안하고 등록, ?????????? 2024-04-17 23.02.27.png, null, 123, 1, 1, qweqwe, 1, 0.4, 123, 2024-04-22 16:41:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:20,657 [http-nio-8083-exec-1] <==        Row: 34, asdasd, ?????????? 2024-04-05 11.45.38.png, null, qweqwe, 1, 1, qwe, 1, 0.3, 123, 2024-04-19 16:58:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:20,657 [http-nio-8083-exec-1] <==        Row: 33, 얘도수정, ?????????? 2024-04-16 14.26.32.png, null, 123, 1, 1, , 1, 0, 12, 2024-04-19 13:12:27, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:20,657 [http-nio-8083-exec-1] <==        Row: 31, 업데이트, ?????????? 2024-04-16 14.31.48.png, null, 123, 1, 1, , 1, 0, 12, 2024-04-19 13:12:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:20,658 [http-nio-8083-exec-1] <==        Row: 30, ajdwld, ?????????? 2024-03-21 14.43.09.png, null, 123, 1, 1, , 1, 0, 123, 2024-04-19 13:08:30, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:20,658 [http-nio-8083-exec-1] <==      Total: 12
+2024-04-26 15:59:20,661 [http-nio-8083-exec-1] ==>  Preparing: select count(id) from product
+2024-04-26 15:59:20,661 [http-nio-8083-exec-1] ==> Parameters: 
+2024-04-26 15:59:20,671 [http-nio-8083-exec-1] <==    Columns: count(id)
+2024-04-26 15:59:20,672 [http-nio-8083-exec-1] <==        Row: 35
+2024-04-26 15:59:20,672 [http-nio-8083-exec-1] <==      Total: 1
+2024-04-26 15:59:22,332 [http-nio-8083-exec-5] ==>  Preparing: SELECT * FROM category order by `order`
+2024-04-26 15:59:22,332 [http-nio-8083-exec-5] ==> Parameters: 
+2024-04-26 15:59:22,343 [http-nio-8083-exec-5] <==    Columns: id, name, order
+2024-04-26 15:59:22,344 [http-nio-8083-exec-5] <==        Row: 3, Top, 1
+2024-04-26 15:59:22,344 [http-nio-8083-exec-5] <==        Row: 2, Bottom, 2
+2024-04-26 15:59:22,344 [http-nio-8083-exec-5] <==        Row: 4, Dress, 3
+2024-04-26 15:59:22,344 [http-nio-8083-exec-5] <==        Row: 1, Outer, 4
+2024-04-26 15:59:22,344 [http-nio-8083-exec-5] <==        Row: 5, ETC, 5
+2024-04-26 15:59:22,344 [http-nio-8083-exec-5] <==      Total: 5
+2024-04-26 15:59:22,345 [http-nio-8083-exec-5] ==>  Preparing: SELECT plv.*, nvl(l.member_id IS NOT NULL, 0) current_user_liked FROM mineurs_db.product_list_view plv left join `like` l on l.member_id = 1 and l.product_id = plv.id GROUP BY id ORDER BY reg_date DESC limit ?, ?
+2024-04-26 15:59:22,345 [http-nio-8083-exec-5] ==> Parameters: 0(Long), 12(Integer)
+2024-04-26 15:59:22,356 [http-nio-8083-exec-5] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id, like_count, ct_id, ct_name, pi_id, pi_qty, pi_code, pi_product_id, pi_size_id, pi_color_id, s_id, s_eng_name, c_id, c_kor_name, c_eng_name, c_hex_code, current_user_liked
+2024-04-26 15:59:22,357 [http-nio-8083-exec-5] <==        Row: 46, ghfghfgh, Non-Img, null, werwer, 1, 1, sdfg, 1, 0, 123123, 2024-04-26 10:12:22, 4, 0, 4, Dress, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:22,357 [http-nio-8083-exec-5] <==        Row: 44, asdfasdf, ?????????? 2024-04-18 21.34.44.png, null, qweqwe, 1, 1, , 1, 0, 123124, 2024-04-22 16:53:34, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:22,358 [http-nio-8083-exec-5] <==        Row: 43, ㄴㅇㄹㅎㄴㅇㄹㅎㄴㅇㄹㅎ, ?????????? 2024-04-16 14.26.32.png, null, 123124214, 1, 1, qweqwe, 1, 0.4, 123123, 2024-04-22 16:49:46, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:22,358 [http-nio-8083-exec-5] <==        Row: 42, ㅇㄴㅎㄹㅇㄹㅎ, ?????????? 2024-03-14 22.34.39.png, null, 123123424, 0, 0, , 0, 0, 12312, 2024-04-22 16:49:26, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:22,362 [http-nio-8083-exec-5] <==        Row: 41, cvbcvb, ?????????? 2024-04-12 07.15.51.png, null, asdasd, 0, 0, , 0, 0, 234234, 2024-04-22 16:47:16, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:22,363 [http-nio-8083-exec-5] <==        Row: 40, asdfasdfasdfsadfasdf, ?????????? 2024-03-17 17.59.22.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:47:03, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:22,363 [http-nio-8083-exec-5] <==        Row: 39, ㅁㄴㅇㅁㄴㅇ, ?????????? 2024-04-22 16.19.33.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:45:54, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:22,363 [http-nio-8083-exec-5] <==        Row: 37, 사진 등록안하고 등록, ?????????? 2024-04-17 23.02.27.png, null, 123, 1, 1, qweqwe, 1, 0.4, 123, 2024-04-22 16:41:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:22,363 [http-nio-8083-exec-5] <==        Row: 34, asdasd, ?????????? 2024-04-05 11.45.38.png, null, qweqwe, 1, 1, qwe, 1, 0.3, 123, 2024-04-19 16:58:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:22,363 [http-nio-8083-exec-5] <==        Row: 33, 얘도수정, ?????????? 2024-04-16 14.26.32.png, null, 123, 1, 1, , 1, 0, 12, 2024-04-19 13:12:27, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:22,363 [http-nio-8083-exec-5] <==        Row: 31, 업데이트, ?????????? 2024-04-16 14.31.48.png, null, 123, 1, 1, , 1, 0, 12, 2024-04-19 13:12:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:22,363 [http-nio-8083-exec-5] <==        Row: 30, ajdwld, ?????????? 2024-03-21 14.43.09.png, null, 123, 1, 1, , 1, 0, 123, 2024-04-19 13:08:30, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 15:59:22,364 [http-nio-8083-exec-5] <==      Total: 12
+2024-04-26 15:59:22,364 [http-nio-8083-exec-5] ==>  Preparing: select count(id) from product
+2024-04-26 15:59:22,364 [http-nio-8083-exec-5] ==> Parameters: 
+2024-04-26 15:59:22,369 [http-nio-8083-exec-5] <==    Columns: count(id)
+2024-04-26 15:59:22,369 [http-nio-8083-exec-5] <==        Row: 35
+2024-04-26 15:59:22,369 [http-nio-8083-exec-5] <==      Total: 1
+2024-04-26 15:59:39,693 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 15:59:51,544 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:00:00,024 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:00:02,056 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:00:04,020 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:00:06,128 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:00:08,235 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:00:10,277 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:00:12,384 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:00:14,420 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:00:16,455 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:00:18,574 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:00:21,687 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:00:24,774 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:00:26,871 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:00:28,922 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:00:32,182 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:01:01,830 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:01:03,863 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:01:05,991 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:01:08,036 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:01:10,079 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:01:13,742 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:01:16,208 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:02:01,134 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:02:03,242 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:02:10,275 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:02:12,408 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:02:15,578 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:02:17,706 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:02:19,818 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:02:45,417 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:02:47,494 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:02:49,633 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:02:51,732 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:02:53,753 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:02:55,794 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:02:57,883 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:02:59,998 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:02,001 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:04,101 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:06,181 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:08,176 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:10,238 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:12,268 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:15,349 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:17,399 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:20,445 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:22,483 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:25,627 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:27,735 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:29,764 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:31,843 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:33,867 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:35,880 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:37,910 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:40,003 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:42,125 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:44,138 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:46,224 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:48,246 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:50,321 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:52,356 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:54,381 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:56,393 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:03:58,458 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:04:00,465 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:04:02,501 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:04:04,556 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:07:58,149 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:08:19,610 [http-nio-8083-exec-7] ==>  Preparing: SELECT * FROM member where username = ?
+2024-04-26 16:08:19,652 [http-nio-8083-exec-7] ==> Parameters: jy(String)
+2024-04-26 16:08:19,676 [http-nio-8083-exec-7] <==    Columns: id, username, name, phone_number, password, email, payment_password, reg_date
+2024-04-26 16:08:19,676 [http-nio-8083-exec-7] <==        Row: 1, jy, 이재용, 01046467979, $2a$12$UyzUlEwXanQRPYBbhi9pweaHGeONWbE45joP6MZ2.f2sJMl5Sd5WC, fjiww@gmail.com, 1234, 2024-04-16 15:54:26
+2024-04-26 16:08:19,676 [http-nio-8083-exec-7] <==      Total: 1
+2024-04-26 16:08:19,693 [http-nio-8083-exec-7] ==>  Preparing: SELECT r.name FROM role r join member_role mr on r.id = mr.role_id and mr.member_id = ?
+2024-04-26 16:08:19,694 [http-nio-8083-exec-7] ==> Parameters: 1(Long)
+2024-04-26 16:08:19,705 [http-nio-8083-exec-7] <==    Columns: name
+2024-04-26 16:08:19,706 [http-nio-8083-exec-7] <==        Row: ROLE_MEMBER
+2024-04-26 16:08:19,706 [http-nio-8083-exec-7] <==        Row: ROLE_ADMIN
+2024-04-26 16:08:19,706 [http-nio-8083-exec-7] <==      Total: 2
+2024-04-26 16:08:20,058 [http-nio-8083-exec-8] ==>  Preparing: select count(id) from product
+2024-04-26 16:08:20,058 [http-nio-8083-exec-8] ==> Parameters: 
+2024-04-26 16:08:20,076 [http-nio-8083-exec-8] <==    Columns: count(id)
+2024-04-26 16:08:20,076 [http-nio-8083-exec-8] <==        Row: 35
+2024-04-26 16:08:20,076 [http-nio-8083-exec-8] <==      Total: 1
+2024-04-26 16:08:20,098 [http-nio-8083-exec-8] ==>  Preparing: SELECT plv.*, nvl(l.member_id IS NOT NULL, 0) current_user_liked FROM mineurs_db.product_list_view plv left join `like` l on l.member_id = 1 and l.product_id = plv.id GROUP BY id ORDER BY reg_date DESC limit ?, ?
+2024-04-26 16:08:20,099 [http-nio-8083-exec-8] ==> Parameters: 0(Long), 10(Integer)
+2024-04-26 16:08:20,113 [http-nio-8083-exec-8] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id, like_count, ct_id, ct_name, pi_id, pi_qty, pi_code, pi_product_id, pi_size_id, pi_color_id, s_id, s_eng_name, c_id, c_kor_name, c_eng_name, c_hex_code, current_user_liked
+2024-04-26 16:08:20,113 [http-nio-8083-exec-8] <==        Row: 46, ghfghfgh, Non-Img, null, werwer, 1, 1, sdfg, 1, 0, 123123, 2024-04-26 10:12:22, 4, 0, 4, Dress, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:08:20,114 [http-nio-8083-exec-8] <==        Row: 44, asdfasdf, ?????????? 2024-04-18 21.34.44.png, null, qweqwe, 1, 1, , 1, 0, 123124, 2024-04-22 16:53:34, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:08:20,115 [http-nio-8083-exec-8] <==        Row: 43, ㄴㅇㄹㅎㄴㅇㄹㅎㄴㅇㄹㅎ, ?????????? 2024-04-16 14.26.32.png, null, 123124214, 1, 1, qweqwe, 1, 0.4, 123123, 2024-04-22 16:49:46, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:08:20,116 [http-nio-8083-exec-8] <==        Row: 42, ㅇㄴㅎㄹㅇㄹㅎ, ?????????? 2024-03-14 22.34.39.png, null, 123123424, 0, 0, , 0, 0, 12312, 2024-04-22 16:49:26, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:08:20,117 [http-nio-8083-exec-8] <==        Row: 41, cvbcvb, ?????????? 2024-04-12 07.15.51.png, null, asdasd, 0, 0, , 0, 0, 234234, 2024-04-22 16:47:16, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:08:20,117 [http-nio-8083-exec-8] <==        Row: 40, asdfasdfasdfsadfasdf, ?????????? 2024-03-17 17.59.22.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:47:03, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:08:20,119 [http-nio-8083-exec-8] <==        Row: 39, ㅁㄴㅇㅁㄴㅇ, ?????????? 2024-04-22 16.19.33.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:45:54, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:08:20,119 [http-nio-8083-exec-8] <==        Row: 37, 사진 등록안하고 등록, ?????????? 2024-04-17 23.02.27.png, null, 123, 1, 1, qweqwe, 1, 0.4, 123, 2024-04-22 16:41:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:08:20,120 [http-nio-8083-exec-8] <==        Row: 34, asdasd, ?????????? 2024-04-05 11.45.38.png, null, qweqwe, 1, 1, qwe, 1, 0.3, 123, 2024-04-19 16:58:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:08:20,120 [http-nio-8083-exec-8] <==        Row: 33, 얘도수정, ?????????? 2024-04-16 14.26.32.png, null, 123, 1, 1, , 1, 0, 12, 2024-04-19 13:12:27, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:08:20,121 [http-nio-8083-exec-8] <==      Total: 10
+2024-04-26 16:08:20,123 [http-nio-8083-exec-8] ==>  Preparing: select count(id) from product
+2024-04-26 16:08:20,123 [http-nio-8083-exec-8] ==> Parameters: 
+2024-04-26 16:08:20,135 [http-nio-8083-exec-8] <==    Columns: count(id)
+2024-04-26 16:08:20,135 [http-nio-8083-exec-8] <==        Row: 35
+2024-04-26 16:08:20,135 [http-nio-8083-exec-8] <==      Total: 1
+2024-04-26 16:08:20,136 [http-nio-8083-exec-8] ==>  Preparing: SELECT * FROM category order by `order`
+2024-04-26 16:08:20,136 [http-nio-8083-exec-8] ==> Parameters: 
+2024-04-26 16:08:20,142 [http-nio-8083-exec-8] <==    Columns: id, name, order
+2024-04-26 16:08:20,142 [http-nio-8083-exec-8] <==        Row: 3, Top, 1
+2024-04-26 16:08:20,151 [http-nio-8083-exec-8] <==        Row: 2, Bottom, 2
+2024-04-26 16:08:20,151 [http-nio-8083-exec-8] <==        Row: 4, Dress, 3
+2024-04-26 16:08:20,151 [http-nio-8083-exec-8] <==        Row: 1, Outer, 4
+2024-04-26 16:08:20,151 [http-nio-8083-exec-8] <==        Row: 5, ETC, 5
+2024-04-26 16:08:20,151 [http-nio-8083-exec-8] <==      Total: 5
+2024-04-26 16:08:20,151 [http-nio-8083-exec-8] --------------------------------------
+2024-04-26 16:08:20,151 [http-nio-8083-exec-8] Method name = [list]
+2024-04-26 16:08:20,151 [http-nio-8083-exec-8] Execution time: 0.099s
+2024-04-26 16:08:20,151 [http-nio-8083-exec-8] --------------------------------------
+2024-04-26 16:08:56,741 [http-nio-8083-exec-3] ==>  Preparing: SELECT * FROM product where id = ?
+2024-04-26 16:08:56,742 [http-nio-8083-exec-3] ==> Parameters: 44(Long)
+2024-04-26 16:08:56,747 [http-nio-8083-exec-3] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id
+2024-04-26 16:08:56,747 [http-nio-8083-exec-3] <==        Row: 44, asdfasdf, ?????????? 2024-04-18 21.34.44.png, null, qweqwe, 1, 1, , 1, 0, 123124, 2024-04-22 16:53:34, 1
+2024-04-26 16:08:56,749 [http-nio-8083-exec-3] <==      Total: 1
+2024-04-26 16:08:56,750 [http-nio-8083-exec-3] ==>  Preparing: SELECT * FROM category order by `order`
+2024-04-26 16:08:56,750 [http-nio-8083-exec-3] ==> Parameters: 
+2024-04-26 16:08:56,754 [http-nio-8083-exec-3] <==    Columns: id, name, order
+2024-04-26 16:08:56,754 [http-nio-8083-exec-3] <==        Row: 3, Top, 1
+2024-04-26 16:08:56,755 [http-nio-8083-exec-3] <==        Row: 2, Bottom, 2
+2024-04-26 16:08:56,755 [http-nio-8083-exec-3] <==        Row: 4, Dress, 3
+2024-04-26 16:08:56,756 [http-nio-8083-exec-3] <==        Row: 1, Outer, 4
+2024-04-26 16:08:56,757 [http-nio-8083-exec-3] <==        Row: 5, ETC, 5
+2024-04-26 16:08:56,757 [http-nio-8083-exec-3] <==      Total: 5
+2024-04-26 16:08:56,758 [http-nio-8083-exec-3] ==>  Preparing: select * from sub_img where product_id = ?
+2024-04-26 16:08:56,758 [http-nio-8083-exec-3] ==> Parameters: 44(Long)
+2024-04-26 16:08:56,758 [http-nio-8083-exec-3] <==    Columns: id, path, product_id
+2024-04-26 16:08:56,758 [http-nio-8083-exec-3] <==        Row: 47, Non-Img, 44
+2024-04-26 16:08:56,758 [http-nio-8083-exec-3] <==      Total: 1
+2024-04-26 16:08:56,758 [http-nio-8083-exec-3] --------------------------------------
+2024-04-26 16:08:56,758 [http-nio-8083-exec-3] Method name = [detail]
+2024-04-26 16:08:56,758 [http-nio-8083-exec-3] Execution time: 0.020s
+2024-04-26 16:08:56,758 [http-nio-8083-exec-3] --------------------------------------
+2024-04-26 16:08:58,432 [http-nio-8083-exec-10] ==>  Preparing: SELECT * FROM product where id = ?
+2024-04-26 16:08:58,432 [http-nio-8083-exec-10] ==> Parameters: 44(Long)
+2024-04-26 16:08:58,449 [http-nio-8083-exec-10] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id
+2024-04-26 16:08:58,449 [http-nio-8083-exec-10] <==        Row: 44, asdfasdf, ?????????? 2024-04-18 21.34.44.png, null, qweqwe, 1, 1, , 1, 0, 123124, 2024-04-22 16:53:34, 1
+2024-04-26 16:08:58,449 [http-nio-8083-exec-10] <==      Total: 1
+2024-04-26 16:08:58,449 [http-nio-8083-exec-10] ==>  Preparing: UPDATE product SET name = ?, price = ?, main_img_path = ?, description = ?, is_displayed = ?, is_sold = ?, code = ?, is_delivery_today = ?, discount_rate = ?, category_id = ? where id = ?
+2024-04-26 16:08:58,449 [http-nio-8083-exec-10] ==> Parameters: asdfasdf(String), 123124(Integer), ?????????? 2024-04-18 21.34.44.png(String), qweqwe(String), true(Boolean), true(Boolean), (String), true(Boolean), 0.0(Double), 1(Long), 44(Long)
+2024-04-26 16:08:58,449 [http-nio-8083-exec-10] <==    Updates: 1
+2024-04-26 16:08:58,449 [http-nio-8083-exec-10] ==>  Preparing: select * from sub_img where product_id = ?
+2024-04-26 16:08:58,449 [http-nio-8083-exec-10] ==> Parameters: 44(Long)
+2024-04-26 16:08:58,464 [http-nio-8083-exec-10] <==    Columns: id, path, product_id
+2024-04-26 16:08:58,464 [http-nio-8083-exec-10] <==        Row: 47, Non-Img, 44
+2024-04-26 16:08:58,465 [http-nio-8083-exec-10] <==      Total: 1
+2024-04-26 16:08:58,466 [http-nio-8083-exec-10] ==>  Preparing: UPDATE sub_img SET path = ? WHERE product_id = ? and id = ?
+2024-04-26 16:08:58,466 [http-nio-8083-exec-10] ==> Parameters: Non-Img(String), 44(Long), 47(Long)
+2024-04-26 16:08:58,466 [http-nio-8083-exec-10] <==    Updates: 1
+2024-04-26 16:08:58,466 [http-nio-8083-exec-10] --------------------------------------
+2024-04-26 16:08:58,466 [http-nio-8083-exec-10] Method name = [edit]
+2024-04-26 16:08:58,466 [http-nio-8083-exec-10] Execution time: 0.034s
+2024-04-26 16:08:58,466 [http-nio-8083-exec-10] --------------------------------------
+2024-04-26 16:08:58,504 [http-nio-8083-exec-10] ==>  Preparing: select count(id) from product
+2024-04-26 16:08:58,504 [http-nio-8083-exec-10] ==> Parameters: 
+2024-04-26 16:08:58,504 [http-nio-8083-exec-10] <==    Columns: count(id)
+2024-04-26 16:08:58,504 [http-nio-8083-exec-10] <==        Row: 35
+2024-04-26 16:08:58,504 [http-nio-8083-exec-10] <==      Total: 1
+2024-04-26 16:08:58,516 [http-nio-8083-exec-10] ==>  Preparing: SELECT plv.*, nvl(l.member_id IS NOT NULL, 0) current_user_liked FROM mineurs_db.product_list_view plv left join `like` l on l.member_id = 1 and l.product_id = plv.id GROUP BY id ORDER BY reg_date DESC limit ?, ?
+2024-04-26 16:08:58,516 [http-nio-8083-exec-10] ==> Parameters: 0(Long), 10(Integer)
+2024-04-26 16:08:58,516 [http-nio-8083-exec-10] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id, like_count, ct_id, ct_name, pi_id, pi_qty, pi_code, pi_product_id, pi_size_id, pi_color_id, s_id, s_eng_name, c_id, c_kor_name, c_eng_name, c_hex_code, current_user_liked
+2024-04-26 16:08:58,516 [http-nio-8083-exec-10] <==        Row: 46, ghfghfgh, Non-Img, null, werwer, 1, 1, sdfg, 1, 0, 123123, 2024-04-26 10:12:22, 4, 0, 4, Dress, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:08:58,516 [http-nio-8083-exec-10] <==        Row: 44, asdfasdf, ?????????? 2024-04-18 21.34.44.png, null, qweqwe, 1, 1, , 1, 0, 123124, 2024-04-22 16:53:34, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:08:58,530 [http-nio-8083-exec-10] <==        Row: 43, ㄴㅇㄹㅎㄴㅇㄹㅎㄴㅇㄹㅎ, ?????????? 2024-04-16 14.26.32.png, null, 123124214, 1, 1, qweqwe, 1, 0.4, 123123, 2024-04-22 16:49:46, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:08:58,531 [http-nio-8083-exec-10] <==        Row: 42, ㅇㄴㅎㄹㅇㄹㅎ, ?????????? 2024-03-14 22.34.39.png, null, 123123424, 0, 0, , 0, 0, 12312, 2024-04-22 16:49:26, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:08:58,532 [http-nio-8083-exec-10] <==        Row: 41, cvbcvb, ?????????? 2024-04-12 07.15.51.png, null, asdasd, 0, 0, , 0, 0, 234234, 2024-04-22 16:47:16, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:08:58,532 [http-nio-8083-exec-10] <==        Row: 40, asdfasdfasdfsadfasdf, ?????????? 2024-03-17 17.59.22.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:47:03, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:08:58,532 [http-nio-8083-exec-10] <==        Row: 39, ㅁㄴㅇㅁㄴㅇ, ?????????? 2024-04-22 16.19.33.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:45:54, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:08:58,532 [http-nio-8083-exec-10] <==        Row: 37, 사진 등록안하고 등록, ?????????? 2024-04-17 23.02.27.png, null, 123, 1, 1, qweqwe, 1, 0.4, 123, 2024-04-22 16:41:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:08:58,532 [http-nio-8083-exec-10] <==        Row: 34, asdasd, ?????????? 2024-04-05 11.45.38.png, null, qweqwe, 1, 1, qwe, 1, 0.3, 123, 2024-04-19 16:58:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:08:58,532 [http-nio-8083-exec-10] <==        Row: 33, 얘도수정, ?????????? 2024-04-16 14.26.32.png, null, 123, 1, 1, , 1, 0, 12, 2024-04-19 13:12:27, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:08:58,532 [http-nio-8083-exec-10] <==      Total: 10
+2024-04-26 16:08:58,532 [http-nio-8083-exec-10] ==>  Preparing: select count(id) from product
+2024-04-26 16:08:58,532 [http-nio-8083-exec-10] ==> Parameters: 
+2024-04-26 16:08:58,548 [http-nio-8083-exec-10] <==    Columns: count(id)
+2024-04-26 16:08:58,548 [http-nio-8083-exec-10] <==        Row: 35
+2024-04-26 16:08:58,548 [http-nio-8083-exec-10] <==      Total: 1
+2024-04-26 16:08:58,548 [http-nio-8083-exec-10] ==>  Preparing: SELECT * FROM category order by `order`
+2024-04-26 16:08:58,548 [http-nio-8083-exec-10] ==> Parameters: 
+2024-04-26 16:08:58,548 [http-nio-8083-exec-10] <==    Columns: id, name, order
+2024-04-26 16:08:58,548 [http-nio-8083-exec-10] <==        Row: 3, Top, 1
+2024-04-26 16:08:58,548 [http-nio-8083-exec-10] <==        Row: 2, Bottom, 2
+2024-04-26 16:08:58,548 [http-nio-8083-exec-10] <==        Row: 4, Dress, 3
+2024-04-26 16:08:58,548 [http-nio-8083-exec-10] <==        Row: 1, Outer, 4
+2024-04-26 16:08:58,548 [http-nio-8083-exec-10] <==        Row: 5, ETC, 5
+2024-04-26 16:08:58,548 [http-nio-8083-exec-10] <==      Total: 5
+2024-04-26 16:08:58,548 [http-nio-8083-exec-10] --------------------------------------
+2024-04-26 16:08:58,548 [http-nio-8083-exec-10] Method name = [list]
+2024-04-26 16:08:58,548 [http-nio-8083-exec-10] Execution time: 0.044s
+2024-04-26 16:08:58,548 [http-nio-8083-exec-10] --------------------------------------
+2024-04-26 16:09:02,485 [http-nio-8083-exec-5] ==>  Preparing: SELECT * FROM product where id = ?
+2024-04-26 16:09:02,485 [http-nio-8083-exec-5] ==> Parameters: 41(Long)
+2024-04-26 16:09:02,492 [http-nio-8083-exec-5] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id
+2024-04-26 16:09:02,492 [http-nio-8083-exec-5] <==        Row: 41, cvbcvb, ?????????? 2024-04-12 07.15.51.png, null, asdasd, 0, 0, , 0, 0, 234234, 2024-04-22 16:47:16, 1
+2024-04-26 16:09:02,492 [http-nio-8083-exec-5] <==      Total: 1
+2024-04-26 16:09:02,493 [http-nio-8083-exec-5] ==>  Preparing: SELECT * FROM category order by `order`
+2024-04-26 16:09:02,494 [http-nio-8083-exec-5] ==> Parameters: 
+2024-04-26 16:09:02,498 [http-nio-8083-exec-5] <==    Columns: id, name, order
+2024-04-26 16:09:02,498 [http-nio-8083-exec-5] <==        Row: 3, Top, 1
+2024-04-26 16:09:02,499 [http-nio-8083-exec-5] <==        Row: 2, Bottom, 2
+2024-04-26 16:09:02,499 [http-nio-8083-exec-5] <==        Row: 4, Dress, 3
+2024-04-26 16:09:02,499 [http-nio-8083-exec-5] <==        Row: 1, Outer, 4
+2024-04-26 16:09:02,499 [http-nio-8083-exec-5] <==        Row: 5, ETC, 5
+2024-04-26 16:09:02,499 [http-nio-8083-exec-5] <==      Total: 5
+2024-04-26 16:09:02,500 [http-nio-8083-exec-5] ==>  Preparing: select * from sub_img where product_id = ?
+2024-04-26 16:09:02,500 [http-nio-8083-exec-5] ==> Parameters: 41(Long)
+2024-04-26 16:09:02,505 [http-nio-8083-exec-5] <==    Columns: id, path, product_id
+2024-04-26 16:09:02,505 [http-nio-8083-exec-5] <==        Row: 57, Non-Img, 41
+2024-04-26 16:09:02,505 [http-nio-8083-exec-5] <==      Total: 1
+2024-04-26 16:09:02,505 [http-nio-8083-exec-5] --------------------------------------
+2024-04-26 16:09:02,505 [http-nio-8083-exec-5] Method name = [detail]
+2024-04-26 16:09:02,505 [http-nio-8083-exec-5] Execution time: 0.024s
+2024-04-26 16:09:02,505 [http-nio-8083-exec-5] --------------------------------------
+2024-04-26 16:09:06,074 [http-nio-8083-exec-4] ==>  Preparing: SELECT * FROM product where id = ?
+2024-04-26 16:09:06,074 [http-nio-8083-exec-4] ==> Parameters: 41(Long)
+2024-04-26 16:09:06,074 [http-nio-8083-exec-4] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id
+2024-04-26 16:09:06,074 [http-nio-8083-exec-4] <==        Row: 41, cvbcvb, ?????????? 2024-04-12 07.15.51.png, null, asdasd, 0, 0, , 0, 0, 234234, 2024-04-22 16:47:16, 1
+2024-04-26 16:09:06,091 [http-nio-8083-exec-4] <==      Total: 1
+2024-04-26 16:09:06,092 [http-nio-8083-exec-4] ==>  Preparing: UPDATE product SET name = ?, price = ?, main_img_path = ?, description = ?, is_displayed = ?, is_sold = ?, code = ?, is_delivery_today = ?, discount_rate = ?, category_id = ? where id = ?
+2024-04-26 16:09:06,092 [http-nio-8083-exec-4] ==> Parameters: cvbcvb(String), 234234(Integer), ?????????? 2024-04-12 07.15.51.png(String), asdasd(String), false(Boolean), false(Boolean), (String), false(Boolean), 0.0(Double), 1(Long), 41(Long)
+2024-04-26 16:09:06,092 [http-nio-8083-exec-4] <==    Updates: 1
+2024-04-26 16:09:06,092 [http-nio-8083-exec-4] ==>  Preparing: select * from sub_img where product_id = ?
+2024-04-26 16:09:06,092 [http-nio-8083-exec-4] ==> Parameters: 41(Long)
+2024-04-26 16:09:06,108 [http-nio-8083-exec-4] <==    Columns: id, path, product_id
+2024-04-26 16:09:06,108 [http-nio-8083-exec-4] <==        Row: 57, Non-Img, 41
+2024-04-26 16:09:06,109 [http-nio-8083-exec-4] <==      Total: 1
+2024-04-26 16:09:06,110 [http-nio-8083-exec-4] ==>  Preparing: UPDATE sub_img SET path = ? WHERE product_id = ? and id = ?
+2024-04-26 16:09:06,110 [http-nio-8083-exec-4] ==> Parameters: Non-Img(String), 41(Long), 57(Long)
+2024-04-26 16:09:06,110 [http-nio-8083-exec-4] <==    Updates: 1
+2024-04-26 16:09:06,110 [http-nio-8083-exec-4] --------------------------------------
+2024-04-26 16:09:06,110 [http-nio-8083-exec-4] Method name = [edit]
+2024-04-26 16:09:06,110 [http-nio-8083-exec-4] Execution time: 0.036s
+2024-04-26 16:09:06,110 [http-nio-8083-exec-4] --------------------------------------
+2024-04-26 16:09:06,125 [http-nio-8083-exec-4] ==>  Preparing: select count(id) from product
+2024-04-26 16:09:06,125 [http-nio-8083-exec-4] ==> Parameters: 
+2024-04-26 16:09:06,125 [http-nio-8083-exec-4] <==    Columns: count(id)
+2024-04-26 16:09:06,125 [http-nio-8083-exec-4] <==        Row: 35
+2024-04-26 16:09:06,125 [http-nio-8083-exec-4] <==      Total: 1
+2024-04-26 16:09:06,125 [http-nio-8083-exec-4] ==>  Preparing: SELECT plv.*, nvl(l.member_id IS NOT NULL, 0) current_user_liked FROM mineurs_db.product_list_view plv left join `like` l on l.member_id = 1 and l.product_id = plv.id GROUP BY id ORDER BY reg_date DESC limit ?, ?
+2024-04-26 16:09:06,125 [http-nio-8083-exec-4] ==> Parameters: 0(Long), 10(Integer)
+2024-04-26 16:09:06,141 [http-nio-8083-exec-4] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id, like_count, ct_id, ct_name, pi_id, pi_qty, pi_code, pi_product_id, pi_size_id, pi_color_id, s_id, s_eng_name, c_id, c_kor_name, c_eng_name, c_hex_code, current_user_liked
+2024-04-26 16:09:06,141 [http-nio-8083-exec-4] <==        Row: 46, ghfghfgh, Non-Img, null, werwer, 1, 1, sdfg, 1, 0, 123123, 2024-04-26 10:12:22, 4, 0, 4, Dress, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:06,141 [http-nio-8083-exec-4] <==        Row: 44, asdfasdf, ?????????? 2024-04-18 21.34.44.png, null, qweqwe, 1, 1, , 1, 0, 123124, 2024-04-22 16:53:34, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:06,141 [http-nio-8083-exec-4] <==        Row: 43, ㄴㅇㄹㅎㄴㅇㄹㅎㄴㅇㄹㅎ, ?????????? 2024-04-16 14.26.32.png, null, 123124214, 1, 1, qweqwe, 1, 0.4, 123123, 2024-04-22 16:49:46, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:06,141 [http-nio-8083-exec-4] <==        Row: 42, ㅇㄴㅎㄹㅇㄹㅎ, ?????????? 2024-03-14 22.34.39.png, null, 123123424, 0, 0, , 0, 0, 12312, 2024-04-22 16:49:26, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:06,141 [http-nio-8083-exec-4] <==        Row: 41, cvbcvb, ?????????? 2024-04-12 07.15.51.png, null, asdasd, 0, 0, , 0, 0, 234234, 2024-04-22 16:47:16, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:06,141 [http-nio-8083-exec-4] <==        Row: 40, asdfasdfasdfsadfasdf, ?????????? 2024-03-17 17.59.22.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:47:03, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:06,141 [http-nio-8083-exec-4] <==        Row: 39, ㅁㄴㅇㅁㄴㅇ, ?????????? 2024-04-22 16.19.33.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:45:54, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:06,141 [http-nio-8083-exec-4] <==        Row: 37, 사진 등록안하고 등록, ?????????? 2024-04-17 23.02.27.png, null, 123, 1, 1, qweqwe, 1, 0.4, 123, 2024-04-22 16:41:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:06,141 [http-nio-8083-exec-4] <==        Row: 34, asdasd, ?????????? 2024-04-05 11.45.38.png, null, qweqwe, 1, 1, qwe, 1, 0.3, 123, 2024-04-19 16:58:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:06,141 [http-nio-8083-exec-4] <==        Row: 33, 얘도수정, ?????????? 2024-04-16 14.26.32.png, null, 123, 1, 1, , 1, 0, 12, 2024-04-19 13:12:27, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:06,141 [http-nio-8083-exec-4] <==      Total: 10
+2024-04-26 16:09:06,141 [http-nio-8083-exec-4] ==>  Preparing: select count(id) from product
+2024-04-26 16:09:06,141 [http-nio-8083-exec-4] ==> Parameters: 
+2024-04-26 16:09:06,158 [http-nio-8083-exec-4] <==    Columns: count(id)
+2024-04-26 16:09:06,158 [http-nio-8083-exec-4] <==        Row: 35
+2024-04-26 16:09:06,158 [http-nio-8083-exec-4] <==      Total: 1
+2024-04-26 16:09:06,158 [http-nio-8083-exec-4] ==>  Preparing: SELECT * FROM category order by `order`
+2024-04-26 16:09:06,158 [http-nio-8083-exec-4] ==> Parameters: 
+2024-04-26 16:09:06,158 [http-nio-8083-exec-4] <==    Columns: id, name, order
+2024-04-26 16:09:06,158 [http-nio-8083-exec-4] <==        Row: 3, Top, 1
+2024-04-26 16:09:06,158 [http-nio-8083-exec-4] <==        Row: 2, Bottom, 2
+2024-04-26 16:09:06,158 [http-nio-8083-exec-4] <==        Row: 4, Dress, 3
+2024-04-26 16:09:06,158 [http-nio-8083-exec-4] <==        Row: 1, Outer, 4
+2024-04-26 16:09:06,158 [http-nio-8083-exec-4] <==        Row: 5, ETC, 5
+2024-04-26 16:09:06,158 [http-nio-8083-exec-4] <==      Total: 5
+2024-04-26 16:09:06,158 [http-nio-8083-exec-4] --------------------------------------
+2024-04-26 16:09:06,158 [http-nio-8083-exec-4] Method name = [list]
+2024-04-26 16:09:06,158 [http-nio-8083-exec-4] Execution time: 0.033s
+2024-04-26 16:09:06,158 [http-nio-8083-exec-4] --------------------------------------
+2024-04-26 16:09:08,387 [http-nio-8083-exec-6] ==>  Preparing: SELECT * FROM category order by `order`
+2024-04-26 16:09:08,387 [http-nio-8083-exec-6] ==> Parameters: 
+2024-04-26 16:09:08,393 [http-nio-8083-exec-6] <==    Columns: id, name, order
+2024-04-26 16:09:08,393 [http-nio-8083-exec-6] <==        Row: 3, Top, 1
+2024-04-26 16:09:08,394 [http-nio-8083-exec-6] <==        Row: 2, Bottom, 2
+2024-04-26 16:09:08,394 [http-nio-8083-exec-6] <==        Row: 4, Dress, 3
+2024-04-26 16:09:08,394 [http-nio-8083-exec-6] <==        Row: 1, Outer, 4
+2024-04-26 16:09:08,394 [http-nio-8083-exec-6] <==        Row: 5, ETC, 5
+2024-04-26 16:09:08,394 [http-nio-8083-exec-6] <==      Total: 5
+2024-04-26 16:09:08,396 [http-nio-8083-exec-6] ==>  Preparing: SELECT plv.*, nvl(l.member_id IS NOT NULL, 0) current_user_liked FROM mineurs_db.product_list_view plv left join `like` l on l.member_id = 1 and l.product_id = plv.id GROUP BY id ORDER BY reg_date DESC limit ?, ?
+2024-04-26 16:09:08,396 [http-nio-8083-exec-6] ==> Parameters: 12(Long), 12(Integer)
+2024-04-26 16:09:08,406 [http-nio-8083-exec-6] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id, like_count, ct_id, ct_name, pi_id, pi_qty, pi_code, pi_product_id, pi_size_id, pi_color_id, s_id, s_eng_name, c_id, c_kor_name, c_eng_name, c_hex_code, current_user_liked
+2024-04-26 16:09:08,406 [http-nio-8083-exec-6] <==        Row: 29, imgFileNull, imgchange.png, null, 123123, 1, 1, qwe, 1, 0.3, 123, 2024-04-19 13:06:31, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:08,406 [http-nio-8083-exec-6] <==        Row: 28, pqweior, ?????????? 2024-04-15 21.50.53.png, null, wewer, 1, 1, xcvxcv, 1, 0.3, 123, 2024-04-19 11:16:43, 3, 0, 3, Top, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:08,406 [http-nio-8083-exec-6] <==        Row: 27, 이미지 경로 변경 설정 테스트, ?????????? 2024-04-15 22.27.59.png, null, ㅂㅈㄷㅂㅈㄷ, 1, 1, qwe, 1, 0.3, 123, 2024-04-19 11:13:14, 2, 0, 2, Bottom, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:08,406 [http-nio-8083-exec-6] <==        Row: 26, is_delivery_today, ?????????? 2024-04-18 21.48.42.png, null, 123123, 1, 1, qwe, 1, 0.3, 123, 2024-04-19 10:19:17, 3, 0, 3, Top, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:08,410 [http-nio-8083-exec-6] <==        Row: 25, 아아아ㅏ앙, null, null, 123, 1, 1, qwe, 1, 0.5, 12323, 2024-04-18 18:18:27, 4, 0, 4, Dress, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:08,410 [http-nio-8083-exec-6] <==        Row: 22, g했음, ?????????? 2024-04-05 11.46.51.png, null, 123123, 1, 1, qweqwe, 1, 0, 123, 2024-04-18 17:10:06, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:08,410 [http-nio-8083-exec-6] <==        Row: 20, qweqwe, ?????????? 2024-04-18 11.51.48.png, null, dsf, 1, 1, , 1, 0, 123123, 2024-04-18 17:05:59, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:08,410 [http-nio-8083-exec-6] <==        Row: 19, 이미지너무커 씨이발, ?????????? 2024-04-18 12.02.00.png, null, ㅈㄷ, 0, 1, , 0, 0, 123, 2024-04-18 17:03:43, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:08,410 [http-nio-8083-exec-6] <==        Row: 18, selectKey추ㅏㄱ, ?????????? 2024-04-05 11.44.44.png, null, ㅂㅈㄷㅂㅈㄷ, 1, 1, , 1, 0, 123, 2024-04-18 17:00:16, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:08,411 [http-nio-8083-exec-6] <==        Row: 17, 상품수정해볼까, ?????????? 2024-04-05 11.45.38.png, null, ㅂㅈㄷㅂㅈㄷ, 1, 1, wer, 1, 0.4, 123124, 2024-04-18 16:22:21, 3, 0, 3, Top, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:08,411 [http-nio-8083-exec-6] <==        Row: 16, AffectedRow, sadasdasd.png, null, 123123, 1, 1, 4545, 1, 0.5, 123, 2024-04-18 16:19:18, 2, 0, 2, Bottom, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:08,411 [http-nio-8083-exec-6] <==        Row: 15, 상품이룸중복안돼 ㅠㅠ, ?????????? 2024-04-17 07.01.58.png, null, 123123, 1, 1, 4545, 1, 0.5, 123, 2024-04-18 16:16:38, 2, 0, 2, Bottom, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:08,411 [http-nio-8083-exec-6] <==      Total: 12
+2024-04-26 16:09:08,411 [http-nio-8083-exec-6] ==>  Preparing: select count(id) from product
+2024-04-26 16:09:08,411 [http-nio-8083-exec-6] ==> Parameters: 
+2024-04-26 16:09:08,411 [http-nio-8083-exec-6] <==    Columns: count(id)
+2024-04-26 16:09:08,411 [http-nio-8083-exec-6] <==        Row: 35
+2024-04-26 16:09:08,411 [http-nio-8083-exec-6] <==      Total: 1
+2024-04-26 16:09:11,802 [http-nio-8083-exec-6] ==>  Preparing: select count(id) from product
+2024-04-26 16:09:11,802 [http-nio-8083-exec-6] ==> Parameters: 
+2024-04-26 16:09:11,807 [http-nio-8083-exec-6] <==    Columns: count(id)
+2024-04-26 16:09:11,808 [http-nio-8083-exec-6] <==        Row: 35
+2024-04-26 16:09:11,808 [http-nio-8083-exec-6] <==      Total: 1
+2024-04-26 16:09:11,810 [http-nio-8083-exec-6] ==>  Preparing: SELECT plv.*, nvl(l.member_id IS NOT NULL, 0) current_user_liked FROM mineurs_db.product_list_view plv left join `like` l on l.member_id = 1 and l.product_id = plv.id GROUP BY id ORDER BY reg_date DESC limit ?, ?
+2024-04-26 16:09:11,810 [http-nio-8083-exec-6] ==> Parameters: 0(Long), 10(Integer)
+2024-04-26 16:09:11,819 [http-nio-8083-exec-6] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id, like_count, ct_id, ct_name, pi_id, pi_qty, pi_code, pi_product_id, pi_size_id, pi_color_id, s_id, s_eng_name, c_id, c_kor_name, c_eng_name, c_hex_code, current_user_liked
+2024-04-26 16:09:11,819 [http-nio-8083-exec-6] <==        Row: 46, ghfghfgh, Non-Img, null, werwer, 1, 1, sdfg, 1, 0, 123123, 2024-04-26 10:12:22, 4, 0, 4, Dress, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:11,819 [http-nio-8083-exec-6] <==        Row: 44, asdfasdf, ?????????? 2024-04-18 21.34.44.png, null, qweqwe, 1, 1, , 1, 0, 123124, 2024-04-22 16:53:34, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:11,819 [http-nio-8083-exec-6] <==        Row: 43, ㄴㅇㄹㅎㄴㅇㄹㅎㄴㅇㄹㅎ, ?????????? 2024-04-16 14.26.32.png, null, 123124214, 1, 1, qweqwe, 1, 0.4, 123123, 2024-04-22 16:49:46, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:11,819 [http-nio-8083-exec-6] <==        Row: 42, ㅇㄴㅎㄹㅇㄹㅎ, ?????????? 2024-03-14 22.34.39.png, null, 123123424, 0, 0, , 0, 0, 12312, 2024-04-22 16:49:26, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:11,819 [http-nio-8083-exec-6] <==        Row: 41, cvbcvb, ?????????? 2024-04-12 07.15.51.png, null, asdasd, 0, 0, , 0, 0, 234234, 2024-04-22 16:47:16, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:11,819 [http-nio-8083-exec-6] <==        Row: 40, asdfasdfasdfsadfasdf, ?????????? 2024-03-17 17.59.22.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:47:03, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:11,819 [http-nio-8083-exec-6] <==        Row: 39, ㅁㄴㅇㅁㄴㅇ, ?????????? 2024-04-22 16.19.33.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:45:54, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:11,819 [http-nio-8083-exec-6] <==        Row: 37, 사진 등록안하고 등록, ?????????? 2024-04-17 23.02.27.png, null, 123, 1, 1, qweqwe, 1, 0.4, 123, 2024-04-22 16:41:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:11,819 [http-nio-8083-exec-6] <==        Row: 34, asdasd, ?????????? 2024-04-05 11.45.38.png, null, qweqwe, 1, 1, qwe, 1, 0.3, 123, 2024-04-19 16:58:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:11,819 [http-nio-8083-exec-6] <==        Row: 33, 얘도수정, ?????????? 2024-04-16 14.26.32.png, null, 123, 1, 1, , 1, 0, 12, 2024-04-19 13:12:27, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:11,819 [http-nio-8083-exec-6] <==      Total: 10
+2024-04-26 16:09:11,819 [http-nio-8083-exec-6] ==>  Preparing: select count(id) from product
+2024-04-26 16:09:11,819 [http-nio-8083-exec-6] ==> Parameters: 
+2024-04-26 16:09:11,819 [http-nio-8083-exec-6] <==    Columns: count(id)
+2024-04-26 16:09:11,819 [http-nio-8083-exec-6] <==        Row: 35
+2024-04-26 16:09:11,819 [http-nio-8083-exec-6] <==      Total: 1
+2024-04-26 16:09:11,819 [http-nio-8083-exec-6] ==>  Preparing: SELECT * FROM category order by `order`
+2024-04-26 16:09:11,819 [http-nio-8083-exec-6] ==> Parameters: 
+2024-04-26 16:09:11,834 [http-nio-8083-exec-6] <==    Columns: id, name, order
+2024-04-26 16:09:11,834 [http-nio-8083-exec-6] <==        Row: 3, Top, 1
+2024-04-26 16:09:11,835 [http-nio-8083-exec-6] <==        Row: 2, Bottom, 2
+2024-04-26 16:09:11,835 [http-nio-8083-exec-6] <==        Row: 4, Dress, 3
+2024-04-26 16:09:11,836 [http-nio-8083-exec-6] <==        Row: 1, Outer, 4
+2024-04-26 16:09:11,836 [http-nio-8083-exec-6] <==        Row: 5, ETC, 5
+2024-04-26 16:09:11,836 [http-nio-8083-exec-6] <==      Total: 5
+2024-04-26 16:09:11,836 [http-nio-8083-exec-6] --------------------------------------
+2024-04-26 16:09:11,836 [http-nio-8083-exec-6] Method name = [list]
+2024-04-26 16:09:11,836 [http-nio-8083-exec-6] Execution time: 0.050s
+2024-04-26 16:09:11,836 [http-nio-8083-exec-6] --------------------------------------
+2024-04-26 16:09:13,100 [http-nio-8083-exec-7] ==>  Preparing: SELECT * FROM category order by `order`
+2024-04-26 16:09:13,100 [http-nio-8083-exec-7] ==> Parameters: 
+2024-04-26 16:09:13,108 [http-nio-8083-exec-7] <==    Columns: id, name, order
+2024-04-26 16:09:13,108 [http-nio-8083-exec-7] <==        Row: 3, Top, 1
+2024-04-26 16:09:13,108 [http-nio-8083-exec-7] <==        Row: 2, Bottom, 2
+2024-04-26 16:09:13,108 [http-nio-8083-exec-7] <==        Row: 4, Dress, 3
+2024-04-26 16:09:13,109 [http-nio-8083-exec-7] <==        Row: 1, Outer, 4
+2024-04-26 16:09:13,109 [http-nio-8083-exec-7] <==        Row: 5, ETC, 5
+2024-04-26 16:09:13,109 [http-nio-8083-exec-7] <==      Total: 5
+2024-04-26 16:09:13,110 [http-nio-8083-exec-7] ==>  Preparing: SELECT plv.*, nvl(l.member_id IS NOT NULL, 0) current_user_liked FROM mineurs_db.product_list_view plv left join `like` l on l.member_id = 1 and l.product_id = plv.id GROUP BY id ORDER BY reg_date DESC limit ?, ?
+2024-04-26 16:09:13,110 [http-nio-8083-exec-7] ==> Parameters: 12(Long), 12(Integer)
+2024-04-26 16:09:13,110 [http-nio-8083-exec-7] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id, like_count, ct_id, ct_name, pi_id, pi_qty, pi_code, pi_product_id, pi_size_id, pi_color_id, s_id, s_eng_name, c_id, c_kor_name, c_eng_name, c_hex_code, current_user_liked
+2024-04-26 16:09:13,110 [http-nio-8083-exec-7] <==        Row: 29, imgFileNull, imgchange.png, null, 123123, 1, 1, qwe, 1, 0.3, 123, 2024-04-19 13:06:31, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:13,125 [http-nio-8083-exec-7] <==        Row: 28, pqweior, ?????????? 2024-04-15 21.50.53.png, null, wewer, 1, 1, xcvxcv, 1, 0.3, 123, 2024-04-19 11:16:43, 3, 0, 3, Top, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:13,126 [http-nio-8083-exec-7] <==        Row: 27, 이미지 경로 변경 설정 테스트, ?????????? 2024-04-15 22.27.59.png, null, ㅂㅈㄷㅂㅈㄷ, 1, 1, qwe, 1, 0.3, 123, 2024-04-19 11:13:14, 2, 0, 2, Bottom, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:13,126 [http-nio-8083-exec-7] <==        Row: 26, is_delivery_today, ?????????? 2024-04-18 21.48.42.png, null, 123123, 1, 1, qwe, 1, 0.3, 123, 2024-04-19 10:19:17, 3, 0, 3, Top, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:13,127 [http-nio-8083-exec-7] <==        Row: 25, 아아아ㅏ앙, null, null, 123, 1, 1, qwe, 1, 0.5, 12323, 2024-04-18 18:18:27, 4, 0, 4, Dress, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:13,127 [http-nio-8083-exec-7] <==        Row: 22, g했음, ?????????? 2024-04-05 11.46.51.png, null, 123123, 1, 1, qweqwe, 1, 0, 123, 2024-04-18 17:10:06, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:13,127 [http-nio-8083-exec-7] <==        Row: 20, qweqwe, ?????????? 2024-04-18 11.51.48.png, null, dsf, 1, 1, , 1, 0, 123123, 2024-04-18 17:05:59, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:13,127 [http-nio-8083-exec-7] <==        Row: 19, 이미지너무커 씨이발, ?????????? 2024-04-18 12.02.00.png, null, ㅈㄷ, 0, 1, , 0, 0, 123, 2024-04-18 17:03:43, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:13,127 [http-nio-8083-exec-7] <==        Row: 18, selectKey추ㅏㄱ, ?????????? 2024-04-05 11.44.44.png, null, ㅂㅈㄷㅂㅈㄷ, 1, 1, , 1, 0, 123, 2024-04-18 17:00:16, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:13,127 [http-nio-8083-exec-7] <==        Row: 17, 상품수정해볼까, ?????????? 2024-04-05 11.45.38.png, null, ㅂㅈㄷㅂㅈㄷ, 1, 1, wer, 1, 0.4, 123124, 2024-04-18 16:22:21, 3, 0, 3, Top, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:13,127 [http-nio-8083-exec-7] <==        Row: 16, AffectedRow, sadasdasd.png, null, 123123, 1, 1, 4545, 1, 0.5, 123, 2024-04-18 16:19:18, 2, 0, 2, Bottom, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:13,127 [http-nio-8083-exec-7] <==        Row: 15, 상품이룸중복안돼 ㅠㅠ, ?????????? 2024-04-17 07.01.58.png, null, 123123, 1, 1, 4545, 1, 0.5, 123, 2024-04-18 16:16:38, 2, 0, 2, Bottom, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:13,127 [http-nio-8083-exec-7] <==      Total: 12
+2024-04-26 16:09:13,127 [http-nio-8083-exec-7] ==>  Preparing: select count(id) from product
+2024-04-26 16:09:13,127 [http-nio-8083-exec-7] ==> Parameters: 
+2024-04-26 16:09:13,127 [http-nio-8083-exec-7] <==    Columns: count(id)
+2024-04-26 16:09:13,127 [http-nio-8083-exec-7] <==        Row: 35
+2024-04-26 16:09:13,127 [http-nio-8083-exec-7] <==      Total: 1
+2024-04-26 16:09:17,673 [http-nio-8083-exec-10] ==>  Preparing: select count(id) from product
+2024-04-26 16:09:17,673 [http-nio-8083-exec-10] ==> Parameters: 
+2024-04-26 16:09:17,679 [http-nio-8083-exec-10] <==    Columns: count(id)
+2024-04-26 16:09:17,679 [http-nio-8083-exec-10] <==        Row: 35
+2024-04-26 16:09:17,679 [http-nio-8083-exec-10] <==      Total: 1
+2024-04-26 16:09:17,679 [http-nio-8083-exec-10] ==>  Preparing: SELECT plv.*, nvl(l.member_id IS NOT NULL, 0) current_user_liked FROM mineurs_db.product_list_view plv left join `like` l on l.member_id = 1 and l.product_id = plv.id GROUP BY id ORDER BY reg_date DESC limit ?, ?
+2024-04-26 16:09:17,679 [http-nio-8083-exec-10] ==> Parameters: 0(Long), 10(Integer)
+2024-04-26 16:09:17,688 [http-nio-8083-exec-10] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id, like_count, ct_id, ct_name, pi_id, pi_qty, pi_code, pi_product_id, pi_size_id, pi_color_id, s_id, s_eng_name, c_id, c_kor_name, c_eng_name, c_hex_code, current_user_liked
+2024-04-26 16:09:17,688 [http-nio-8083-exec-10] <==        Row: 46, ghfghfgh, Non-Img, null, werwer, 1, 1, sdfg, 1, 0, 123123, 2024-04-26 10:12:22, 4, 0, 4, Dress, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:17,703 [http-nio-8083-exec-10] <==        Row: 44, asdfasdf, ?????????? 2024-04-18 21.34.44.png, null, qweqwe, 1, 1, , 1, 0, 123124, 2024-04-22 16:53:34, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:17,705 [http-nio-8083-exec-10] <==        Row: 43, ㄴㅇㄹㅎㄴㅇㄹㅎㄴㅇㄹㅎ, ?????????? 2024-04-16 14.26.32.png, null, 123124214, 1, 1, qweqwe, 1, 0.4, 123123, 2024-04-22 16:49:46, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:17,706 [http-nio-8083-exec-10] <==        Row: 42, ㅇㄴㅎㄹㅇㄹㅎ, ?????????? 2024-03-14 22.34.39.png, null, 123123424, 0, 0, , 0, 0, 12312, 2024-04-22 16:49:26, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:17,706 [http-nio-8083-exec-10] <==        Row: 41, cvbcvb, ?????????? 2024-04-12 07.15.51.png, null, asdasd, 0, 0, , 0, 0, 234234, 2024-04-22 16:47:16, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:17,706 [http-nio-8083-exec-10] <==        Row: 40, asdfasdfasdfsadfasdf, ?????????? 2024-03-17 17.59.22.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:47:03, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:17,706 [http-nio-8083-exec-10] <==        Row: 39, ㅁㄴㅇㅁㄴㅇ, ?????????? 2024-04-22 16.19.33.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:45:54, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:17,706 [http-nio-8083-exec-10] <==        Row: 37, 사진 등록안하고 등록, ?????????? 2024-04-17 23.02.27.png, null, 123, 1, 1, qweqwe, 1, 0.4, 123, 2024-04-22 16:41:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:17,706 [http-nio-8083-exec-10] <==        Row: 34, asdasd, ?????????? 2024-04-05 11.45.38.png, null, qweqwe, 1, 1, qwe, 1, 0.3, 123, 2024-04-19 16:58:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:17,706 [http-nio-8083-exec-10] <==        Row: 33, 얘도수정, ?????????? 2024-04-16 14.26.32.png, null, 123, 1, 1, , 1, 0, 12, 2024-04-19 13:12:27, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:17,706 [http-nio-8083-exec-10] <==      Total: 10
+2024-04-26 16:09:17,706 [http-nio-8083-exec-10] ==>  Preparing: select count(id) from product
+2024-04-26 16:09:17,706 [http-nio-8083-exec-10] ==> Parameters: 
+2024-04-26 16:09:17,706 [http-nio-8083-exec-10] <==    Columns: count(id)
+2024-04-26 16:09:17,706 [http-nio-8083-exec-10] <==        Row: 35
+2024-04-26 16:09:17,706 [http-nio-8083-exec-10] <==      Total: 1
+2024-04-26 16:09:17,706 [http-nio-8083-exec-10] ==>  Preparing: SELECT * FROM category order by `order`
+2024-04-26 16:09:17,706 [http-nio-8083-exec-10] ==> Parameters: 
+2024-04-26 16:09:17,721 [http-nio-8083-exec-10] <==    Columns: id, name, order
+2024-04-26 16:09:17,721 [http-nio-8083-exec-10] <==        Row: 3, Top, 1
+2024-04-26 16:09:17,722 [http-nio-8083-exec-10] <==        Row: 2, Bottom, 2
+2024-04-26 16:09:17,722 [http-nio-8083-exec-10] <==        Row: 4, Dress, 3
+2024-04-26 16:09:17,722 [http-nio-8083-exec-10] <==        Row: 1, Outer, 4
+2024-04-26 16:09:17,722 [http-nio-8083-exec-10] <==        Row: 5, ETC, 5
+2024-04-26 16:09:17,722 [http-nio-8083-exec-10] <==      Total: 5
+2024-04-26 16:09:17,722 [http-nio-8083-exec-10] --------------------------------------
+2024-04-26 16:09:17,722 [http-nio-8083-exec-10] Method name = [list]
+2024-04-26 16:09:17,722 [http-nio-8083-exec-10] Execution time: 0.068s
+2024-04-26 16:09:17,722 [http-nio-8083-exec-10] --------------------------------------
+2024-04-26 16:09:19,835 [http-nio-8083-exec-4] ==>  Preparing: SELECT * FROM product where id = ?
+2024-04-26 16:09:19,835 [http-nio-8083-exec-4] ==> Parameters: 46(Long)
+2024-04-26 16:09:19,840 [http-nio-8083-exec-4] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id
+2024-04-26 16:09:19,840 [http-nio-8083-exec-4] <==        Row: 46, ghfghfgh, Non-Img, null, werwer, 1, 1, sdfg, 1, 0, 123123, 2024-04-26 10:12:22, 4
+2024-04-26 16:09:19,841 [http-nio-8083-exec-4] <==      Total: 1
+2024-04-26 16:09:19,841 [http-nio-8083-exec-4] ==>  Preparing: SELECT * FROM category order by `order`
+2024-04-26 16:09:19,841 [http-nio-8083-exec-4] ==> Parameters: 
+2024-04-26 16:09:19,846 [http-nio-8083-exec-4] <==    Columns: id, name, order
+2024-04-26 16:09:19,847 [http-nio-8083-exec-4] <==        Row: 3, Top, 1
+2024-04-26 16:09:19,847 [http-nio-8083-exec-4] <==        Row: 2, Bottom, 2
+2024-04-26 16:09:19,847 [http-nio-8083-exec-4] <==        Row: 4, Dress, 3
+2024-04-26 16:09:19,847 [http-nio-8083-exec-4] <==        Row: 1, Outer, 4
+2024-04-26 16:09:19,847 [http-nio-8083-exec-4] <==        Row: 5, ETC, 5
+2024-04-26 16:09:19,848 [http-nio-8083-exec-4] <==      Total: 5
+2024-04-26 16:09:19,848 [http-nio-8083-exec-4] ==>  Preparing: select * from sub_img where product_id = ?
+2024-04-26 16:09:19,848 [http-nio-8083-exec-4] ==> Parameters: 46(Long)
+2024-04-26 16:09:19,854 [http-nio-8083-exec-4] <==    Columns: id, path, product_id
+2024-04-26 16:09:19,854 [http-nio-8083-exec-4] <==        Row: 80, Non-Img, 46
+2024-04-26 16:09:19,854 [http-nio-8083-exec-4] <==      Total: 1
+2024-04-26 16:09:19,854 [http-nio-8083-exec-4] --------------------------------------
+2024-04-26 16:09:19,854 [http-nio-8083-exec-4] Method name = [detail]
+2024-04-26 16:09:19,854 [http-nio-8083-exec-4] Execution time: 0.024s
+2024-04-26 16:09:19,855 [http-nio-8083-exec-4] --------------------------------------
+2024-04-26 16:09:33,403 [http-nio-8083-exec-8] ==>  Preparing: SELECT * FROM product where id = ?
+2024-04-26 16:09:33,403 [http-nio-8083-exec-8] ==> Parameters: 46(Long)
+2024-04-26 16:09:33,403 [http-nio-8083-exec-8] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id
+2024-04-26 16:09:33,403 [http-nio-8083-exec-8] <==        Row: 46, ghfghfgh, Non-Img, null, werwer, 1, 1, sdfg, 1, 0, 123123, 2024-04-26 10:12:22, 4
+2024-04-26 16:09:33,403 [http-nio-8083-exec-8] <==      Total: 1
+2024-04-26 16:09:33,419 [http-nio-8083-exec-8] ==>  Preparing: UPDATE product SET name = ?, price = ?, main_img_path = ?, description = ?, is_displayed = ?, is_sold = ?, code = ?, is_delivery_today = ?, discount_rate = ?, category_id = ? where id = ?
+2024-04-26 16:09:33,419 [http-nio-8083-exec-8] ==> Parameters: ghfghfgh(String), 123123(Integer), sadasdasd.png(String), werwer(String), true(Boolean), true(Boolean), sdfg(String), true(Boolean), 0.0(Double), 4(Long), 46(Long)
+2024-04-26 16:09:33,419 [http-nio-8083-exec-8] <==    Updates: 1
+2024-04-26 16:09:33,419 [http-nio-8083-exec-8] ==>  Preparing: select * from sub_img where product_id = ?
+2024-04-26 16:09:33,419 [http-nio-8083-exec-8] ==> Parameters: 46(Long)
+2024-04-26 16:09:33,434 [http-nio-8083-exec-8] <==    Columns: id, path, product_id
+2024-04-26 16:09:33,434 [http-nio-8083-exec-8] <==        Row: 80, Non-Img, 46
+2024-04-26 16:09:33,434 [http-nio-8083-exec-8] <==      Total: 1
+2024-04-26 16:09:33,434 [http-nio-8083-exec-8] ==>  Preparing: UPDATE sub_img SET path = ? WHERE product_id = ? and id = ?
+2024-04-26 16:09:33,434 [http-nio-8083-exec-8] ==> Parameters: sadasdasd.png(String), 46(Long), 80(Long)
+2024-04-26 16:09:33,434 [http-nio-8083-exec-8] <==    Updates: 1
+2024-04-26 16:09:33,434 [http-nio-8083-exec-8] --------------------------------------
+2024-04-26 16:09:33,434 [http-nio-8083-exec-8] Method name = [edit]
+2024-04-26 16:09:33,450 [http-nio-8083-exec-8] Execution time: 0.063s
+2024-04-26 16:09:33,450 [http-nio-8083-exec-8] --------------------------------------
+2024-04-26 16:09:33,454 [http-nio-8083-exec-8] ==>  Preparing: select count(id) from product
+2024-04-26 16:09:33,454 [http-nio-8083-exec-8] ==> Parameters: 
+2024-04-26 16:09:33,468 [http-nio-8083-exec-8] <==    Columns: count(id)
+2024-04-26 16:09:33,468 [http-nio-8083-exec-8] <==        Row: 35
+2024-04-26 16:09:33,468 [http-nio-8083-exec-8] <==      Total: 1
+2024-04-26 16:09:33,468 [http-nio-8083-exec-8] ==>  Preparing: SELECT plv.*, nvl(l.member_id IS NOT NULL, 0) current_user_liked FROM mineurs_db.product_list_view plv left join `like` l on l.member_id = 1 and l.product_id = plv.id GROUP BY id ORDER BY reg_date DESC limit ?, ?
+2024-04-26 16:09:33,468 [http-nio-8083-exec-8] ==> Parameters: 0(Long), 10(Integer)
+2024-04-26 16:09:33,477 [http-nio-8083-exec-8] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id, like_count, ct_id, ct_name, pi_id, pi_qty, pi_code, pi_product_id, pi_size_id, pi_color_id, s_id, s_eng_name, c_id, c_kor_name, c_eng_name, c_hex_code, current_user_liked
+2024-04-26 16:09:33,477 [http-nio-8083-exec-8] <==        Row: 46, ghfghfgh, sadasdasd.png, null, werwer, 1, 1, sdfg, 1, 0, 123123, 2024-04-26 10:12:22, 4, 0, 4, Dress, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:33,477 [http-nio-8083-exec-8] <==        Row: 44, asdfasdf, ?????????? 2024-04-18 21.34.44.png, null, qweqwe, 1, 1, , 1, 0, 123124, 2024-04-22 16:53:34, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:33,477 [http-nio-8083-exec-8] <==        Row: 43, ㄴㅇㄹㅎㄴㅇㄹㅎㄴㅇㄹㅎ, ?????????? 2024-04-16 14.26.32.png, null, 123124214, 1, 1, qweqwe, 1, 0.4, 123123, 2024-04-22 16:49:46, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:33,477 [http-nio-8083-exec-8] <==        Row: 42, ㅇㄴㅎㄹㅇㄹㅎ, ?????????? 2024-03-14 22.34.39.png, null, 123123424, 0, 0, , 0, 0, 12312, 2024-04-22 16:49:26, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:33,477 [http-nio-8083-exec-8] <==        Row: 41, cvbcvb, ?????????? 2024-04-12 07.15.51.png, null, asdasd, 0, 0, , 0, 0, 234234, 2024-04-22 16:47:16, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:33,477 [http-nio-8083-exec-8] <==        Row: 40, asdfasdfasdfsadfasdf, ?????????? 2024-03-17 17.59.22.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:47:03, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:33,477 [http-nio-8083-exec-8] <==        Row: 39, ㅁㄴㅇㅁㄴㅇ, ?????????? 2024-04-22 16.19.33.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:45:54, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:33,477 [http-nio-8083-exec-8] <==        Row: 37, 사진 등록안하고 등록, ?????????? 2024-04-17 23.02.27.png, null, 123, 1, 1, qweqwe, 1, 0.4, 123, 2024-04-22 16:41:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:33,477 [http-nio-8083-exec-8] <==        Row: 34, asdasd, ?????????? 2024-04-05 11.45.38.png, null, qweqwe, 1, 1, qwe, 1, 0.3, 123, 2024-04-19 16:58:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:33,477 [http-nio-8083-exec-8] <==        Row: 33, 얘도수정, ?????????? 2024-04-16 14.26.32.png, null, 123, 1, 1, , 1, 0, 12, 2024-04-19 13:12:27, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:09:33,477 [http-nio-8083-exec-8] <==      Total: 10
+2024-04-26 16:09:33,477 [http-nio-8083-exec-8] ==>  Preparing: select count(id) from product
+2024-04-26 16:09:33,477 [http-nio-8083-exec-8] ==> Parameters: 
+2024-04-26 16:09:33,493 [http-nio-8083-exec-8] <==    Columns: count(id)
+2024-04-26 16:09:33,493 [http-nio-8083-exec-8] <==        Row: 35
+2024-04-26 16:09:33,493 [http-nio-8083-exec-8] <==      Total: 1
+2024-04-26 16:09:33,493 [http-nio-8083-exec-8] ==>  Preparing: SELECT * FROM category order by `order`
+2024-04-26 16:09:33,493 [http-nio-8083-exec-8] ==> Parameters: 
+2024-04-26 16:09:33,493 [http-nio-8083-exec-8] <==    Columns: id, name, order
+2024-04-26 16:09:33,493 [http-nio-8083-exec-8] <==        Row: 3, Top, 1
+2024-04-26 16:09:33,493 [http-nio-8083-exec-8] <==        Row: 2, Bottom, 2
+2024-04-26 16:09:33,493 [http-nio-8083-exec-8] <==        Row: 4, Dress, 3
+2024-04-26 16:09:33,493 [http-nio-8083-exec-8] <==        Row: 1, Outer, 4
+2024-04-26 16:09:33,493 [http-nio-8083-exec-8] <==        Row: 5, ETC, 5
+2024-04-26 16:09:33,493 [http-nio-8083-exec-8] <==      Total: 5
+2024-04-26 16:09:33,493 [http-nio-8083-exec-8] --------------------------------------
+2024-04-26 16:09:33,493 [http-nio-8083-exec-8] Method name = [list]
+2024-04-26 16:09:33,493 [http-nio-8083-exec-8] Execution time: 0.039s
+2024-04-26 16:09:33,493 [http-nio-8083-exec-8] --------------------------------------
+2024-04-26 16:09:37,439 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-26 16:12:57,771 [http-nio-8083-exec-2] ==>  Preparing: SELECT * FROM category order by `order`
+2024-04-26 16:12:57,771 [http-nio-8083-exec-2] ==> Parameters: 
+2024-04-26 16:12:57,771 [http-nio-8083-exec-2] <==    Columns: id, name, order
+2024-04-26 16:12:57,771 [http-nio-8083-exec-2] <==        Row: 3, Top, 1
+2024-04-26 16:12:57,771 [http-nio-8083-exec-2] <==        Row: 2, Bottom, 2
+2024-04-26 16:12:57,771 [http-nio-8083-exec-2] <==        Row: 4, Dress, 3
+2024-04-26 16:12:57,771 [http-nio-8083-exec-2] <==        Row: 1, Outer, 4
+2024-04-26 16:12:57,771 [http-nio-8083-exec-2] <==        Row: 5, ETC, 5
+2024-04-26 16:12:57,771 [http-nio-8083-exec-2] <==      Total: 5
+2024-04-26 16:12:57,771 [http-nio-8083-exec-2] ==>  Preparing: SELECT plv.*, nvl(l.member_id IS NOT NULL, 0) current_user_liked FROM mineurs_db.product_list_view plv left join `like` l on l.member_id = 1 and l.product_id = plv.id GROUP BY id ORDER BY reg_date DESC limit ?, ?
+2024-04-26 16:12:57,771 [http-nio-8083-exec-2] ==> Parameters: 0(Long), 12(Integer)
+2024-04-26 16:12:57,788 [http-nio-8083-exec-2] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id, like_count, ct_id, ct_name, pi_id, pi_qty, pi_code, pi_product_id, pi_size_id, pi_color_id, s_id, s_eng_name, c_id, c_kor_name, c_eng_name, c_hex_code, current_user_liked
+2024-04-26 16:12:57,788 [http-nio-8083-exec-2] <==        Row: 46, ghfghfgh, sadasdasd.png, null, werwer, 1, 1, sdfg, 1, 0, 123123, 2024-04-26 10:12:22, 4, 0, 4, Dress, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:12:57,788 [http-nio-8083-exec-2] <==        Row: 44, asdfasdf, ?????????? 2024-04-18 21.34.44.png, null, qweqwe, 1, 1, , 1, 0, 123124, 2024-04-22 16:53:34, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:12:57,788 [http-nio-8083-exec-2] <==        Row: 43, ㄴㅇㄹㅎㄴㅇㄹㅎㄴㅇㄹㅎ, ?????????? 2024-04-16 14.26.32.png, null, 123124214, 1, 1, qweqwe, 1, 0.4, 123123, 2024-04-22 16:49:46, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:12:57,788 [http-nio-8083-exec-2] <==        Row: 42, ㅇㄴㅎㄹㅇㄹㅎ, ?????????? 2024-03-14 22.34.39.png, null, 123123424, 0, 0, , 0, 0, 12312, 2024-04-22 16:49:26, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:12:57,788 [http-nio-8083-exec-2] <==        Row: 41, cvbcvb, ?????????? 2024-04-12 07.15.51.png, null, asdasd, 0, 0, , 0, 0, 234234, 2024-04-22 16:47:16, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:12:57,788 [http-nio-8083-exec-2] <==        Row: 40, asdfasdfasdfsadfasdf, ?????????? 2024-03-17 17.59.22.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:47:03, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:12:57,788 [http-nio-8083-exec-2] <==        Row: 39, ㅁㄴㅇㅁㄴㅇ, ?????????? 2024-04-22 16.19.33.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:45:54, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:12:57,788 [http-nio-8083-exec-2] <==        Row: 37, 사진 등록안하고 등록, ?????????? 2024-04-17 23.02.27.png, null, 123, 1, 1, qweqwe, 1, 0.4, 123, 2024-04-22 16:41:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:12:57,788 [http-nio-8083-exec-2] <==        Row: 34, asdasd, ?????????? 2024-04-05 11.45.38.png, null, qweqwe, 1, 1, qwe, 1, 0.3, 123, 2024-04-19 16:58:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:12:57,788 [http-nio-8083-exec-2] <==        Row: 33, 얘도수정, ?????????? 2024-04-16 14.26.32.png, null, 123, 1, 1, , 1, 0, 12, 2024-04-19 13:12:27, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:12:57,788 [http-nio-8083-exec-2] <==        Row: 31, 업데이트, ?????????? 2024-04-16 14.31.48.png, null, 123, 1, 1, , 1, 0, 12, 2024-04-19 13:12:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:12:57,788 [http-nio-8083-exec-2] <==        Row: 30, ajdwld, ?????????? 2024-03-21 14.43.09.png, null, 123, 1, 1, , 1, 0, 123, 2024-04-19 13:08:30, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-26 16:12:57,788 [http-nio-8083-exec-2] <==      Total: 12
+2024-04-26 16:12:57,788 [http-nio-8083-exec-2] ==>  Preparing: select count(id) from product
+2024-04-26 16:12:57,788 [http-nio-8083-exec-2] ==> Parameters: 
+2024-04-26 16:12:57,803 [http-nio-8083-exec-2] <==    Columns: count(id)
+2024-04-26 16:12:57,803 [http-nio-8083-exec-2] <==        Row: 35
+2024-04-26 16:12:57,803 [http-nio-8083-exec-2] <==      Total: 1

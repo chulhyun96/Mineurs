@@ -1,193 +1,85 @@
-2024-04-26 15:49:25,313 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
-2024-04-26 15:49:52,299 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
-2024-04-26 15:51:54,889 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
-2024-04-26 15:52:21,201 [http-nio-8083-exec-9] Reg Form Error : org.springframework.validation.BeanPropertyBindingResult: 1 errors
-Field error in object 'product' on field 'price': rejected value []; codes [typeMismatch.product.price,typeMismatch.price,typeMismatch.int,typeMismatch]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [product.price,price]; arguments []; default message [price]]; default message [Failed to convert property value of type 'java.lang.String' to required type 'int' for property 'price'; For input string: ""]
-
-2024-04-26 15:52:50,859 [http-nio-8083-exec-8] Error: 1048-23000: Column 'category_id' cannot be null
-2024-04-26 15:52:50,967 [http-nio-8083-exec-8] Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: 
-### Error updating database.  Cause: java.sql.SQLIntegrityConstraintViolationException: (conn=471816) Column 'category_id' cannot be null
-### The error may exist in file [/Users/cheolhyeon/Downloads/WorkSpace/NewlecMinursPRJ/target/classes/mappers/ProductMapper.xml]
-### The error may involve com.newlecmineursprj.repository.ProductRepository.reg-Inline
-### The error occurred while setting parameters
-### SQL: INSERT INTO product(         name,         price,         description,         main_img_path,         category_id,         is_displayed,         is_sold,         code,         is_delivery_today,         discount_rate)         VALUES (         ?,         ?,         ?,         ?,         ?,         ?,         ?,         ?,         ?,         ?)
-### Cause: java.sql.SQLIntegrityConstraintViolationException: (conn=471816) Column 'category_id' cannot be null
-; (conn=471816) Column 'category_id' cannot be null] with root cause
-java.sql.SQLIntegrityConstraintViolationException: (conn=471816) Column 'category_id' cannot be null
-	at org.mariadb.jdbc.export.ExceptionFactory.createException(ExceptionFactory.java:297)
-	at org.mariadb.jdbc.export.ExceptionFactory.create(ExceptionFactory.java:378)
-	at org.mariadb.jdbc.message.ClientMessage.readPacket(ClientMessage.java:172)
-	at org.mariadb.jdbc.client.impl.StandardClient.readPacket(StandardClient.java:915)
-	at org.mariadb.jdbc.client.impl.StandardClient.readResults(StandardClient.java:854)
-	at org.mariadb.jdbc.client.impl.StandardClient.readResponse(StandardClient.java:773)
-	at org.mariadb.jdbc.client.impl.StandardClient.execute(StandardClient.java:697)
-	at org.mariadb.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:93)
-	at org.mariadb.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:276)
-	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
-	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
-	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:48)
-	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:75)
-	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:50)
-	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
-	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:184)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:425)
-	at jdk.proxy2/jdk.proxy2.$Proxy76.insert(Unknown Source)
-	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:272)
-	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:62)
-	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141)
-	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
-	at jdk.proxy3/jdk.proxy3.$Proxy83.reg(Unknown Source)
-	at com.newlecmineursprj.service.ProductServiceImpl.reg(ProductServiceImpl.java:71)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:351)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765)
-	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:385)
-	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:717)
-	at com.newlecmineursprj.service.ProductServiceImpl$$SpringCGLIB$$0.reg(<generated>)
-	at com.newlecmineursprj.controller.admin.ProductController.reg(ProductController.java:84)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:351)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765)
-	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
-	at com.newlecmineursprj.aspect.AspectService.perfLogAspect(AspectService.java:18)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:637)
-	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:627)
-	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:71)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:173)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765)
-	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:717)
-	at com.newlecmineursprj.controller.admin.ProductController$$SpringCGLIB$$0.reg(<generated>)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:259)
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:192)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:920)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:830)
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
-	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
-	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:227)
-	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:221)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
-	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
-	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
-	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
-	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
-	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
-	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
-	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
-	at java.base/java.lang.Thread.run(Thread.java:840)
-2024-04-26 15:53:17,429 [http-nio-8083-exec-6] Reg Form Error : org.springframework.validation.BeanPropertyBindingResult: 1 errors
-Field error in object 'product' on field 'price': rejected value []; codes [typeMismatch.product.price,typeMismatch.price,typeMismatch.int,typeMismatch]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [product.price,price]; arguments []; default message [price]]; default message [Failed to convert property value of type 'java.lang.String' to required type 'int' for property 'price'; For input string: ""]
-
-2024-04-26 15:53:26,101 [http-nio-8083-exec-2] Reg Form Error : org.springframework.validation.BeanPropertyBindingResult: 1 errors
-Field error in object 'product' on field 'price': rejected value []; codes [typeMismatch.product.price,typeMismatch.price,typeMismatch.int,typeMismatch]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [product.price,price]; arguments []; default message [price]]; default message [Failed to convert property value of type 'java.lang.String' to required type 'int' for property 'price'; For input string: ""]
-
-2024-04-26 15:54:56,506 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
-2024-04-26 16:03:37,168 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
-2024-04-26 16:06:15,203 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
-2024-04-26 16:10:46,334 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-29 14:37:43,398 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-29 14:38:02,531 [http-nio-8083-exec-6] ==>  Preparing: SELECT * FROM member where username = ?
+2024-04-29 14:38:02,565 [http-nio-8083-exec-6] ==> Parameters: jy(String)
+2024-04-29 14:38:02,599 [http-nio-8083-exec-6] <==    Columns: id, username, name, phone_number, password, email, payment_password, reg_date
+2024-04-29 14:38:02,600 [http-nio-8083-exec-6] <==        Row: 1, jy, 이재용, 01046467979, $2a$12$UyzUlEwXanQRPYBbhi9pweaHGeONWbE45joP6MZ2.f2sJMl5Sd5WC, fjiww@gmail.com, 1234, 2024-04-16 15:54:26
+2024-04-29 14:38:02,603 [http-nio-8083-exec-6] <==      Total: 1
+2024-04-29 14:38:02,608 [http-nio-8083-exec-6] ==>  Preparing: SELECT r.name FROM role r join member_role mr on r.id = mr.role_id and mr.member_id = ?
+2024-04-29 14:38:02,610 [http-nio-8083-exec-6] ==> Parameters: 1(Long)
+2024-04-29 14:38:02,612 [http-nio-8083-exec-6] <==    Columns: name
+2024-04-29 14:38:02,612 [http-nio-8083-exec-6] <==        Row: ROLE_MEMBER
+2024-04-29 14:38:02,612 [http-nio-8083-exec-6] <==        Row: ROLE_ADMIN
+2024-04-29 14:38:02,612 [http-nio-8083-exec-6] <==      Total: 2
+2024-04-29 14:38:02,947 [http-nio-8083-exec-7] ==>  Preparing: select count(id) from product
+2024-04-29 14:38:02,947 [http-nio-8083-exec-7] ==> Parameters: 
+2024-04-29 14:38:02,947 [http-nio-8083-exec-7] <==    Columns: count(id)
+2024-04-29 14:38:02,947 [http-nio-8083-exec-7] <==        Row: 36
+2024-04-29 14:38:02,947 [http-nio-8083-exec-7] <==      Total: 1
+2024-04-29 14:38:02,968 [http-nio-8083-exec-7] ==>  Preparing: SELECT plv.*, nvl(l.member_id IS NOT NULL, 0) current_user_liked FROM mineurs_db.product_list_view plv left join `like` l on l.member_id = 1 and l.product_id = plv.id GROUP BY id ORDER BY reg_date DESC limit ?, ?
+2024-04-29 14:38:02,969 [http-nio-8083-exec-7] ==> Parameters: 0(Long), 10(Integer)
+2024-04-29 14:38:02,981 [http-nio-8083-exec-7] <==    Columns: id, name, main_img_path, hit, description, is_displayed, is_sold, code, is_delivery_today, discount_rate, price, reg_date, category_id, like_count, ct_id, ct_name, pi_id, pi_qty, pi_code, pi_product_id, pi_size_id, pi_color_id, s_id, s_eng_name, c_id, c_kor_name, c_eng_name, c_hex_code, current_user_liked
+2024-04-29 14:38:02,981 [http-nio-8083-exec-7] <==        Row: 47, ㅂㅈㄷ, Non-Img, null, 123123, 0, 0, , 0, 0, 123, 2024-04-26 18:09:52, 4, 0, 4, Dress, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-29 14:38:02,983 [http-nio-8083-exec-7] <==        Row: 46,  ㅂㅈㄷ, ?????????? 2024-04-19 11.32.20.png, null, werwer, 1, 1, sdfg, 1, 0, 123, 2024-04-26 10:12:22, 4, 0, 4, Dress, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-29 14:38:02,985 [http-nio-8083-exec-7] <==        Row: 44, asdfasdf, ?????????? 2024-04-18 21.34.44.png, null, qweqwe, 1, 1, , 1, 0, 123124, 2024-04-22 16:53:34, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-29 14:38:02,986 [http-nio-8083-exec-7] <==        Row: 43, ㄴㅇㄹㅎㄴㅇㄹㅎㄴㅇㄹㅎ, ?????????? 2024-04-16 14.26.32.png, null, 123124214, 1, 1, qweqwe, 1, 0.4, 123123, 2024-04-22 16:49:46, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-29 14:38:02,987 [http-nio-8083-exec-7] <==        Row: 42, ㅇㄴㅎㄹㅇㄹㅎ, ?????????? 2024-03-14 22.34.39.png, null, 123123424, 0, 0, , 0, 0, 12312, 2024-04-22 16:49:26, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-29 14:38:02,988 [http-nio-8083-exec-7] <==        Row: 41, cvbcvb, ?????????? 2024-04-12 07.15.51.png, null, asdasd, 0, 0, , 0, 0, 234234, 2024-04-22 16:47:16, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-29 14:38:02,993 [http-nio-8083-exec-7] <==        Row: 40, asdfasdfasdfsadfasdf, ?????????? 2024-03-17 17.59.22.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:47:03, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-29 14:38:02,993 [http-nio-8083-exec-7] <==        Row: 39, ㅁㄴㅇㅁㄴㅇ, ?????????? 2024-04-22 16.19.33.png, null, 123123, 1, 1, sdfg, 1, 0.4, 123123, 2024-04-22 16:45:54, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-29 14:38:02,995 [http-nio-8083-exec-7] <==        Row: 37, 사진 등록안하고 등록, ?????????? 2024-04-17 23.02.27.png, null, 123, 1, 1, qweqwe, 1, 0.4, 123, 2024-04-22 16:41:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-29 14:38:02,996 [http-nio-8083-exec-7] <==        Row: 34, asdasd, ?????????? 2024-04-05 11.45.38.png, null, qweqwe, 1, 1, qwe, 1, 0.3, 123, 2024-04-19 16:58:01, 1, 0, 1, Outer, null, null, null, null, null, null, null, null, null, null, null, null, 0
+2024-04-29 14:38:02,997 [http-nio-8083-exec-7] <==      Total: 10
+2024-04-29 14:38:03,001 [http-nio-8083-exec-7] ==>  Preparing: select count(id) from product
+2024-04-29 14:38:03,001 [http-nio-8083-exec-7] ==> Parameters: 
+2024-04-29 14:38:03,005 [http-nio-8083-exec-7] <==    Columns: count(id)
+2024-04-29 14:38:03,005 [http-nio-8083-exec-7] <==        Row: 36
+2024-04-29 14:38:03,005 [http-nio-8083-exec-7] <==      Total: 1
+2024-04-29 14:38:03,008 [http-nio-8083-exec-7] ==>  Preparing: SELECT * FROM category order by `order`
+2024-04-29 14:38:03,008 [http-nio-8083-exec-7] ==> Parameters: 
+2024-04-29 14:38:03,013 [http-nio-8083-exec-7] <==    Columns: id, name, order
+2024-04-29 14:38:03,013 [http-nio-8083-exec-7] <==        Row: 3, Top, 1
+2024-04-29 14:38:03,015 [http-nio-8083-exec-7] <==        Row: 2, Bottom, 2
+2024-04-29 14:38:03,015 [http-nio-8083-exec-7] <==        Row: 4, Dress, 3
+2024-04-29 14:38:03,015 [http-nio-8083-exec-7] <==        Row: 1, Outer, 4
+2024-04-29 14:38:03,015 [http-nio-8083-exec-7] <==        Row: 5, ETC, 5
+2024-04-29 14:38:03,015 [http-nio-8083-exec-7] <==      Total: 5
+2024-04-29 15:36:24,146 [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5m20s640ms947?s501ns).
+2024-04-29 16:03:17,273 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-29 16:04:10,333 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-29 16:04:29,727 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-29 16:05:33,930 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]
+2024-04-29 16:11:49,210 [http-nio-8083-exec-1] ==>  Preparing: SELECT * FROM member where id = ?
+2024-04-29 16:11:49,210 [http-nio-8083-exec-1] ==> Parameters: 1(Long)
+2024-04-29 16:11:49,215 [http-nio-8083-exec-1] <==    Columns: id, username, name, phone_number, password, email, payment_password, reg_date
+2024-04-29 16:11:49,215 [http-nio-8083-exec-1] <==        Row: 1, jy, 이재용, 01046467979, $2a$12$UyzUlEwXanQRPYBbhi9pweaHGeONWbE45joP6MZ2.f2sJMl5Sd5WC, fjiww@gmail.com, 1234, 2024-04-16 15:54:26
+2024-04-29 16:11:49,216 [http-nio-8083-exec-1] <==      Total: 1
+2024-04-29 16:12:25,981 [http-nio-8083-exec-3] ==>  Preparing: SELECT * FROM member where id = ?
+2024-04-29 16:12:25,981 [http-nio-8083-exec-3] ==> Parameters: 1(Long)
+2024-04-29 16:12:26,229 [http-nio-8083-exec-3] <==    Columns: id, username, name, phone_number, password, email, payment_password, reg_date
+2024-04-29 16:12:26,229 [http-nio-8083-exec-3] <==        Row: 1, jy, 이재용, 01046467979, $2a$12$UyzUlEwXanQRPYBbhi9pweaHGeONWbE45joP6MZ2.f2sJMl5Sd5WC, fjiww@gmail.com, 1234, 2024-04-16 15:54:26
+2024-04-29 16:12:26,229 [http-nio-8083-exec-3] <==      Total: 1
+2024-04-29 16:13:41,825 [http-nio-8083-exec-9] ==>  Preparing: SELECT * FROM member where id = ?
+2024-04-29 16:13:41,825 [http-nio-8083-exec-9] ==> Parameters: 1(Long)
+2024-04-29 16:13:41,831 [http-nio-8083-exec-9] <==    Columns: id, username, name, phone_number, password, email, payment_password, reg_date
+2024-04-29 16:13:41,831 [http-nio-8083-exec-9] <==        Row: 1, jy, 이재용, 01046467979, $2a$12$UyzUlEwXanQRPYBbhi9pweaHGeONWbE45joP6MZ2.f2sJMl5Sd5WC, fjiww@gmail.com, 1234, 2024-04-16 15:54:26
+2024-04-29 16:13:41,832 [http-nio-8083-exec-9] <==      Total: 1
+2024-04-29 16:13:49,642 [http-nio-8083-exec-4] ==>  Preparing: SELECT * FROM member where id = ?
+2024-04-29 16:13:49,643 [http-nio-8083-exec-4] ==> Parameters: 1(Long)
+2024-04-29 16:13:49,644 [http-nio-8083-exec-4] <==    Columns: id, username, name, phone_number, password, email, payment_password, reg_date
+2024-04-29 16:13:49,644 [http-nio-8083-exec-4] <==        Row: 1, jy, 이재용, 01046467979, $2a$12$UyzUlEwXanQRPYBbhi9pweaHGeONWbE45joP6MZ2.f2sJMl5Sd5WC, fjiww@gmail.com, 1234, 2024-04-16 15:54:26
+2024-04-29 16:13:49,644 [http-nio-8083-exec-4] <==      Total: 1
+2024-04-29 16:15:43,228 [http-nio-8083-exec-6] ==>  Preparing: SELECT * FROM member where id = ?
+2024-04-29 16:15:43,228 [http-nio-8083-exec-6] ==> Parameters: 1(Long)
+2024-04-29 16:15:43,246 [http-nio-8083-exec-6] <==    Columns: id, username, name, phone_number, password, email, payment_password, reg_date
+2024-04-29 16:15:43,246 [http-nio-8083-exec-6] <==        Row: 1, jy, 이재용, 01046467979, $2a$12$UyzUlEwXanQRPYBbhi9pweaHGeONWbE45joP6MZ2.f2sJMl5Sd5WC, fjiww@gmail.com, 1234, 2024-04-16 15:54:26
+2024-04-29 16:15:43,247 [http-nio-8083-exec-6] <==      Total: 1
+2024-04-29 16:17:09,117 [http-nio-8083-exec-5] ==>  Preparing: SELECT * FROM member where id = ?
+2024-04-29 16:17:09,118 [http-nio-8083-exec-5] ==> Parameters: 1(Long)
+2024-04-29 16:17:09,124 [http-nio-8083-exec-5] <==    Columns: id, username, name, phone_number, password, email, payment_password, reg_date
+2024-04-29 16:17:09,124 [http-nio-8083-exec-5] <==        Row: 1, jy, 이재용, 01046467979, $2a$12$UyzUlEwXanQRPYBbhi9pweaHGeONWbE45joP6MZ2.f2sJMl5Sd5WC, fjiww@gmail.com, 1234, 2024-04-16 15:54:26
+2024-04-29 16:17:09,124 [http-nio-8083-exec-5] <==      Total: 1
+2024-04-29 16:18:12,140 [http-nio-8083-exec-9] ==>  Preparing: SELECT * FROM member where id = ?
+2024-04-29 16:18:12,140 [http-nio-8083-exec-9] ==> Parameters: 1(Long)
+2024-04-29 16:18:12,140 [http-nio-8083-exec-9] <==    Columns: id, username, name, phone_number, password, email, payment_password, reg_date
+2024-04-29 16:18:12,140 [http-nio-8083-exec-9] <==        Row: 1, jy, 이재용, 01046467979, $2a$12$UyzUlEwXanQRPYBbhi9pweaHGeONWbE45joP6MZ2.f2sJMl5Sd5WC, fjiww@gmail.com, 1234, 2024-04-16 15:54:26
+2024-04-29 16:18:12,140 [http-nio-8083-exec-9] <==      Total: 1

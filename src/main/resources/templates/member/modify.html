@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/inc/layout}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/output.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main layout:fragment="main" class="container mx-auto px-10 mt-20">
+      <form action="">
+        <section class="w-full">
+          <h1 class="hidden">마이페이지 프로필</h1>
+          <div class="text-center font-serif">Profile</div>
+          <div class="flex pt-10">
+            <table class="border table">
+              <tr>
+                <th class="border">아이디 <strong>*</strong></th>
+                <td class="w-5/6">
+                  <input
+                    type="text"
+                    class="w-24 border border-slate-800"
+                    value=""
+                    th:value="${member.username}"
+                  />
+                  <span class="text-sm">(영문소문자/숫자, 4~16자)</span>
+                </td>
+              </tr>
+              <tr>
+                <th class="border">비밀번호 <strong>*</strong></th>
+                <td>
+                  <input type="text" class="w-24 border border-slate-800" />
+                </td>
+              </tr>
+              <tr>
+                <th class="border">비밀번호 확인<strong>*</strong></th>
+                <td>
+                  <input type="text" class="w-24 border border-slate-800" />
+                </td>
+              </tr>
+              <tr>
+                <th class="border">이름 <strong>*</strong></th>
+                <td>
+                  <input
+                    type="text"
+                    class="w-24 border border-slate-800"
+                    th:value="${member.name}"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <th class="border">주소</th>
+                <td>
+                  <input
+                    type="text"
+                    class="w-20 border border-slate-800"
+                    placeholder="우편번호"
+                  />
+                  <span class="ml-2">
+                    <button class="border border-slate-800 px-2 py-1 text-xs">
+                      주소검색
+                    </button>
+                  </span>
+                  <div class="mt-2">
+                    <input
+                      type="text"
+                      class="w-80 border border-slate-800"
+                      placeholder="기본주소"
+                    />
+                  </div>
+                  <div class="mt-2">
+                    <input
+                      type="text"
+                      class="w-80 border border-slate-800"
+                      placeholder="나머지 주소(선택 입력 가능)"
+                    />
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th class="border">휴대전화 <strong>*</strong></th>
+                <td>
+                  <select name="" id="phone" class="border border-slate-800">
+                    <option value="010">010</option>
+                    <option value="011">011</option>
+                    <option value="016">016</option>
+                  </select>
+                  -
+                  <input
+                    type="text"
+                    id="mobile2"
+                    class="border border-slate-800 w-16"
+                    th:value="${member.phoneNumber.substring(3, 7)}"
+                  />
+                  -
+                  <input
+                    type="text"
+                    id="mobile3"
+                    class="border border-slate-800 w-16"
+                    th:value="${member.phoneNumber.substring(7)}"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <th class="border">SMS 수신여부 <strong>*</strong></th>
+                <td>
+                  <input type="radio" name="sms" value="agree" />
+                  <label for="">수신함</label>
+                  <input type="radio" name="sms" value="disagree" />
+                  <label for="">수신안함</label>
+                  <p>
+                    쇼핑몰에서 제공하는 유익한 이벤트 소식을 SMS로 받으실 수
+                    있습니다.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <th class="border">이메일 <strong>*</strong></th>
+                <td>
+                  <input
+                    type="text"
+                    class="w-36 border border-slate-800"
+                    th:value="${member.email}"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <th class="border">이메일 수신여부 <strong>*</strong></th>
+                <td>
+                  <input type="radio" name="sms" value="agree" />
+                  <label for="">수신함</label>
+                  <input type="radio" name="sms" value="disagree" />
+                  <label for="">수신안함</label>
+                  <p>
+                    쇼핑몰에서 제공하는 유익한 이벤트 소식을 이메일로 받으실 수
+                    있습니다.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <th class="border">평생회원</th>
+                <td>
+                  <input type="radio" name="sms" value="agree" />
+                  <label for="">수신함</label>
+                  <input type="radio" name="sms" value="disagree" />
+                  <label for="">수신안함</label>
+                  <p>
+                    - 평생회원은 <b>마인유어스 : mine, yours ♡</b> 회원
+                    탈퇴시까지 휴면회원으로 전환되지 않습니다.
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <section class="mt-20">
+            <h1 class="mb-2"><b>추가정보</b></h1>
+            <table class="border table">
+              <tr>
+                <th class="border">생년월일</th>
+                <td class="w-5/6">
+                  <input
+                    type="text"
+                    name=""
+                    id=""
+                    class="w-16 border border-slate-800 mr-1"
+                  />
+                  년
+                  <input
+                    type="text"
+                    name=""
+                    id=""
+                    class="w-12 border border-slate-800 mr-1"
+                  />
+                  월
+                  <input
+                    type="text"
+                    name=""
+                    id=""
+                    class="w-12 border border-slate-800 mr-1"
+                  />
+                  일
+                  <input type="radio" name="sms" value="solar" class="ml-2" />
+                  <label for="">양력</label>
+                  <input type="radio" name="sms" value="luna" />
+                  <label for="">음력</label>
+                </td>
+              </tr>
+            </table>
+          </section>
+        </section>
+        <div class="flex justify-center">
+          <button class="btn btn-neutral">회원정보수정</button>
+          <button class="btn ml-2">취소</button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
