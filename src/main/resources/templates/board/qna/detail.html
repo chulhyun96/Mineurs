@@ -8,42 +8,50 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/output.css">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="/util/summernote/summernote.js"></script>
-    <script src="/util/summernote/summernote-lite.js"></script>
-    <script src="/util/summernote/summernote-ko-KR.js"></script>
     <script src="/js/board/qnaNew.js"></script>
-    <link rel="stylesheet" type="text/css" href="/util/summernote/summernote-lite.css">
-
+    <script src="/js/util/accessCheck.js"></script>
     <title>Document</title>
 </head>
 <body>
 <main layout:fragment="main" class="container mx-auto">
     <section>
         <h1 class="text-center text-3xl">QnA</h1>
-        <form class="mt-16" action="/reg" method="post">
-            <div class="my-2">
-                <label>
-                    제목
-                    <span class="flex">
 
-                        1
-                    </span>
-                </label>
-            </div>
-            <div>
-                <label class="form-control">
-                    <div class="label">
-                        <span class="label-text text-lg">내용</span>
-                    </div>
-                    <textarea class="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
-                </label>
-            </div>
-
-            <div class="text-end my-4">
-                <button class="btn">등록하기</button>
-                <button class="btn"><a href="/qna">목록으로</a></button>
-            </div>
+        <form>
+            <table>
+                <colgroup>
+                    <col style="width:150px">
+                    <col style="width:850px">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th>작성자</th>
+                    <td th:text="${qna.memberId != null ? member.username : ''}">1</td>
+                </tr>
+                <tr>
+                    <th>E-MAIL</th>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <th>SUBJECT</th>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <th>PASSWORD</th>
+                    <td><input type="password" name="password" id="userPassword"></td>
+                </tr>
+                <tr>
+                    <th>CONTENTS</th>
+                    <td>
+                        <div th:utext="${qna.content}">1</div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <a class="btn" th:href="@{/qna}">돌아가기</a>
+            <a class="btn">수정하기</a>
         </form>
+
     </section>
 </main>
 </body>

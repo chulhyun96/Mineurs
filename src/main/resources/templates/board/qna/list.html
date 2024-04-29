@@ -8,6 +8,7 @@
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/output.css">
+    <script src="/js/board/qnaList.js"></script>
 
 </head>
 <body>
@@ -21,19 +22,19 @@
             <p>상품 사용후기입니다.</p>
         </section>
         <form>
-            <select class="select select-bordered select-sm w-full max-w-64 border mt-12">
-                <option disabled selected>전체</option>
+            <select class="select select-bordered select-sm w-full max-w-64 border mt-12" name="categoryId">
+                <option value="0" selected th:selected="${{param.categoryId}}==0">전체</option>
                 <option>-문의유형을 선택후 작성해주세요</option>
-                <option>상품 문의</option>
-                <option>교환 / 반품 문의</option>
-                <option>배송 전 변경사항 문의</option>
-                <option>배송 문의</option>
-                <option>입금 / 기타 문의</option>
+                <option value="1" th:selected="${{param.categoryId}}==1">교환 / 반품 문의</option>
+                <option value="2" th:selected="${{param.categoryId}}==2">배송 문의</option>
+                <option value="3" th:selected="${{param.categoryId}}==3">상품 문의</option>
+                <option value="4" th:selected="${{param.categoryId}}==4">배송 전 변경사항 문의</option>
+                <option value="5" th:selected="${{param.categoryId}}==5">입금 / 기타 문의</option>
             </select>
             <select class="select select-bordered select-sm w-full max-w-48 border mt-12">
                 <option disabled selected>전체 글보기</option>
-                <option>답변전 글보기</option>
-                <option>답변완료 글보기</option>
+                <option value="">답변전 글보기</option>
+                <option value="">답변완료 글보기</option>
             </select>
 
                 <table class="table mt-2 mb-4">
@@ -41,6 +42,7 @@
                     <tr class="bg-stone-50">
                         <th class="text-center text-sm w-16">번호</th>
                         <th class="text-center text-sm w-40">상품</th>
+                        <th class="text-center text-sm w-40">카테고리</th>
                         <th class="text-center text-sm">내용</th>
                         <th class="text-center text-sm w-16">작성자</th>
                         <th class="text-center text-sm w-16">등록날짜</th>
@@ -53,7 +55,8 @@
                         <td class="text-center text-sm">
                             <img class="w-36 h-36 bg-cover" src="" alt="" th:src="@{'/webapp/image/products/'+${qna.mainImgPath}}"/>
                         </td>
-                        <td class="text-center"><a href="" th:href="@{/qna/{id}(id=${qna.id})}" th:text="${qna.summary}">내용</a></td>
+                        <td class="text-center text-sm" th:text="${qna.categoryName}">작성자</td>
+                        <td class="text-center"><a href="" th:href="@{/qna/secretForm(id=${qna.id})}" th:text="${qna.summary}">내용</a></td>
                         <td class="text-center text-sm" th:text="${qna.userName}">작성자</td>
                         <th class="text-center text-sm" th:text="${#dates.format(qna.regDateTime,'yyyy-MM-dd HH:mm:ss')}">날짜</th>
                         <td class="text-center text-sm" th:text="${qna.views}">조회수</td>
@@ -61,20 +64,20 @@
                 </table>
 
                 <section class="mb-10 flex">
-                    <select class="select select-bordered select-sm w-full max-w-28 border mt-0">
-                        <option disabled selected>전체</option>
-                        <option>일주일</option>
-                        <option>한달</option>
-                        <option>세달</option>
+                    <select class="select select-bordered select-sm w-full max-w-28 border mt-0" name="duedate">
+                        <option selected value="0">전체</option>
+                        <option value="1">일주일</option>
+                        <option value="2">한달</option>
+                        <option value="3">세달</option>
                     </select>
-                    <select class="select select-bordered select-sm w-full max-w-28 border mt-0">
-                        <option disabled selected>제목</option>
-                        <option>내용</option>
-                        <option>작성자</option>
-                        <option>상품명</option>
+                    <select class="select select-bordered select-sm w-full max-w-28 border mt-0" name="searchMethod">
+                        <option selected value="title">제목</option>
+                        <option value="content">내용</option>
+                        <option value="writer">작성자</option>
+                        <option value="productName">상품명</option>
                     </select>
                     <div class="join">
-                        <input type="text" placeholder="내용" class="input input-bordered border input-sm w-full max-w-xs" />
+                        <input type="text" placeholder="내용" class="input input-bordered border input-sm w-full max-w-xs" name="searchKeyword"/>
                         <button class="btn btn-sm">Search</button>
                     </div>
                     <div class="grow flex justify-end">

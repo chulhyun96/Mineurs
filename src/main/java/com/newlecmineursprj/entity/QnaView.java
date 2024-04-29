@@ -19,4 +19,5 @@ public class QnaView {
     private String userName;
     private Date regDateTime;
     private Long views;
+    private String categoryName;
 }
