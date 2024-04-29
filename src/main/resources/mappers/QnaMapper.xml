@@ -3,17 +3,46 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.newlecmineursprj.repository.QnaRepository">
-    <select id="findAll" resultType="Qna">
-        SELECT
-        *
-        FROM qna
+    <resultMap id="PostView" type="QnaView">
+        <id column="id" property="id"/>
+        <result property="mainImgPath" column="main_img_path"/>
+        <result property="summary" column="summary"/>
+        <result property="userName" column="username"/>
+        <result property="regDateTime" column="reg_datetime"/>
+        <result property="views" column="views"/>
+        <result property="categoryName" column="category_name"/>
+    </resultMap>
+
+    <select id="findAll" resultType="QnaView">
+        select * from qna_list_view
+        <where>
+            <if test="categoryId !=0">
+                category_id=#{categoryId}
+            </if>
+        </where>
     </select>
+
     <select id="findById" parameterType="Qna">
         select * from qna where id=#{id}
     </select>
+
+    <insert id="save" parameterType="Qna">
+        insert into qna(summary,content,board_id,qna_category_id,member_id)
+        values (#{summary},#{content},#{boardId},#{categoryId},#{memberId})
+    </insert>
+
     <select id="findAllByMemberId" parameterType="Qna">
         SELECT *
         FROM qna
         where member_id = #{memberId}
+    </select>
+
+    <update id="update">
+        update qna set views = views+1
+        where id = #{id}
+    </update>
+
+    <select id="findByPassword">
+        SELECT EXISTS(SELECT 1 FROM qna WHERE id = #{id} AND password = #{password});
     </select>
 </mapper>

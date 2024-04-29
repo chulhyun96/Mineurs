@@ -17,4 +17,9 @@ public class SizeServiceImpl implements SizeService {
     public List<Size> getList(long productId) {
         return repository.findAll(productId);
     }
+
+    @Override
+    public Size getById(Long id) {
+        return repository.findById(id);
+    }
 }

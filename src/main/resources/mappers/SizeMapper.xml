@@ -9,5 +9,11 @@
         FROM size
     </select>
 
+    <select id="findById" resultType="Size">
+        SELECT
+        *
+        FROM size
+        where id = #{id}
+    </select>
 
 </mapper>

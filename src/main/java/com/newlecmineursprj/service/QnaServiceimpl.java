@@ -1,18 +1,20 @@
 package com.newlecmineursprj.service;
 
-import java.util.List;
-
+import com.newlecmineursprj.entity.Qna;
+import com.newlecmineursprj.entity.QnaView;
+import com.newlecmineursprj.repository.QnaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.newlecmineursprj.entity.Qna;
-import com.newlecmineursprj.repository.QnaRepository;
+import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class QnaServiceimpl implements QnaService {
 
     @Autowired
-    private QnaRepository repository;
+    private final QnaRepository repository;
 
     @Override
     public List<Qna> getList() {
@@ -20,7 +22,17 @@ public class QnaServiceimpl implements QnaService {
     }
 
     @Override
-    public Qna getById(long id) {
+    public List<QnaView> getList(Integer page, String searchMethod, String searchKeyword, Integer categoryId, Object o) {
+        return repository.findAll(page,searchMethod,searchKeyword,categoryId,null);
+    }
+
+    @Override
+    public void reg(Qna qna) {
+        repository.save(qna);
+    }
+
+    @Override
+    public Qna getById(Long id) {
         return repository.findById(id);
     }
 
@@ -28,5 +40,22 @@ public class QnaServiceimpl implements QnaService {
     public List<Qna> getListByMemberId(long memberId) {
         return repository.findAllByMemberId(memberId);
     }
-    
+
+    @Override
+    public void increase(Long id) {
+        repository.update(id);
+    }
+
+    @Override
+    public int getByPassword(Long id, String password) {
+        return repository.findByPassword(id, password);
+    }
+
+//    @Override
+//    public int getByPassword(Long id, String password) {
+//        int result = repository.findByPassword(id,password);
+////        if(qna.getPassword().equals(password))
+////            return 0;
+//    }
+
 }

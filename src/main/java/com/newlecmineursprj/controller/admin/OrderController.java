@@ -77,8 +77,6 @@ public class OrderController {
                 productName = productName +  " 외 " + productCount + "개";
             }
 
-            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=======" + orderView.getOrderedDatetime());
-
             Row row = sheet.createRow(rowNo++);
             Cell cell0 = row.createCell(0);
             cell0.setCellValue(orderView.getOrderedDatetime());

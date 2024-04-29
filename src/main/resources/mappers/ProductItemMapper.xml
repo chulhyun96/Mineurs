@@ -2,17 +2,19 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.newlecmineursprj.repository.ColorRepository">
-    <select id="findAll" resultType="Color">
+<mapper namespace="com.newlecmineursprj.repository.ProductItemRepository">
+
+    <select id="findAll" resultType="ProductItem">
         SELECT
         *
-        FROM color
+        FROM
+        product_item
     </select>
 
-    <select id="findById" resultType="Color">
+    <select id="findById" resultType="ProductItem">
         SELECT
         *
-        FROM color
+        FROM product_item
         where id = #{id}
     </select>
 

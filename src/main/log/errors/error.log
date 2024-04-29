@@ -83,3 +83,19 @@
 2024-04-29 16:18:12,140 [http-nio-8083-exec-9] <==    Columns: id, username, name, phone_number, password, email, payment_password, reg_date
 2024-04-29 16:18:12,140 [http-nio-8083-exec-9] <==        Row: 1, jy, 이재용, 01046467979, $2a$12$UyzUlEwXanQRPYBbhi9pweaHGeONWbE45joP6MZ2.f2sJMl5Sd5WC, fjiww@gmail.com, 1234, 2024-04-16 15:54:26
 2024-04-29 16:18:12,140 [http-nio-8083-exec-9] <==      Total: 1
+2024-04-29 16:18:53,035 [http-nio-8083-exec-8] ==>  Preparing: SELECT * FROM member where id = ?
+2024-04-29 16:18:53,035 [http-nio-8083-exec-8] ==> Parameters: 1(Long)
+2024-04-29 16:18:53,037 [http-nio-8083-exec-8] <==    Columns: id, username, name, phone_number, password, email, payment_password, reg_date
+2024-04-29 16:18:53,037 [http-nio-8083-exec-8] <==        Row: 1, jy, 이재용, 01046467979, $2a$12$UyzUlEwXanQRPYBbhi9pweaHGeONWbE45joP6MZ2.f2sJMl5Sd5WC, fjiww@gmail.com, 1234, 2024-04-16 15:54:26
+2024-04-29 16:18:53,037 [http-nio-8083-exec-8] <==      Total: 1
+2024-04-29 16:19:10,930 [http-nio-8083-exec-2] ==>  Preparing: SELECT * FROM member where id = ?
+2024-04-29 16:19:10,931 [http-nio-8083-exec-2] ==> Parameters: 1(Long)
+2024-04-29 16:19:10,943 [http-nio-8083-exec-2] <==    Columns: id, username, name, phone_number, password, email, payment_password, reg_date
+2024-04-29 16:19:10,943 [http-nio-8083-exec-2] <==        Row: 1, jy, 이재용, 01046467979, $2a$12$UyzUlEwXanQRPYBbhi9pweaHGeONWbE45joP6MZ2.f2sJMl5Sd5WC, fjiww@gmail.com, 1234, 2024-04-16 15:54:26
+2024-04-29 16:19:10,943 [http-nio-8083-exec-2] <==      Total: 1
+2024-04-29 16:19:57,752 [http-nio-8083-exec-1] ==>  Preparing: SELECT * FROM member where id = ?
+2024-04-29 16:19:57,753 [http-nio-8083-exec-1] ==> Parameters: 1(Long)
+2024-04-29 16:19:57,764 [http-nio-8083-exec-1] <==    Columns: id, username, name, phone_number, password, email, payment_password, reg_date
+2024-04-29 16:19:57,764 [http-nio-8083-exec-1] <==        Row: 1, jy, 이재용, 01046467979, $2a$12$UyzUlEwXanQRPYBbhi9pweaHGeONWbE45joP6MZ2.f2sJMl5Sd5WC, fjiww@gmail.com, 1234, 2024-04-16 15:54:26
+2024-04-29 16:19:57,764 [http-nio-8083-exec-1] <==      Total: 1
+2024-04-29 16:32:39,962 [restartedMain] Multiple @RequestMapping annotations found on public java.lang.String com.newlecmineursprj.controller.admin.PostController.regForm(), but only the first will be used: [@org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={}), @org.springframework.web.bind.annotation.GetMapping(consumes={}, headers={}, name="", params={}, path={"preview"}, produces={}, value={"preview"})]

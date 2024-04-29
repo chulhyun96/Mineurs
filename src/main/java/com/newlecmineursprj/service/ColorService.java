@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ColorService {
     List<Color> getList(long productId);
+    Color getById(Long id);
 }

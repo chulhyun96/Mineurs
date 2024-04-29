@@ -17,4 +17,9 @@ public class ColorServiceImpl implements ColorService {
     public List<Color> getList(long productId) {
         return repository.findAll(productId);
     }
+
+    @Override
+    public Color getById(Long id) {
+        return repository.findById(id);
+    }
 }

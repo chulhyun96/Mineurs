@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface SizeService {
     List<Size> getList(long productId);
+    Size getById(Long id);
 }

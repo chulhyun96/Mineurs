@@ -99,7 +99,12 @@ transition-[background-color, opacity] duration-300 ease-in-out hover:bg-white h
       </div>
 
       <div>
-        <a href="">
+        <a sec:authorize="!isAuthenticated()" 
+          th:href="@{/signin}">
+          <img src="/css/img/cart.svg" alt="" />
+        </a>
+        <a sec:authorize="isAuthenticated()" 
+          th:href="@{/cart(mid=${#authentication.getPrincipal().id})}">
           <img src="/css/img/cart.svg" alt="" />
         </a>
       </div>
