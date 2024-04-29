@@ -46,7 +46,7 @@ public class ProductController {
             @RequestParam(required = false) String searchMethod,
             @RequestParam(defaultValue = "") String searchKeyword,
             @RequestParam(defaultValue = "0") Long categoryId,
-            @RequestParam(defaultValue = "") Date searchRegDate,
+            @RequestParam(defaultValue = "") String searchRegDate,
             Model model) {
 
         int count = service.getCount(searchMethod, searchKeyword.trim(), categoryId);
@@ -57,13 +57,7 @@ public class ProductController {
         List<Category> categories = categoryService.getList();
 
         if (!searchRegDate.isBlank()) {
-            List<String> regDatesForSearch = RadioButtonRegDate.regDatsForSearch();
-            for (String regDateForSearch : regDatesForSearch) {
-                if (regDatesForSearch.contains(regDateForSearch)) {
-                    // 존재하는게 있다면 등록 날짜에 맞는걸 가지고와야함.
-                }
-            }
-
+            RadioButtonRegDate.regDatesForSearch(searchRegDate)
         }
 
         model.addAttribute("regDates",regDatesForSearch);
