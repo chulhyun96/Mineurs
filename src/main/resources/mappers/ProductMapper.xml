@@ -50,6 +50,8 @@
             <if test="categoryId != 0">
                 and plv.ct_id = #{categoryId}
             </if>
+            
+
         </where>
                 GROUP BY id
         <if test="pageRequest.sort.sorted">
@@ -60,6 +62,23 @@
         </if>
                 limit #{pageRequest.offset}, #{pageRequest.pageSize}
     </select>
+
+    <select id="findAllByMemberId" resultMap="ProductView">
+        SELECT
+        plv.*
+        
+        FROM mineurs_db.product_list_view plv
+        left join `like` l on l.member_id = #{memberId} and l.product_id = plv.id
+       
+       <where>
+        member_id = l.member_id
+        </where>
+                GROUP BY id
+        
+                limit #{pageRequest.offset}, #{pageRequest.pageSize}
+    </select>
+
+    
 
     <select id="findById" resultType="Product" resultMap="MappingBoolean">
         SELECT
@@ -80,6 +99,14 @@
                 and category_id = #{categoryId}
             </if>
         </where>
+    </select>
+
+    <select id="getCountByMemberId" resultType="long">
+        SELECT
+        count(member_id) count
+        from
+        `like`
+        where member_id = #{memberId}
     </select>
 
     <insert id="reg" parameterType="Product" useGeneratedKeys="true" keyProperty="id">

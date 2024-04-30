@@ -31,28 +31,18 @@ public class ProductServiceImpl implements ProductService {
     private final ImgStore imgStore;
 
     @Override
-    public CustomPageImpl<ProductListDTO> getList(Integer pageNumber
-            , Integer pageSize
-            , String sortMethod
-            , Integer pageGroupSize
-            , String searchMethod
-            , String searchKeyword
-            , long categoryId) {
+    public CustomPageImpl<ProductListDTO> getList(Integer pageNumber, Integer pageSize, String sortMethod,
+            Integer pageGroupSize, String searchMethod, String searchKeyword, long categoryId) {
 
-
-        return getList(pageNumber
-                , pageSize
-                , sortMethod
-                , "DESC"
-                , pageGroupSize
-                , searchMethod
-                , searchKeyword
-                , categoryId);
+        return getList(pageNumber, pageSize, sortMethod, "DESC", pageGroupSize, searchMethod, searchKeyword,
+                categoryId);
     }
 
     @Override
-    public CustomPageImpl<ProductListDTO> getList(Integer pageNumber, Integer pageSize, String sortMethod, String sortDirection, Integer pageGroupSize, String searchMethod, String searchKeyword, long categoryId) {
-        Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.fromString(sortDirection), sortMethod));
+    public CustomPageImpl<ProductListDTO> getList(Integer pageNumber, Integer pageSize, String sortMethod,
+            String sortDirection, Integer pageGroupSize, String searchMethod, String searchKeyword, long categoryId) {
+        Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize,
+                Sort.by(Sort.Direction.fromString(sortDirection), sortMethod));
 
         List<ProductListDTO> content = repository.findAll(pageRequest, searchMethod, searchKeyword, categoryId)
                 .stream().map(ProductMapper::toDto).toList();
@@ -65,32 +55,34 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public void reg(Product newProduct, MultipartFile mainImg, List<MultipartFile> subImgs) throws IOException {
-        //메인 이미지 저장
+        // 메인 이미지 저장
         String storageMainImgName = imgStore.getStorageMainImgName(mainImg);
         Product.saveNewImg(storageMainImgName, newProduct);
         repository.reg(newProduct);
 
-        //서브 이미지 저장
+        // 서브 이미지 저장
         List<String> storageSubImgName = imgStore.getStorageSubImgName(subImgs);
         List<ProductSubImg> productSubImgs = ProductSubImg.saveSubImgs(storageSubImgName, newProduct);
         subImgRepository.reg(productSubImgs);
     }
 
     @Override
-    public void update(Product updateProduct, MultipartFile updateFile, List<MultipartFile> updateSubImgs) throws IOException {
-        //메인 이미지 업데이트
+    public void update(Product updateProduct, MultipartFile updateFile, List<MultipartFile> updateSubImgs)
+            throws IOException {
+        // 메인 이미지 업데이트
         Product foundProduct = repository.findById(updateProduct.getId());
         Product.saveNewImg(imgStore.updateMainImgFile(foundProduct, updateFile), updateProduct);
         repository.updateById(updateProduct);
 
-        //서브 이미지 업데이트
+        // 서브 이미지 업데이트
         List<ProductSubImg> foundAll = subImgRepository.findAll(updateProduct.getId());
         List<String> storageSubImgName = imgStore.updateSubImgFiles(foundAll, updateSubImgs);
         updateSubImgs(updateProduct, updateSubImgs, foundAll, storageSubImgName);
     }
 
-    private void updateSubImgs(Product updateProduct, List<MultipartFile> updateSubImgs, List<ProductSubImg> foundAll, List<String> storageSubImgName) {
-        //기존의 파일보다 요청한 파일이 더 많을 경우
+    private void updateSubImgs(Product updateProduct, List<MultipartFile> updateSubImgs, List<ProductSubImg> foundAll,
+            List<String> storageSubImgName) {
+        // 기존의 파일보다 요청한 파일이 더 많을 경우
         if (updateSubImgs.size() > foundAll.size()) {
             List<String> extraSubImgNames = storageSubImgName.subList(foundAll.size(), updateSubImgs.size());
             List<ProductSubImg> productSubImgs = ProductSubImg.saveSubImgs(extraSubImgNames, updateProduct);
@@ -101,7 +93,7 @@ public class ProductServiceImpl implements ProductService {
             subImgRepository.updatedImgs(overWriteSubImgList);
             return;
         }
-        //기존의 파일보다 요청한 파일이 더 적을 경우
+        // 기존의 파일보다 요청한 파일이 더 적을 경우
         if (updateSubImgs.size() < foundAll.size()) {
             List<ProductSubImg> extraSubImgsToDelete = foundAll.subList(updateSubImgs.size(), foundAll.size());
             subImgRepository.deleteAll(extraSubImgsToDelete);
@@ -111,7 +103,7 @@ public class ProductServiceImpl implements ProductService {
             subImgRepository.updatedImgs(productSubImgs);
             return;
         }
-        //같을 경우
+        // 같을 경우
         List<ProductSubImg> productSubImgs = ProductSubImg.updateSubImgs(storageSubImgName, foundAll);
         subImgRepository.updatedImgs(productSubImgs);
     }
@@ -126,9 +118,22 @@ public class ProductServiceImpl implements ProductService {
         repository.deleteAll(deleteId);
     }
 
-
     @Override
     public int getCount(String searchMethod, String searchKeyword, long categoryId) {
         return repository.getCount(searchMethod, searchKeyword, categoryId);
+    }
+
+    @Override
+    public CustomPageImpl<ProductListDTO> getWishList(Integer pageNumber, Integer pageSize, Integer pageGroupSize,
+            long memberId) {
+
+        Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize);
+
+        List<ProductListDTO> content = repository.findAllByMemberId(pageRequest, memberId)
+                .stream().map(ProductMapper::toDto).toList();
+
+        long count = repository.getCountByMemberId(memberId);
+
+        return new CustomPageImpl<ProductListDTO>(content, pageRequest, count, pageGroupSize);
     }
 }
