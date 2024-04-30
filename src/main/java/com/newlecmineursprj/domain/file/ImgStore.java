@@ -1,7 +1,9 @@
 package com.newlecmineursprj.domain.file;
 
+import com.newlecmineursprj.aspect.PerfLogger;
 import com.newlecmineursprj.entity.Product;
 import com.newlecmineursprj.entity.ProductSubImg;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -19,8 +21,8 @@ import java.util.List;
 
 @Slf4j
 @Component
-@Getter
-@Setter
+@Data
+@PerfLogger
 @ConfigurationProperties("file")
 public class ImgStore {
     private String mainImg;
@@ -54,13 +56,13 @@ public class ImgStore {
         if (updateImg.isEmpty())
             return foundProduct.getCurrentImg(foundProduct.getMainImgPath());
 
-        // 메인 이미지 업데이트
-        String updateMainImgPath = getFullMainPath(updateImg.getOriginalFilename());
-        updateImg(updateImg, updateMainImgPath);
-
         // 기존 이미지 삭제
         String pastImgName = getFullMainPath(foundProduct.getMainImgPath());
         deleteImg(pastImgName);
+
+        // 메인 이미지 업데이트
+        String updateMainImgPath = getFullMainPath(updateImg.getOriginalFilename());
+        updateImg(updateImg, updateMainImgPath);
         return updateImg.getOriginalFilename();
     }
 
