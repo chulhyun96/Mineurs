@@ -1,17 +1,15 @@
 package com.newlecmineursprj.controller.admin;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.Arrays;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.newlecmineursprj.aspect.PerfLogger;
-import com.newlecmineursprj.domain.file.ImgStore;
 import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.ProductSubImg;
 
 import com.newlecmineursprj.util.CustomPageImpl;
-import org.springframework.core.io.UrlResource;
+import com.newlecmineursprj.util.RadioButtonRegDate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -48,20 +46,21 @@ public class ProductController {
             @RequestParam(required = false) String searchMethod,
             @RequestParam(defaultValue = "") String searchKeyword,
             @RequestParam(defaultValue = "0") Long categoryId,
+            @RequestParam(defaultValue = "") String buttonRegDate,
             Model model) {
 
         int count = service.getCount(searchMethod, searchKeyword.trim(), categoryId);
-        CustomPageImpl<ProductListDTO> productPage = service.getList(
-                page
-                , pageSize
-                , "reg_date"
-                , 5
-                , searchMethod
-                , searchKeyword.trim()
-                , categoryId);
         List<Category> categories = categoryService.getList();
 
+        String startDate = RadioButtonRegDate.getStartDate();
+        String endDate = RadioButtonRegDate.regDatesForSearch(buttonRegDate);
+        CustomPageImpl<ProductListDTO> productPage = service.getList(
+                page, pageSize, "reg_date", 5
+                , searchMethod, searchKeyword.trim(), categoryId, startDate ,endDate
+        );
+
         model.addAttribute("productPage", productPage);
+        model.addAttribute("regDates",RadioButtonRegDate.regDateList());
         model.addAttribute("count", count);
         model.addAttribute("categories", categories);
         return PRODUCTS_VIEW + "/list";
@@ -113,7 +112,6 @@ public class ProductController {
         return REDIRECT + PRODUCTS_VIEW;
     }
 
-    // Response 어떻게 사용하지 몰라서 일단 Post로 대체함.
     @PostMapping("/{id}/edit")
     public String edit(@PathVariable Long id, Product updateProduct, MultipartFile updateImg, List<MultipartFile> updateSubImgs) throws IOException {
         service.update(updateProduct, updateImg, updateSubImgs);

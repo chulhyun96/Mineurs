@@ -8,6 +8,7 @@ import com.newlecmineursprj.service.MemberService;
 import com.newlecmineursprj.service.PostService;
 import com.newlecmineursprj.service.ProductService;
 import com.newlecmineursprj.util.CustomPageImpl;
+import com.newlecmineursprj.util.RadioButtonRegDate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -36,12 +38,18 @@ private final PostService postService;
             , @RequestParam(defaultValue = "") String searchMethod
             , @RequestParam(defaultValue = "") String searchKeyword
             , @RequestParam(defaultValue = "0") Long categoryId
+            , @RequestParam(defaultValue = "") String buttonRegDate
             , Model model) {
 
         List<Category> categoryList = categoryService.getList();
         model.addAttribute("categoryList",categoryList);
 
-        CustomPageImpl<ProductListDTO> productPage = service.getList(pageNumber, pageSize, sortMethod, sortDirection, 5, searchMethod, searchKeyword, categoryId);
+        String startDate = RadioButtonRegDate.getStartDate();
+        String endDate = RadioButtonRegDate.regDatesForSearch(buttonRegDate);
+        CustomPageImpl<ProductListDTO> productPage = service.getList(
+                pageNumber, pageSize, sortMethod, sortDirection,
+                5, searchMethod, searchKeyword, categoryId,startDate, endDate
+        );
         model.addAttribute("productPage", productPage);
 
         String categoryName = "All";

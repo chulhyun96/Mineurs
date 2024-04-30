@@ -6,7 +6,6 @@ import com.newlecmineursprj.entity.Product;
 import com.newlecmineursprj.entity.ProductView;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
 
 @Component
 public class ProductMapper {

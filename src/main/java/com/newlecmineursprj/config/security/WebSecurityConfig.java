@@ -15,34 +15,26 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
-
-    private final DataSource dataSource;
-
     @Bean
     public PasswordEncoder passwordEncoder() {
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        return encoder;
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable())
+        http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/member/**").hasAnyRole("MEMBER", "ADMIN")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/notices/reg").hasRole("ADMIN")
+                        .requestMatchers("/admin/**","/notices/reg").hasRole("ADMIN")
                         .requestMatchers("/myshop/**").hasRole("MEMBER")
                         .anyRequest().permitAll())
                 .formLogin((form) -> form
                         .loginPage("/signin")
-
                         .permitAll())
                 .logout((logout) -> logout
                         .logoutUrl("/signout")
                         .logoutSuccessUrl("/")
                         .permitAll());
-
         return http.build();
     }
 

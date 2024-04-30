@@ -2,6 +2,7 @@ package com.newlecmineursprj.entity;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -25,7 +26,7 @@ public class ProductView {
     private boolean isDeliveryToday;
     private Boolean isSold;
     private String mainImgPath;
-    private Date regDate;
+    private LocalDate regDate;
     private Boolean currentUserLiked;
     private Long likeCount;
 

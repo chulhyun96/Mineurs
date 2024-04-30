@@ -84,64 +84,23 @@
                     <td colspan="3">
                         <div class="flex space-x-5">
                             <div class="flex space-x-1">
-                                <label
-                                        class="btn btn-outline btn-sm flex justify-center items-center"
-                                >
-                                    <span>오늘</span>
-                                    <input type="radio" class="hidden"/>
+                                <label th:each="regDate : ${regDates}"
+                                       class="btn btn-outline btn-sm flex justify-center items-center">
+                                    <span th:text="${regDate}">오늘</span>
+                                    <input type="radio" name="buttonRegDate" class="hidden"
+                                            th:value="${regDate}"/>
                                 </label>
-                                <label
-                                        class="btn btn-outline btn-sm flex justify-center items-center"
-                                >
-                                    <span>3일</span>
-                                    <input type="radio" class="hidden"/>
-                                </label>
-                                <label
-                                        class="btn btn-outline btn-sm flex justify-center items-center"
-                                >
-                                    <span>7일</span>
-                                    <input type="radio" class="hidden"/>
-                                </label>
-                                <label
-                                        class="btn btn-outline btn-sm flex justify-center items-center"
-                                >
-                                    <span>1개월</span>
-                                    <input type="radio" class="hidden"/>
-                                </label>
-                                <label
-                                        class="btn btn-outline btn-sm flex justify-center items-center"
-                                >
-                                    <span>3개월</span>
-                                    <input type="radio" class="hidden"/>
-                                </label>
-                                <label
-                                        class="btn btn-outline btn-sm flex justify-center items-center"
-                                >
-                                    <span>1년</span>
-                                    <input type="radio" class="hidden"/>
-                                </label>
-                                <label
-                                        class="btn btn-outline btn-sm flex justify-center items-center"
-                                >
-                                    <span>전체</span>
-                                    <input
-                                            type="radio"
-
-                                            class="hidden"
-                                            checked
-                                    />
-                                </label>
-                            </div>
-
-                            <div class="flex space-x-1 items-center">
-                                <input type="date"/>
-                                <span>~</span>
-                                <input type="date"/>
                             </div>
                         </div>
+
+                        <div class="flex space-x-1 items-center">
+                            <input type="date"/>
+                            <span>~</span>
+                            <input type="date"/>
+                        </div>
+
                     </td>
-                </tr>
-                <tr>
+
                     <td>진열상태</td>
                     <td>
                         <div class="form-control flex flex-row space-x-2">
@@ -187,9 +146,9 @@
     </section>
 
 
-        <!--    리스트-->
-        <section class="mt-10">
-            <form th:action="@{/admin/products/delete}" method="post">
+    <!--    리스트-->
+    <section class="mt-10">
+        <form th:action="@{/admin/products/delete}" method="post">
             <h1 class="text-2xl mb-0">상품 목록</h1>
             <div class="overflow-x-auto w-full">
                 <table class="table table-zebra text-center">
@@ -209,7 +168,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="product: ${productPage.content}">
+                    <tr th:each="product: ${productPage}">
                         <td scope="col">
                             <input
                                     name="deleteId"
@@ -245,7 +204,7 @@
                         </td>
                         <td
                                 scope="col"
-                                th:text="${#dates.format(product.regDate, 'yyyy년 M월 d일') }"
+                                th:text="${#temporals.format(product.regDate, 'yyyy년 M월 d일') }"
                         >
                             등록일자
                         </td>
@@ -265,7 +224,7 @@
                     <a th:href="@{/admin/products/reg}" class="btn">상품등록</a>
                 </div>
             </div>
-    </form>
+        </form>
     </section>
 
     <!-- 페이징 -->

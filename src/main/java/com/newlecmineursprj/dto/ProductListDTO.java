@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -15,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class ProductListDTO {
-
     private long id;
     private String name;
     private int price;
@@ -24,9 +23,8 @@ public class ProductListDTO {
     private List<Size> sizes;
     private boolean isDeliveryToday;
     private Boolean isSold;
-    private Date regDate;
+    private LocalDate regDate;
     private String mainImgPath;
     private Boolean currentUserLiked;
     private Long likeCount;
-
 }

@@ -31,20 +31,23 @@ public class ProductServiceImpl implements ProductService {
     private final ImgStore imgStore;
 
     @Override
-    public CustomPageImpl<ProductListDTO> getList(Integer pageNumber, Integer pageSize, String sortMethod,
-            Integer pageGroupSize, String searchMethod, String searchKeyword, long categoryId) {
+    public CustomPageImpl<ProductListDTO> getList(
+            Integer pageNumber, Integer pageSize, String sortMethod, Integer pageGroupSize, String searchMethod,
+            String searchKeyword, long categoryId, String startDate, String endDate) {
 
-        return getList(pageNumber, pageSize, sortMethod, "DESC", pageGroupSize, searchMethod, searchKeyword,
-                categoryId);
+        return getList(pageNumber, pageSize, sortMethod, "DESC", pageGroupSize, searchMethod, searchKeyword, categoryId,
+                startDate, endDate);
     }
 
     @Override
     public CustomPageImpl<ProductListDTO> getList(Integer pageNumber, Integer pageSize, String sortMethod,
-            String sortDirection, Integer pageGroupSize, String searchMethod, String searchKeyword, long categoryId) {
+            String sortDirection, Integer pageGroupSize, String searchMethod,
+            String searchKeyword, long categoryId, String startDate, String endDate) {
         Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize,
                 Sort.by(Sort.Direction.fromString(sortDirection), sortMethod));
 
-        List<ProductListDTO> content = repository.findAll(pageRequest, searchMethod, searchKeyword, categoryId)
+        List<ProductListDTO> content = repository.findAll(pageRequest, searchMethod, searchKeyword,
+                categoryId, startDate, endDate)
                 .stream().map(ProductMapper::toDto).toList();
 
         long count = repository.getCount(searchMethod, searchKeyword, categoryId);

@@ -55,7 +55,7 @@ public class OrderController {
         int rowNo = 0;
 
         Row headerRow = sheet.createRow(rowNo++);
-        headerRow.createCell(0).setCellValue("주문일시");
+        headerRow.createCell(0).setCellValue("주문일시");   
         headerRow.createCell(1).setCellValue("상품코드");
         headerRow.createCell(2).setCellValue("주문자");
         headerRow.createCell(3).setCellValue("상품명");
