@@ -54,8 +54,6 @@ public class ProductController {
 
         String startDate = RadioButtonRegDate.getStartDate();
         String endDate = RadioButtonRegDate.regDatesForSearch(buttonRegDate);
-        log.info("Button Reg Date : {}", buttonRegDate);
-        log.info("END DATE : {} ", endDate);
         CustomPageImpl<ProductListDTO> productPage = service.getList(
                 page, pageSize, "reg_date", 5
                 , searchMethod, searchKeyword.trim(), categoryId, startDate ,endDate
