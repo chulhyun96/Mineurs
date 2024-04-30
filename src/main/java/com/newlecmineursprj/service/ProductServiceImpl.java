@@ -1,7 +1,6 @@
 package com.newlecmineursprj.service;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 
 import com.newlecmineursprj.domain.file.ImgStore;
@@ -141,8 +140,4 @@ public class ProductServiceImpl implements ProductService {
         return repository.getCount(searchMethod, searchKeyword, categoryId);
     }
 
-    @Override
-    public List<ProductListDTO> getRegDateList(LocalDate endDate, LocalDate startDate) {
-        return repository.findByRegDate(endDate, startDate);
-    }
 }

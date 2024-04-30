@@ -17,5 +17,4 @@ public interface ProductService {
     void update(Product updateProduct, MultipartFile updateFile, List<MultipartFile> updateSubImgs) throws IOException;
     void deleteAllById(List<Long> deleteId);
     int getCount(String searchMethod, String searchKeyword, long categoryId);
-    List<ProductListDTO> getRegDateList(LocalDate endDate, LocalDate startDate);
 }
