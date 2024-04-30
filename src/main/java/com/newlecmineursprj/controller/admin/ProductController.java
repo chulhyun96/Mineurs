@@ -1,7 +1,7 @@
 package com.newlecmineursprj.controller.admin;
 
 import java.io.IOException;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.newlecmineursprj.aspect.PerfLogger;
@@ -46,22 +46,23 @@ public class ProductController {
             @RequestParam(required = false) String searchMethod,
             @RequestParam(defaultValue = "") String searchKeyword,
             @RequestParam(defaultValue = "0") Long categoryId,
-            @RequestParam(defaultValue = "") String searchRegDate,
+            @RequestParam(defaultValue = "") String buttonRegDate,
             Model model) {
 
         int count = service.getCount(searchMethod, searchKeyword.trim(), categoryId);
-        CustomPageImpl<ProductListDTO> productPage = service.getList(
-                page, pageSize, "reg_date", 5
-                , searchMethod, searchKeyword.trim(), categoryId
-        );
         List<Category> categories = categoryService.getList();
 
-        if (!searchRegDate.isBlank()) {
-            RadioButtonRegDate.regDatesForSearch(searchRegDate)
-        }
+        String startDate = RadioButtonRegDate.getStartDate();
+        String endDate = RadioButtonRegDate.regDatesForSearch(buttonRegDate);
+        log.info("Button Reg Date : {}", buttonRegDate);
+        log.info("END DATE : {} ", endDate);
+        CustomPageImpl<ProductListDTO> productPage = service.getList(
+                page, pageSize, "reg_date", 5
+                , searchMethod, searchKeyword.trim(), categoryId, startDate ,endDate
+        );
 
-        model.addAttribute("regDates",regDatesForSearch);
         model.addAttribute("productPage", productPage);
+        model.addAttribute("regDates",RadioButtonRegDate.regDateList());
         model.addAttribute("count", count);
         model.addAttribute("categories", categories);
         return PRODUCTS_VIEW + "/list";

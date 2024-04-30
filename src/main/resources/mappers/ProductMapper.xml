@@ -34,7 +34,6 @@
         <result property="deliveryToday" column="is_delivery_today" javaType="boolean" jdbcType="BOOLEAN"/>
     </resultMap>
 
-
     <select id="findAll" resultMap="ProductView">
         SELECT
         plv.*,
@@ -49,6 +48,9 @@
 
             <if test="categoryId != 0">
                 and plv.ct_id = #{categoryId}
+            </if>
+            <if test="startDate != '' and endDate != ''">
+                and reg_date between #{endDate} and #{startDate}
             </if>
         </where>
                 GROUP BY id

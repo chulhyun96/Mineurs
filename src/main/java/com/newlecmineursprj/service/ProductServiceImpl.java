@@ -1,6 +1,7 @@
 package com.newlecmineursprj.service;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.newlecmineursprj.domain.file.ImgStore;
@@ -31,13 +32,16 @@ public class ProductServiceImpl implements ProductService {
     private final ImgStore imgStore;
 
     @Override
-    public CustomPageImpl<ProductListDTO> getList(Integer pageNumber
+    public CustomPageImpl<ProductListDTO> getList(
+            Integer pageNumber
             , Integer pageSize
             , String sortMethod
             , Integer pageGroupSize
             , String searchMethod
             , String searchKeyword
-            , long categoryId) {
+            , long categoryId
+            , String startDate
+            , String endDate) {
 
 
         return getList(pageNumber
@@ -47,14 +51,19 @@ public class ProductServiceImpl implements ProductService {
                 , pageGroupSize
                 , searchMethod
                 , searchKeyword
-                , categoryId);
+                , categoryId
+                , startDate
+                , endDate);
     }
 
     @Override
-    public CustomPageImpl<ProductListDTO> getList(Integer pageNumber, Integer pageSize, String sortMethod, String sortDirection, Integer pageGroupSize, String searchMethod, String searchKeyword, long categoryId) {
+    public CustomPageImpl<ProductListDTO> getList(Integer pageNumber, Integer pageSize, String sortMethod,
+                                                  String sortDirection, Integer pageGroupSize, String searchMethod,
+                                                  String searchKeyword, long categoryId, String startDate, String endDate) {
         Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.fromString(sortDirection), sortMethod));
 
-        List<ProductListDTO> content = repository.findAll(pageRequest, searchMethod, searchKeyword, categoryId)
+        List<ProductListDTO> content = repository.findAll(pageRequest, searchMethod, searchKeyword,
+                        categoryId, startDate, endDate)
                 .stream().map(ProductMapper::toDto).toList();
 
         long count = repository.getCount(searchMethod, searchKeyword, categoryId);
@@ -130,5 +139,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public int getCount(String searchMethod, String searchKeyword, long categoryId) {
         return repository.getCount(searchMethod, searchKeyword, categoryId);
+    }
+
+    @Override
+    public List<ProductListDTO> getRegDateList(LocalDate endDate, LocalDate startDate) {
+        return repository.findByRegDate(endDate, startDate);
     }
 }

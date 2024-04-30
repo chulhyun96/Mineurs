@@ -87,7 +87,7 @@
                                 <label th:each="regDate : ${regDates}"
                                        class="btn btn-outline btn-sm flex justify-center items-center">
                                     <span th:text="${regDate}">오늘</span>
-                                    <input type="radio" name="searchRegDate" class="hidden"
+                                    <input type="radio" name="buttonRegDate" class="hidden"
                                             th:value="${regDate}"/>
                                 </label>
                             </div>
@@ -168,7 +168,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="product: ${productPage.content}">
+                    <tr th:each="product: ${productPage}">
                         <td scope="col">
                             <input
                                     name="deleteId"
@@ -204,7 +204,7 @@
                         </td>
                         <td
                                 scope="col"
-                                th:text="${#dates.format(product.regDate, 'yyyy년 M월 d일') }"
+                                th:text="${#temporals.format(product.regDate, 'yyyy년 M월 d일') }"
                         >
                             등록일자
                         </td>
