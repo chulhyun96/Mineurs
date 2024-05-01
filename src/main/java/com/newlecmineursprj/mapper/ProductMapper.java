@@ -21,6 +21,7 @@ public class ProductMapper {
                 .sizes(productView.getSizes())
                 .isDeliveryToday(productView.isDeliveryToday())
                 .isSold(productView.getIsSold())
+                .isDisplayed(productView.getIsDisplayed())
                 .mainImgPath(productView.getMainImgPath())
                 .currentUserLiked(productView.getCurrentUserLiked())
                 .build();

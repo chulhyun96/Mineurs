@@ -9,6 +9,8 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="module" src="/js/admin/products/list-vue.js"></script>
 </head>
 <body>
 <main layout:fragment="main" class="flex flex-col container mx-auto px-10">
@@ -163,6 +165,8 @@
                         <th scope="col">이미지</th>
                         <th scope="col">컬러</th>
                         <th scope="col">사이즈</th>
+                        <th scope="col">진열함</th>
+                        <th scope="col">판매함</th>
                         <!--                <th scope="col">설명</th>-->
                         <th scope="col">등록일자</th>
                     </tr>
@@ -175,6 +179,7 @@
                                     type="checkbox"
                                     class="checkbox"
                                     th:value="${product.id}"
+                                    v-model="checkedIds"
                             />
                         </td>
                         <td scope="col" th:text="${product.name}">상품 이름</td>
@@ -202,6 +207,26 @@
                                 </div>
                             </div>
                         </td>
+                        <td scope="col">
+                            <input
+                                    name="displayId"
+                                    type="checkbox"
+                                    class="checkbox"
+                                    th:value="${product.id}"
+                                    disabled
+                                    th:checked="${product.isDisplayed}"
+                            />
+                        </td>
+                        <td scope="col">
+                            <input
+                                    name="soldId"
+                                    type="checkbox"
+                                    class="checkbox"
+                                    th:value="${product.id}"
+                                    disabled
+                                    th:checked="${product.isSold}"
+                            />
+                        </td>
                         <td
                                 scope="col"
                                 th:text="${#temporals.format(product.regDate, 'yyyy년 M월 d일') }"
@@ -214,10 +239,10 @@
             </div>
             <div class="flex justify-between">
                 <div class="flex space-x-1">
-                    <button class="btn btn-outline btn-sm">진열함</button>
-                    <button class="btn btn-outline btn-sm">진열안함</button>
-                    <button class="btn btn-outline btn-sm">판매함</button>
-                    <button class="btn btn-outline btn-sm">판매안함</button>
+                    <button class="btn btn-outline btn-sm" @click.prevent="handleDisplayOnClick">진열함</button>
+                    <button class="btn btn-outline btn-sm" @click.prevent="handleDisplayOffClick">진열안함</button>
+                    <button class="btn btn-outline btn-sm" @click.prevent="handleSoldOnClick">판매함</button>
+                    <button class="btn btn-outline btn-sm" @click.prevent="handleSoldOffClick">판매안함</button>
                     <button type="submit" class="btn btn-outline btn-sm">삭제</button>
                 </div>
                 <div class="flex justify-end">

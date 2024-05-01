@@ -25,6 +25,7 @@ public class ProductView {
     private List<Size> sizes;
     private boolean isDeliveryToday;
     private Boolean isSold;
+    private Boolean isDisplayed;
     private String mainImgPath;
     private LocalDate regDate;
     private Boolean currentUserLiked;

@@ -8,6 +8,7 @@
         <result property="name" column="name"/>
         <result property="mainImgPath" column="main_img_path"/>
         <result property="isSold" column="is_sold"/>
+        <result property="isDisplayed" column="is_displayed"/>
         <result property="price" column="price"/>
         <result property="discountRate" column="discount_rate"/>
         <result property="isDeliveryToday" column="is_delivery_today"/>
@@ -156,4 +157,43 @@
             #{item}
         </foreach>
     </delete>
+
+    <update id="updateAll" parameterType="java.util.List">
+        <foreach collection="list" item="product" separator=";">
+            <trim prefix="UPDATE product SET" suffixOverrides=",">
+                <if test="product.name != null">
+                    name = #{product.name},
+                </if>
+                <if test="product.price != null">
+                    price = #{product.price},
+                </if>
+                <if test="product.description != null">
+                    description = #{product.description},
+                </if>
+                <if test="product.mainImgPath != null">
+                    main_img_path = #{product.mainImgPath},
+                </if>
+                <if test="product.displayed != null">
+                    is_displayed = #{product.displayed},
+                </if>
+                <if test="product.sold != null">
+                    is_sold = #{product.sold},
+                </if>
+                <if test="product.code != null">
+                    code = #{product.code},
+                </if>
+                <if test="product.deliveryToday != null">
+                    is_delivery_today = #{product.deliveryToday},
+                </if>
+                <if test="product.discountRate != null">
+                    discount_rate = #{product.discountRate},
+                </if>
+                <if test="product.categoryId != null">
+                    category_id = #{product.categoryId},
+                </if>
+                <!-- 추가적인 필드들에 대한 업데이트 처리 -->
+            </trim>
+            WHERE id = #{product.id}
+        </foreach>
+    </update>
 </mapper>
