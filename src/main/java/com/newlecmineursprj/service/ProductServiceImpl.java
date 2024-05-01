@@ -121,9 +121,15 @@ public class ProductServiceImpl implements ProductService {
         repository.deleteAll(deleteId);
     }
 
+
     @Override
     public int getCount(String searchMethod, String searchKeyword, long categoryId) {
         return repository.getCount(searchMethod, searchKeyword, categoryId);
+    }
+
+    @Override
+    public int updateAll(List<Product> products) {
+        return repository.updateAll(products);
     }
 
     @Override

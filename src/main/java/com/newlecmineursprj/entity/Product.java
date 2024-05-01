@@ -18,17 +18,17 @@ public class Product {
     private String name;
 
     @NotNull
-    private int price;
+    private Integer price;
 
     @NotBlank
     private String description;
 
     private String mainImgPath;
-    private boolean displayed;
-    private boolean sold;
+    private Boolean displayed;
+    private Boolean sold;
     private String code;
-    private boolean deliveryToday;
-    private double discountRate;
+    private Boolean deliveryToday;
+    private Double discountRate;
 
     @NotNull
     private Long categoryId;
