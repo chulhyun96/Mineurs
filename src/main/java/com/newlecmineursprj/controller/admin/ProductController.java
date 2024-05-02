@@ -65,6 +65,8 @@ public class ProductController {
         model.addAttribute("regDates",RadioButtonRegDate.regDateList());
         model.addAttribute("count", count);
         model.addAttribute("categories", categories);
+        model.addAttribute("calendarStart", calendarStart);
+        model.addAttribute("calendarEnd", calendarEnd);
         return PRODUCTS_VIEW + "/list";
     }
 
