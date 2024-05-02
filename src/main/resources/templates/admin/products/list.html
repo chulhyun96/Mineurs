@@ -42,7 +42,7 @@
                                 >
                                     <option
                                             th:selected="${param.searchMethod} == 'title'"
-                                            value="title"
+                                            value="name"
                                     >
                                         제목
                                     </option>
@@ -96,9 +96,9 @@
                         </div>
 
                         <div class="flex space-x-1 items-center">
-                            <input type="date"/>
+                            <input type="date" name ="calendarStart" th:value="${calendarStart}" th:max="${startDate}"/>
                             <span>~</span>
-                            <input type="date"/>
+                            <input type="date" name ="calendarEnd" th:value="${calendarEnd}" th:min="${startDate}"/>
                         </div>
 
                     </td>

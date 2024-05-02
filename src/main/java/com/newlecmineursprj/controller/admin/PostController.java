@@ -5,6 +5,7 @@ import com.newlecmineursprj.entity.QnaCategory;
 import com.newlecmineursprj.service.PostService;
 import com.newlecmineursprj.service.QnaCategoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.web.server.Cookie;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

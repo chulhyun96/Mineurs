@@ -2,9 +2,12 @@ package com.newlecmineursprj.controller.board;
 
 import com.newlecmineursprj.config.security.WebUserDetails;
 import com.newlecmineursprj.entity.Qna;
+import com.newlecmineursprj.entity.QnaCategory;
 import com.newlecmineursprj.entity.QnaView;
 import com.newlecmineursprj.service.MemberService;
+import com.newlecmineursprj.service.QnaCategoryService;
 import com.newlecmineursprj.service.QnaService;
+import com.newlecmineursprj.util.CustomPageImpl;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +19,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -27,15 +29,18 @@ public class QnaController {
 
     private final QnaService service;
     private final MemberService MemberService;
+    private final QnaCategoryService qnaCategoryService;
 
     @GetMapping
-    public String qnaList(@RequestParam(required = false) String searchMethod
-            , @RequestParam(defaultValue = "1") Integer page
-            , @RequestParam(defaultValue = "") String searchKeyword
-            , @RequestParam(defaultValue = "0") Integer categoryId
-            , Model model) {
+    public String list(@RequestParam(value= "p", defaultValue = "1")int pageNumber
+                        , @RequestParam(value = "s", defaultValue = "12")int pageSize
+                        , @RequestParam(required = false) String searchMethod
+                        , @RequestParam(defaultValue = "") String searchKeyword
+                        , @RequestParam(defaultValue = "0") int categoryId
+                        , @RequestParam(defaultValue = "0") int dueDate
+                        , Model model) {
+        CustomPageImpl<QnaView> list = service.getList(pageNumber, pageSize,5,searchMethod, searchKeyword, categoryId,dueDate);
 
-        List<QnaView> list = service.getList(page, searchMethod, searchKeyword, categoryId, null);
         model.addAttribute("list", list);
         return "/board/qna/list";
     }
@@ -47,19 +52,26 @@ public class QnaController {
     }
 
     @PostMapping("reg")
-    public String reg(Qna qna, SecurityContextHolder securityContextHolder) {
+    public String reg(Qna qna) {
         //사용자 정보 조회
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         WebUserDetails webUserDetails = getPrincipal(authentication);
-        qna.setMemberId(webUserDetails.getId());
+        if (webUserDetails != null) {
+            qna.setMemberId(webUserDetails.getId());
+        } else {
+            qna.setMemberId(null);
+        }
         service.reg(qna);
-
 
         return "redirect:/qna";
     }
 
     private static WebUserDetails getPrincipal(Authentication authentication) {
-        return (WebUserDetails) authentication.getPrincipal();
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof WebUserDetails) {
+            return (WebUserDetails)principal;
+        }
+        return null;
     }
 
     @GetMapping("{id}")
@@ -68,12 +80,36 @@ public class QnaController {
             return "redirect:/error";
         }
         Qna qna = service.getById(id);
+        QnaCategory category = qnaCategoryService.getById(qna.getQnaCategoryId());
         service.increase(id);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        WebUserDetails webUserDetails = getPrincipal(authentication);
+
         model.addAttribute("qna", service.getById(id));
+        if (webUserDetails != null) {
+            model.addAttribute("userName", webUserDetails.getUsername());
+        }
+        model.addAttribute("category", category);
+
         if (qna.getMemberId() != null)
             model.addAttribute("member", MemberService.getById(qna.getMemberId()));
 
         return "board/qna/detail";
+    }
+
+    @PostMapping("edit")
+    public String edit(Qna qna) {
+
+        service.edit(qna);
+        return "redirect:/qna";
+    }
+
+    @GetMapping("delete/{id}")
+    public String delete(@PathVariable long id) {
+        service.delete(id);
+        System.out.println("hi");
+        return "redirect:/qna";
     }
 
     @GetMapping("secretForm")

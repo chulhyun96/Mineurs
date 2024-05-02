@@ -39,6 +39,8 @@ private final PostService postService;
             , @RequestParam(defaultValue = "") String searchKeyword
             , @RequestParam(defaultValue = "0") Long categoryId
             , @RequestParam(defaultValue = "") String buttonRegDate
+            , @RequestParam(defaultValue = "") String calendarStart
+            , @RequestParam(defaultValue = "") String calendarEnd
             , Model model) {
 
         List<Category> categoryList = categoryService.getList();
@@ -48,7 +50,7 @@ private final PostService postService;
         String endDate = RadioButtonRegDate.regDatesForSearch(buttonRegDate);
         CustomPageImpl<ProductListDTO> productPage = service.getList(
                 pageNumber, pageSize, sortMethod, sortDirection,
-                5, searchMethod, searchKeyword, categoryId,startDate, endDate
+                5, searchMethod, searchKeyword, categoryId,startDate, endDate, calendarStart, calendarEnd
         );
         model.addAttribute("productPage", productPage);
 

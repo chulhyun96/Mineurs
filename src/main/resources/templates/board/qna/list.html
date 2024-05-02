@@ -16,10 +16,10 @@
     <!-- header -->
 
     <!-- main -->
-    <main layout:fragment="main" class="container mx-auto mt-24">
+    <main layout:fragment="main" class="container mx-auto mt-24 flex-grow ">
         <section class="text-center">
-            <h1 class="text-3xl">QnA</h1>
-            <p>상품 사용후기입니다.</p>
+            <h1 class="text-3xl"><a href="/qna">QnA</a></h1>
+            <p><a href="/qna">상품 사용후기입니다.</a></p>
         </section>
         <form>
             <select class="select select-bordered select-sm w-full max-w-64 border mt-12" name="categoryId">
@@ -37,13 +37,13 @@
                 <option value="">답변완료 글보기</option>
             </select>
 
-                <table class="table mt-2 mb-4">
+                <table class="table mt-2 mb-4 border-b">
                     <thead>
                     <tr class="bg-stone-50">
                         <th class="text-center text-sm w-16">번호</th>
                         <th class="text-center text-sm w-40">상품</th>
                         <th class="text-center text-sm w-40">카테고리</th>
-                        <th class="text-center text-sm">내용</th>
+                        <th class="text-center text-sm">제목</th>
                         <th class="text-center text-sm w-16">작성자</th>
                         <th class="text-center text-sm w-16">등록날짜</th>
                         <th class="text-center text-sm w-16">조회수</th>
@@ -55,29 +55,30 @@
                         <td class="text-center text-sm">
                             <img class="w-36 h-36 bg-cover" src="" alt="" th:src="@{'/webapp/image/products/'+${qna.mainImgPath}}"/>
                         </td>
-                        <td class="text-center text-sm" th:text="${qna.categoryName}">작성자</td>
-                        <td class="text-center"><a href="" th:href="@{/qna/secretForm(id=${qna.id})}" th:text="${qna.summary}">내용</a></td>
+                        <td class="text-center text-sm" th:text="${qna.categoryName}">카테고리</td>
+                        <td class="text-center"><a href="" th:href="@{/qna/secretForm(id=${qna.id})}" th:text="${qna.title}">내용</a></td>
                         <td class="text-center text-sm" th:text="${qna.userName}">작성자</td>
                         <th class="text-center text-sm" th:text="${#dates.format(qna.regDateTime,'yyyy-MM-dd HH:mm:ss')}">날짜</th>
                         <td class="text-center text-sm" th:text="${qna.views}">조회수</td>
                     </tr>
                 </table>
 
-                <section class="mb-10 flex">
-                    <select class="select select-bordered select-sm w-full max-w-28 border mt-0" name="duedate">
+                <section class="flex mt-12">
+                    <select class="select select-bordered select-sm w-full max-w-28 border mt-0" name="dueDate">
                         <option selected value="0">전체</option>
-                        <option value="1">일주일</option>
-                        <option value="2">한달</option>
-                        <option value="3">세달</option>
+                        <option value="1" th:selected="${param.dueDate} == 1">일주일</option>
+                        <option value="30" th:selected="${param.dueDate} == 30">한달</option>
+                        <option value="90" th:selected="${param.dueDate} == 90">세달</option>
                     </select>
                     <select class="select select-bordered select-sm w-full max-w-28 border mt-0" name="searchMethod">
-                        <option selected value="title">제목</option>
-                        <option value="content">내용</option>
-                        <option value="writer">작성자</option>
-                        <option value="productName">상품명</option>
+                        <option selected value="title" th:selected="${{param.searchMethod}} == 'title'">제목</option>
+                        <option value="content" th:selected="${{param.searchMethod}} == 'content'">내용</option>
+                        <option value="writer" th:selected="${param.searchMethod} == 'title'">작성자</option>
+                        <option value="productName" th:selected="${param.searchMethod} == 'title'">상품명</option>
                     </select>
                     <div class="join">
-                        <input type="text" placeholder="내용" class="input input-bordered border input-sm w-full max-w-xs" name="searchKeyword"/>
+                        <input type="text" placeholder="내용" class="input input-bordered border input-sm w-full max-w-xs"
+                               name="searchKeyword" th:value="${#strings.trim(param.searchKeyword)}"/>
                         <button class="btn btn-sm">Search</button>
                     </div>
                     <div class="grow flex justify-end">
@@ -86,28 +87,35 @@
                 </section>
         </form>
 
-<!-- 페이저-->
-        <div class="flex items-center gap-4 justify-center my-16">
-            <button disabled
-                    class="flex items-center gap-2 px-6 py-3 font-sans text-xs text-center text-gray-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                    type="button">
-                <<
-            </button>
-            <div class="flex items-center gap-2">
-                <button
-                        class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg bg-gray-900 text-center align-middle font-sans text-xs font-medium uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                        type="button">
-      <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-        1
-      </span>
-                </button>
-            </div>
-            <button
-                    class="flex items-center gap-2 px-6 py-3 font-sans text-xs text-center text-gray-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                    type="button">
-                >>
-            </button>
+        <!-- 페이징 -->
+        <div class="join self-center"
+             th:object="${list}"
+             th:if="${!list.isEmpty() and list.totalPages gt 1}"
+        >
+            <!--   이전버튼     -->
+            <a th:if="*{hasPrevPageGroup()}"
+               th:href="@{/(p=*{pageGroupStartNumber} - 1, s=${param.s}, searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId} )}"
+               class="join-item btn">«
+            </a>
+
+            <!--   숫자버튼     -->
+            <a
+                    th:each="pageNumber: *{#numbers.sequence(pageGroupStartNumber, pageGroupEndNumber)}"
+                    th:text="${pageNumber}"
+                    class="join-item btn"
+                    th:classappend="(*{number+1} eq ${pageNumber}) ? 'btn-active'"
+                    th:href="@{/qna(p=${pageNumber}, s=${param.s}, searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId} )}"
+
+
+            >1</a>
+
+            <!--    다음버튼    -->
+            <a th:if="*{hasNextPageGroup()}"
+               th:href="@{/(p=*{pageGroupEndNumber} + 1, s=${param.s}, searchMethod=${param.searchMethod},searchKeyword=${param.searchKeyword},categoryId=${param.categoryId})}"
+               class="join-item btn">»
+            </a>
         </div>
+        <!-- 페이징 -->
     </main>
 </body>
 </html>

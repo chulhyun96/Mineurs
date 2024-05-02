@@ -45,8 +45,8 @@
                                             name="searchMethod"
                                     >
                                         <option
-                                                th:selected="${param.searchMethod} == 'summary'"
-                                                value="summary"
+                                                th:selected="${param.searchMethod} == 'title'"
+                                                value="title"
                                         >
                                             제목
                                         </option>
@@ -185,7 +185,7 @@
                         </td>
                         <td scope="row" th:text="${post.id}">1</td>
                         <td th:text="${post.boardName}">Q&A</td>
-                        <td th:text="${post.summary}">제목</td>
+                        <td th:text="${post.title}">제목</td>
                         <td th:text="${post.state == 1 ? '답변완료' : '-'}">답변완료</td>
                         <td>
 <!--                            <button id="modal-btn" type="button" class="preview n-btn" th:data-id="${post.id}">-->
@@ -197,7 +197,7 @@
                                     <h3 class="font-bold text-lg">게시글 내용 미리보기</h3>
                                     <div class="my-3">
                                         <strong>제목</strong>
-                                        <span class="pl-5" th:text="${post.summary}"></span>
+                                        <span class="pl-5" th:text="${post.title}"></span>
                                     </div>
                                     <div class="my-3">
                                         <strong>작성자</strong>

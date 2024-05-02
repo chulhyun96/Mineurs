@@ -9,4 +9,10 @@
         FROM qna_category
         order by id
     </select>
+    <select id="findById">
+        select * from qna_category
+        <where>
+            id = #{categoryId}
+        </where>
+    </select>
 </mapper>

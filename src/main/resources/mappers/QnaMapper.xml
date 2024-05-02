@@ -6,7 +6,7 @@
     <resultMap id="PostView" type="QnaView">
         <id column="id" property="id"/>
         <result property="mainImgPath" column="main_img_path"/>
-        <result property="summary" column="summary"/>
+        <result property="title" column="title"/>
         <result property="userName" column="username"/>
         <result property="regDateTime" column="reg_datetime"/>
         <result property="views" column="views"/>
@@ -16,8 +16,14 @@
     <select id="findAll" resultType="QnaView">
         select * from qna_list_view
         <where>
-            <if test="categoryId !=0">
-                category_id=#{categoryId}
+            <if test="searchKeyword != ''">
+                ${searchMethod} like '%${searchKeyword}%'
+            </if>
+            <if test="categoryId != 0">
+                and category_id = #{categoryId}
+            </if>
+            <if test="dueDate !=0">
+                and reg_datetime >= curdate()-interval #{dueDate} day;
             </if>
         </where>
     </select>
@@ -27,8 +33,8 @@
     </select>
 
     <insert id="save" parameterType="Qna">
-        insert into qna(summary,content,board_id,qna_category_id,member_id)
-        values (#{summary},#{content},#{boardId},#{categoryId},#{memberId})
+        insert into qna(title,content,board_id,qna_category_id,member_id)
+        values (#{title},#{content},#{boardId},#{categoryId},#{memberId})
     </insert>
 
     <select id="findAllByMemberId" parameterType="Qna">
@@ -45,4 +51,35 @@
     <select id="findByPassword">
         SELECT EXISTS(SELECT 1 FROM qna WHERE id = #{id} AND password = #{password});
     </select>
+
+    <select id="count" resultType="long">
+        select
+        count(id)
+        from qna_list_view
+        <where>
+            <if test="searchKeyword != ''">
+                ${searchMethod} like '%${searchKeyword}%'
+            </if>
+            <if test="categoryId != 0">
+                and category_id = #{categoryId}
+            </if>
+            <if test="dueDate !=0">
+                and reg_datetime >= curdate()-interval #{dueDate} day;
+            </if>
+        </where>
+    </select>
+
+    <update id="edit">
+        update qna
+        set qna_category_id = #{qnaCategoryId}, title = #{title}, content = #{content}
+        <if test="password != null and password !=''">
+        , password = #{password}
+        </if>
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from qna
+        where id = #{id}
+    </delete>
 </mapper>
