@@ -69,7 +69,6 @@ public class ProductController {
         model.addAttribute("calendarStart", calendarStart);
         model.addAttribute("calendarEnd", calendarEnd);
         model.addAttribute("startDate", startDate);
-        model.addAttribute("endDate", endDate);
         return PRODUCTS_VIEW + "/list";
     }
 
