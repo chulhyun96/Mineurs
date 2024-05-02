@@ -18,4 +18,21 @@
         where id = #{id}
     </select>
 
+    <select id="findByProductId" resultType="ProductItem">
+        SELECT
+        *
+        FROM product_item
+        where product_id = #{productId}
+    </select>
+
+    <select id="findByForeignKeys" resultType="ProductItem">
+        SELECT
+            *
+        FROM
+            product_item
+        WHERE
+            product_id = #{productId}
+            AND size_id = #{sizeId}
+            AND color_id = #{colorId}
+    </select>
 </mapper>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.newlecmineursprj.entity.Order;
 import com.newlecmineursprj.entity.OrderView;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
@@ -20,4 +21,6 @@ public interface OrderRepository {
     int getCount(String searchMethod, String searchKeyword, Long memberId);
 
     OrderView findById(Long id);
+
+    void add(Order order);
 }

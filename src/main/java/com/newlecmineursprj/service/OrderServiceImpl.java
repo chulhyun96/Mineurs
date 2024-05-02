@@ -2,6 +2,7 @@ package com.newlecmineursprj.service;
 
 import java.util.List;
 
+import com.newlecmineursprj.entity.Order;
 import com.newlecmineursprj.entity.OrderView;
 import com.newlecmineursprj.util.CustomPageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -58,6 +59,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderView getById(Long id) {
         return repository.findById(id);
+    }
+
+    @Override
+    public void add(Order order) {
+        repository.add(order);
     }
 
 }

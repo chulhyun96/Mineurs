@@ -2,6 +2,7 @@ package com.newlecmineursprj.service;
 
 import java.util.List;
 
+import com.newlecmineursprj.entity.Order;
 import com.newlecmineursprj.entity.OrderView;
 import com.newlecmineursprj.util.CustomPageImpl;
 
@@ -17,4 +18,6 @@ public interface OrderService {
     int getCount(String searchMethod, String searchKeyword);
 
     OrderView getById(Long id);
+
+    void add(Order order);
 }
