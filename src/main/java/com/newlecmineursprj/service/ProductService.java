@@ -11,11 +11,13 @@ import java.util.List;
 public interface ProductService {
     CustomPageImpl<ProductListDTO> getList(Integer pageNumber, Integer pageSize, String sortMethod,
                                            Integer pageGroupSize, String searchMethod, String searchKeyword, long categoryId, String startDate,
-                                           String endDate, String calendarStart, String calendarEnd, Integer displayStatusResult);
+                                           String endDate, String calendarStart, String calendarEnd,
+                                           Integer displayStatusResult, Integer sellStatusResult);
 
     CustomPageImpl<ProductListDTO> getList(Integer pageNumber, Integer pageSize, String sortMethod,
                                            String sortDirection, Integer pageGroupSize, String searchMethod, String searchKeyword, long categoryId,
-                                           String startDate, String endDate, String calendarStart, String calendarEnd, Integer displayStatusResult);
+                                           String startDate, String endDate, String calendarStart, String calendarEnd,
+                                           Integer displayStatusResult, Integer sellStatusResult);
 
     Product getById(Long id);
 

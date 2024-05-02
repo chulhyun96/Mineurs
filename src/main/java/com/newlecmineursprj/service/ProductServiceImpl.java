@@ -43,7 +43,8 @@ public class ProductServiceImpl implements ProductService {
             , String endDate
             , String calendarStart
             , String calendarEnd
-            , Integer displayStatusResult) {
+            , Integer displayStatusResult
+            , Integer sellStatusResult) {
 
 
         return getList(pageNumber
@@ -58,18 +59,19 @@ public class ProductServiceImpl implements ProductService {
                 , endDate
                 , calendarStart
                 , calendarEnd
-                , displayStatusResult);
+                , displayStatusResult
+                , sellStatusResult);
     }
 
     @Override
     public CustomPageImpl<ProductListDTO> getList(Integer pageNumber, Integer pageSize, String sortMethod,
                                                   String sortDirection, Integer pageGroupSize, String searchMethod,
                                                   String searchKeyword, long categoryId, String startDate, String endDate,
-                                                  String calendarStart, String calendarEnd, Integer displayStatusResult) {
+                                                  String calendarStart, String calendarEnd, Integer displayStatusResult, Integer sellStatusResult) {
         Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.fromString(sortDirection), sortMethod));
 
         List<ProductListDTO> content = repository.findAll(pageRequest, searchMethod, searchKeyword,
-                        categoryId, startDate, endDate, calendarStart, calendarEnd, displayStatusResult)
+                        categoryId, startDate, endDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResult)
                 .stream().map(ProductMapper::toDto).toList();
 
         long count = repository.getCount(searchMethod, searchKeyword, categoryId);

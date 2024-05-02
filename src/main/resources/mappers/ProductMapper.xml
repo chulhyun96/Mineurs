@@ -58,6 +58,9 @@
             <if test="displayStatusResult == 1 or displayStatusResult == 0">
                 and is_displayed = #{displayStatusResult}
             </if>
+            <if test="sellStatusResult == 1 or sellStatusResult == 0">
+                and is_sold = #{sellStatusResult}
+            </if>
         </where>
         GROUP BY id
         <if test="pageRequest.sort.sorted">

@@ -41,19 +41,22 @@ private final PostService postService;
             , @RequestParam(defaultValue = "") String calendarStart
             , @RequestParam(defaultValue = "") String calendarEnd
             , @RequestParam(defaultValue = "") String selectedDisplayStatus
+            , @RequestParam(defaultValue = "") String selectedSellStatus
             , Model model) {
 
         List<Category> categoryList = categoryService.getList();
         model.addAttribute("categoryList",categoryList);
 
 
+        Integer sellStatusResults = SearchModuleUtil.searchBySellStatus(selectedSellStatus);
         String startDate = SearchModuleUtil.getStartDate();
         String endDate = SearchModuleUtil.searchByRegDate(buttonRegDate);
         Integer displayStatusResult = SearchModuleUtil.searchByDisplayStatus(selectedDisplayStatus);
+
         CustomPageImpl<ProductListDTO> productPage = service.getList(
                 pageNumber, pageSize, sortMethod, sortDirection,
                 5, searchMethod, searchKeyword, categoryId,
-                startDate, endDate, calendarStart, calendarEnd, displayStatusResult
+                startDate, endDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResults
         );
         model.addAttribute("productPage", productPage);
 

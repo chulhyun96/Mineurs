@@ -48,21 +48,23 @@ public class ProductController {
             @RequestParam(defaultValue = "") String calendarStart,
             @RequestParam(defaultValue = "") String calendarEnd,
             @RequestParam(defaultValue = "") String selectedDisplayStatus,
+            @RequestParam(defaultValue = "") String selectedSellStatus,
             Model model) {
 
         int count = service.getCount(searchMethod, searchKeyword.trim(), categoryId);
         List<Category> categories = categoryService.getList();
 
 
+        Integer sellStatusResult = SearchModuleUtil.searchBySellStatus(selectedSellStatus);
         Integer displayStatusResult = SearchModuleUtil.searchByDisplayStatus(selectedDisplayStatus);
         String startDate = SearchModuleUtil.getStartDate();
         String endDate = SearchModuleUtil.searchByRegDate(buttonRegDate);
+
         CustomPageImpl<ProductListDTO> productPage = service.getList(
                 page, pageSize, "reg_date", 5
                 , searchMethod, searchKeyword.trim(), categoryId
-                , startDate, endDate, calendarStart, calendarEnd,displayStatusResult
+                , startDate, endDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResult
         );
-        log.info("selectedDisplayStatus : {}", selectedDisplayStatus);
 
         model.addAttribute("productPage", productPage);
         model.addAttribute("count", count);
@@ -70,6 +72,7 @@ public class ProductController {
         model.addAttribute("calendarStart", calendarStart);
         model.addAttribute("calendarEnd", calendarEnd);
         model.addAttribute("startDate", startDate);
+        model.addAttribute("sellStatusList", SearchModuleUtil.sellStatusList());
         model.addAttribute("displayStatusList", SearchModuleUtil.DisplayStatusList());
         model.addAttribute("regDates", SearchModuleUtil.regDateList());
         return PRODUCTS_VIEW + "/list";
@@ -84,7 +87,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public String reg(@Validated  Product product, BindingResult bindingResult,Model model,
+    public String reg(@Validated Product product, BindingResult bindingResult, Model model,
                       MultipartFile mainImg, @RequestParam(value = "sub-imgs") List<MultipartFile> subImages) throws IOException {
         if (bindingResult.hasErrors()) {
             ifCategoryNull(product, model);
