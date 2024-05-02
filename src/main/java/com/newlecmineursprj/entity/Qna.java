@@ -16,10 +16,10 @@ public class Qna {
     private String content;
     private Date regDatetime;
     private Long views;
-    private Long categoryId;
+    private Long qnaCategoryId;
     private Long memberId;
     private Long boardId;
-    private String summary;
+    private String title;
     private String categoryName;
     private String password;
 

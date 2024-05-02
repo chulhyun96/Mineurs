@@ -1,7 +1,12 @@
 package com.newlecmineursprj.controller;
 
-import java.util.List;
-
+import com.newlecmineursprj.config.security.WebUserDetails;
+import com.newlecmineursprj.dto.ProductListDTO;
+import com.newlecmineursprj.entity.Category;
+import com.newlecmineursprj.service.*;
+import com.newlecmineursprj.util.CustomPageImpl;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,18 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.newlecmineursprj.config.security.WebUserDetails;
-import com.newlecmineursprj.dto.ProductListDTO;
-import com.newlecmineursprj.entity.Category;
-import com.newlecmineursprj.service.CategoryService;
-import com.newlecmineursprj.service.MemberService;
-import com.newlecmineursprj.service.OrderService;
-import com.newlecmineursprj.service.PostService;
-import com.newlecmineursprj.service.ProductService;
-import com.newlecmineursprj.util.CustomPageImpl;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -75,5 +69,6 @@ public class MyShopController {
 
         return "myshop/wishlist";
     }
+
 
 }

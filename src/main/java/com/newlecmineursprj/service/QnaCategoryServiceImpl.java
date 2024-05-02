@@ -17,4 +17,9 @@ public class QnaCategoryServiceImpl implements QnaCategoryService{
     public List<QnaCategory> getList() {
         return repository.findAll();
     }
+
+    @Override
+    public QnaCategory getById(Long categoryId) {
+        return repository.findById(categoryId);
+    }
 }

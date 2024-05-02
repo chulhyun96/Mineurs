@@ -15,7 +15,7 @@ public class QnaView {
 
     private Long id;
     private String mainImgPath;
-    private String summary;
+    private String title;
     private String userName;
     private Date regDateTime;
     private Long views;
