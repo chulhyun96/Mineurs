@@ -1,15 +1,13 @@
 package com.newlecmineursprj.controller.admin;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 
-import com.newlecmineursprj.aspect.PerfLogger;
 import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.ProductSubImg;
 
 import com.newlecmineursprj.util.CustomPageImpl;
-import com.newlecmineursprj.util.RadioButtonRegDate;
+import com.newlecmineursprj.util.SearchModuleUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,26 +47,31 @@ public class ProductController {
             @RequestParam(defaultValue = "") String buttonRegDate,
             @RequestParam(defaultValue = "") String calendarStart,
             @RequestParam(defaultValue = "") String calendarEnd,
+            @RequestParam(defaultValue = "") String selectedDisplayStatus,
             Model model) {
 
         int count = service.getCount(searchMethod, searchKeyword.trim(), categoryId);
         List<Category> categories = categoryService.getList();
 
-        String startDate = RadioButtonRegDate.getStartDate();
-        String endDate = RadioButtonRegDate.regDatesForSearch(buttonRegDate);
+
+        Integer displayStatusResult = SearchModuleUtil.searchByDisplayStatus(selectedDisplayStatus);
+        String startDate = SearchModuleUtil.getStartDate();
+        String endDate = SearchModuleUtil.searchByRegDate(buttonRegDate);
         CustomPageImpl<ProductListDTO> productPage = service.getList(
                 page, pageSize, "reg_date", 5
                 , searchMethod, searchKeyword.trim(), categoryId
-                , startDate, endDate, calendarStart, calendarEnd
+                , startDate, endDate, calendarStart, calendarEnd,displayStatusResult
         );
+        log.info("selectedDisplayStatus : {}", selectedDisplayStatus);
 
         model.addAttribute("productPage", productPage);
-        model.addAttribute("regDates",RadioButtonRegDate.regDateList());
         model.addAttribute("count", count);
         model.addAttribute("categories", categories);
         model.addAttribute("calendarStart", calendarStart);
         model.addAttribute("calendarEnd", calendarEnd);
         model.addAttribute("startDate", startDate);
+        model.addAttribute("displayStatusList", SearchModuleUtil.DisplayStatusList());
+        model.addAttribute("regDates", SearchModuleUtil.regDateList());
         return PRODUCTS_VIEW + "/list";
     }
 

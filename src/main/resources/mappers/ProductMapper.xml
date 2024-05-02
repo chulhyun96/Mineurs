@@ -46,7 +46,6 @@
             <if test="searchKeyword != ''">
                 plv.${searchMethod} like '%${searchKeyword}%'
             </if>
-
             <if test="categoryId != 0">
                 and plv.ct_id = #{categoryId}
             </if>
@@ -55,6 +54,9 @@
             </if>
             <if test="calendarStart != '' and calendarEnd != ''">
                 and reg_date between #{calendarStart} and #{calendarEnd}
+            </if>
+            <if test="displayStatusResult == 1 or displayStatusResult == 0">
+                and is_displayed = #{displayStatusResult}
             </if>
         </where>
         GROUP BY id

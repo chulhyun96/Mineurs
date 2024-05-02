@@ -30,7 +30,6 @@ public class MyShopController {
 
     private final OrderService orderService;
     private final ProductService productService;
-
     private final CategoryService categoryService;
     private final MemberService memberService;
     private final PostService postService;
