@@ -8,7 +8,7 @@
         <id column="post_id" property="id"/>
         <result property="boardId" column="board_id"/>
         <result property="boardName" column="board_name"/>
-        <result property="summary" column="summary"/>
+        <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="state" column="state"/>
         <result property="memberName" column="member_name"/>

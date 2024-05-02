@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface QnaCategoryService {
     List<QnaCategory> getList();
+
+    QnaCategory getById(Long categoryId);
 }

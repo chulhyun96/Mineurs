@@ -1,5 +1,13 @@
 package com.newlecmineursprj.controller;
 
+import com.newlecmineursprj.config.security.WebUserDetails;
+import com.newlecmineursprj.dto.ProductListDTO;
+import com.newlecmineursprj.entity.Category;
+import com.newlecmineursprj.service.*;
+import com.newlecmineursprj.util.CustomPageImpl;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -12,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.newlecmineursprj.config.security.WebUserDetails;
 import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.Category;
+import com.newlecmineursprj.entity.Coupon;
+import com.newlecmineursprj.entity.Member;
 import com.newlecmineursprj.service.CategoryService;
+import com.newlecmineursprj.service.CouponService;
 import com.newlecmineursprj.service.MemberService;
 import com.newlecmineursprj.service.OrderService;
 import com.newlecmineursprj.service.PostService;
@@ -30,10 +41,11 @@ public class MyShopController {
 
     private final OrderService orderService;
     private final ProductService productService;
-
     private final CategoryService categoryService;
     private final MemberService memberService;
-    private final PostService postService;
+    // private final PostService postService;
+
+    private final CouponService couponService;
 
     @GetMapping("order/list")
     public String orderList(@RequestParam(value = "p", defaultValue = "1") int pageNumber,
@@ -47,6 +59,9 @@ public class MyShopController {
 
         log.debug("memberId: {}", memberId);
 
+        List<Category> categoryList = categoryService.getList();
+        model.addAttribute("categoryList", categoryList);
+
         model.addAttribute("orderPage", orderService.getList(
                 pageNumber, pageSize, sortMethod, sortDirection, 5, searchMethod, searchKeyword, memberId));
 
@@ -54,7 +69,11 @@ public class MyShopController {
     }
 
     @GetMapping
-    public String index() {
+    public String index(Model model) {
+
+        List<Category> categoryList = categoryService.getList();
+        model.addAttribute("categoryList", categoryList);
+
         return "myshop/index";
     }
 
@@ -62,8 +81,6 @@ public class MyShopController {
     public String wishlist(@RequestParam(value = "p", defaultValue = "1") int pageNumber,
             @RequestParam(value = "s", defaultValue = "12") int pageSize,
             Model model, @AuthenticationPrincipal WebUserDetails webUserDetails) {
-
-        log.info("아무렇게");
 
         long memberId = webUserDetails.getId();
 
@@ -74,6 +91,29 @@ public class MyShopController {
         model.addAttribute("productPage", productPage);
 
         return "myshop/wishlist";
+    }
+
+    @GetMapping("point")
+    public String point(Model model, @AuthenticationPrincipal WebUserDetails webUserDetails) {
+        List<Category> categoryList = categoryService.getList();
+        model.addAttribute("categoryList", categoryList);
+
+        long memberId = webUserDetails.getId();
+        Member member = memberService.getById(memberId);
+
+        model.addAttribute("member", member);
+        return "myshop/point";
+    }
+
+    @GetMapping("coupon")
+    public String coupon(Model model, @AuthenticationPrincipal WebUserDetails webUserDetails) {
+
+        long memberId = webUserDetails.getId();
+
+        List<Coupon> coupons = couponService.getValidByMemberId(memberId);
+
+        model.addAttribute("coupons", coupons);
+        return "myshop/coupon";
     }
 
 }

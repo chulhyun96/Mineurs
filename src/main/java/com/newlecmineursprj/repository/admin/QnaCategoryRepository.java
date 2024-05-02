@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface QnaCategoryRepository {
     List<QnaCategory> findAll();
+
+    QnaCategory findById(Long categoryId);
 }

@@ -12,7 +12,7 @@ public class PostView {
 
     private String boardName;
     private Long boardId;
-    private String summary;
+    private String title;
     private String content;
     private Long state;
     private String memberName;

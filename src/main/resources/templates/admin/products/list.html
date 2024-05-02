@@ -96,44 +96,31 @@
                         </div>
 
                         <div class="flex space-x-1 items-center">
-                            <input type="date"/>
+                            <input type="date" name ="calendarStart" th:value="${calendarStart}" th:max="${startDate}"/>
                             <span>~</span>
-                            <input type="date"/>
+                            <input type="date" name ="calendarEnd" th:value="${calendarEnd}" th:min="${startDate}"/>
                         </div>
 
                     </td>
 
                     <td>진열상태</td>
                     <td>
-                        <div class="form-control flex flex-row space-x-2">
+                        <div class="form-control flex flex-row space-x-2" th:each="displayStatus : ${displayStatusList}">
                             <label class="label cursor-pointer space-x-1">
-                                <input type="radio" class="radio" checked/>
-                                <span class="label-text">전체</span>
-                            </label>
-                            <label class="label cursor-pointer space-x-1">
-                                <input type="radio" class="radio"/>
-                                <span class="label-text">진열함</span>
-                            </label>
-                            <label class="label cursor-pointer space-x-1">
-                                <input type="radio" class="radio"/>
-                                <span class="label-text">진열안함</span>
+                                <input type="radio" name="selectedDisplayStatus" class="radio" th:value="${displayStatus}"
+                                       th:checked="${{param.selectedDisplayStatus}} == ${displayStatus}">
+                                <span class="label-text" th:text="${displayStatus}">진열상태</span>
                             </label>
                         </div>
+
                     </td>
                     <td class="bg-base-300">판매상태</td>
                     <td>
-                        <div class="form-control flex flex-row space-x-2">
+                        <div class="form-control flex flex-row space-x-2" th:each="sellStatus : ${sellStatusList}">
                             <label class="label cursor-pointer space-x-1">
-                                <input type="radio" class="radio" checked/>
-                                <span class="label-text">전체</span>
-                            </label>
-                            <label class="label cursor-pointer space-x-1">
-                                <input type="radio" class="radio"/>
-                                <span class="label-text">판매함</span>
-                            </label>
-                            <label class="label cursor-pointer space-x-1">
-                                <input type="radio" class="radio"/>
-                                <span class="label-text">판매안함</span>
+                                <input type="radio" class="radio" name="selectedSellStatus" th:value="${sellStatus}"
+                                th:checked="${{param.selectedSellStatus}} == ${sellStatus}"/>
+                                <span class="label-text" th:text="${sellStatus}">판매상태</span>
                             </label>
                         </div>
                     </td>
@@ -142,7 +129,7 @@
             </table>
             <div class="self-center flex space-x-2">
                 <button class="btn btn-wide">검색</button>
-                <button class="btn btn-wide btn-outline">초기화</button>
+                <a th:href="@{/admin/products}" type="button" class="btn btn-wide btn-outline">초기화</a>
             </div>
         </form>
     </section>

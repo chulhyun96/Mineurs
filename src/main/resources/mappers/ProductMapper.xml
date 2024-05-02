@@ -46,22 +46,29 @@
             <if test="searchKeyword != ''">
                 plv.${searchMethod} like '%${searchKeyword}%'
             </if>
-
             <if test="categoryId != 0">
                 and plv.ct_id = #{categoryId}
             </if>
             <if test="startDate != '' and endDate != ''">
                 and reg_date between #{endDate} and #{startDate}
             </if>
+            <if test="calendarStart != '' and calendarEnd != ''">
+                and reg_date between #{calendarStart} and #{calendarEnd}
+            </if>
+            <if test="displayStatusResult == 1 or displayStatusResult == 0">
+                and is_displayed = #{displayStatusResult}
+            </if>
+            <if test="sellStatusResult == 1 or sellStatusResult == 0">
+                and is_sold = #{sellStatusResult}
+            </if>
         </where>
-                GROUP BY id
+        GROUP BY id
         <if test="pageRequest.sort.sorted">
-
             <foreach item="order" index="i" collection="pageRequest.sort" separator=", ">
                 ORDER BY ${order.property} ${order.direction}
             </foreach>
         </if>
-                limit #{pageRequest.offset}, #{pageRequest.pageSize}
+        limit #{pageRequest.offset}, #{pageRequest.pageSize}
     </select>
 
     <select id="findAllByMemberId" resultMap="ProductView">

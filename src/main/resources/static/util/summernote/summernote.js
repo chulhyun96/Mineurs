@@ -1,10 +1,15 @@
-jQuery(document).ready(function() {
-
+$(document).ready(function() {
     $('#summernote').summernote({
-
-        height: 300,                 // set editor height
-        minHeight: null,             // set minimum height of editor
-        maxHeight: null,             // set maximum height of editor
-        focus: true                  // set focus to editable area after initializing summernote
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'italic', 'underline', 'clear']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['insert', ['link', 'picture', 'video']],
+        ],
+        height: 300,
+        minHeight: null,
+        maxHeight: null,
+        focus: true
     });
 });

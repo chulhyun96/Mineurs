@@ -32,6 +32,7 @@ public class WebSecurityConfig {
                         .loginPage("/signin")
                         .permitAll())
                 .logout((logout) -> logout
+                        .invalidateHttpSession(true)
                         .logoutUrl("/signout")
                         .logoutSuccessUrl("/")
                         .permitAll());
