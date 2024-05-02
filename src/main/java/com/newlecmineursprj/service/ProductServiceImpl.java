@@ -141,4 +141,22 @@ public class ProductServiceImpl implements ProductService {
         return repository.getCount(searchMethod, searchKeyword, categoryId);
     }
 
+    @Override
+    public int updateAll(List<Product> products) {
+        return repository.updateAll(products);
+    }
+
+    @Override
+    public CustomPageImpl<ProductListDTO> getWishList(Integer pageNumber, Integer pageSize, Integer pageGroupSize,
+                                                      long memberId) {
+
+        Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize);
+
+        List<ProductListDTO> content = repository.findAllByMemberId(pageRequest, memberId)
+                .stream().map(ProductMapper::toDto).toList();
+
+        long count = repository.getCountByMemberId(memberId);
+
+        return new CustomPageImpl<ProductListDTO>(content, pageRequest, count, pageGroupSize);
+    }
 }
