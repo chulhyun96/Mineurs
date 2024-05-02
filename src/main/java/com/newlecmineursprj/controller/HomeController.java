@@ -8,7 +8,7 @@ import com.newlecmineursprj.service.MemberService;
 import com.newlecmineursprj.service.PostService;
 import com.newlecmineursprj.service.ProductService;
 import com.newlecmineursprj.util.CustomPageImpl;
-import com.newlecmineursprj.util.RadioButtonRegDate;
+import com.newlecmineursprj.util.SearchModuleUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -41,16 +40,23 @@ private final PostService postService;
             , @RequestParam(defaultValue = "") String buttonRegDate
             , @RequestParam(defaultValue = "") String calendarStart
             , @RequestParam(defaultValue = "") String calendarEnd
+            , @RequestParam(defaultValue = "") String selectedDisplayStatus
+            , @RequestParam(defaultValue = "") String selectedSellStatus
             , Model model) {
 
         List<Category> categoryList = categoryService.getList();
         model.addAttribute("categoryList",categoryList);
 
-        String startDate = RadioButtonRegDate.getStartDate();
-        String endDate = RadioButtonRegDate.regDatesForSearch(buttonRegDate);
+
+        Integer sellStatusResults = SearchModuleUtil.searchBySellStatus(selectedSellStatus);
+        String startDate = SearchModuleUtil.getStartDate();
+        String endDate = SearchModuleUtil.searchByRegDate(buttonRegDate);
+        Integer displayStatusResult = SearchModuleUtil.searchByDisplayStatus(selectedDisplayStatus);
+
         CustomPageImpl<ProductListDTO> productPage = service.getList(
                 pageNumber, pageSize, sortMethod, sortDirection,
-                5, searchMethod, searchKeyword, categoryId,startDate, endDate, calendarStart, calendarEnd
+                5, searchMethod, searchKeyword, categoryId,
+                startDate, endDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResults
         );
         model.addAttribute("productPage", productPage);
 

@@ -1,15 +1,13 @@
 package com.newlecmineursprj.controller.admin;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 
-import com.newlecmineursprj.aspect.PerfLogger;
 import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.ProductSubImg;
 
 import com.newlecmineursprj.util.CustomPageImpl;
-import com.newlecmineursprj.util.RadioButtonRegDate;
+import com.newlecmineursprj.util.SearchModuleUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,26 +47,34 @@ public class ProductController {
             @RequestParam(defaultValue = "") String buttonRegDate,
             @RequestParam(defaultValue = "") String calendarStart,
             @RequestParam(defaultValue = "") String calendarEnd,
+            @RequestParam(defaultValue = "") String selectedDisplayStatus,
+            @RequestParam(defaultValue = "") String selectedSellStatus,
             Model model) {
 
         int count = service.getCount(searchMethod, searchKeyword.trim(), categoryId);
         List<Category> categories = categoryService.getList();
 
-        String startDate = RadioButtonRegDate.getStartDate();
-        String endDate = RadioButtonRegDate.regDatesForSearch(buttonRegDate);
+
+        Integer sellStatusResult = SearchModuleUtil.searchBySellStatus(selectedSellStatus);
+        Integer displayStatusResult = SearchModuleUtil.searchByDisplayStatus(selectedDisplayStatus);
+        String startDate = SearchModuleUtil.getStartDate();
+        String endDate = SearchModuleUtil.searchByRegDate(buttonRegDate);
+
         CustomPageImpl<ProductListDTO> productPage = service.getList(
                 page, pageSize, "reg_date", 5
                 , searchMethod, searchKeyword.trim(), categoryId
-                , startDate, endDate, calendarStart, calendarEnd
+                , startDate, endDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResult
         );
 
         model.addAttribute("productPage", productPage);
-        model.addAttribute("regDates",RadioButtonRegDate.regDateList());
         model.addAttribute("count", count);
         model.addAttribute("categories", categories);
         model.addAttribute("calendarStart", calendarStart);
         model.addAttribute("calendarEnd", calendarEnd);
         model.addAttribute("startDate", startDate);
+        model.addAttribute("sellStatusList", SearchModuleUtil.sellStatusList());
+        model.addAttribute("displayStatusList", SearchModuleUtil.DisplayStatusList());
+        model.addAttribute("regDates", SearchModuleUtil.regDateList());
         return PRODUCTS_VIEW + "/list";
     }
 
@@ -81,7 +87,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public String reg(@Validated  Product product, BindingResult bindingResult,Model model,
+    public String reg(@Validated Product product, BindingResult bindingResult, Model model,
                       MultipartFile mainImg, @RequestParam(value = "sub-imgs") List<MultipartFile> subImages) throws IOException {
         if (bindingResult.hasErrors()) {
             ifCategoryNull(product, model);
