@@ -12,6 +12,12 @@
         select * from cart where member_id=#{mid}
     </select>
 
+    <insert id="add" parameterType="cart">
+        INSERT INTO 
+        cart (member_id, product_item_id, qty) 
+        VALUES (#{memberId}, #{productItemId}, #{qty});
+    </insert>
+
     <delete id="delete">
         DELETE FROM cart
         WHERE id = #{deleteId}

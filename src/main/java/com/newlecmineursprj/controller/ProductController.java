@@ -30,6 +30,8 @@ public class ProductController {
     private final CategoryService categoryService;
     private final ProductItemService productItemService;
     private final OrderService orderService;
+    private final OrderItemService orderItemService;
+    private final CartService cartService;
 
     @GetMapping("{id}")
     public String list(@PathVariable long id
@@ -62,36 +64,51 @@ public class ProductController {
 
     @PostMapping("userAction")
     public String userAction(
-                    @RequestParam("productId") Long productId
+                    @RequestParam("userAction") int userAction
+                    ,@RequestParam("productId") Long productId
                     ,@RequestParam("colorId") Long colorId
                     ,@RequestParam("sizeId") Long sizeId
                     ,@AuthenticationPrincipal WebUserDetails webUserDetails
                     // @RequestParam(defaultValue = "0", value = "qty") int qty,
                     ){
-
+        
         long memberId = webUserDetails.getId();
 
         Product product = service.getById(productId);
 
         ProductItem productItem = productItemService.getByForeignKeys(productId, sizeId, colorId);
         
-        Order order = new Order();
-        order.setMemberId(memberId);
-        order.setTotalProductPrice(product.getPrice());
-        orderService.add(order);
+        if(userAction == 1){
+            Order order = new Order();
+            order.setMemberId(memberId);
+            order.setTotalProductPrice(product.getPrice());
+            orderService.add(order);
+    
+            OrderItem orderItem = new OrderItem();
+            orderItem.setQty(1);
+            orderItem.setTotalPrice(product.getPrice());
+            orderItem.setOrderId(order.getId());
+            orderItem.setOrderStateId((long)1);
+            orderItem.setProductItemId(productItem.getId());
+    
+            orderItemService.add(orderItem);
+            // INSERT INTO 
+            // order_item (qty, total_price, order_id, order_state_id, product_item_id) 
+            // VALUES ('1', #{product.price}, #{order.id}, '1', #{productItem.id});
+    
+            return "redirect:pay";
+        }
+        else if(userAction == 2){
 
-        OrderItem orderItem = new OrderItem();
-        orderItem.setQty(1);
-        orderItem.setTotalPrice(product.getPrice());
-        orderItem.setOrderId(order.getId());
-        orderItem.setOrdetStateId((long)1);
-        orderItem.setProductItemId(productItem.getId());
-        
-        // INSERT INTO 
-        // order_item (qty, total_price, order_id, order_state_id, product_item_id) 
-        // VALUES ('1', #{product.price}, #{order.id}, '1', #{productItem.id});
+            Cart cart = new Cart();
+            cart.setMemberId(memberId);
+            cart.setProductItemId(productItem.getId());
+            cart.setQty(1);
+            cartService.add(cart);
 
-        return "redirect:pay";
+            return "redirect:" + productId;
+        }
+        return "redirect:";
     }
 
     @GetMapping("pay")

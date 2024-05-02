@@ -9,7 +9,7 @@ public class OrderItem {
     private Integer qty;
     private Integer totalPrice;
     private Long orderId;
-    private Long ordetStateId;
+    private Long orderStateId;
     private Long productItemId;
 
 }

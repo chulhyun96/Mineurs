@@ -11,12 +11,12 @@
 <body>
 <main
         layout:fragment="main"
-        class="n-panel n-main-panel d:flex flex-direction:column container mx-auto px-10">
+        class="text-xl n-panel n-main-panel d:flex flex-direction:column container mx-auto px-10">
     
     <div><a th:href="@{/admin/members/detail(id=${memberId})}" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg mb-5">뒤로가기</a></div>
-    <section class="border-2 relative">
-        <h1>쿠폰 내역</h1>
-        <table class="n-table n-table-style:striped">
+    <section class="border-2 relative py-6">
+        <h1 class="text-4xl font-bold m-4 mb-8">쿠폰 상세 내역</h1>
+        <table class="n-table n-table-style:striped w-full">
             <thead>
             <tr>
                 <th scope="col">쿠폰명</th>
