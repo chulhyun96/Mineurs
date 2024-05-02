@@ -14,8 +14,9 @@ import java.util.List;
 @Mapper
 public interface ProductRepository {
     List<ProductView> findAll(@Param("pageRequest") Pageable pageRequest, @Param("searchMethod") String searchMethod,
-            @Param("searchKeyword") String searchKeyword, @Param("categoryId") Long categoryId,
-            @Param("startDate") String startDate, @Param("endDate") String endDate);
+                              @Param("searchKeyword") String searchKeyword, @Param("categoryId") Long categoryId,
+                              @Param("startDate") String startDate, @Param("endDate") String endDate,
+                              @Param("calendarStart") String calendarStart,@Param("calendarEnd") String calendarEnd);
     void reg(Product product);
     Product findById(Long id);
     void updateById(Product product);

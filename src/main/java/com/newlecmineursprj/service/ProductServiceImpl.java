@@ -1,7 +1,6 @@
 package com.newlecmineursprj.service;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 
 import com.newlecmineursprj.domain.file.ImgStore;
@@ -41,7 +40,9 @@ public class ProductServiceImpl implements ProductService {
             , String searchKeyword
             , long categoryId
             , String startDate
-            , String endDate) {
+            , String endDate
+            , String calendarStart
+            , String calendarEnd) {
 
 
         return getList(pageNumber
@@ -53,17 +54,20 @@ public class ProductServiceImpl implements ProductService {
                 , searchKeyword
                 , categoryId
                 , startDate
-                , endDate);
+                , endDate
+                , calendarStart
+                , calendarEnd);
     }
 
     @Override
     public CustomPageImpl<ProductListDTO> getList(Integer pageNumber, Integer pageSize, String sortMethod,
                                                   String sortDirection, Integer pageGroupSize, String searchMethod,
-                                                  String searchKeyword, long categoryId, String startDate, String endDate) {
+                                                  String searchKeyword, long categoryId, String startDate, String endDate,
+                                                  String calendarStart, String calendarEnd) {
         Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.fromString(sortDirection), sortMethod));
 
         List<ProductListDTO> content = repository.findAll(pageRequest, searchMethod, searchKeyword,
-                        categoryId, startDate, endDate)
+                        categoryId, startDate, endDate, calendarStart, calendarEnd)
                 .stream().map(ProductMapper::toDto).toList();
 
         long count = repository.getCount(searchMethod, searchKeyword, categoryId);

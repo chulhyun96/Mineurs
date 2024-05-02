@@ -53,6 +53,9 @@
             <if test="startDate != '' and endDate != ''">
                 and reg_date between #{endDate} and #{startDate}
             </if>
+            <if test="calendarStart != '' and calendarEnd != ''">
+                and reg_date between #{calendarStart} and #{calendarEnd}
+            </if>
         </where>
         GROUP BY id
         <if test="pageRequest.sort.sorted">

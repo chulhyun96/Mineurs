@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("admin/products")
 @Controller("adminProductController")
 @RequiredArgsConstructor
-@PerfLogger
+
 @Slf4j
 public class ProductController {
     private static final String PRODUCTS_VIEW = "/admin/products";
@@ -47,6 +47,8 @@ public class ProductController {
             @RequestParam(defaultValue = "") String searchKeyword,
             @RequestParam(defaultValue = "0") Long categoryId,
             @RequestParam(defaultValue = "") String buttonRegDate,
+            @RequestParam(defaultValue = "") String calendarStart,
+            @RequestParam(defaultValue = "") String calendarEnd,
             Model model) {
 
         int count = service.getCount(searchMethod, searchKeyword.trim(), categoryId);
@@ -56,7 +58,7 @@ public class ProductController {
         String endDate = RadioButtonRegDate.regDatesForSearch(buttonRegDate);
         CustomPageImpl<ProductListDTO> productPage = service.getList(
                 page, pageSize, "reg_date", 5
-                , searchMethod, searchKeyword.trim(), categoryId, startDate ,endDate
+                , searchMethod, searchKeyword.trim(), categoryId, startDate, endDate, calendarStart, calendarEnd
         );
 
         model.addAttribute("productPage", productPage);

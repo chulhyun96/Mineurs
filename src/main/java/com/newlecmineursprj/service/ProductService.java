@@ -10,12 +10,12 @@ import java.util.List;
 
 public interface ProductService {
     CustomPageImpl<ProductListDTO> getList(Integer pageNumber, Integer pageSize, String sortMethod,
-            Integer pageGroupSize, String searchMethod, String searchKeyword, long categoryId, String startDate,
-            String endDate);
+                                           Integer pageGroupSize, String searchMethod, String searchKeyword, long categoryId, String startDate,
+                                           String endDate, String calendarStart, String calendarEnd);
 
     CustomPageImpl<ProductListDTO> getList(Integer pageNumber, Integer pageSize, String sortMethod,
             String sortDirection, Integer pageGroupSize, String searchMethod, String searchKeyword, long categoryId,
-            String startDate, String endDate);
+            String startDate, String endDate, String calendarStart, String calendarEnd);
 
     Product getById(Long id);
     void reg(Product product,MultipartFile mainImg ,List<MultipartFile> subImgs) throws IOException;

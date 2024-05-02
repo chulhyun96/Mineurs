@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class AspectService {
     private final String line = "--------------------------------------";
 
-    @Around("@within(PerfLogger)")
+    @Around("execution(* com.newlecmineursprj..*(..))")
     public Object perfLogAspect(ProceedingJoinPoint pjp) throws Throwable {
         long begin = System.currentTimeMillis();
         Object retVal = pjp.proceed();
