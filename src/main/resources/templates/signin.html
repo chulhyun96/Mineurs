@@ -1,93 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.46/dist/style.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://www.newlecture.com/dist/v0.1.49/style.css"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
     <script src="/js/user/signin.js" type="module"></script>
-</head>
-<body>
-<div class="content-wrap d:flex ai:center jc:center w:100p px:4 md:jc:space-between md:px:6">
-    <div>
+  </head>
+  <body>
+    <div
+      class="content-wrap d:flex ai:center jc:center w:100p px:4 md:jc:space-between md:px:6"
+    >
+      <div>
         <picture>
-            <source srcset="/image/login_banner.webp" type="image/webp">
+          <source srcset="/image/login_banner.webp" type="image/webp" />
         </picture>
-    </div>
+      </div>
 
-    <section class="item d:flex fl-dir:column ai:center gap:8 w:100p md:p:9 md:bg-color:base-1 md:bd md:bd-radius:2">
+      <section
+        class="item d:flex fl-dir:column ai:center gap:8 w:100p md:p:9 md:bg-color:base-1 md:bd md:bd-radius:2"
+      >
         <h1 class="d:none">뉴렉처 로그인</h1>
         <div>
-            <a href="/static">
-                <img alt="로그인" src="/image/newlecture.png" width="175" height="36" class="h:100p va:middle">
-            </a>
+          <a href="/static">
+            <img
+              alt="로그인"
+              src="/image/newlecture.png"
+              width="175"
+              height="36"
+              class="h:100p va:middle"
+            />
+          </a>
         </div>
 
-        <form action="/signin" method="post" class="d:flex fl-dir:column gap:6 w:100p">
-            <div class="username d:flex fl-dir:column">
-                <label>
-                    <span class="font:n1">아이디</span>
-                    <span class="w:100p pos:relative d:flex ai:center">
-                  <input type="text" class="n-textbox n-textbox-label:top" placeholder="아이디를 입력해주세요" name="username" required="" autofocus="">
-                  <button type="reset" class="d:none pos:absolute right:1 mr:2 icon icon:x icon-size:2 csr:pointer" tabindex="-1">
-                    삭제
-                  </button>
-                </span>
-                </label>
-            </div>
-
-            <div class="password d:flex fl-dir:column">
-                <label>
-                    <span class="font:n1">비밀번호</span>
-                    <span class="w:100p pos:relative d:flex ai:center">
-                  <input type="password" class="n-textbox n-textbox-label:top" placeholder="비밀번호를 입력해주세요" name="password" required="">
-                  <button type="button" class="d:none pos:absolute right:1 mr:2 icon icon:eye icon-size:2 csr:pointer" tabindex="-2">
-                    비밀번호 보이기
-                  </button>
-                </span>
-                </label>
-
-                <span class="d:none font:n2 color:accent-1 py:1">
-                비밀번호를 입력해주세요
-              </span>
-            </div>
-
-
-
-            <div class="d:flex jc:end ai:center">
-                <a href="/user/find/username" class="as:flex-end color:base-2a font:n1 px:2 line-height:1">
-                    아이디 찾기
-                </a>
-                <a href="/user/find/password" class="as:flex-end color:base-2a font:n1 px:2 line-height:1 border-left">
-                    비밀번호 찾기
-                </a>
-            </div>
-
-            <div>
-                <button type="submit" class="n-btn n-btn:filled n-btn-size:3 w:100p">
-                    로그인
+        <form
+          action="/signin"
+          method="post"
+          class="d:flex fl-dir:column gap:6 w:100p"
+        >
+          <div class="username d:flex fl-dir:column">
+            <label>
+              <span class="font:n1">아이디</span>
+              <span class="w:100p pos:relative d:flex ai:center">
+                <input
+                  type="text"
+                  class="n-textbox n-textbox-label:top"
+                  placeholder="아이디를 입력해주세요"
+                  name="username"
+                  required=""
+                  autofocus=""
+                />
+                <button
+                  type="reset"
+                  class="d:none pos:absolute right:1 mr:2 icon icon:x icon-size:2 csr:pointer"
+                  tabindex="-1"
+                >
+                  삭제
                 </button>
-            </div>
+              </span>
+            </label>
+          </div>
+
+          <div class="password d:flex fl-dir:column">
+            <label>
+              <span class="font:n1">비밀번호</span>
+              <span class="w:100p pos:relative d:flex ai:center">
+                <input
+                  type="password"
+                  class="n-textbox n-textbox-label:top"
+                  placeholder="비밀번호를 입력해주세요"
+                  name="password"
+                  required=""
+                />
+                <button
+                  type="button"
+                  class="d:none pos:absolute right:1 mr:2 icon icon:eye icon-size:2 csr:pointer"
+                  tabindex="-2"
+                >
+                  비밀번호 보이기
+                </button>
+              </span>
+            </label>
+
+            <span class="d:none font:n2 color:accent-1 py:1">
+              비밀번호를 입력해주세요
+            </span>
+          </div>
+
+          <div class="d:flex jc:end ai:center">
+            <a
+              href="/user/find/username"
+              class="as:flex-end color:base-2a font:n1 px:2 line-height:1"
+            >
+              아이디 찾기
+            </a>
+            <a
+              href="/user/find/password"
+              class="as:flex-end color:base-2a font:n1 px:2 line-height:1 border-left"
+            >
+              비밀번호 찾기
+            </a>
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              class="n-btn n-btn:filled n-btn-size:3 w:100p"
+            >
+              로그인
+            </button>
+          </div>
         </form>
 
         <div class="separator">
-            <span class="mx:2 color:base-2a font:n2">또는</span>
+          <span class="mx:2 color:base-2a font:n2">또는</span>
         </div>
 
         <!-- 소셜 로그인 -->
         <div class="w:100p">
-            <a href="/oauth2/authorization/google?redirect_uri=/login/oauth2/code/google" class="n-btn n-btn:outline n-btn-size:3 bg-color:base-1 w:100p">
-                <span class="google">구글로 로그인</span>
-            </a>
+          <a
+            href="/oauth2/authorization/google?redirect_uri=/login/oauth2/code/google"
+            class="n-btn n-btn:outline n-btn-size:3 bg-color:base-1 w:100p"
+          >
+            <span class="google">구글로 로그인</span>
+          </a>
         </div>
 
         <!-- 회원 가입 -->
         <div class="d:flex jc:center">
-            <a href="/admin/signup" class="signup n-btn n-btn:void color:main-2 font:n2">
-                회원가입
-            </a>
+          <a
+            href="/admin/signup"
+            class="signup n-btn n-btn:void color:main-2 font:n2"
+          >
+            회원가입
+          </a>
         </div>
-    </section>
-</div>
-</body>
+      </section>
+    </div>
+  </body>
 </html>

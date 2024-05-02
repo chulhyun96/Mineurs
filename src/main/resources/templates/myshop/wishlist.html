@@ -35,46 +35,27 @@
                 <th class="border border-slate-800 font-thin">Select</th>
               </thead>
               <tbody class="text-center">
-                <tr class="border border-slate-800">
+                <tr th:each="product: ${productPage.content}">
                   <td><input type="checkbox" /></td>
                   <td>
-                    <a href=""><img src="" alt="" />이미지</a>
+                    <a
+                      href=""
+                      th:href="@{/products/{productId}(productId=${product.id})}"
+                      ><img
+                        class="py-3"
+                        src=""
+                        th:src="@{|/webapp/image/products/${product.mainImgPath}|}"
+                        alt=""
+                    /></a>
                   </td>
-                  <td>이름</td>
-                  <td class="font-medium">가격</td>
-                  <td class="py-4">
-                    <div>
-                      <a
-                        href=""
-                        class="inline-block border border-slate-800 w-20 h-7 text-xs px-3 py-1 bg-black text-slate-100 hover:bg-white hover:text-slate-800 duration-300 ease-in-out"
-                        >주문하기</a
-                      >
-                    </div>
-                    <div class="py-1">
-                      <a
-                        href=""
-                        class="inline-block border border-slate-800 w-20 h-7 text-xs px-1 py-1"
-                        >장바구니담기</a
-                      >
-                    </div>
-                    <div>
-                      <a
-                        href=""
-                        class="inline-block border border-slate-800 w-20 h-7 text-xs px-3 py-1"
-                        >삭제</a
-                      >
-                    </div>
+                  <td th:text="${product.name}">이름</td>
+                  <td
+                    class="font-medium text-sm"
+                    th:text="@{|${product.price}원|}"
+                  >
+                    가격
                   </td>
-                </tr>
-
-                <tr>
-                  <td><input type="checkbox" /></td>
-                  <td>
-                    <a href=""><img src="" alt="" />이미지</a>
-                  </td>
-                  <td>이름</td>
-                  <td class="font-medium">가격</td>
-                  <td>
+                  <td class="flex flex-col py-4">
                     <div>
                       <a
                         href=""
