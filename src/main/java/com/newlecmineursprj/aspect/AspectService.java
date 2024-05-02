@@ -17,7 +17,7 @@ public class AspectService {
         long begin = System.currentTimeMillis();
         Object retVal = pjp.proceed();
         log.info(line);
-        log.info("Method name = [{}]",pjp.getSignature().getName());
+        log.info("HandlerMethod = [{}]",pjp.getSignature());
         logExecutionTime(System.currentTimeMillis() - begin);
         return retVal;
     }

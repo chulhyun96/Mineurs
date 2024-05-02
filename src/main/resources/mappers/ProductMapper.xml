@@ -54,14 +54,13 @@
                 and reg_date between #{endDate} and #{startDate}
             </if>
         </where>
-                GROUP BY id
+        GROUP BY id
         <if test="pageRequest.sort.sorted">
-
             <foreach item="order" index="i" collection="pageRequest.sort" separator=", ">
                 ORDER BY ${order.property} ${order.direction}
             </foreach>
         </if>
-                limit #{pageRequest.offset}, #{pageRequest.pageSize}
+        limit #{pageRequest.offset}, #{pageRequest.pageSize}
     </select>
 
     <select id="findAllByMemberId" resultMap="ProductView">
