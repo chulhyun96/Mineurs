@@ -30,7 +30,6 @@ public class ProductView {
     private LocalDate regDate;
     private Boolean currentUserLiked;
     private Long likeCount;
-
     private Double discountRate;
 
 
