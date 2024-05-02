@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -68,12 +67,12 @@ private final PostService postService;
         return "list";
     }
 
-    @PostMapping("signup")
+    @GetMapping("signup")
     public String signupPost(Member member){
-        memberService.save(member);
-        log.debug("member: {}", member);
-        
-        return "redirect:";
+//        memberService.save(member);
+//        log.debug("member: {}", member);
+//
+        return "signup";
     }
 
     @GetMapping("checkout")

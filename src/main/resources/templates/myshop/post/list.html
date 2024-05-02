@@ -18,8 +18,7 @@
 <!-- main -->
 <main layout:fragment="main" class="container mx-auto mt-24 flex-grow ">
     <section class="text-center">
-        <h1 class="text-3xl"><a href="/qna">QnA</a></h1>
-        <p><a href="/qna">상품 사용후기입니다.</a></p>
+        <h1 class="text-xl"><a href="/qna">My Board</a></h1>
     </section>
     <form>
         <select class="select select-bordered select-sm w-full max-w-64 border mt-12" name="categoryId">
@@ -41,21 +40,17 @@
             <thead>
             <tr class="bg-stone-50">
                 <th class="text-center text-sm w-16">번호</th>
-                <th class="text-center text-sm w-40">상품</th>
-                <th class="text-center text-sm w-40">카테고리</th>
-                <th class="text-center text-sm">제목</th>
+                <th class="text-center text-sm w-40">구분</th>
+                <th class="text-center text-sm">내용</th>
                 <th class="text-center text-sm w-16">작성자</th>
                 <th class="text-center text-sm w-16">등록날짜</th>
                 <th class="text-center text-sm w-16">조회수</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="qna :${list}">
+            <tr>
                 <th class="text-center text-sm" >No</th>
-                <td class="text-center text-sm">
-                    <img class="w-36 h-36 bg-cover" src="" alt=""/>
-                </td>
-                <td class="text-center text-sm">카테고리</td>
+                <td class="text-center text-sm">구분</td>
                 <td class="text-center"><a href="" >내용</a></td>
                 <td class="text-center text-sm" >작성자</td>
                 <th class="text-center text-sm" >날짜</th>
@@ -63,7 +58,7 @@
             </tr>
         </table>
 
-        <section class="flex mt-12">
+        <section class="flex mt-12 justify-center">
             <select class="select select-bordered select-sm w-full max-w-28 border mt-0" name="dueDate">
                 <option selected value="0">전체</option>
                 <option value="1" >일주일</option>
@@ -80,9 +75,6 @@
                 <input type="text" placeholder="내용" class="input input-bordered border input-sm w-full max-w-xs"
                        name="searchKeyword"/>
                 <button class="btn btn-sm">Search</button>
-            </div>
-            <div class="grow flex justify-end">
-                <a href="" class="btn btn-wide deco icon:pencil_simple icon-size:4">등록하기</a>
             </div>
         </section>
     </form>
