@@ -58,7 +58,8 @@ public class ProductController {
         String endDate = RadioButtonRegDate.regDatesForSearch(buttonRegDate);
         CustomPageImpl<ProductListDTO> productPage = service.getList(
                 page, pageSize, "reg_date", 5
-                , searchMethod, searchKeyword.trim(), categoryId, startDate, endDate, calendarStart, calendarEnd
+                , searchMethod, searchKeyword.trim(), categoryId
+                , startDate, endDate, calendarStart, calendarEnd
         );
 
         model.addAttribute("productPage", productPage);
@@ -67,6 +68,8 @@ public class ProductController {
         model.addAttribute("categories", categories);
         model.addAttribute("calendarStart", calendarStart);
         model.addAttribute("calendarEnd", calendarEnd);
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
         return PRODUCTS_VIEW + "/list";
     }
 
