@@ -11,6 +11,8 @@ import com.newlecmineursprj.entity.Member;
 import com.newlecmineursprj.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RequestMapping("member")
 @Controller
@@ -20,7 +22,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("modify")
-    public String edit(Model model,
+    public String modify(Model model,
             @AuthenticationPrincipal WebUserDetails webUserDetails) {
 
         long memberId = webUserDetails.getId();
@@ -29,6 +31,13 @@ public class MemberController {
 
         model.addAttribute("member", member);
         return "member/modify";
+    }
+
+    @PostMapping("modify")
+    public String postMethodName(@RequestBody String entity) {
+        // TODO: process POST request
+
+        return "redirect:/";
     }
 
 }
