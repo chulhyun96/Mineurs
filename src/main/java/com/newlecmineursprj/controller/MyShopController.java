@@ -62,9 +62,9 @@ public class MyShopController {
         List<Category> categoryList = categoryService.getList();
         model.addAttribute("categoryList", categoryList);
 
-        model.addAttribute("orderPage", orderService.getList(
+        /*model.addAttribute("orderPage", orderService.getList(
                 pageNumber, pageSize, sortMethod, sortDirection, 5, searchMethod, searchKeyword, memberId));
-
+        */
         return "myshop/order/list";
     }
 

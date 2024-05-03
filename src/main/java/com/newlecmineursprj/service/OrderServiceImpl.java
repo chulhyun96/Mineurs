@@ -39,7 +39,8 @@ public class OrderServiceImpl implements OrderService {
 
         Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.fromString(sortDirection), sortMethod));
 
-        List<OrderView> content = repository.findAll(pageRequest, searchMethod, searchKeyword,
+        List<OrderView> content = repository.findAll(
+                pageRequest, searchMethod, searchKeyword,
                 memberId, calendarStart, calendarEnd,
                 startDate,endDate);
 

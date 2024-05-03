@@ -55,10 +55,6 @@ public class OrderController {
                 searchMethod, searchKeyword, memberId,
                 calendarStart, calendarEnd, startDate, endDate
         );
-        log.info("ButtonRegDate : {}", buttonRegDate);
-        log.info("calendarStart : {}", calendarStart);
-        log.info("calendarEnd : {}", calendarEnd);
-
         model.addAttribute("list", list);
         model.addAttribute("count", count);
         model.addAttribute("regDates", SearchModuleUtil.regDateList());
