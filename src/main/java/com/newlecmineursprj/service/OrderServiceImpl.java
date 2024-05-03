@@ -48,6 +48,21 @@ public class OrderServiceImpl implements OrderService {
 
         return new CustomPageImpl<OrderView>(content, pageRequest, count, pageGroupSize);
     }
+    @Override
+    public CustomPageImpl<OrderView> getList(Integer pageNumber, Integer pageSize, String sortMethod,
+                                             String sortDirection, Integer pageGroupSize, String searchMethod,
+                                             String searchKeyword, Long memberId) {
+
+        Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.fromString(sortDirection), sortMethod));
+
+        List<OrderView> content = repository.findAll(
+                pageRequest, searchMethod, searchKeyword,
+                memberId,null,null,null,null);
+
+        long count = repository.getCount(searchMethod, searchKeyword, memberId);
+
+        return new CustomPageImpl<OrderView>(content, pageRequest, count, pageGroupSize);
+    }
 
     @Override
     public List<OrderView> getList(Integer pageNumber, String searchMethod, String searchKeyword) {
