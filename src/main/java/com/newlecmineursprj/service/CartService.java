@@ -8,6 +8,7 @@ public interface CartService {
 
     Cart getById(Long id);
     List<Cart> getByMid(Long mid);
+    Cart getByForeignKeys(Long memberId, Long productItemId);
     void add(Cart cart);
     void delete(Long deleteId);
     void increase(Long cartId);

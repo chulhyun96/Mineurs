@@ -11,6 +11,7 @@ public interface CartRepository {
 
     Cart findById(Long id);
     List<Cart> findByMid(Long mid);
+    Cart findByForeignKeys(Long memberId,Long productItemId);
     void add(Cart cart);
     void delete(Long deleteId);
     void increase(Long cartId);

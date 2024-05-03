@@ -25,6 +25,11 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public Cart getByForeignKeys(Long memberId, Long productItemId) {
+        return repository.findByForeignKeys(memberId, productItemId);
+    }
+
+    @Override
     public void add(Cart cart) {
         repository.add(cart);
     }
@@ -43,6 +48,8 @@ public class CartServiceImpl implements CartService {
     public void decrease(Long cartId) {
         repository.decrease(cartId);
     }
+
+    
 
 
 }

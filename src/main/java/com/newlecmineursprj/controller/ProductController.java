@@ -32,6 +32,7 @@ public class ProductController {
     private final OrderService orderService;
     private final OrderItemService orderItemService;
     private final CartService cartService;
+    private final LikeService likeService;
 
     @GetMapping("{id}")
     public String list(@PathVariable long id
@@ -66,8 +67,8 @@ public class ProductController {
     public String userAction(
                     @RequestParam("userAction") int userAction
                     ,@RequestParam("productId") Long productId
-                    ,@RequestParam("colorId") Long colorId
-                    ,@RequestParam("sizeId") Long sizeId
+                    ,@RequestParam(value="colorId", defaultValue="0") Long colorId
+                    ,@RequestParam(value="sizeId", defaultValue="0") Long sizeId
                     ,@AuthenticationPrincipal WebUserDetails webUserDetails
                     // @RequestParam(defaultValue = "0", value = "qty") int qty,
                     ){
@@ -100,11 +101,29 @@ public class ProductController {
         }
         else if(userAction == 2){
 
-            Cart cart = new Cart();
-            cart.setMemberId(memberId);
-            cart.setProductItemId(productItem.getId());
-            cart.setQty(1);
-            cartService.add(cart);
+            Cart tempCart = cartService.getByForeignKeys(memberId, productItem.getId());
+            
+            if(tempCart == null){
+                Cart cart = new Cart();
+                cart.setMemberId(memberId);
+                cart.setProductItemId(productItem.getId());
+                cart.setQty(1);
+                cartService.add(cart);
+            }
+
+            return "redirect:" + productId;
+        }
+        else if(userAction == 3){
+
+            Like tempLike = likeService.getByForeignKeys(memberId, productId);
+
+            if(tempLike == null){
+                Like like = new Like();
+                like.setMemberId(memberId);
+                like.setProductId(productId);
+                likeService.add(like);
+            }
+
 
             return "redirect:" + productId;
         }

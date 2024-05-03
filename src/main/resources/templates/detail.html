@@ -6,12 +6,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script type="module" src="/js/detail.js"></script>
     <link rel="stylesheet" href="/src/output.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
-
-
     <main layout:fragment="main" class="container mx-auto">
         <section class="grid grid-cols-1 gap-1 md:grid-cols-2 lg:grid-cols-[3fr_2fr]">
             <!--     메인이미지       -->
@@ -73,7 +72,7 @@
                 <div class="mt-4 grid grid-cols-3 gap-1">
                     <button name="userAction" value="1" class="flex cursor-pointer items-center justify-center border px-1 text-center h-10">Buy Now</button>
                     <button name="userAction" value="2" class="flex cursor-pointer items-center justify-center border px-1 text-center h-10">Cart</button>
-                    <a href="" class="flex cursor-pointer items-center justify-center border px-1 text-center h-10">Wish</a>
+                    <button name="userAction" value="3" class="flex cursor-pointer items-center justify-center border px-1 text-center h-10">Wish</button>
                 </div>
             </form>
 

@@ -17,11 +17,11 @@
                 </select>
                 <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요"
                     th:value="${#strings.trim(param.searchKeyword)}" class="border-2" />
-                <button class="n-btn n-btn-type:outline-box">검색</button>
+                <button class="btn btn-sm">검색</button>
             </div>
         </form>
 
-        <table class="border-2 n-table n-table-style:striped mx-auto w-full">
+        <table class="border-2 table table-zebra text-center mx-auto w-full">
             <thead class="border-b-2 h-10">
                 <tr>
                     <th scope="col">고객 이름</th>
@@ -32,10 +32,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="member: ${list}" class="h-14 text-xl">
+                <tr th:each="member: ${list}" class="h-14 text-sm">
                     <td scope="col" class="text-center"><a th:href="@{./members/detail(id=${member.id})}"
                             th:text="${member.name}"
-                            class="text-2xl">이름</a></td>
+                            class="text-xl">이름</a></td>
                     <td scope="col" class="text-center" th:text="${member.username}">아이디</td>
                     <td scope="col" class="text-center" th:text="${member.phoneNumber}">전화번호</td>
                     <td scope="col" class="text-center" th:text="${member.email}">이메일</td>

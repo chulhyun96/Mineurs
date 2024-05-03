@@ -12,6 +12,16 @@
         select * from cart where member_id=#{mid}
     </select>
 
+    <select id="findByForeignKeys" resultType="Cart">
+        SELECT
+            *
+        FROM
+            cart
+        WHERE
+            member_id = #{memberId}
+            AND product_item_id = #{productItemId}
+    </select>
+
     <insert id="add" parameterType="cart">
         INSERT INTO 
         cart (member_id, product_item_id, qty) 
