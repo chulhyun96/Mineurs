@@ -44,11 +44,6 @@ private final QnaCategoryService categoryService;
 
         return "admin/post/list";
     }
-
-    @PostMapping
-
-
-
     @GetMapping("preview")
     public String regForm() {
 

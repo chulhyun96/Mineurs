@@ -75,12 +75,6 @@
 
         </where>
     </select>
-
-    <select id="findById" resultMap="OrderView">
-        select
-        *
-        from order_list_view where id = #{id}
-    </select>
         <select id="findById" resultMap="OrderView">
             select
             *
