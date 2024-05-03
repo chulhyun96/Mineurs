@@ -3,6 +3,9 @@ package com.newlecmineursprj.controller.admin;
 import java.io.IOException;
 import java.util.List;
 
+import com.newlecmineursprj.util.CustomPageImpl;
+import com.newlecmineursprj.util.SearchModuleUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
@@ -10,6 +13,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +26,7 @@ import com.newlecmineursprj.service.OrderService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
+@Slf4j
 @RequestMapping("admin/order")
 @Controller("adminOrderController")
 @RequiredArgsConstructor
@@ -30,23 +35,42 @@ public class OrderController {
 
     private final OrderService service;
 
-    @GetMapping("list")
-    public String list(Model model, @RequestParam(defaultValue = "1") Integer page,
-            @RequestParam(required = false) String searchMethod,
-            @RequestParam(defaultValue = "") String searchKeyword) {
+    @GetMapping
+    public String list(Model model, @RequestParam(value = "p", defaultValue = "1") Integer page,
+                       @RequestParam(value = "s", defaultValue = "10") Integer pageSize,
+                       @RequestParam(required = false) String searchMethod,
+                       @RequestParam(defaultValue = "") String searchKeyword,
+                       @RequestParam(defaultValue = "") String buttonRegDate,
+                       @RequestParam(defaultValue = "") String calendarStart,
+                       @RequestParam(defaultValue = "") String calendarEnd,
+                       @RequestParam(required = false) Long memberId) {
 
         int count = service.getCount(searchMethod, searchKeyword.trim());
 
-        List<OrderView> list = service.getList(page, searchMethod, searchKeyword);
+        String startDate = SearchModuleUtil.getStartDate();
+        String endDate = SearchModuleUtil.searchByRegDate(buttonRegDate);
+
+        CustomPageImpl<OrderView> list = service.getList(
+                page, pageSize, "ordered_datetime", "DESC", 5,
+                searchMethod, searchKeyword, memberId,
+                calendarStart, calendarEnd, startDate, endDate
+        );
+        log.info("ButtonRegDate : {}", buttonRegDate);
+        log.info("calendarStart : {}", calendarStart);
+        log.info("calendarEnd : {}", calendarEnd);
+
         model.addAttribute("list", list);
         model.addAttribute("count", count);
-
-        return ORDER_VIEW + "/list";
+        model.addAttribute("regDates", SearchModuleUtil.regDateList());
+        model.addAttribute("calendarStart", calendarStart);
+        model.addAttribute("calendarEnd", calendarEnd);
+        model.addAttribute("startDate", startDate);
+        return ORDER_VIEW;
     }
 
     @GetMapping("excel")
     public void excel(HttpServletResponse response
-                        ,@RequestParam(defaultValue = "0") List<Long> orderId) throws IOException{
+            , @RequestParam(defaultValue = "0") List<Long> orderId) throws IOException {
         Workbook workbook = new XSSFWorkbook();
         CreationHelper creationHelper = workbook.getCreationHelper();
         CellStyle dateCellStyle = workbook.createCellStyle();
@@ -55,7 +79,7 @@ public class OrderController {
         int rowNo = 0;
 
         Row headerRow = sheet.createRow(rowNo++);
-        headerRow.createCell(0).setCellValue("주문일시");   
+        headerRow.createCell(0).setCellValue("주문일시");
         headerRow.createCell(1).setCellValue("상품코드");
         headerRow.createCell(2).setCellValue("주문자");
         headerRow.createCell(3).setCellValue("상품명");
@@ -64,17 +88,17 @@ public class OrderController {
         headerRow.createCell(6).setCellValue("결제수단");
         headerRow.createCell(7).setCellValue("주문상태");
 
-        for (Long id : orderId){
+        for (Long id : orderId) {
             OrderView orderView = service.getById(id);
 
             String productName = "";
             int productCount = orderView.getProductsCount();
 
-            if(orderView.getProductNames().size()>0)
+            if (orderView.getProductNames().size() > 0)
                 productName = orderView.getProductNames().get(0);
-            if(productCount > 1){
+            if (productCount > 1) {
                 productCount -= 1;
-                productName = productName +  " 외 " + productCount + "개";
+                productName = productName + " 외 " + productCount + "개";
             }
 
             Row row = sheet.createRow(rowNo++);
@@ -102,7 +126,7 @@ public class OrderController {
 
         response.setContentType("ms-vnd/excel");
         response.setHeader("Content-Disposition", "attachment;filename=orderList.xlsx");
-    
+
         workbook.write(response.getOutputStream());
         workbook.close();
     }

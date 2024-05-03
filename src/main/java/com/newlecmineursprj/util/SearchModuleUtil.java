@@ -31,14 +31,12 @@ public abstract class SearchModuleUtil {
     }
 
     public static String getStartDate() {
-        LocalDate startDate = LocalDate.now();
-        return startDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
+        return LocalDate.now().format(DateTimeFormatter.ofPattern(DATE_FORMAT));
     }
 
     public static List<String> regDateList() {
         return Arrays.asList("오늘", "3일", "7일", "1개월", "3개월", "1년", "전체");
     }
-
     public static String searchByRegDate(String buttonRegDate) {
         LocalDate now = LocalDate.now();
         return switch (buttonRegDate) {
@@ -51,5 +49,4 @@ public abstract class SearchModuleUtil {
             default -> now.minusYears(3).format(DateTimeFormatter.ofPattern(DATE_FORMAT));
         };
     }
-
 }

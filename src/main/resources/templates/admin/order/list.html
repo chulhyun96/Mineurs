@@ -19,7 +19,7 @@
         <h1 class="text-2xl mb-0">결제 정보</h1>
         <form
           method="get"
-          action="/admin/order/list"
+          action="/admin/order"
           class="n-form md:n-field-label-position:left border:0 w:3/5 mx:auto my:10"
         >
           <table class="table">
@@ -77,54 +77,18 @@
                 <td colspan="3">
                   <div class="flex space-x-5">
                     <div class="flex space-x-1">
-                      <label
-                        class="btn btn-outline btn-sm flex justify-center items-center"
-                      >
-                        <span>오늘</span>
-                        <input type="radio" class="hidden" />
-                      </label>
-                      <label
-                        class="btn btn-outline btn-sm flex justify-center items-center"
-                      >
-                        <span>3일</span>
-                        <input type="radio" class="hidden" />
-                      </label>
-                      <label
-                        class="btn btn-outline btn-sm flex justify-center items-center"
-                      >
-                        <span>7일</span>
-                        <input type="radio" class="hidden" />
-                      </label>
-                      <label
-                        class="btn btn-outline btn-sm flex justify-center items-center"
-                      >
-                        <span>1개월</span>
-                        <input type="radio" class="hidden" />
-                      </label>
-                      <label
-                        class="btn btn-outline btn-sm flex justify-center items-center"
-                      >
-                        <span>3개월</span>
-                        <input type="radio" class="hidden" />
-                      </label>
-                      <label
-                        class="btn btn-outline btn-sm flex justify-center items-center"
-                      >
-                        <span>1년</span>
-                        <input type="radio" class="hidden" />
-                      </label>
-                      <label
-                        class="btn btn-outline btn-sm flex justify-center items-center"
-                      >
-                        <span>전체</span>
-                        <input type="radio" class="hidden" checked />
+                      <label th:each="regDate : ${regDates}"
+                             class="btn btn-outline btn-sm flex justify-center items-center">
+                        <span th:text="${regDate}">오늘</span>
+                        <input type="radio" name="buttonRegDate" class="hidden"
+                               th:value="${regDate}"/>
                       </label>
                     </div>
 
                     <div class="flex space-x-1 items-center">
-                      <input type="date" />
+                      <input type="date" name ="calendarStart" th:value="${calendarStart}" th:max="${startDate}"/>
                       <span>~</span>
-                      <input type="date" />
+                      <input type="date" name ="calendarEnd" th:value="${calendarEnd}" th:min="${startDate}"/>
                     </div>
                   </div>
                 </td>

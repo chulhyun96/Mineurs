@@ -42,6 +42,9 @@
             <if test="memberId != null">
                 and member_id LIKE '%${memberId}%'
             </if>
+            <if test="startDate != '' and endDate != ''">
+                and
+            </if>
 		</where>
         <if test="pageRequest.sort.sorted">
 

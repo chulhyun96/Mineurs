@@ -10,7 +10,10 @@ public interface OrderService {
 
     List<OrderView> getList(Integer page);
 
-    CustomPageImpl<OrderView> getList(Integer pageNumber, Integer pageSize, String sortMethod, String sortDirection, Integer pageGroupSize, String searchMethod, String searchKeyword, Long memberId);
+    CustomPageImpl<OrderView> getList(Integer pageNumber, Integer pageSize, String sortMethod,
+                                      String sortDirection, Integer pageGroupSize, String searchMethod,
+                                      String searchKeyword, Long memberId, String calendarStart, String calendarEnd,
+                                      String startDate, String endDate);
 
     List<OrderView> getList(Integer page, String searchMethod, String searchKeyword);
 

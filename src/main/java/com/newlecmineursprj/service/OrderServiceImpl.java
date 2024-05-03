@@ -25,14 +25,23 @@ public class OrderServiceImpl implements OrderService {
         int pageSize = 10;
 
 
-        return getList (pageNumber, pageSize, "ordered_datetime", "DESC", 5, null,  null, null).getContent();
+        return getList (pageNumber, pageSize, "ordered_datetime",
+                "DESC", 5, null,
+                null, null, null,
+                null,null,null).getContent();
     }
 
     @Override
-    public CustomPageImpl<OrderView> getList(Integer pageNumber, Integer pageSize, String sortMethod, String sortDirection, Integer pageGroupSize, String searchMethod, String searchKeyword, Long memberId) {
+    public CustomPageImpl<OrderView> getList(Integer pageNumber, Integer pageSize, String sortMethod,
+                                             String sortDirection, Integer pageGroupSize, String searchMethod,
+                                             String searchKeyword, Long memberId, String calendarStart, String calendarEnd,
+                                             String startDate, String endDate) {
+
         Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.fromString(sortDirection), sortMethod));
 
-        List<OrderView> content = repository.findAll(pageRequest, searchMethod, searchKeyword, memberId);
+        List<OrderView> content = repository.findAll(pageRequest, searchMethod, searchKeyword,
+                memberId, calendarStart, calendarEnd,
+                startDate,endDate);
 
         long count = repository.getCount(searchMethod, searchKeyword, memberId);
 
@@ -42,9 +51,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderView> getList(Integer pageNumber, String searchMethod, String searchKeyword) {
         int pageSize = 10;
-
-
-        return getList (pageNumber, pageSize, "ordered_datetime", "DESC", 5, searchMethod,  searchKeyword, null).getContent();
+        return getList (pageNumber, pageSize, "ordered_datetime",
+                "DESC", 5, searchMethod,
+                searchKeyword, null,null,
+                null,null,null).getContent();
     }
 
     @Override
