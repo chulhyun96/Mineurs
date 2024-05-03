@@ -20,6 +20,16 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public Cart getById(Long id) {
+        return repository.findById(id);
+    }
+
+    @Override
+    public void add(Cart cart) {
+        repository.add(cart);
+    }
+
+    @Override
     public void delete(Long deleteId) {
         repository.delete(deleteId);
     }
@@ -34,11 +44,5 @@ public class CartServiceImpl implements CartService {
         repository.decrease(cartId);
     }
 
-    @Override
-    public Cart getById(Long id) {
-        return repository.findById(id);
-    }
-
-    
 
 }

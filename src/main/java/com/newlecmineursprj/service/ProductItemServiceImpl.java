@@ -24,6 +24,14 @@ public class ProductItemServiceImpl implements ProductItemService {
         return repository.findById(id);
     }
 
-    
+    @Override
+    public List<ProductItem> getByProductId(Long productId) {
+        return repository.findByProductId(productId);
+    }
+
+    @Override
+    public ProductItem getByForeignKeys(Long productId, Long sizeId, Long colorId) {
+        return repository.findByForeignKeys(productId, sizeId, colorId);
+    }
 
 }

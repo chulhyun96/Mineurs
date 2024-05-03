@@ -41,7 +41,6 @@ public class MyShopController {
 
     private final OrderService orderService;
     private final ProductService productService;
-
     private final CategoryService categoryService;
     private final MemberService memberService;
     // private final PostService postService;
@@ -64,8 +63,8 @@ public class MyShopController {
         model.addAttribute("categoryList", categoryList);
 
         model.addAttribute("orderPage", orderService.getList(
-                pageNumber, pageSize, sortMethod, sortDirection, 5, searchMethod, searchKeyword, memberId));
-
+                pageNumber, pageSize, sortMethod, sortDirection, 5, searchMethod,
+                searchKeyword, memberId));
         return "myshop/order/list";
     }
 

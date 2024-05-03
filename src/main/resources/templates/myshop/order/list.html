@@ -52,7 +52,7 @@
                           th:selected="${param.searchMethod} == 'code'"
                           value="code"
                         >
-                          상품코드
+                          주문코드
                         </option>
                       </select>
                       <div>
@@ -147,7 +147,7 @@
                   <th scope="col" class="w:2"></th>
                   <!--                <th scope="col">카테고리 이름</th>-->
                   <th scope="col">주문일</th>
-                  <th scope="col">상품코드</th>
+                  <th scope="col">주문코드</th>
                   <!--                <th scope="col">공급가</th>-->
                   <th scope="col">주문자</th>
                   <th scope="col">상품명</th>
@@ -170,7 +170,7 @@
                   </td>
                   <!--                <td scope="col" th:text="${product.categoryName}">카테고리 이름</td>-->
                   <td scope="col" th:text="${order.orderedDatetime}">주문일</td>
-                  <td scope="col" th:text="${order.code}">상품코드</td>
+                  <td scope="col" th:text="${order.code}">주문코드</td>
                   <!--                <td scope="col" th:text="${product.supplyingPrice}">공급가</td>-->
                   <!--                <td scope="col" th:text="${product.description}">설명</td>-->
                   <td scope="col" th:text="${order.userName}">주문자</td>

@@ -5,6 +5,10 @@ module.exports = {
     content: ["./src/main/resources/templates/**/*.html"],
     theme: {
         extend: {},
+            colors:{
+                'naver':'#03c75a',
+                'kakao':'#FEE500'
+            }
 
     },
     plugins: [

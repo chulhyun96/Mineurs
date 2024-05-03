@@ -11,14 +11,14 @@ import java.util.Objects;
 @AllArgsConstructor
 @Builder
 public class Order {
-    private long id;
+    private Long id;
     private Long memberId;
     private Long productId;
     private String code;
     private Date orderedDatetime;
-    private int totalProductPrice;
-    private int totalDeliveryFee;
-    private int totalDiscountAmount;
+    private Integer totalProductPrice;
+    private Integer totalDeliveryFee;
+    private Integer totalDiscountAmount;
     private Long deliveryInfoId;
     private Long couponId;
     private Long paymentMethodId;

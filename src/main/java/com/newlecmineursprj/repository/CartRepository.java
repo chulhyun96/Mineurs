@@ -10,12 +10,9 @@ import com.newlecmineursprj.entity.Cart;
 public interface CartRepository {
 
     Cart findById(Long id);
-
     List<Cart> findByMid(Long mid);
-
+    void add(Cart cart);
     void delete(Long deleteId);
-
     void increase(Long cartId);
-
     void decrease(Long cartId);
 }
