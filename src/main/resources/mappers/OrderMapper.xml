@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.newlecmineursprj.repository.OrderRepository">
-<resultMap id="OrderView" type="OrderView">
+    <resultMap id="OrderView" type="OrderView">
         <id column="id" property="id"/>
         <result property="code" column="code"/>
         <result property="orderedDatetime" column="ordered_datetime"/>
@@ -15,18 +15,18 @@
         <result property="paymentMethod" column="pm_name"/>
         <result property="orderState" column="os_name"/>
         <result property="productsCount" column="p_count"/>
-        
+
 
         <collection property="productNames" ofType="String">
             <result column="p_name"/>
         </collection>
     </resultMap>
     <select id="findAll" resultMap="OrderView">
-       select
-       *
-       FROM
-       order_list_view
-       <where>
+        select
+        *
+        FROM
+        order_list_view
+        <where>
             <if test="searchKeyword != ''">
                 <if test="searchMethod == 'name'">
                     p_name like '%${searchKeyword}%'
@@ -43,9 +43,12 @@
                 and member_id LIKE '%${memberId}%'
             </if>
             <if test="startDate != '' and endDate != ''">
-                and
+                and ordered_datetime between #{endDate} and #{startDate}
             </if>
-		</where>
+            <if test="calendarStart != '' and calendarEnd != ''">
+                and ordered_datetime between #{calendarStart} and #{calendarEnd}
+            </if>
+        </where>
         <if test="pageRequest.sort.sorted">
 
             <foreach item="order" index="i" collection="pageRequest.sort" separator=", ">
@@ -56,23 +59,28 @@
     </select>
 
     <select id="getCount" resultType="int">
-		select 
-			count(order_list_view.id) count
-		from order_list_view
-		<where>
-			<if test="searchMethod == 'name'">
-				p_name like '%${searchKeyword}%'
-			</if>
-			<if test="searchMethod == 'userName'">
-				and m_name LIKE '%${searchKeyword}%'
-			</if>
-			<if test="memberId != null">
-				and member_id LIKE '%${memberId}%'
-			</if>
+        select
+        count(order_list_view.id) count
+        from order_list_view
+        <where>
+            <if test="searchMethod == 'name'">
+                p_name like '%${searchKeyword}%'
+            </if>
+            <if test="searchMethod == 'userName'">
+                and m_name LIKE '%${searchKeyword}%'
+            </if>
+            <if test="memberId != null">
+                and member_id LIKE '%${memberId}%'
+            </if>
 
-		</where>
-        </select>
+        </where>
+    </select>
 
+    <select id="findById" resultMap="OrderView">
+        select
+        *
+        from order_list_view where id = #{id}
+    </select>
         <select id="findById" resultMap="OrderView">
             select
             *
@@ -80,9 +88,9 @@
         </select>
 
         <insert id="add" parameterType="Order" useGeneratedKeys="true" keyProperty="id">
-            INSERT INTO 
-            `order` (total_product_price, member_id) 
+            INSERT INTO
+            `order` (total_product_price, member_id)
             VALUES (#{totalProductPrice}, #{memberId});
         </insert>
-        
+
 </mapper>

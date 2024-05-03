@@ -65,7 +65,7 @@ public class OrderController {
         model.addAttribute("calendarStart", calendarStart);
         model.addAttribute("calendarEnd", calendarEnd);
         model.addAttribute("startDate", startDate);
-        return ORDER_VIEW;
+        return ORDER_VIEW + "/list";
     }
 
     @GetMapping("excel")
