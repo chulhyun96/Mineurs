@@ -54,12 +54,14 @@ public class MyShopController {
             @AuthenticationPrincipal WebUserDetails webUserDetails, Model model) {
 
         long memberId = webUserDetails.getId();
+        log.info("MemberId : {}", memberId);
 
 
         List<Category> categoryList = categoryService.getList();
         model.addAttribute("categoryList", categoryList);
 
-        List<OrderView> list = orderService.getList(pageNumber, searchMethod, searchKeyword);
+        CustomPageImpl<OrderView> list = orderService.getList(pageNumber, searchMethod, searchKeyword, memberId);
+
 
         model.addAttribute("orderPage",list);
         return "myshop/order/list";
@@ -67,10 +69,8 @@ public class MyShopController {
 
     @GetMapping
     public String index(Model model) {
-
         List<Category> categoryList = categoryService.getList();
         model.addAttribute("categoryList", categoryList);
-
         return "myshop/index";
     }
 

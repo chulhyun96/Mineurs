@@ -15,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -39,12 +40,5 @@ public class WebSecurityConfig {
                         .logoutSuccessUrl("/")
                         .permitAll());
         return http.build();
-    }
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider(UserDetailsService userDetailsService) {
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService);
-        authenticationProvider.setHideUserNotFoundExceptions(false);  // This is important
-        return authenticationProvider;
     }
 }

@@ -40,7 +40,7 @@
                 </if>
             </if>
             <if test="memberId != null">
-                and member_id LIKE '%${memberId}%'
+                and member_id LIKE ${memberId}
             </if>
             <if test="startDate != '' and endDate != ''">
                 and ordered_datetime between #{endDate} and #{startDate}
