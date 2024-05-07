@@ -25,10 +25,10 @@ public class OrderServiceImpl implements OrderService {
         int pageSize = 10;
 
 
-        return getList (pageNumber, pageSize, "ordered_datetime",
+        return getList(pageNumber, pageSize, "ordered_datetime",
                 "DESC", 5, null,
                 null, null, null,
-                null,null,null).getContent();
+                null, null, null).getContent();
     }
 
     @Override
@@ -42,12 +42,13 @@ public class OrderServiceImpl implements OrderService {
         List<OrderView> content = repository.findAll(
                 pageRequest, searchMethod, searchKeyword,
                 memberId, calendarStart, calendarEnd,
-                startDate,endDate);
+                startDate, endDate);
 
         long count = repository.getCount(searchMethod, searchKeyword, memberId);
 
         return new CustomPageImpl<OrderView>(content, pageRequest, count, pageGroupSize);
     }
+
     @Override
     public CustomPageImpl<OrderView> getList(Integer pageNumber, Integer pageSize, String sortMethod,
                                              String sortDirection, Integer pageGroupSize, String searchMethod,
@@ -57,7 +58,8 @@ public class OrderServiceImpl implements OrderService {
 
         List<OrderView> content = repository.findAll(
                 pageRequest, searchMethod, searchKeyword,
-                memberId,null,null,null,null);
+                memberId, null, null, null, null);
+
 
         long count = repository.getCount(searchMethod, searchKeyword, memberId);
 
@@ -65,18 +67,19 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderView> getList(Integer pageNumber, String searchMethod, String searchKeyword) {
+    public CustomPageImpl<OrderView> getList(Integer pageNumber, String searchMethod, String searchKeyword, Long memberId) {
         int pageSize = 10;
-        return getList (pageNumber, pageSize, "ordered_datetime",
+        return getList(pageNumber, pageSize, "ordered_datetime",
                 "DESC", 5, searchMethod,
-                searchKeyword, null,null,
-                null,null,null).getContent();
+                searchKeyword, memberId, null,
+                null, null, null);
     }
 
     @Override
     public int getCount(String searchMethod, String searchKeyword, Long memberId) {
         return repository.getCount(searchMethod, searchKeyword, memberId);
     }
+
     @Override
     public int getCount(String searchMethod, String searchKeyword) {
         return getCount(searchMethod, searchKeyword, null);
