@@ -27,7 +27,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("admin/products")
 @Controller("adminProductController")
 @RequiredArgsConstructor
-
 @Slf4j
 public class ProductController {
     private static final String PRODUCTS_VIEW = "/admin/products";

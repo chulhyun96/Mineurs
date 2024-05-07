@@ -170,7 +170,7 @@
                             />
                         </td>
                         <td scope="col" th:text="${product.name}">상품 이름</td>
-                        <td scope="col" th:text="${product.price} +  원">판매가</td>
+                        <td scope="col" th:text="${{product.price}} +  원">판매가</td>
                         <td scope="col">
                             <a href="" th:href="@{/admin/products/{id}(id=${product.id})}"
                             ><img

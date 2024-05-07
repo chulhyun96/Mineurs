@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.NumberFormat;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,7 +18,9 @@ import java.util.List;
 public class ProductListDTO {
     private long id;
     private String name;
+    @NumberFormat(pattern = "###,###")
     private int price;
+    @NumberFormat(pattern = "###,###")
     private int discountPrice;
     private List<Color> colors;
     private List<Size> sizes;
