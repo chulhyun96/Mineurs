@@ -24,7 +24,6 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderView> getList(Integer pageNumber) {
         int pageSize = 10;
 
-
         return getList(pageNumber, pageSize, "ordered_datetime",
                 "DESC", 5, null,
                 null, null, null,
@@ -33,11 +32,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public CustomPageImpl<OrderView> getList(Integer pageNumber, Integer pageSize, String sortMethod,
-                                             String sortDirection, Integer pageGroupSize, String searchMethod,
-                                             String searchKeyword, Long memberId, String calendarStart, String calendarEnd,
-                                             String startDate, String endDate) {
+            String sortDirection, Integer pageGroupSize, String searchMethod,
+            String searchKeyword, Long memberId, String calendarStart, String calendarEnd,
+            String startDate, String endDate) {
 
-        Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.fromString(sortDirection), sortMethod));
+        Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize,
+                Sort.by(Sort.Direction.fromString(sortDirection), sortMethod));
 
         List<OrderView> content = repository.findAll(
                 pageRequest, searchMethod, searchKeyword,
@@ -51,15 +51,15 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public CustomPageImpl<OrderView> getList(Integer pageNumber, Integer pageSize, String sortMethod,
-                                             String sortDirection, Integer pageGroupSize, String searchMethod,
-                                             String searchKeyword, Long memberId) {
+            String sortDirection, Integer pageGroupSize, String searchMethod,
+            String searchKeyword, Long memberId) {
 
-        Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.fromString(sortDirection), sortMethod));
+        Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize,
+                Sort.by(Sort.Direction.fromString(sortDirection), sortMethod));
 
         List<OrderView> content = repository.findAll(
                 pageRequest, searchMethod, searchKeyword,
                 memberId, null, null, null, null);
-
 
         long count = repository.getCount(searchMethod, searchKeyword, memberId);
 
@@ -67,7 +67,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public CustomPageImpl<OrderView> getList(Integer pageNumber, String searchMethod, String searchKeyword, Long memberId) {
+    public CustomPageImpl<OrderView> getList(Integer pageNumber, String searchMethod, String searchKeyword,
+            Long memberId) {
         int pageSize = 10;
         return getList(pageNumber, pageSize, "ordered_datetime",
                 "DESC", 5, searchMethod,

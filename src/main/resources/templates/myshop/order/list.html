@@ -76,52 +76,32 @@
                     <div class="flex space-x-1">
                       <label
                         class="btn btn-outline btn-sm flex justify-center items-center"
+                        th:each="regDate : ${regDates}"
                       >
-                        <span>오늘</span>
-                        <input type="radio" class="hidden" />
-                      </label>
-                      <label
-                        class="btn btn-outline btn-sm flex justify-center items-center"
-                      >
-                        <span>3일</span>
-                        <input type="radio" class="hidden" />
-                      </label>
-                      <label
-                        class="btn btn-outline btn-sm flex justify-center items-center"
-                      >
-                        <span>7일</span>
-                        <input type="radio" class="hidden" />
-                      </label>
-                      <label
-                        class="btn btn-outline btn-sm flex justify-center items-center"
-                      >
-                        <span>1개월</span>
-                        <input type="radio" class="hidden" />
-                      </label>
-                      <label
-                        class="btn btn-outline btn-sm flex justify-center items-center"
-                      >
-                        <span>3개월</span>
-                        <input type="radio" class="hidden" />
-                      </label>
-                      <label
-                        class="btn btn-outline btn-sm flex justify-center items-center"
-                      >
-                        <span>1년</span>
-                        <input type="radio" class="hidden" />
-                      </label>
-                      <label
-                        class="btn btn-outline btn-sm flex justify-center items-center"
-                      >
-                        <span>전체</span>
-                        <input type="radio" class="hidden" checked />
+                        <span th:text="${regDate}">오늘</span>
+                        <input
+                          name="buttonRegDate"
+                          type="radio"
+                          class="hidden"
+                          th:value="${regDate}"
+                        />
                       </label>
                     </div>
 
                     <div class="flex space-x-1 items-center">
-                      <input type="date" />
+                      <input
+                        type="date"
+                        name="calendarStart"
+                        th:value="${calendarStart}"
+                        th:max="${startDate}"
+                      />
                       <span>~</span>
-                      <input type="date" />
+                      <input
+                        type="date"
+                        name="calendarEnd"
+                        th:value="${calendarEnd}"
+                        th:min="${startDate}"
+                      />
                     </div>
                   </div>
                 </td>
@@ -130,7 +110,9 @@
           </table>
           <div class="self-center flex space-x-2 justify-center">
             <button class="btn btn-wide">검색</button>
-            <button class="btn btn-wide btn-outline">초기화</button>
+            <a th:href="@{/myshop/order/list}" class="btn btn-wide btn-outline"
+              >초기화</a
+            >
           </div>
         </form>
       </section>
@@ -205,6 +187,10 @@
           </form>
         </div>
       </section>
+      <!-- 페이징 -->
+      <div class="flex justify-center">
+        <div th:replace="~{/inc/pagination ::  pagination(${orderPage})}"></div>
+      </div>
     </main>
   </body>
 </html>

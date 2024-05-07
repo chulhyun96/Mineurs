@@ -77,18 +77,34 @@
                 <td colspan="3">
                   <div class="flex space-x-5">
                     <div class="flex space-x-1">
-                      <label th:each="regDate : ${regDates}"
-                             class="btn btn-outline btn-sm flex justify-center items-center">
+                      <label
+                        th:each="regDate : ${regDates}"
+                        class="btn btn-outline btn-sm flex justify-center items-center"
+                      >
                         <span th:text="${regDate}">오늘</span>
-                        <input type="radio" name="buttonRegDate" class="hidden"
-                               th:value="${regDate}"/>
+                        <input
+                          type="radio"
+                          name="buttonRegDate"
+                          class="hidden"
+                          th:value="${regDate}"
+                        />
                       </label>
                     </div>
 
                     <div class="flex space-x-1 items-center">
-                      <input type="date" name ="calendarStart" th:value="${calendarStart}" th:max="${startDate}"/>
+                      <input
+                        type="date"
+                        name="calendarStart"
+                        th:value="${calendarStart}"
+                        th:max="${startDate}"
+                      />
                       <span>~</span>
-                      <input type="date" name ="calendarEnd" th:value="${calendarEnd}" th:min="${startDate}"/>
+                      <input
+                        type="date"
+                        name="calendarEnd"
+                        th:value="${calendarEnd}"
+                        th:min="${startDate}"
+                      />
                     </div>
                   </div>
                 </td>
@@ -97,7 +113,12 @@
           </table>
           <div class="self-center flex space-x-2 justify-center">
             <button class="btn btn-wide">검색</button>
-            <a th:href="@{/admin/order}" type="button" class="btn btn-wide btn-outline">초기화</a>
+            <a
+              th:href="@{/admin/order}"
+              type="button"
+              class="btn btn-wide btn-outline"
+              >초기화</a
+            >
           </div>
         </form>
       </section>
@@ -126,48 +147,54 @@
               </thead>
 
               <tbody>
-
-                  <tr th:each="order : ${list}">
-                    <td scope="col">
-                      <input
-                        name="orderId"
-                        type="checkbox"
-                        class="checkbox"
-                        th:value="${order.id}"
-                      />
-                    </td>
-                    <!--                <td scope="col" th:text="${product.categoryName}">카테고리 이름</td>-->
-                    <td scope="col" th:text="${#dates.format(order.orderedDatetime, 'yyyy-MM-dd HH:mm:ss')}">주문일</td>
-                    <td scope="col" th:text="${order.code}">상품코드</td>
-                    <!--                <td scope="col" th:text="${product.supplyingPrice}">공급가</td>-->
-                    <!--                <td scope="col" th:text="${product.description}">설명</td>-->
-                    <td scope="col" th:text="${order.userName}">주문자</td>
-                    <td scope="col">
-                      <span
-                        th:each="productName : ${order.productNames}"
-                        th:text="${productName}"
-                      >
-                        상품명
-                      </span>
-                      <div th:if="${order.productsCount > 1}">
-                        <span th:text="|외 ${order.productsCount-1}개|">개수</span>
-                      </div>
-                    </td>
-                    <td scope="col" th:text="${order.totalProductPrice}">
-                      총 상품구매금액
-                    </td>
-                    <td
-                      scope="col"
-                      th:text="${order.totalProductPrice} - ${order.totalDiscountAmount}"
+                <tr th:each="order : ${list}">
+                  <td scope="col">
+                    <input
+                      name="orderId"
+                      type="checkbox"
+                      class="checkbox"
+                      th:value="${order.id}"
+                    />
+                  </td>
+                  <!--                <td scope="col" th:text="${product.categoryName}">카테고리 이름</td>-->
+                  <td
+                    scope="col"
+                    th:text="${#dates.format(order.orderedDatetime, 'yyyy-MM-dd HH:mm:ss')}"
+                  >
+                    주문일
+                  </td>
+                  <td scope="col" th:text="${order.code}">상품코드</td>
+                  <!--                <td scope="col" th:text="${product.supplyingPrice}">공급가</td>-->
+                  <!--                <td scope="col" th:text="${product.description}">설명</td>-->
+                  <td scope="col" th:text="${order.userName}">주문자</td>
+                  <td scope="col">
+                    <span
+                      th:each="productName : ${order.productNames}"
+                      th:text="${productName}"
                     >
-                      총 실결제금액
-                    </td>
-                    <td scope="col" th:text="${order.paymentMethod}">결제수단</td>
-                    <!--                <td>No</td>-->
-                    <td scope="col" th:text="${order.orderState}">주문상태</td>
-                  </tr>
-                </tbody>
-              </table>
+                      상품명
+                    </span>
+                    <div th:if="${order.productsCount > 1}">
+                      <span th:text="|외 ${order.productsCount-1}개|"
+                        >개수</span
+                      >
+                    </div>
+                  </td>
+                  <td scope="col" th:text="${order.totalProductPrice}">
+                    총 상품구매금액
+                  </td>
+                  <td
+                    scope="col"
+                    th:text="${order.totalProductPrice} - ${order.totalDiscountAmount}"
+                  >
+                    총 실결제금액
+                  </td>
+                  <td scope="col" th:text="${order.paymentMethod}">결제수단</td>
+                  <!--                <td>No</td>-->
+                  <td scope="col" th:text="${order.orderState}">주문상태</td>
+                </tr>
+              </tbody>
+            </table>
             <button class="btn">엑셀 다운로드</button>
           </form>
         </div>

@@ -1,13 +1,5 @@
 package com.newlecmineursprj.controller;
 
-import com.newlecmineursprj.config.security.WebUserDetails;
-import com.newlecmineursprj.dto.ProductListDTO;
-import com.newlecmineursprj.entity.*;
-import com.newlecmineursprj.service.*;
-import com.newlecmineursprj.util.CustomPageImpl;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.List;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,13 +12,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.newlecmineursprj.config.security.WebUserDetails;
 import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.Category;
+import com.newlecmineursprj.entity.Coupon;
+import com.newlecmineursprj.entity.Member;
+import com.newlecmineursprj.entity.OrderView;
 import com.newlecmineursprj.service.CategoryService;
 import com.newlecmineursprj.service.CouponService;
 import com.newlecmineursprj.service.MemberService;
 import com.newlecmineursprj.service.OrderService;
-import com.newlecmineursprj.service.PostService;
 import com.newlecmineursprj.service.ProductService;
 import com.newlecmineursprj.util.CustomPageImpl;
+import com.newlecmineursprj.util.SearchModuleUtil;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,24 +41,39 @@ public class MyShopController {
     private final CouponService couponService;
 
     @GetMapping("order/list")
-    public String orderList(@RequestParam(value = "p", defaultValue = "1") int pageNumber,
-            @RequestParam(value = "s", defaultValue = "6") int pageSize,
+    public String orderList(@RequestParam(value = "p", defaultValue = "1") Integer pageNumber,
+            @RequestParam(value = "s", defaultValue = "10") int pageSize,
             @RequestParam(value = "sm", defaultValue = "ordered_datetime") String sortMethod,
             @RequestParam(value = "sd", defaultValue = "DESC") String sortDirection,
             @RequestParam(defaultValue = "") String searchMethod, @RequestParam(defaultValue = "") String searchKeyword,
-            @AuthenticationPrincipal WebUserDetails webUserDetails, Model model) {
+            @AuthenticationPrincipal WebUserDetails webUserDetails,
+            @RequestParam(defaultValue = "") String buttonRegDate,
+            @RequestParam(defaultValue = "") String calendarStart,
+            @RequestParam(defaultValue = "") String calendarEnd, Model model) {
 
         long memberId = webUserDetails.getId();
         log.info("MemberId : {}", memberId);
 
+        String startDate = SearchModuleUtil.getStartDate();
+        String endDate = SearchModuleUtil.searchByRegDate(buttonRegDate);
 
         List<Category> categoryList = categoryService.getList();
+
+        CustomPageImpl<OrderView> list = orderService.getList(
+                pageNumber, pageSize, "ordered_datetime", "DESC", 5,
+                searchMethod, searchKeyword, memberId,
+                calendarStart, calendarEnd, startDate, endDate);
+
+        log.info("리스트 =  " + list.getSize());
+        // log.info("isEmpty = " + list.isEmpty());
+        // log.info("totalPage =" + list.getTotalPages());
+
         model.addAttribute("categoryList", categoryList);
-
-        CustomPageImpl<OrderView> list = orderService.getList(pageNumber, searchMethod, searchKeyword, memberId);
-
-
-        model.addAttribute("orderPage",list);
+        model.addAttribute("orderPage", list);
+        model.addAttribute("regDates", SearchModuleUtil.regDateList());
+        model.addAttribute("calendarStart", calendarStart);
+        model.addAttribute("calendarEnd", calendarEnd);
+        model.addAttribute("startDate", startDate);
         return "myshop/order/list";
     }
 
