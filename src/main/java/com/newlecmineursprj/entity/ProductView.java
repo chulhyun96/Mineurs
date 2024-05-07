@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.NumberFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ProductView {
     private long id;
     private String name;
+    @NumberFormat(pattern = "###,###")
     private int price;
     private List<Color> colors;
     private List<Size> sizes;
