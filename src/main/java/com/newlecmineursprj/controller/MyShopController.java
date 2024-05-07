@@ -2,7 +2,7 @@ package com.newlecmineursprj.controller;
 
 import com.newlecmineursprj.config.security.WebUserDetails;
 import com.newlecmineursprj.dto.ProductListDTO;
-import com.newlecmineursprj.entity.Category;
+import com.newlecmineursprj.entity.*;
 import com.newlecmineursprj.service.*;
 import com.newlecmineursprj.util.CustomPageImpl;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.newlecmineursprj.config.security.WebUserDetails;
 import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.Category;
-import com.newlecmineursprj.entity.Coupon;
-import com.newlecmineursprj.entity.Member;
 import com.newlecmineursprj.service.CategoryService;
 import com.newlecmineursprj.service.CouponService;
 import com.newlecmineursprj.service.MemberService;
@@ -60,10 +58,10 @@ public class MyShopController {
 
         List<Category> categoryList = categoryService.getList();
         model.addAttribute("categoryList", categoryList);
-        
-        model.addAttribute("orderPage", orderService.getList(
-                pageNumber, pageSize, sortMethod, sortDirection, 5, searchMethod,
-                searchKeyword, memberId));
+
+        List<OrderView> list = orderService.getList(pageNumber, searchMethod, searchKeyword);
+
+        model.addAttribute("orderPage",list);
         return "myshop/order/list";
     }
 
