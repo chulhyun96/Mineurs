@@ -40,8 +40,41 @@
         plv.*,
         nvl(l.member_id IS NOT NULL, 0) current_user_liked
 
-        FROM mineurs_db.product_list_view plv
-        left join `like` l on l.member_id = 1 and l.product_id = plv.id
+        FROM (
+        select
+        p.*,
+
+        ct.id ct_id,
+        ct.name ct_name,
+
+        pi.id pi_id,
+        pi.qty pi_qty,
+        pi.`code` pi_code,
+        pi.product_id pi_product_id,
+        pi.size_id pi_size_id,
+        pi.color_id pi_color_id,
+
+        s.id s_id,
+        s.eng_name s_eng_name,
+
+        c.id c_id,
+        c.kor_name c_kor_name,
+        c.eng_name c_eng_name,
+        c.hex_code c_hex_code
+
+        from (select p.*, count(l.member_id) like_count from product p
+        left join `like` l on l.product_id = p.id
+        group by p.id
+        limit #{pageRequest.offset}, #{pageRequest.pageSize}
+        ) p
+        left join category ct on ct.id = p.category_id
+        left join product_item pi on pi.product_id = p.id
+        left join size s on s.id = pi.size_id
+        left join color c on c.id = pi.color_id
+        ) plv
+
+        left join `like` l on l.member_id = #{memberId} and l.product_id = plv.id
+
         <where>
             <if test="searchKeyword != ''">
                 plv.${searchMethod} like '%${searchKeyword}%'
@@ -62,31 +95,29 @@
                 and is_sold = #{sellStatusResult}
             </if>
         </where>
-        GROUP BY id
         <if test="pageRequest.sort.sorted">
             <foreach item="order" index="i" collection="pageRequest.sort" separator=", ">
                 ORDER BY ${order.property} ${order.direction}
             </foreach>
         </if>
-        limit #{pageRequest.offset}, #{pageRequest.pageSize}
+
     </select>
 
     <select id="findAllByMemberId" resultMap="ProductView">
         SELECT
         plv.*
-        
+
         FROM mineurs_db.product_list_view plv
         left join `like` l on l.member_id = #{memberId} and l.product_id = plv.id
-       
-       <where>
-        member_id = l.member_id
+
+        <where>
+            member_id = l.member_id
         </where>
-                GROUP BY id
-        
-                limit #{pageRequest.offset}, #{pageRequest.pageSize}
+        GROUP BY id
+
+        limit #{pageRequest.offset}, #{pageRequest.pageSize}
     </select>
 
-    
 
     <select id="findById" resultType="Product" resultMap="MappingBoolean">
         SELECT
