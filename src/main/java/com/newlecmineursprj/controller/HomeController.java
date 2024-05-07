@@ -1,5 +1,6 @@
 package com.newlecmineursprj.controller;
 
+import com.newlecmineursprj.config.security.WebUserDetails;
 import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.Category;
 import com.newlecmineursprj.entity.Member;
@@ -11,6 +12,7 @@ import com.newlecmineursprj.util.CustomPageImpl;
 import com.newlecmineursprj.util.SearchModuleUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +43,7 @@ private final PostService postService;
             , @RequestParam(defaultValue = "") String calendarEnd
             , @RequestParam(defaultValue = "") String selectedDisplayStatus
             , @RequestParam(defaultValue = "") String selectedSellStatus
+            , @AuthenticationPrincipal WebUserDetails webUserDetails
             , Model model) {
 
         List<Category> categoryList = categoryService.getList();
@@ -52,10 +55,14 @@ private final PostService postService;
         String endDate = SearchModuleUtil.searchByRegDate(buttonRegDate);
         Integer displayStatusResult = SearchModuleUtil.searchByDisplayStatus(selectedDisplayStatus);
 
+        Long memberId = null;
+        if (webUserDetails != null){
+            memberId = webUserDetails.getId();
+        }
         CustomPageImpl<ProductListDTO> productPage = service.getList(
                 pageNumber, pageSize, sortMethod, sortDirection,
                 5, searchMethod, searchKeyword, categoryId,
-                startDate, endDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResults
+                startDate, endDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResults, memberId
         );
         model.addAttribute("productPage", productPage);
 

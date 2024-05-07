@@ -11,7 +11,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,9 +25,9 @@ public class WebUserDetailsService implements UserDetailsService {
     private final RoleRepository roleRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
         Member member = repository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("등록된 사용자가 아닙니다."));
+                .orElseThrow(() -> new BadCredentialsException("로그인 정보를 다시 확인해주세요."));
 
         List<Role> roles = roleRepository.findAllByMemberId(member.getId());
 

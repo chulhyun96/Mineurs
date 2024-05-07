@@ -3,11 +3,13 @@ package com.newlecmineursprj.controller.admin;
 import java.io.IOException;
 import java.util.List;
 
+import com.newlecmineursprj.config.security.WebUserDetails;
 import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.ProductSubImg;
 
 import com.newlecmineursprj.util.CustomPageImpl;
 import com.newlecmineursprj.util.SearchModuleUtil;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -48,6 +50,7 @@ public class ProductController {
             @RequestParam(defaultValue = "") String calendarEnd,
             @RequestParam(defaultValue = "") String selectedDisplayStatus,
             @RequestParam(defaultValue = "") String selectedSellStatus,
+            @AuthenticationPrincipal WebUserDetails webUserDetails,
             Model model) {
 
         int count = service.getCount(searchMethod, searchKeyword.trim(), categoryId);
@@ -59,10 +62,14 @@ public class ProductController {
         String startDate = SearchModuleUtil.getStartDate();
         String endDate = SearchModuleUtil.searchByRegDate(buttonRegDate);
 
+        Long memberId = null;
+        if (webUserDetails != null)
+            memberId =  webUserDetails.getId();
+
         CustomPageImpl<ProductListDTO> productPage = service.getList(
                 page, pageSize, "reg_date", 5
                 , searchMethod, searchKeyword.trim(), categoryId
-                , startDate, endDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResult
+                , startDate, endDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResult, memberId
         );
 
         model.addAttribute("productPage", productPage);

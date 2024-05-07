@@ -10,17 +10,13 @@
     <link rel="stylesheet" href="/css/output.css">
 <!--    <script src="/js/user/signin.js" type="module"></script>-->
     <script>
-        // Create URL object from current location
-        var url = new URL(window.location.href);
+        // 로그인 에러시 팝업창
+        const url = new URL(window.location.href);
 
-        // Get error parameter
-        var error = url.searchParams.get("error");
+        let error = url.searchParams.get("error");
 
         if (error) {
-            // URL decode the error message
             error = decodeURIComponent(error);
-
-            // If there's an error, show it in an alert
             alert(error);
         }
     </script>

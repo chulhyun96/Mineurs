@@ -15,7 +15,7 @@ public interface ProductRepository {
                               @Param("searchKeyword") String searchKeyword, @Param("categoryId") Long categoryId,
                               @Param("startDate") String startDate, @Param("endDate") String endDate,
                               @Param("calendarStart") String calendarStart, @Param("calendarEnd") String calendarEnd,
-                              @Param("displayStatusResult") Integer displayStatusResult,@Param("sellStatusResult") Integer sellStatusResult);
+                              @Param("displayStatusResult") Integer displayStatusResult,@Param("sellStatusResult") Integer sellStatusResult, @Param("memberId") Long memberId);
 
     void reg(Product product);
 

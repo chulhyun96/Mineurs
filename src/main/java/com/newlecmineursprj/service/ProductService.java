@@ -12,12 +12,12 @@ public interface ProductService {
     CustomPageImpl<ProductListDTO> getList(Integer pageNumber, Integer pageSize, String sortMethod,
                                            Integer pageGroupSize, String searchMethod, String searchKeyword, long categoryId, String startDate,
                                            String endDate, String calendarStart, String calendarEnd,
-                                           Integer displayStatusResult, Integer sellStatusResult);
+                                           Integer displayStatusResult, Integer sellStatusResult, Long memberId);
 
     CustomPageImpl<ProductListDTO> getList(Integer pageNumber, Integer pageSize, String sortMethod,
                                            String sortDirection, Integer pageGroupSize, String searchMethod, String searchKeyword, long categoryId,
                                            String startDate, String endDate, String calendarStart, String calendarEnd,
-                                           Integer displayStatusResult, Integer sellStatusResult);
+                                           Integer displayStatusResult, Integer sellStatusResult, Long memberId);
 
     Product getById(Long id);
 
