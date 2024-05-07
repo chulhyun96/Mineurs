@@ -42,7 +42,7 @@
                             <option value="4" th:selected="${qna.qnaCategoryId == 4}">배송 전 변경사항 문의</option>
                             <option value="5" th:selected="${qna.qnaCategoryId == 5}">입금 / 기타 문의</option>
                         </select>
-                        <input class="border w-full" type="text" name="title"  th:value="${qna.title}">
+                        <input class="border w-full" type="text" name="title" th:if="${member != null}" th:value="${qna.title}">
                     </span>
                 </label>
             </div>
