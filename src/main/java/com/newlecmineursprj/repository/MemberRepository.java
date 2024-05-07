@@ -4,6 +4,7 @@ import com.newlecmineursprj.entity.Member;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface MemberRepository {
@@ -11,7 +12,7 @@ public interface MemberRepository {
     List<Member> findAll(String searchMethod,String searchKeyword,int offset,int size);
 
     Member findById(long id);
-    Member findByUsername(String username);
+    Optional<Member> findByUsername(String username);
 
     void save(Member member);
 

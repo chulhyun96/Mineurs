@@ -57,7 +57,6 @@ public class MyShopController {
 
         long memberId = webUserDetails.getId();
 
-        log.debug("memberId: {}", memberId);
 
         List<Category> categoryList = categoryService.getList();
         model.addAttribute("categoryList", categoryList);
