@@ -9,4 +9,5 @@ public interface ProductItemService {
     ProductItem getById(Long id);
     List<ProductItem> getByProductId(Long productId);
     ProductItem getByForeignKeys(Long productId, Long sizeId, Long colorId);
+    void stockDecrease(int qty, Long id);
 }

@@ -34,4 +34,9 @@ public class ProductItemServiceImpl implements ProductItemService {
         return repository.findByForeignKeys(productId, sizeId, colorId);
     }
 
+    @Override
+    public void stockDecrease(int qty, Long id) {
+        repository.stockDecrease(qty, id);
+    }
+
 }

@@ -20,7 +20,6 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
-        System.out.println("박철현");
         return new BCryptPasswordEncoder();
     }
 

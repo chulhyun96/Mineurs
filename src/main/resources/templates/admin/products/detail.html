@@ -33,47 +33,47 @@
                     <span>상품 이름</span>
                 </td>
 
-              <td colspan="3">
-                <label>
-                  <input
-                    th:field="*{name}"
-                    type="text"
-                    required
-                    class="block w-3/5"
-                  />
-                </label>
-              </td>
+                <td colspan="3">
+                    <label>
+                        <input
+                                th:field="*{name}"
+                                type="text"
+                                required
+                                class="block w-3/5"
+                        />
+                    </label>
+                </td>
             </tr>
             <tr>
                 <td>
                     <span>판매가</span>
                 </td>
 
-              <td colspan="3">
-                <label>
-                  <input
-                    th:field="*{price}"
-                    type="number"
-                    required
-                    class="block w-3/5"
-                  />
-                </label>
-              </td>
+                <td colspan="3">
+                    <label>
+                        <input
+                                th:field="*{price}"
+                                type="number"
+                                required
+                                class="block w-3/5"
+                        />
+                    </label>
+                </td>
             </tr>
             <tr>
                 <td>
                     <span>상품설명</span>
                 </td>
 
-              <td colspan="3">
-                <label class="block w-3/5">
+                <td colspan="3">
+                    <label class="block w-3/5">
                   <textarea
-                    th:field="*{description}"
-                    required
-                    class="h-36 w-full"
+                          th:field="*{description}"
+                          required
+                          class="h-36 w-full"
                   ></textarea>
-                </label>
-              </td>
+                    </label>
+                </td>
             </tr>
             <tr>
                 <td> 대표 사진</td>
@@ -125,8 +125,8 @@
                                 >
                             </span>
                         </span>
-                        <label  class="flex justify-center items-center w-44 h-44 bg-base-200">
-                            <span  th:class="text-2xl">+</span>
+                        <label class="flex justify-center items-center w-44 h-44 bg-base-200">
+                            <span th:class="text-2xl">+</span>
                             <input class="hidden img-input"
                                    type="file"
                                    name="updateSubImgs"
@@ -179,11 +179,13 @@
                 <td>
                     <div class="form-control flex flex-row space-x-2">
                         <label class="label cursor-pointer space-x-1">
-                            <input name="sold" th:value="${product.sold}" value="1" type="radio" class="radio" th:checked="${product.sold}"/>
+                            <input name="sold" th:value="${product.sold}" value="1" type="radio" class="radio"
+                                   th:checked="${product.sold}"/>
                             <span class="label-text">판매함</span>
                         </label>
                         <label class="label cursor-pointer space-x-1">
-                            <input name="sold" th:value="${product.sold}" value="0" type="radio" class="radio" th:checked="${!product.sold}"/>
+                            <input name="sold" th:value="${product.sold}" value="0" type="radio" class="radio"
+                                   th:checked="${!product.sold}"/>
                             <span class="label-text">판매안함</span>
                         </label>
                     </div>
@@ -227,10 +229,15 @@
             </tr>
             
             <tr th:each="productQty : ${productQtyList}">
-                <td>재고<span ></span><br>
-                    ( 컬러: <span th:text="${productQty.color}"></span>, 사이즈: <span th:text="${productQty.size}"></span> )
+                <td>
+                    <span class="font-bold">재고</span>
+                    <br>
+                    컬러: <span th:text="${productQty.color}"></span>
+                    <br>
+                    사이즈: <span th:text="${productQty.size}"></span>
+                </td>
                 <td colspan="3">
-                    asd
+                    <span th:text="${productQty.qty}"></span> 개
                 </td>
             </tr>
 
