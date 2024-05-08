@@ -78,23 +78,43 @@ public class ProductController {
 
         ProductItem productItem = productItemService.getByForeignKeys(productId, sizeId, colorId);
         
+        //유저가 구매 버튼 눌렀을때
         if(userAction == 1){
-            Order order = new Order();
-            order.setMemberId(memberId);
-            order.setTotalProductPrice(product.getPrice());
-            orderService.add(order);
+            //주문 수량
+            int orderedQty = 1;
+            //현재 재고
+            int productStock = productItem.getQty();
+
+            //재고 충분할때
+            if(productStock >= orderedQty){
+                //order 테이블에 데이터 추가
+                Order order = new Order();
+                order.setMemberId(memberId);
+                order.setTotalProductPrice(product.getPrice());
+                orderService.add(order);
+        
+                //orderItem 테이블에 데이터 추가
+                OrderItem orderItem = new OrderItem();
+                orderItem.setQty(orderedQty);
+                orderItem.setTotalPrice(product.getPrice());
+                orderItem.setOrderId(order.getId());
+                orderItem.setOrderStateId((long)1);
+                orderItem.setProductItemId(productItem.getId());
+                orderItemService.add(orderItem);
+
+                //주문한 갯수만큼 productItem 재고 감소 
+                productItemService.stockDecrease(orderedQty, productItem.getId());
+
+                return "redirect:pay";
+            }
+            //재고 불충분
+            else{
+                //주문이 안되야됨
+                return "";
+            }
     
-            OrderItem orderItem = new OrderItem();
-            orderItem.setQty(1);
-            orderItem.setTotalPrice(product.getPrice());
-            orderItem.setOrderId(order.getId());
-            orderItem.setOrderStateId((long)1);
-            orderItem.setProductItemId(productItem.getId());
-    
-            orderItemService.add(orderItem);
-    
-            return "redirect:pay";
         }
+        //장바구니에 추가 버튼 눌렀을때
         else if(userAction == 2){
 
             Cart tempCart = cartService.getByForeignKeys(memberId, productItem.getId());
@@ -109,6 +129,7 @@ public class ProductController {
 
             return "redirect:" + productId;
         }
+        //wishList에 추가 버튼 눌렀을때
         else if(userAction == 3){
 
             Like tempLike = likeService.getByForeignKeys(memberId, productId);

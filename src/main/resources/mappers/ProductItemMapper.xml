@@ -35,4 +35,10 @@
             AND size_id = #{sizeId}
             AND color_id = #{colorId}
     </select>
+
+    <update id="stockDecrease">
+        UPDATE product_item
+        SET qty = qty - #{qty}
+        WHERE id = #{id};
+    </update>
 </mapper>
