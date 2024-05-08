@@ -17,13 +17,6 @@ public class ProductSubImg {
     private Long id;
 
     public static List<ProductSubImg> updateSubImgs(List<String> storageSubImgName, List<ProductSubImg> foundAll) {
-        for (String overWriteSubImgNames : storageSubImgName) {
-            log.info("overWriteSubImgNames = {}", overWriteSubImgNames);
-        }
-        for (ProductSubImg productSubImg : foundAll) {
-            log.info("productSubImg = {}", productSubImg);
-            log.info("foundAll size : {}", foundAll.size());
-        }
         return IntStream.range(0, storageSubImgName.size())
                 .mapToObj(i -> ProductSubImg.builder()
                         .id(foundAll.get(i).getId())
