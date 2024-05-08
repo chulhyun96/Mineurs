@@ -42,11 +42,14 @@
     <update id="update" parameterType="Member">
         UPDATE member
 
-        SET name = #{name},
+        SET
         username = #{username},
-        password = #{password},
+        name = #{name},
         phone_number = #{phoneNumber},
-        email = #{email}
+        password = #{password},
+        email = #{email},
+        sms_reception = #{smsReception},
+        email_reception = #{emailReception}
 
         where id = #{id}
     </update>

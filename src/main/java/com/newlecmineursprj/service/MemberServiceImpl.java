@@ -2,33 +2,37 @@ package com.newlecmineursprj.service;
 
 import com.newlecmineursprj.entity.Member;
 import com.newlecmineursprj.repository.MemberRepository;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class MemberServiceImpl implements MemberService {
 
-    @Autowired
-    private MemberRepository repository;
-
+    private final MemberRepository repository;
 
     @Override
     public List<Member> getList(Integer page) {
-        return getList(page,null,null);
+        return getList(page, null, null);
     }
 
     @Override
     public List<Member> getList(Integer page, String searchMethod, String searchKeyword) {
-        
-        int size = 10;
-        int offset = (page-1) * size; 
 
-        return repository.findAll(searchMethod,searchKeyword,offset,size);
+        int size = 10;
+        int offset = (page - 1) * size;
+
+        return repository.findAll(searchMethod, searchKeyword, offset, size);
     }
-    
-    
+
     @Override
     public Member getById(long id) {
         return repository.findById(id);
@@ -41,6 +45,10 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void update(Member member) {
+        // char [] asdf = member.getPassword();
+
+        // String Encoded = encoder.encode(member.getPassword().);
+        // log.info("비밀번호 인코딩 = {}", Encoded);
         repository.update(member);
     }
 
@@ -56,7 +64,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public int getCount() {
-        return getCount(null,null);
+        return getCount(null, null);
     }
 
     @Override
