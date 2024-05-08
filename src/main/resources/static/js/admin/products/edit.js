@@ -1,6 +1,12 @@
 import {handleImgDelBtnClick,  handleInput, handleDrop, handleDragOver, handleDragLeave} from '/js/util/imgUploader.js'
 
+window.onload = function() {
+    alert('주의!! 추가 사진 수정 시 기존의 이미지를 모두 지우고 새로 올려주세요');
+};
+
 window.addEventListener("load", e => {
+
+
 
     // dom 초기화 =============================================================
     const form = document.querySelector("#form");
@@ -54,6 +60,7 @@ window.addEventListener("load", e => {
         handleDragLeave(e);
     multiImgUploader.ondragleave = (e) =>
         handleDragLeave(e);
+
 })
 
 // function parseProductId(currentUrl) {
