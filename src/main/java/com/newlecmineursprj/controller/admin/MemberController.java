@@ -8,7 +8,6 @@ import com.newlecmineursprj.service.CouponService;
 import com.newlecmineursprj.service.MemberService;
 import com.newlecmineursprj.service.QnaService;
 import com.newlecmineursprj.service.ReviewService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +40,6 @@ public class MemberController {
 
         List<Member> list = service.getList(page, searchMethod, searchKeyword.trim());
         int count = service.getCount(searchMethod,searchKeyword);
-
         model.addAttribute("list", list);
         model.addAttribute("count", count);
         return MEMBERS_VIEW + "/list";

@@ -75,10 +75,12 @@ public class ProductServiceImpl implements ProductService {
         List<ProductListDTO> content = repository.findAll(pageRequest, searchMethod, searchKeyword,
                         categoryId, startDate, endDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResult, memberId)
                 .stream().map(ProductMapper::toDto).toList();
+        log.info("content date : {} ", content.);
 
         long count = repository.getCount(searchMethod, searchKeyword, categoryId);
-
-        return new CustomPageImpl<>(content, pageRequest, count, pageGroupSize);
+        CustomPageImpl<ProductListDTO> productListDTOS = new CustomPageImpl<>(content, pageRequest, count, pageGroupSize);
+        log.info("Product list count: {}", productListDTOS.getContent().size());
+        return productListDTOS;
     }
 
     @Transactional
@@ -106,8 +108,6 @@ public class ProductServiceImpl implements ProductService {
         List<ProductSubImg> foundAll = subImgRepository.findAll(updateProduct.getId());
         List<String> storageSubImgName = imgStore.updateSubImgFiles(foundAll, updateSubImgs);
         updateSubImgs(updateProduct, updateSubImgs, foundAll, storageSubImgName);
-
-
     }
 
     private void updateSubImgs(Product updateProduct, List<MultipartFile> updateSubImgs, List<ProductSubImg> foundAll, List<String> storageSubImgName) {

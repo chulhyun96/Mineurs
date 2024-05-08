@@ -1,18 +1,14 @@
 package com.newlecmineursprj.controller.admin;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import com.newlecmineursprj.config.security.WebUserDetails;
 import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.dto.ProductQtyDTO;
-import com.newlecmineursprj.entity.ProductSubImg;
-import com.newlecmineursprj.entity.Size;
+import com.newlecmineursprj.entity.*;
+import com.newlecmineursprj.service.*;
 import com.newlecmineursprj.util.CustomPageImpl;
 import com.newlecmineursprj.util.SearchModuleUtil;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,19 +17,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.newlecmineursprj.entity.Category;
-import com.newlecmineursprj.entity.Color;
-import com.newlecmineursprj.entity.Product;
-import com.newlecmineursprj.entity.ProductItem;
-import com.newlecmineursprj.service.CategoryService;
-import com.newlecmineursprj.service.ColorService;
-import com.newlecmineursprj.service.ProductItemService;
-import com.newlecmineursprj.service.ProductService;
-import com.newlecmineursprj.service.ProductSubImgService;
-import com.newlecmineursprj.service.SizeService;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @RequestMapping("admin/products")
 @Controller("adminProductController")
@@ -73,16 +61,19 @@ public class ProductController {
         Integer displayStatusResult = SearchModuleUtil.searchByDisplayStatus(selectedDisplayStatus);
         String startDate = SearchModuleUtil.getStartDate();
         String endDate = SearchModuleUtil.searchByRegDate(buttonRegDate);
+        log.info("SearchModule : buttonRegDate = {} , calendarStart = {} , calendarEnd = {} , startDate = {}, endDate = {}", buttonRegDate, calendarStart, calendarEnd, startDate, endDate);
 
         Long memberId = null;
         if (webUserDetails != null)
             memberId =  webUserDetails.getId();
 
+        log.info("categoryId = {} ", categoryId);
         CustomPageImpl<ProductListDTO> productPage = service.getList(
                 page, pageSize, "reg_date", 5
                 , searchMethod, searchKeyword.trim(), categoryId
                 , startDate, endDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResult, memberId
         );
+        log.info("productPage = {}", productPage.getContent().size());
 
         model.addAttribute("productPage", productPage);
         model.addAttribute("count", count);
