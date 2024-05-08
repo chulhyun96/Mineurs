@@ -63,8 +63,9 @@ public class ImgStore {
     }
 
     public List<String> updateSubImgFiles(List<ProductSubImg> foundProducts, List<MultipartFile> updateImgs) throws IOException {
-        if (updateImgs.stream().allMatch(MultipartFile::isEmpty))
+        if (updateImgs.stream().allMatch(MultipartFile::isEmpty)) {
             return ProductSubImg.getCurrentImgs(foundProducts);
+        }
 
         // 서브 이미지 업데이트
         List<String> updateImgNames = new ArrayList<>();

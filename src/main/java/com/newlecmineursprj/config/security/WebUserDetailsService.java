@@ -6,7 +6,6 @@ import com.newlecmineursprj.repository.MemberRepository;
 import com.newlecmineursprj.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -26,22 +26,22 @@ public class WebUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        Member member = repository.findByUsername(username)
-                .orElseThrow(() -> new BadCredentialsException("로그인 정보를 다시 확인해주세요."));
+        Optional<Member> member = repository.findByUsername(username);
 
-        List<Role> roles = roleRepository.findAllByMemberId(member.getId());
+
+        List<Role> roles = roleRepository.findAllByMemberId(member.get().getId());
 
         List<GrantedAuthority> authorities = roles.stream().map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
 
         return WebUserDetails.builder()
-                .id(member.getId())
-                .username(member.getUsername())
-                .password(member.getPassword())
-                .email(member.getEmail())
-                .phoneNumber(member.getPhoneNumber())
-                .paymentPassword(member.getPaymentPassword())
-                .regDate(member.getRegDate())
+                .id(member.get().getId())
+                .username(member.get().getUsername())
+                .password(member.get().getPassword())
+                .email(member.get().getEmail())
+                .phoneNumber(member.get().getPhoneNumber())
+                .paymentPassword(member.get().getPaymentPassword())
+                .regDate(member.get().getRegDate())
                 .authorities(authorities)
                 .build();
 

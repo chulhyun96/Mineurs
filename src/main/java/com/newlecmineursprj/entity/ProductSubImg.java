@@ -15,10 +15,14 @@ public class ProductSubImg {
     private Long productId;
     private String path;
     private Long id;
-        // 123 , abc
+
     public static List<ProductSubImg> updateSubImgs(List<String> storageSubImgName, List<ProductSubImg> foundAll) {
         for (String overWriteSubImgNames : storageSubImgName) {
             log.info("overWriteSubImgNames = {}", overWriteSubImgNames);
+        }
+        for (ProductSubImg productSubImg : foundAll) {
+            log.info("productSubImg = {}", productSubImg);
+            log.info("foundAll size : {}", foundAll.size());
         }
         return IntStream.range(0, storageSubImgName.size())
                 .mapToObj(i -> ProductSubImg.builder()
@@ -38,8 +42,8 @@ public class ProductSubImg {
                 .toList();
     }
     public static List<String> getCurrentImgs(List<ProductSubImg> foundProducts) {
-        return foundProducts.stream().
-                map(ProductSubImg::getPath).
-                toList();
+        return foundProducts.stream()
+                .map(ProductSubImg::getPath)
+                .toList();
     }
 }

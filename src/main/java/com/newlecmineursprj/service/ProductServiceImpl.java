@@ -106,13 +106,16 @@ public class ProductServiceImpl implements ProductService {
 
         //서브 이미지 업데이트
         List<ProductSubImg> foundAll = subImgRepository.findAll(updateProduct.getId());
+        for (ProductSubImg productSubImg : foundAll) {
+            log.info("Product sub img: " + productSubImg);
+        }
         List<String> storageSubImgName = imgStore.updateSubImgFiles(foundAll, updateSubImgs);
         updateSubImgs(updateProduct, updateSubImgs, foundAll, storageSubImgName);
     }
 
     private void updateSubImgs(Product updateProduct, List<MultipartFile> updateSubImgs, List<ProductSubImg> foundAll, List<String> storageSubImgName) {
-        //기존의 파일보다 요청한 파일이 더 많을 경우
         if (updateSubImgs.size() > foundAll.size()) {
+            log.info("기존의 파일보다 요청이 많을 경우");
             List<String> extraSubImgNames = storageSubImgName.subList(foundAll.size(), updateSubImgs.size());
             List<ProductSubImg> productSubImgs = ProductSubImg.saveSubImgs(extraSubImgNames, updateProduct);
             subImgRepository.reg(productSubImgs);
@@ -122,17 +125,16 @@ public class ProductServiceImpl implements ProductService {
             subImgRepository.updatedImgs(overWriteSubImgList);
             return;
         }
-        //기존의 파일보다 요청한 파일이 더 적을 경우
         if (updateSubImgs.size() < foundAll.size()) {
-            List<ProductSubImg> extraSubImgsToDelete = foundAll.subList(updateSubImgs.size(), foundAll.size());
-            subImgRepository.deleteAll(extraSubImgsToDelete);
-
+            log.info("기존의 파일보다 요청이 적을 경우");
             List<ProductSubImg> remainingSubImgs = foundAll.subList(0, updateSubImgs.size());
             List<ProductSubImg> productSubImgs = ProductSubImg.updateSubImgs(storageSubImgName, remainingSubImgs);
             subImgRepository.updatedImgs(productSubImgs);
+
+            List<ProductSubImg> extraSubImgsToDelete = foundAll.subList(updateSubImgs.size(), foundAll.size());
+            subImgRepository.deleteAll(extraSubImgsToDelete);
             return;
         }
-        //같을 경우
         List<ProductSubImg> productSubImgs = ProductSubImg.updateSubImgs(storageSubImgName, foundAll);
         subImgRepository.updatedImgs(productSubImgs);
     }
