@@ -82,7 +82,7 @@
             <if test="categoryId != 0">
                 and plv.ct_id = #{categoryId}
             </if>
-            <if test="startDate != '' and endDate != ''">
+            <if test="!startDate.isEmpty() and !endDate.isEmpty()">
                 and reg_date between #{endDate} and #{startDate}
             </if>
             <if test="calendarStart != '' and calendarEnd != ''">
