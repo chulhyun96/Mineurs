@@ -20,6 +20,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
+        System.out.println("박철현");
         return new BCryptPasswordEncoder();
     }
 
@@ -28,7 +29,7 @@ public class WebSecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/member/**").hasAnyRole("MEMBER", "ADMIN")
-                        .requestMatchers("/admin/**","/notices/reg").hasRole("ADMIN")
+                        .requestMatchers("/admin/**", "/notices/reg").hasRole("ADMIN")
                         .requestMatchers("/myshop/**").hasRole("MEMBER")
                         .anyRequest().permitAll())
                 .formLogin((form) -> form

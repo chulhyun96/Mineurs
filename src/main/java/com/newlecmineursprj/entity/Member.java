@@ -19,4 +19,6 @@ public class Member {
     private Timestamp regDate;
     private String paymentPassword;
     private String email;
+    private boolean smsReception;
+    private boolean emailReception;
 }

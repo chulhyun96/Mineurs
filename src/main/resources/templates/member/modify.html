@@ -13,7 +13,7 @@
   </head>
   <body>
     <main layout:fragment="main" class="container mx-auto px-10 mt-20">
-      <form action="" method="post">
+      <form action="modify" method="post" th:object="${member}">
         <section class="w-full">
           <h1 class="hidden">마이페이지 프로필</h1>
           <div class="text-center font-serif">Profile</div>
@@ -23,11 +23,9 @@
                 <th class="border">아이디 <strong>*</strong></th>
                 <td class="w-5/6">
                   <input
-                          pattern="[a-z0-9]{4,16}" title="4 to 16 characters; lowercase letters and numbers only." required
                     type="text"
                     class="w-24 border border-slate-800"
-                    value=""
-                    th:value="${member.username}"
+                    th:field="*{username}"
                   />
                   <span class="text-sm">(영문소문자/숫자, 4~16자)</span>
                 </td>
@@ -36,9 +34,10 @@
                 <th class="border">비밀번호 <strong>*</strong></th>
                 <td>
                   <input
-                    type="text"
+                    type="password"
                     class="w-24 border border-slate-800"
                     required
+                    th:field="*{password}"
                   />
                   <span
                     >(영문 대소문자/숫자/특수문자 중 3가지 이상 조합,
@@ -50,7 +49,7 @@
                 <th class="border">비밀번호 확인<strong>*</strong></th>
                 <td>
                   <input
-                    type="text"
+                    type="password"
                     class="w-24 border border-slate-800"
                     required
                   />
@@ -62,7 +61,7 @@
                   <input
                     type="text"
                     class="w-24 border border-slate-800"
-                    th:value="${member.name}"
+                    th:field="*{name}"
                     required
                   />
                 </td>
@@ -96,7 +95,7 @@
                   </div>
                 </td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <th class="border">휴대전화 <strong>*</strong></th>
                 <td>
                   <select
@@ -114,7 +113,7 @@
                     name="phoneNumber2"
                     id="mobile2"
                     class="border border-slate-800 w-16"
-                    th:value="${member.phoneNumber.substring(3, 7)}"
+                    --th:value="*{phoneNumber.substring(3, 7)}"
                   />
                   -
                   <input
@@ -122,16 +121,24 @@
                     name="phoneNumber3"
                     id="mobile3"
                     class="border border-slate-800 w-16"
-                    th:value="${member.phoneNumber.substring(7)}"
+                    --th:value="*{phoneNumber.substring(7)}"
                   />
                 </td>
-              </tr>
+              </tr> -->
               <tr>
                 <th class="border">SMS 수신여부 <strong>*</strong></th>
                 <td>
-                  <input type="radio" name="sms" value="agree" />
+                  <input
+                    type="radio"
+                    th:field="*{smsReception}"
+                    th:value="true"
+                  />
                   <label for="">수신함</label>
-                  <input type="radio" name="sms" value="disagree" checked />
+                  <input
+                    type="radio"
+                    th:field="*{smsReception}"
+                    th:value="false"
+                  />
                   <label for="">수신안함</label>
                   <p>
                     쇼핑몰에서 제공하는 유익한 이벤트 소식을 SMS로 받으실 수
@@ -145,7 +152,7 @@
                   <input
                     type="text"
                     class="w-36 border border-slate-800"
-                    th:value="${member.email}"
+                    th:field="*{email}"
                     required
                   />
                 </td>
@@ -153,9 +160,17 @@
               <tr>
                 <th class="border">이메일 수신여부 <strong>*</strong></th>
                 <td>
-                  <input type="radio" name="email" value="agree" />
+                  <input
+                    type="radio"
+                    th:field="*{emailReception}"
+                    th:value="true"
+                  />
                   <label for="">수신함</label>
-                  <input type="radio" name="email" value="disagree" checked />
+                  <input
+                    type="radio"
+                    th:field="*{emailReception}"
+                    th:value="false"
+                  />
                   <label for="">수신안함</label>
                   <p>
                     쇼핑몰에서 제공하는 유익한 이벤트 소식을 이메일로 받으실 수
@@ -178,7 +193,7 @@
               </tr>
             </table>
           </div>
-          <section class="mt-20">
+          <!-- <section class="mt-20">
             <h1 class="mb-2"><b>추가정보</b></h1>
             <table class="border table">
               <tr>
@@ -212,7 +227,7 @@
                 </td>
               </tr>
             </table>
-          </section>
+          </section> -->
         </section>
         <div class="flex justify-center">
           <button class="btn btn-neutral" type="submit">회원정보수정</button>

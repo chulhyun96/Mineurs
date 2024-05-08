@@ -4,6 +4,7 @@ import com.newlecmineursprj.config.security.WebUserDetails;
 import com.newlecmineursprj.entity.*;
 import com.newlecmineursprj.service.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import java.util.Set;
 @Controller
 @RequestMapping("products")
 @RequiredArgsConstructor
+@Slf4j
 public class ProductController {
 
     private final ProductService service;
@@ -35,11 +37,11 @@ public class ProductController {
     private final LikeService likeService;
 
     @GetMapping("{id}")
-    public String list(@PathVariable long id
-    , Model model){
+
+    public String list(@PathVariable long id, Model model) {
 
         List<Category> categoryList = categoryService.getList();
-        model.addAttribute("categoryList",categoryList);
+        model.addAttribute("categoryList", categoryList);
 
         Product product = service.getById(id);
         model.addAttribute("product", product);
@@ -47,7 +49,7 @@ public class ProductController {
         List<ProductItem> productItemList = productItemService.getByProductId(id);
         Set<Color> colors = new HashSet<>();
         Set<Size> sizes = new HashSet<>();
-        for(ProductItem productItem : productItemList){
+        for (ProductItem productItem : productItemList) {
             Long colorId = productItem.getColorId();
             colors.add(colorService.getById(colorId));
             Long sizeId = productItem.getSizeId();
@@ -65,41 +67,38 @@ public class ProductController {
 
     @PostMapping("userAction")
     public String userAction(
-                    @RequestParam("userAction") int userAction
-                    ,@RequestParam("productId") Long productId
-                    ,@RequestParam(value="colorId", defaultValue="0") Long colorId
-                    ,@RequestParam(value="sizeId", defaultValue="0") Long sizeId
-                    ,@AuthenticationPrincipal WebUserDetails webUserDetails
-                    ){
-        
+            @RequestParam("userAction") int userAction, @RequestParam("productId") Long productId,
+            @RequestParam(value = "colorId", defaultValue = "0") Long colorId,
+            @RequestParam(value = "sizeId", defaultValue = "0") Long sizeId,
+            @AuthenticationPrincipal WebUserDetails webUserDetails) {
+
         long memberId = webUserDetails.getId();
 
         Product product = service.getById(productId);
 
         ProductItem productItem = productItemService.getByForeignKeys(productId, sizeId, colorId);
-        
-        if(userAction == 1){
+
+        if (userAction == 1) {
             Order order = new Order();
             order.setMemberId(memberId);
             order.setTotalProductPrice(product.getPrice());
             orderService.add(order);
-    
+
             OrderItem orderItem = new OrderItem();
             orderItem.setQty(1);
             orderItem.setTotalPrice(product.getPrice());
             orderItem.setOrderId(order.getId());
-            orderItem.setOrderStateId((long)1);
+            orderItem.setOrderStateId((long) 1);
             orderItem.setProductItemId(productItem.getId());
-    
+
             orderItemService.add(orderItem);
-    
+
             return "redirect:pay";
-        }
-        else if(userAction == 2){
+        } else if (userAction == 2) {
 
             Cart tempCart = cartService.getByForeignKeys(memberId, productItem.getId());
-            
-            if(tempCart == null){
+
+            if (tempCart == null) {
                 Cart cart = new Cart();
                 cart.setMemberId(memberId);
                 cart.setProductItemId(productItem.getId());
@@ -108,18 +107,16 @@ public class ProductController {
             }
 
             return "redirect:" + productId;
-        }
-        else if(userAction == 3){
+        } else if (userAction == 3) {
 
             Like tempLike = likeService.getByForeignKeys(memberId, productId);
 
-            if(tempLike == null){
+            if (tempLike == null) {
                 Like like = new Like();
                 like.setMemberId(memberId);
                 like.setProductId(productId);
                 likeService.add(like);
             }
-
 
             return "redirect:" + productId;
         }
@@ -127,7 +124,7 @@ public class ProductController {
     }
 
     @GetMapping("pay")
-    public String pay(Model model){
+    public String pay(Model model) {
 
         return "pay";
     }
