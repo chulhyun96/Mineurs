@@ -78,7 +78,7 @@ public class ProductServiceImpl implements ProductService {
 
         long count = repository.getCount(searchMethod, searchKeyword, categoryId);
         CustomPageImpl<ProductListDTO> productListDTOS = new CustomPageImpl<>(content, pageRequest, count, pageGroupSize);
-        log.info("Product list count: {}", productListDTOS.getContent().size());
+        log.info("buttonRegDateResult : {}", productListDTOS.getContent().size());
         return productListDTOS;
     }
 
