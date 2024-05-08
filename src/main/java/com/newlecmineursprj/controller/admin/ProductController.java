@@ -1,12 +1,16 @@
 package com.newlecmineursprj.controller.admin;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.newlecmineursprj.config.security.WebUserDetails;
 import com.newlecmineursprj.dto.ProductListDTO;
+import com.newlecmineursprj.dto.ProductQtyDTO;
 import com.newlecmineursprj.entity.ProductSubImg;
-
+import com.newlecmineursprj.entity.Size;
 import com.newlecmineursprj.util.CustomPageImpl;
 import com.newlecmineursprj.util.SearchModuleUtil;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,10 +22,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.newlecmineursprj.entity.Category;
+import com.newlecmineursprj.entity.Color;
 import com.newlecmineursprj.entity.Product;
+import com.newlecmineursprj.entity.ProductItem;
 import com.newlecmineursprj.service.CategoryService;
+import com.newlecmineursprj.service.ColorService;
+import com.newlecmineursprj.service.ProductItemService;
 import com.newlecmineursprj.service.ProductService;
 import com.newlecmineursprj.service.ProductSubImgService;
+import com.newlecmineursprj.service.SizeService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +46,9 @@ public class ProductController {
     private final ProductService service;
     private final CategoryService categoryService;
     private final ProductSubImgService productSubImgService;
+    private final ProductItemService productItemService;
+    private final ColorService colorService;
+    private final SizeService sizeService;
 
     @GetMapping
     public String list(
@@ -118,9 +130,31 @@ public class ProductController {
         List<Category> categories = categoryService.getList();
         List<ProductSubImg> subImgs = productSubImgService.getListByProductId(product.getId());
 
+        List<ProductItem> productItems = productItemService.getByProductId(id);
+        List<ProductQtyDTO> productQtyDTOs = new ArrayList<>();
+        for(ProductItem productItem : productItems){
+            Color color = colorService.getById(productItem.getColorId());
+            Size size = sizeService.getById(productItem.getSizeId());
+            ProductQtyDTO productQtyDTO = new ProductQtyDTO();
+            productQtyDTO.setQty(productItem.getQty());
+            productQtyDTO.setColorId(color.getId());
+            productQtyDTO.setColor(color.getKorName());
+            productQtyDTO.setSizeId(size.getId());
+            productQtyDTO.setSize(size.getEngName());
+            productQtyDTOs.add(productQtyDTO);
+        }
+
+        Comparator<ProductQtyDTO> comparator = Comparator
+                .comparing(ProductQtyDTO::getColorId)  // colorId로 정렬
+                .thenComparing(ProductQtyDTO::getSizeId); // 동일한 colorId 내에서 sizeId로 정렬
+
+        // 정렬 적용
+        Collections.sort(productQtyDTOs, comparator);
+
         model.addAttribute("categories", categories);
         model.addAttribute("product", product);
         model.addAttribute("subImgs", subImgs);
+        model.addAttribute("productQtyList", productQtyDTOs);
         return PRODUCTS_VIEW + "/detail";
     }
 

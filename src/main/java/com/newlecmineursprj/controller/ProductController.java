@@ -70,7 +70,6 @@ public class ProductController {
                     ,@RequestParam(value="colorId", defaultValue="0") Long colorId
                     ,@RequestParam(value="sizeId", defaultValue="0") Long sizeId
                     ,@AuthenticationPrincipal WebUserDetails webUserDetails
-                    // @RequestParam(defaultValue = "0", value = "qty") int qty,
                     ){
         
         long memberId = webUserDetails.getId();
@@ -93,9 +92,6 @@ public class ProductController {
             orderItem.setProductItemId(productItem.getId());
     
             orderItemService.add(orderItem);
-            // INSERT INTO 
-            // order_item (qty, total_price, order_id, order_state_id, product_item_id) 
-            // VALUES ('1', #{product.price}, #{order.id}, '1', #{productItem.id});
     
             return "redirect:pay";
         }

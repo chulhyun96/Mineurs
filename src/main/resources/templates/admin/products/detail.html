@@ -226,6 +226,14 @@
                     </label>
                 </td>
             </tr>
+            
+            <tr th:each="productQty : ${productQtyList}">
+                <td>재고<span ></span><br>
+                    ( 컬러: <span th:text="${productQty.color}"></span>, 사이즈: <span th:text="${productQty.size}"></span> )
+                <td colspan="3">
+                    asd
+                </td>
+            </tr>
 
             </tbody>
         </table>
