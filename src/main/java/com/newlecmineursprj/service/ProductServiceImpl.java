@@ -1,26 +1,24 @@
 package com.newlecmineursprj.service;
 
-import java.io.IOException;
-import java.util.List;
-
 import com.newlecmineursprj.domain.file.ImgStore;
 import com.newlecmineursprj.dto.ProductListDTO;
+import com.newlecmineursprj.entity.Product;
 import com.newlecmineursprj.entity.ProductSubImg;
 import com.newlecmineursprj.mapper.ProductMapper;
+import com.newlecmineursprj.repository.ProductRepository;
 import com.newlecmineursprj.repository.ProductSubImgRepository;
 import com.newlecmineursprj.util.CustomPageImpl;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.newlecmineursprj.entity.Product;
-import com.newlecmineursprj.repository.ProductRepository;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.io.IOException;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -108,11 +106,13 @@ public class ProductServiceImpl implements ProductService {
         List<ProductSubImg> foundAll = subImgRepository.findAll(updateProduct.getId());
         List<String> storageSubImgName = imgStore.updateSubImgFiles(foundAll, updateSubImgs);
         updateSubImgs(updateProduct, updateSubImgs, foundAll, storageSubImgName);
+
+
     }
 
     private void updateSubImgs(Product updateProduct, List<MultipartFile> updateSubImgs, List<ProductSubImg> foundAll, List<String> storageSubImgName) {
-        //기존의 파일보다 요청한 파일이 더 많을 경우
-        if (updateSubImgs.size() > foundAll.size()) {
+        if (storageSubImgName.size() > foundAll.size()) {
+            log.info("기존의 파일보다 요청이 많을 경우");
             List<String> extraSubImgNames = storageSubImgName.subList(foundAll.size(), updateSubImgs.size());
             List<ProductSubImg> productSubImgs = ProductSubImg.saveSubImgs(extraSubImgNames, updateProduct);
             subImgRepository.reg(productSubImgs);
@@ -122,17 +122,17 @@ public class ProductServiceImpl implements ProductService {
             subImgRepository.updatedImgs(overWriteSubImgList);
             return;
         }
-        //기존의 파일보다 요청한 파일이 더 적을 경우
-        if (updateSubImgs.size() < foundAll.size()) {
-            List<ProductSubImg> extraSubImgsToDelete = foundAll.subList(updateSubImgs.size(), foundAll.size());
-            subImgRepository.deleteAll(extraSubImgsToDelete);
-
+        if (storageSubImgName.size() < foundAll.size()) {
+            log.info("기존의 파일보다 요청이 적을 경우");
             List<ProductSubImg> remainingSubImgs = foundAll.subList(0, updateSubImgs.size());
             List<ProductSubImg> productSubImgs = ProductSubImg.updateSubImgs(storageSubImgName, remainingSubImgs);
             subImgRepository.updatedImgs(productSubImgs);
+
+            List<ProductSubImg> extraSubImgsToDelete = foundAll.subList(updateSubImgs.size(), foundAll.size());
+            subImgRepository.deleteAll(extraSubImgsToDelete);
             return;
         }
-        //같을 경우
+        log.info("기존의 파일과 요청한 파일의 개수가 같을 경우");
         List<ProductSubImg> productSubImgs = ProductSubImg.updateSubImgs(storageSubImgName, foundAll);
         subImgRepository.updatedImgs(productSubImgs);
     }

@@ -63,8 +63,15 @@ public class ImgStore {
     }
 
     public List<String> updateSubImgFiles(List<ProductSubImg> foundProducts, List<MultipartFile> updateImgs) throws IOException {
-        if (updateImgs.stream().allMatch(MultipartFile::isEmpty))
+        if (updateImgs.stream().anyMatch(MultipartFile::isEmpty)) {
             return ProductSubImg.getCurrentImgs(foundProducts);
+        }
+
+        //서브 이미지 삭제
+        for (ProductSubImg foundImg : foundProducts) {
+            String pastImgName = getFullSubPath(foundImg.getPath());
+            deleteImg(pastImgName);
+        }
 
         // 서브 이미지 업데이트
         List<String> updateImgNames = new ArrayList<>();
@@ -72,11 +79,6 @@ public class ImgStore {
             String updatedSubImgName = getFullSubPath(updateImg.getOriginalFilename());
             updateImg(updateImg, updatedSubImgName);
             updateImgNames.add(updateImg.getOriginalFilename());
-        }
-        //서브 이미지 삭제
-        for (ProductSubImg foundImg : foundProducts) {
-            String pastImgName = getFullSubPath(foundImg.getPath());
-            deleteImg(pastImgName);
         }
         return updateImgNames;
     }

@@ -33,6 +33,4 @@ public class ProductView {
     private Boolean currentUserLiked;
     private Long likeCount;
     private Double discountRate;
-
-
 }

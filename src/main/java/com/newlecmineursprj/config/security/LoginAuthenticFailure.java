@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 public class LoginAuthenticFailure implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        log.error("UserIdNotFoundException", exception);
+        log.error("Exception", exception);
         response.sendRedirect("/signin?error=" + URLEncoder.encode(exception.getMessage(), StandardCharsets.UTF_8));
     }
 }
