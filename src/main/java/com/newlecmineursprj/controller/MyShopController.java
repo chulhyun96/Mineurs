@@ -1,5 +1,12 @@
 package com.newlecmineursprj.controller;
 
+import com.newlecmineursprj.config.security.WebUserDetails;
+import com.newlecmineursprj.dto.ProductListDTO;
+import com.newlecmineursprj.entity.*;
+import com.newlecmineursprj.util.CustomPageImpl;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -9,8 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.newlecmineursprj.config.security.WebUserDetails;
-import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.Category;
 import com.newlecmineursprj.entity.Coupon;
 import com.newlecmineursprj.entity.Member;
@@ -20,6 +25,7 @@ import com.newlecmineursprj.service.CouponService;
 import com.newlecmineursprj.service.MemberService;
 import com.newlecmineursprj.service.OrderService;
 import com.newlecmineursprj.service.ProductService;
+
 import com.newlecmineursprj.util.CustomPageImpl;
 import com.newlecmineursprj.util.SearchModuleUtil;
 
@@ -52,6 +58,7 @@ public class MyShopController {
             @RequestParam(defaultValue = "") String calendarEnd, Model model) {
 
         long memberId = webUserDetails.getId();
+
         log.info("MemberId : {}", memberId);
 
         String startDate = SearchModuleUtil.getStartDate();
@@ -64,16 +71,15 @@ public class MyShopController {
                 searchMethod, searchKeyword, memberId,
                 calendarStart, calendarEnd, startDate, endDate);
 
-        log.info("리스트 =  " + list.getSize());
-        // log.info("isEmpty = " + list.isEmpty());
-        // log.info("totalPage =" + list.getTotalPages());
-
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("orderPage", list);
         model.addAttribute("regDates", SearchModuleUtil.regDateList());
         model.addAttribute("calendarStart", calendarStart);
         model.addAttribute("calendarEnd", calendarEnd);
         model.addAttribute("startDate", startDate);
+
+        model.addAttribute("orderPage", list);
+
         return "myshop/order/list";
     }
 
