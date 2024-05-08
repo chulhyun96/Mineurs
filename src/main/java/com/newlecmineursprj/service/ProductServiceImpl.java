@@ -110,16 +110,14 @@ public class ProductServiceImpl implements ProductService {
 
         // 문제 -> 기존의 이미지가 2개 일 경우, 기존의 이미지를 손대지 않고 이미지 추가 1장, 2장, 3장
         // 문제 -> 기존의 이미지가 2개 일 경우, 기존의 이미지를 삭제 시 IndexOutOfBounds
-        // 문제 -> 기존의 이미지가 2개 일 경우, 전혀 손대지 않고 폼 제출
-        // 문제 -> 파일이름이 같은 이미지를 올리면 렌더링이 안됨. 데이터베이스에서 삭제한듯.
+        // 문제 -> 기존의 이미지가 2개 일 경우, 전혀 손대지 않고 폼 제출 -> 기존의 파일보다 요청이 적을 경우 -> 요청한 파일의 개수 1, 기존의 파일 개수 2 IndexOutOfBounds
         // 공통적인 문제는 기존의 이미지를 손대지 않고 어떠한 작업시 문제가 발생.
     }
 
     private void updateSubImgs(Product updateProduct, List<MultipartFile> updateSubImgs, List<ProductSubImg> foundAll, List<String> storageSubImgName) {
-        if (updateSubImgs.size() > foundAll.size()) {
-            // 잘됨.
+        if (storageSubImgName.size() > foundAll.size()) {
             log.info("기존의 파일보다 요청이 많을 경우");
-            log.info("요청한 파일의 개수 : {}", updateSubImgs.size());
+            log.info("요청한 파일의 개수 : {}", storageSubImgName.size());
             log.info("기존의 파일의 개수 : {}", foundAll.size());
             List<String> extraSubImgNames = storageSubImgName.subList(foundAll.size(), updateSubImgs.size());
             List<ProductSubImg> productSubImgs = ProductSubImg.saveSubImgs(extraSubImgNames, updateProduct);
@@ -130,10 +128,9 @@ public class ProductServiceImpl implements ProductService {
             subImgRepository.updatedImgs(overWriteSubImgList);
             return;
         }
-        if (updateSubImgs.size() < foundAll.size()) {
-            // 잘됨
+        if (storageSubImgName.size() < foundAll.size()) {
             log.info("기존의 파일보다 요청이 적을 경우");
-            log.info("요청한 파일의 개수 : {}", updateSubImgs.size());
+            log.info("요청한 파일의 개수 : {}", storageSubImgName.size());
             log.info("기존의 파일의 개수 : {}", foundAll.size());
             List<ProductSubImg> remainingSubImgs = foundAll.subList(0, updateSubImgs.size());
             List<ProductSubImg> productSubImgs = ProductSubImg.updateSubImgs(storageSubImgName, remainingSubImgs);
@@ -143,9 +140,8 @@ public class ProductServiceImpl implements ProductService {
             subImgRepository.deleteAll(extraSubImgsToDelete);
             return;
         }
-        //잘됨
         log.info("기존의 파일과 요청한 파일의 개수가 같을 경우");
-        log.info("요청한 파일의 개수 : {}", updateSubImgs.size());
+        log.info("요청한 파일의 개수 : {}", storageSubImgName.size());
         log.info("기존의 파일의 개수 : {}", foundAll.size());
         List<ProductSubImg> productSubImgs = ProductSubImg.updateSubImgs(storageSubImgName, foundAll);
         subImgRepository.updatedImgs(productSubImgs);

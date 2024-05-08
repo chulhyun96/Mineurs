@@ -61,10 +61,13 @@ public class ImgStore {
         updateImg(updateImg, updateMainImgPath);
         return updateImg.getOriginalFilename();
     }
-
+    // 문제 -> 기존의 이미지가 2개 일 경우, 전혀 손대지 않고 폼 제출 -> 기존의 파일보다 요청이 적을 경우 -> 요청한 파일의 개수 1, 기존의 파일 개수 2 IndexOutOfBounds
     public List<String> updateSubImgFiles(List<ProductSubImg> foundProducts, List<MultipartFile> updateImgs) throws IOException {
-        if (updateImgs.stream().allMatch(MultipartFile::isEmpty)) {
-            return ProductSubImg.getCurrentImgs(foundProducts);
+        if (updateImgs.stream().anyMatch(MultipartFile::isEmpty)) {
+            log.info("전혀 손 대지 않고 폼 제출한 경우");
+            List<String> currentImgs = ProductSubImg.getCurrentImgs(foundProducts); // 2개여야함
+            log.info("currentImgs 개수: {}", currentImgs.size());
+            return currentImgs;
         }
 
         //서브 이미지 삭제
