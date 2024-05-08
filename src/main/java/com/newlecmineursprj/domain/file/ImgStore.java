@@ -67,17 +67,18 @@ public class ImgStore {
             return ProductSubImg.getCurrentImgs(foundProducts);
         }
 
+        //서브 이미지 삭제
+        for (ProductSubImg foundImg : foundProducts) {
+            String pastImgName = getFullSubPath(foundImg.getPath());
+            deleteImg(pastImgName);
+        }
+
         // 서브 이미지 업데이트
         List<String> updateImgNames = new ArrayList<>();
         for (MultipartFile updateImg : updateImgs) {
             String updatedSubImgName = getFullSubPath(updateImg.getOriginalFilename());
             updateImg(updateImg, updatedSubImgName);
             updateImgNames.add(updateImg.getOriginalFilename());
-        }
-        //서브 이미지 삭제
-        for (ProductSubImg foundImg : foundProducts) {
-            String pastImgName = getFullSubPath(foundImg.getPath());
-            deleteImg(pastImgName);
         }
         return updateImgNames;
     }
