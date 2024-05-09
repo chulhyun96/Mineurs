@@ -1,21 +1,22 @@
 package com.newlecmineursprj.service;
 
+import java.util.List;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.newlecmineursprj.entity.Member;
 import com.newlecmineursprj.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class MemberServiceImpl implements MemberService {
+
+    private final PasswordEncoder encoder;
 
     private final MemberRepository repository;
 
@@ -45,10 +46,11 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void update(Member member) {
-        // char [] asdf = member.getPassword();
 
-        // String Encoded = encoder.encode(member.getPassword().);
-        // log.info("비밀번호 인코딩 = {}", Encoded);
+        String Encoded = encoder.encode(member.getPassword());
+
+        member.setPassword(Encoded);
+
         repository.update(member);
     }
 

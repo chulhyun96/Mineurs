@@ -41,7 +41,7 @@ public class MemberController {
 
         System.out.println("멤버 업데이트 호출");
         memberService.update(member);
-        return "redirect:/admin/products";
+        return "redirect:/";
     }
 
 }
