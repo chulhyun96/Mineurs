@@ -76,7 +76,7 @@
         left join `like` l on l.member_id = #{memberId} and l.product_id = plv.id
 
         <where>
-            <if test="searchKeyword != ''">
+            <if test="!searchKeyword.isEmpty()">
                 plv.${searchMethod} like '%${searchKeyword}%'
             </if>
             <if test="categoryId != 0">
@@ -85,7 +85,7 @@
             <if test="!startDate.isEmpty() and !endDate.isEmpty()">
                 and reg_date between #{endDate} and #{startDate}
             </if>
-            <if test="calendarStart != '' and calendarEnd != ''">
+            <if test="!calendarStart.isEmpty() and !calendarEnd.isEmpty()">
                 and reg_date between #{calendarStart} and #{calendarEnd}
             </if>
             <if test="displayStatusResult == 1 or displayStatusResult == 0">

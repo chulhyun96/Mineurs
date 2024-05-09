@@ -25,12 +25,14 @@ import com.newlecmineursprj.service.CouponService;
 import com.newlecmineursprj.service.MemberService;
 import com.newlecmineursprj.service.OrderService;
 import com.newlecmineursprj.service.ProductService;
-
+import com.newlecmineursprj.service.WishlistService;
 import com.newlecmineursprj.util.CustomPageImpl;
 import com.newlecmineursprj.util.SearchModuleUtil;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequiredArgsConstructor
@@ -42,6 +44,7 @@ public class MyShopController {
     private final ProductService productService;
     private final CategoryService categoryService;
     private final MemberService memberService;
+    private final WishlistService wishlistService;
     // private final PostService postService;
 
     private final CouponService couponService;
@@ -104,6 +107,16 @@ public class MyShopController {
         model.addAttribute("productPage", productPage);
 
         return "myshop/wishlist";
+    }
+
+    @PostMapping("wishlist/delete")
+    public String wishListDelete(@AuthenticationPrincipal WebUserDetails webUserDetails, Long productId) {
+
+        long memberId = webUserDetails.getId();
+
+        wishlistService.delete(memberId, productId);
+
+        return "redirect:/myshop/wishlist";
     }
 
     @GetMapping("point")

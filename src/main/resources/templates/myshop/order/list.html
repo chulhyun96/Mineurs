@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="/css/output.css" />
+    <script src="/js/order/formatNumber.js"></script>
   </head>
   <body>
     <main layout:fragment="main" class="container mx-auto px-10 mt-20">
@@ -169,12 +170,15 @@
                       >
                     </div>
                   </td>
-                  <td scope="col" th:text="${order.totalProductPrice}">
+                  <td
+                    scope="col"
+                    th:text="${#numbers.formatInteger(order.totalProductPrice, 0, 'COMMA')}"
+                  >
                     총 상품구매금액
                   </td>
                   <td
                     scope="col"
-                    th:text="${order.totalProductPrice} - ${order.totalDiscountAmount}"
+                    th:text="${#numbers.formatInteger(order.totalProductPrice-order.totalDiscountAmount, 0, 'COMMA')}"
                   >
                     총 실결제금액
                   </td>

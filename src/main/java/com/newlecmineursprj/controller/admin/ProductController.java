@@ -61,19 +61,16 @@ public class ProductController {
         Integer displayStatusResult = SearchModuleUtil.searchByDisplayStatus(selectedDisplayStatus);
         String startDate = SearchModuleUtil.getStartDate();
         String endDate = SearchModuleUtil.searchByRegDate(buttonRegDate);
-        log.info("SearchModule : buttonRegDate = {} , calendarStart = {} , calendarEnd = {} , startDate = {}, endDate = {}", buttonRegDate, calendarStart, calendarEnd, startDate, endDate);
 
         Long memberId = null;
         if (webUserDetails != null)
             memberId =  webUserDetails.getId();
 
-        log.info("categoryId = {} ", categoryId);
         CustomPageImpl<ProductListDTO> productPage = service.getList(
                 page, pageSize, "reg_date", 5
                 , searchMethod, searchKeyword.trim(), categoryId
                 , startDate, endDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResult, memberId
         );
-        log.info("productPage = {}", productPage.getContent().size());
 
         model.addAttribute("productPage", productPage);
         model.addAttribute("count", count);

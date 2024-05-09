@@ -64,7 +64,9 @@
                 ></td>
                 <td th:text="${coupon.name}"></td>
                 <td th:text="${coupon.description}"></td>
-                <td th:text="${coupon.minimumPurchase}"></td>
+                <td
+                  th:text="${#numbers.formatInteger(coupon.minimumPurchase, 0, 'COMMA')}+ 원"
+                ></td>
                 <td
                   th:text="@{|${coupon.validDateStart} ~ ${coupon.validDateEnd}|}"
                 ></td>

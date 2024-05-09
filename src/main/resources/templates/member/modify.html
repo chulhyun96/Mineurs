@@ -10,10 +10,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/output.css" />
     <title>Document</title>
+    <script src="/js/member/modify.js"></script>
   </head>
   <body>
     <main layout:fragment="main" class="container mx-auto px-10 mt-20">
-      <form action="modify" method="post" th:object="${member}">
+      <form
+        id="modifyForm"
+        action="modify"
+        method="post"
+        th:object="${member}"
+        onsubmit="return validateForm()"
+      >
         <section class="w-full">
           <h1 class="hidden">마이페이지 프로필</h1>
           <div class="text-center font-serif">Profile</div>
@@ -22,6 +29,7 @@
               <tr>
                 <th class="border">아이디 <strong>*</strong></th>
                 <td class="w-5/6">
+                  <input type="hidden" th:field="*{id}" />
                   <input
                     type="text"
                     class="w-24 border border-slate-800"
@@ -38,6 +46,7 @@
                     class="w-24 border border-slate-800"
                     required
                     th:field="*{password}"
+                    id="pwd1"
                   />
                   <span
                     >(영문 대소문자/숫자/특수문자 중 3가지 이상 조합,
@@ -52,7 +61,12 @@
                     type="password"
                     class="w-24 border border-slate-800"
                     required
+                    id="pwd2"
+                    oninput="validatePassword()"
                   />
+                  <div id="passwordError" style="display: none; color: red">
+                    비밀번호가 일치하지 않습니다.
+                  </div>
                 </td>
               </tr>
               <tr>
@@ -230,7 +244,9 @@
           </section> -->
         </section>
         <div class="flex justify-center">
-          <button class="btn btn-neutral" type="submit">회원정보수정</button>
+          <button class="btn btn-neutral" type="submit" onclick="submitForm()">
+            회원정보수정
+          </button>
           <a href="/myshop" class="btn ml-2">취소</a>
         </div>
       </form>

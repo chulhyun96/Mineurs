@@ -30,54 +30,31 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public CustomPageImpl<ProductListDTO> getList(
-            Integer pageNumber
-            , Integer pageSize
-            , String sortMethod
-            , Integer pageGroupSize
-            , String searchMethod
-            , String searchKeyword
-            , long categoryId
-            , String startDate
-            , String endDate
-            , String calendarStart
-            , String calendarEnd
-            , Integer displayStatusResult
-            , Integer sellStatusResult
-            , Long memberId
-    ) {
+            Integer pageNumber, Integer pageSize, String sortMethod, Integer pageGroupSize, String searchMethod,
+            String searchKeyword, long categoryId, String startDate, String endDate, String calendarStart,
+            String calendarEnd, Integer displayStatusResult, Integer sellStatusResult, Long memberId) {
 
-
-        return getList(pageNumber
-                , pageSize
-                , sortMethod
-                , "DESC"
-                , pageGroupSize
-                , searchMethod
-                , searchKeyword
-                , categoryId
-                , startDate
-                , endDate
-                , calendarStart
-                , calendarEnd
-                , displayStatusResult
-                , sellStatusResult
-                , null
-        );
+        return getList(pageNumber, pageSize, sortMethod, "DESC", pageGroupSize, searchMethod, searchKeyword, categoryId,
+                startDate, endDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResult, null);
     }
 
     @Override
     public CustomPageImpl<ProductListDTO> getList(Integer pageNumber, Integer pageSize, String sortMethod,
-                                                  String sortDirection, Integer pageGroupSize, String searchMethod,
-                                                  String searchKeyword, long categoryId, String startDate, String endDate,
-                                                  String calendarStart, String calendarEnd, Integer displayStatusResult, Integer sellStatusResult, Long memberId) {
-        Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.fromString(sortDirection), sortMethod));
+            String sortDirection, Integer pageGroupSize, String searchMethod,
+            String searchKeyword, long categoryId, String startDate, String endDate,
+            String calendarStart, String calendarEnd, Integer displayStatusResult, Integer sellStatusResult,
+            Long memberId) {
+        Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize,
+                Sort.by(Sort.Direction.fromString(sortDirection), sortMethod));
 
         List<ProductListDTO> content = repository.findAll(pageRequest, searchMethod, searchKeyword,
-                        categoryId, startDate, endDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResult, memberId)
+                categoryId, startDate, endDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResult,
+                memberId)
                 .stream().map(ProductMapper::toDto).toList();
 
         long count = repository.getCount(searchMethod, searchKeyword, categoryId);
-        CustomPageImpl<ProductListDTO> productListDTOS = new CustomPageImpl<>(content, pageRequest, count, pageGroupSize);
+        CustomPageImpl<ProductListDTO> productListDTOS = new CustomPageImpl<>(content, pageRequest, count,
+                pageGroupSize);
         log.info("Product list count: {}", productListDTOS.getContent().size());
         return productListDTOS;
     }
@@ -85,31 +62,33 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public void reg(Product newProduct, MultipartFile mainImg, List<MultipartFile> subImgs) throws IOException {
-        //메인 이미지 저장
+        // 메인 이미지 저장
         String storageMainImgName = imgStore.getStorageMainImgName(mainImg);
         Product.saveNewImg(storageMainImgName, newProduct);
         repository.reg(newProduct);
 
-        //서브 이미지 저장
+        // 서브 이미지 저장
         List<String> storageSubImgName = imgStore.getStorageSubImgName(subImgs);
         List<ProductSubImg> productSubImgs = ProductSubImg.saveSubImgs(storageSubImgName, newProduct);
         subImgRepository.reg(productSubImgs);
     }
 
     @Override
-    public void update(Product updateProduct, MultipartFile updateFile, List<MultipartFile> updateSubImgs) throws IOException {
-        //메인 이미지 업데이트
+    public void update(Product updateProduct, MultipartFile updateFile, List<MultipartFile> updateSubImgs)
+            throws IOException {
+        // 메인 이미지 업데이트
         Product foundProduct = repository.findById(updateProduct.getId());
         Product.saveNewImg(imgStore.updateMainImgFile(foundProduct, updateFile), updateProduct);
         repository.updateById(updateProduct);
 
-        //서브 이미지 업데이트
+        // 서브 이미지 업데이트
         List<ProductSubImg> foundAll = subImgRepository.findAll(updateProduct.getId());
         List<String> storageSubImgName = imgStore.updateSubImgFiles(foundAll, updateSubImgs);
         updateSubImgs(updateProduct, updateSubImgs, foundAll, storageSubImgName);
     }
 
-    private void updateSubImgs(Product updateProduct, List<MultipartFile> updateSubImgs, List<ProductSubImg> foundAll, List<String> storageSubImgName) {
+    private void updateSubImgs(Product updateProduct, List<MultipartFile> updateSubImgs, List<ProductSubImg> foundAll,
+            List<String> storageSubImgName) {
         if (storageSubImgName.size() > foundAll.size()) {
             log.info("기존의 파일보다 요청이 많을 경우");
             List<String> extraSubImgNames = storageSubImgName.subList(foundAll.size(), updateSubImgs.size());
@@ -146,7 +125,6 @@ public class ProductServiceImpl implements ProductService {
         repository.deleteAll(deleteId);
     }
 
-
     @Override
     public int getCount(String searchMethod, String searchKeyword, long categoryId) {
         return repository.getCount(searchMethod, searchKeyword, categoryId);
@@ -159,7 +137,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public CustomPageImpl<ProductListDTO> getWishList(Integer pageNumber, Integer pageSize, Integer pageGroupSize,
-                                                      long memberId) {
+            long memberId) {
 
         Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize);
 

@@ -20,4 +20,8 @@
         VALUES (#{memberId}, #{productId});
     </insert>
 
+    <delete id="delete">
+        delete from `like` where member_id = #{memberId} and product_id = #{productId}
+    </delete>
+
 </mapper>
