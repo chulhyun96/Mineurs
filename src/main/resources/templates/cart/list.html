@@ -34,7 +34,9 @@
                 <th scope="col" class="text-center">
                     <span th:text="${productList[i].name}"></span>
                     <br>
-                    <span th:text="'[옵션: '+${colorList[i].engName} + '/' +${sizeList[i].engName}+']'"></span>
+                    컬러 : <span th:text="${colorList[i].engName}"></span>
+                    <br>
+                    사이즈 : <span th:text="${sizeList[i].engName}"></span>
                 </th>
                 <th scope="col" class="h-40 mt-5 flex justify-center items-center">
                     <form method="post" action="cart/qty">

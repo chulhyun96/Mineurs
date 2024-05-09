@@ -51,7 +51,6 @@ public class ProductServiceImpl implements ProductService {
                 categoryId, startDate, endDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResult,
                 memberId)
                 .stream().map(ProductMapper::toDto).toList();
-        log.info("content date : {} ", content);
 
         long count = repository.getCount(searchMethod, searchKeyword, categoryId);
         CustomPageImpl<ProductListDTO> productListDTOS = new CustomPageImpl<>(content, pageRequest, count,

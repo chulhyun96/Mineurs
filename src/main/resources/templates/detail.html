@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/inc/layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/inc/layout}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,11 +10,12 @@
     <link rel="stylesheet" href="/src/output.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
 </head>
+
 <body>
     <main layout:fragment="main" class="container mx-auto">
         <section class="grid grid-cols-1 gap-1 md:grid-cols-2 lg:grid-cols-[3fr_2fr]">
             <!--     메인이미지       -->
-            <img class="lg:col-start-1" src="" th:src="@{|/webapp/image/products/${product.mainImgPath}|}"  alt="첨부이미지">
+            <img class="lg:col-start-1" src="" th:src="@{|/webapp/image/products/${product.mainImgPath}|}" alt="첨부이미지">
             <!--     구매 프레임       -->
             <form method="post" action="userAction"
                 class="w-full px-4 py-4 text-xs text-gray-500 lg:sticky lg:bottom-0 lg:top-20 lg:h-screen lg:overflow-scroll">
@@ -34,12 +35,14 @@
                     <p th:text="${product.price}"></p>
                 </section>
 
+                
+
                 <!--      색상          -->
                 <section class="mt-10">
                     <h1>COLOR</h1>
                     <div class="mt-2 flex space-x-1">
                         <label th:each="color: ${colors}"
-                        class="relative flex h-10 cursor-pointer items-center justify-center  border border-black px-4 text-xs has-[:checked]:border-4 ${className}">
+                            class="relative flex h-10 cursor-pointer items-center justify-center  border border-black px-4 text-xs has-[:checked]:border-4 ${className}">
 
                             <span th:text="${color.korName}" class="leading-none"></span>
                             <input type="radio" class="hidden" name="colorId" th:value="${color.id}">
@@ -52,7 +55,7 @@
                     <h1>SIZE</h1>
                     <div class="mt-2 flex space-x-1">
                         <label th:each="size: ${sizes}"
-                               class="relative flex h-10 cursor-pointer items-center justify-center  border border-black px-4 text-xs has-[:checked]:border-4 ${className}">
+                            class="relative flex h-10 cursor-pointer items-center justify-center  border border-black px-4 text-xs has-[:checked]:border-4 ${className}">
 
                             <span th:text="${size.engName}" class="leading-none"></span>
                             <input type="radio" class="hidden" name="sizeId" th:value="${size.id}">
@@ -66,13 +69,21 @@
                     <span class="font-bold">1</span> (1개)
                 </div>
 
+                <div class="clickList mt-10 text-gray-900">
+                    a
+                </div>
+
                 <div class="divider mt-16 border-gray-300"></div>
 
                 <!--       장바구니, 구매 버튼들         -->
                 <div class="mt-4 grid grid-cols-3 gap-1">
-                    <button name="userAction" value="1" class="flex cursor-pointer items-center justify-center border px-1 text-center h-10">Buy Now</button>
-                    <button name="userAction" value="2" class="flex cursor-pointer items-center justify-center border px-1 text-center h-10">Cart</button>
-                    <button name="userAction" value="3" class="flex cursor-pointer items-center justify-center border px-1 text-center h-10">Wish</button>
+                    <button name="userAction" value="1"
+                        class="flex cursor-pointer items-center justify-center border px-1 text-center h-10">Buy
+                        Now</button>
+                    <button name="userAction" value="2"
+                        class="flex cursor-pointer items-center justify-center border px-1 text-center h-10">Cart</button>
+                    <button name="userAction" value="3"
+                        class="flex cursor-pointer items-center justify-center border px-1 text-center h-10">Wish</button>
                 </div>
             </form>
 
@@ -89,4 +100,5 @@
     </main>
 
 </body>
+
 </html>

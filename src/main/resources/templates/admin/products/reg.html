@@ -34,7 +34,7 @@
 
                 <td colspan="3">
                     <label>
-                        <input type="text" name="name" th:field="*{name}" required class="block w-3/5"/>
+                        <input type="text" name="name" th:field="*{name}"  class="block w-3/5" required/>
                         <div th:errors="*{name}"></div>
                     </label>
                 </td>
@@ -46,7 +46,7 @@
 
                 <td colspan="3">
                     <label>
-                        <input name="price" th:field="*{price}" required class="block w-3/5"/>
+                        <input name="price" th:field="*{price}" required class="block w-3/5" />
                         <div th:errors="*{price}"></div>
                     </label>
                 </td>

@@ -27,18 +27,14 @@ public class MemberController {
     @GetMapping("modify")
     public String modifyForm(Model model,
             @AuthenticationPrincipal WebUserDetails webUserDetails) {
-
         long memberId = webUserDetails.getId();
-
         Member member = memberService.getById(memberId);
-
         model.addAttribute("member", member);
         return "member/modify";
     }
 
     @PostMapping("modify")
     public String modify(Member member) {
-
         System.out.println("멤버 업데이트 호출");
         memberService.update(member);
         return "redirect:/";
