@@ -59,7 +59,7 @@ public class QnaController {
         if (webUserDetails != null) {
             qna.setMemberId(webUserDetails.getId());
         } else {
-            qna.setMemberId(null);
+            qna.setMemberId(null) ;
         }
         service.reg(qna);
 

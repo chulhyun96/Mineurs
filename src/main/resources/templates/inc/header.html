@@ -87,7 +87,7 @@ transition-[background-color, opacity] duration-300 ease-in-out hover:bg-white h
               <a  href="/signout">Logout</a>
             </li>
 
-            <li sec:authorize="isAnonymous()"><a href="">Register</a></li>
+            <li sec:authorize="isAnonymous()"><a href="/register">Register</a></li>
             <li sec:authorize="isAuthenticated()"><a href="/myshop/order/list">Order</a></li>
             <li sec:authorize="isAuthenticated()"><a href="/myshop">My Page</a></li>
           </ul>

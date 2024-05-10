@@ -3,7 +3,6 @@ package com.newlecmineursprj.controller;
 import com.newlecmineursprj.config.security.WebUserDetails;
 import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.Category;
-import com.newlecmineursprj.entity.Member;
 import com.newlecmineursprj.service.CategoryService;
 import com.newlecmineursprj.service.MemberService;
 import com.newlecmineursprj.service.PostService;
@@ -74,20 +73,12 @@ private final PostService postService;
         return "list";
     }
 
-    @GetMapping("signup")
-    public String signupPost(Member member){
-//        memberService.save(member);
-//        log.debug("member: {}", member);
-//
-        return "signup";
-    }
-
     @GetMapping("checkout")
     public String checkout(){
         return "checkout";
     }
 
     @GetMapping("signin")
-    public String signin(){return "signin";}
+    public String signin(){return "login";}
 
 }
