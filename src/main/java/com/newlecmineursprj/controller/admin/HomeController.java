@@ -14,11 +14,11 @@ public class HomeController{
 
     @GetMapping("signin")
     public String login() {
-        return "signin";
+        return "login";
     }
 
     @GetMapping("signup")
     public String signin() {
-        return "signup";
+        return "register";
     }
 }

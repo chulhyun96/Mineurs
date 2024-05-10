@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newlecmineursprj.repository.RegisterRepository">
+<!--    <resultMap id="Member" type="Member">-->
+<!--        <id column="id" property="id"/>-->
+<!--        <result property="emailReception" column="email_reception"/>-->
+<!--        <result property="smsReception" column="sms_reception"/>-->
+<!--    </resultMap>-->
+    <insert id="save">
+        insert into member(username,password,name,phone_number,email,sms_reception,email_reception,enabled)
+        values (#{username},#{password},#{name},#{phoneNumber},#{email},#{smsReception},#{emailReception},#{enabled})
+    </insert>
+</mapper>

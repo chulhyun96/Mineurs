@@ -24,7 +24,7 @@
 <body>
 <main layout:fragment="main">
     <section class="text-center mt-32">
-        <h1 class="text-xl"><a href="">Sign in</a></h1>
+        <h1 class="text-xl"><a href="">Login</a></h1>
     </section>
     <section class="">
         <div class="container flex items-center justify-center px-6 mx-auto mt-24">
@@ -37,7 +37,7 @@
                     </svg>
                 </span>
 
-                    <input name="username" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="아이디를 입력하시구려">
+                    <input name="username" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="아이디를 입력해주세요">
                 </div>
 
                 <div class="relative flex items-center mt-4">
@@ -47,12 +47,12 @@
                     </svg>
                 </span>
 
-                    <input name="password" type="password" class="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="패스워드를 입력하3">
+                    <input name="password" type="password" class="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="패스워드를 입력해주세요">
                 </div>
 
                 <div class="mt-6">
                     <button class="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-black hover:bg-gray-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-                        Sign in
+                        Login
                     </button>
 
                     <div class="mt-4 text-center text-gray-600 dark:text-gray-400">or</div>
@@ -95,99 +95,21 @@
                         <span class="">네이버 로그인</span>
                     </a>
 
-                    <div class="mt-6 text-center ">
-                        <a href="/signup" class="text-sm text-blue-500 hover:underline dark:text-blue-400">
-                            회원가입해라~~~~
+                    <div class="mt-6 text-center flex justify-around">
+                        <a href="" class="text-sm text-blue-500 hover:underline dark:text-blue-400">
+                            아이디찾기
+                        </a>
+                        <a href="" class="ml-4 text-sm text-blue-500 hover:underline dark:text-blue-400">
+                            비밀번호찾기
+                        </a>
+                        <a href="register" class="ml-4 text-sm text-blue-500 hover:underline dark:text-blue-400">
+                            회원가입하기
                         </a>
                     </div>
                 </div>
             </form>
         </div>
     </section>
-
-<!--    -->
-
-<!--    <div class="content-wrap d:flex ai:center jc:center w:100p px:4 md:jc:space-between md:px:6 container">-->
-<!--    <div>-->
-<!--        <picture>-->
-<!--            <source srcset="/image/login_banner.webp" type="image/webp">-->
-<!--        </picture>-->
-<!--    </div>-->
-
-<!--    <section class="item d:flex fl-dir:column ai:center gap:8 w:100p md:p:9 md:bg-color:base-1 md:bd md:bd-radius:2">-->
-<!--        <h1 class="d:none">뉴렉처 로그인</h1>-->
-<!--        <div>-->
-<!--            <a href="/static">-->
-<!--                <img alt="로그인" src="/image/newlecture.png" width="175" height="36" class="h:100p va:middle">-->
-<!--            </a>-->
-<!--        </div>-->
-
-<!--        <form action="/signin" method="post" class="d:flex fl-dir:column gap:6 w:100p">-->
-<!--            <div class="username d:flex fl-dir:column">-->
-<!--                <label>-->
-<!--                    <span class="font:n1">아이디</span>-->
-<!--                    <span class="w:100p pos:relative d:flex ai:center">-->
-<!--                  <input type="text" class="n-textbox n-textbox-label:top" placeholder="아이디를 입력해주세요" name="username" required="" autofocus="">-->
-<!--                  <button type="reset" class="d:none pos:absolute right:1 mr:2 icon icon:x icon-size:2 csr:pointer" tabindex="-1">-->
-<!--                    삭제-->
-<!--                  </button>-->
-<!--                </span>-->
-<!--                </label>-->
-<!--            </div>-->
-
-<!--            <div class="password d:flex fl-dir:column">-->
-<!--                <label>-->
-<!--                    <span class="font:n1">비밀번호</span>-->
-<!--                    <span class="w:100p pos:relative d:flex ai:center">-->
-<!--                  <input type="password" class="n-textbox n-textbox-label:top" placeholder="비밀번호를 입력해주세요" name="password" required="">-->
-<!--                  <button type="button" class="d:none pos:absolute right:1 mr:2 icon icon:eye icon-size:2 csr:pointer" tabindex="-2">-->
-<!--                    비밀번호 보이기-->
-<!--                  </button>-->
-<!--                </span>-->
-<!--                </label>-->
-
-<!--                <span class="d:none font:n2 color:accent-1 py:1">-->
-<!--                비밀번호를 입력해주세요-->
-<!--              </span>-->
-<!--            </div>-->
-
-
-
-<!--            <div class="d:flex jc:end ai:center">-->
-<!--                <a href="/user/find/username" class="as:flex-end color:base-2a font:n1 px:2 line-height:1">-->
-<!--                    아이디 찾기-->
-<!--                </a>-->
-<!--                <a href="/user/find/password" class="as:flex-end color:base-2a font:n1 px:2 line-height:1 border-left">-->
-<!--                    비밀번호 찾기-->
-<!--                </a>-->
-<!--            </div>-->
-
-<!--            <div>-->
-<!--                <button type="submit" class="n-btn n-btn:filled n-btn-size:3 w:100p">-->
-<!--                    로그인-->
-<!--                </button>-->
-<!--            </div>-->
-<!--        </form>-->
-
-<!--        <div class="separator">-->
-<!--            <span class="mx:2 color:base-2a font:n2">또는</span>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; 소셜 로그인 &ndash;&gt;-->
-<!--        <div class="w:100p">-->
-<!--            <a href="/oauth2/authorization/google?redirect_uri=/login/oauth2/code/google" class="n-btn n-btn:outline n-btn-size:3 bg-color:base-1 w:100p">-->
-<!--                <span class="google">구글로 로그인</span>-->
-<!--            </a>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; 회원 가입 &ndash;&gt;-->
-<!--        <div class="d:flex jc:center">-->
-<!--            <a href="/signup" class="signup n-btn n-btn:void color:main-2 font:n2">-->
-<!--                회원가입-->
-<!--            </a>-->
-<!--        </div>-->
-<!--    </section>-->
-<!--</div>-->
 </main>
 </body>
 </html>
