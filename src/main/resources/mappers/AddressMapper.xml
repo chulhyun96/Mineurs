@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newlecmineursprj.repository.AddressRepository">
+
+<!-- <insert id="reg">
+        INSERT INTO 
+        delivery_info (receiver_name, phone_number, member_id,name) 
+        VALUES (#{receiverName},#{phoneNumber},#{memberId},#{name})
+</insert> -->
+
+<select id="findAllByMemberId" resultType="Address" parameterType="Long">
+        select * from delivery_info where member_id = #{memberId}
+    </select>
+</mapper>

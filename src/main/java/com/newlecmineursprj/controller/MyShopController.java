@@ -20,6 +20,7 @@ import com.newlecmineursprj.entity.Category;
 import com.newlecmineursprj.entity.Coupon;
 import com.newlecmineursprj.entity.Member;
 import com.newlecmineursprj.entity.OrderView;
+import com.newlecmineursprj.service.AddressService;
 import com.newlecmineursprj.service.CategoryService;
 import com.newlecmineursprj.service.CouponService;
 import com.newlecmineursprj.service.MemberService;
@@ -48,6 +49,7 @@ public class MyShopController {
     // private final PostService postService;
 
     private final CouponService couponService;
+    private final AddressService addressService;
 
     @GetMapping("order/list")
     public String orderList(@RequestParam(value = "p", defaultValue = "1") Integer pageNumber,
@@ -140,6 +142,16 @@ public class MyShopController {
 
         model.addAttribute("coupons", coupons);
         return "myshop/coupon";
+    }
+
+    @GetMapping("addr/list")
+    public String addrList(@AuthenticationPrincipal WebUserDetails webUserDetails, Model model) {
+        long memberId = webUserDetails.getId();
+
+        List<Address> addresses = addressService.findAll(memberId);
+
+        model.addAttribute("addresses", addresses);
+        return "myshop/addr/list";
     }
 
 }
