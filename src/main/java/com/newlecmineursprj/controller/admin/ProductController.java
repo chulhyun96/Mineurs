@@ -56,6 +56,8 @@ public class ProductController {
         int count = service.getCount(searchMethod, searchKeyword.trim(), categoryId);
         List<Category> categories = categoryService.getList();
 
+        log.info("calendarStart {}", calendarStart);
+        log.info("calendarEnd {}", calendarEnd);
 
         Integer sellStatusResult = SearchModuleUtil.searchBySellStatus(selectedSellStatus);
         Integer displayStatusResult = SearchModuleUtil.searchByDisplayStatus(selectedDisplayStatus);
@@ -78,6 +80,7 @@ public class ProductController {
         model.addAttribute("sellStatusList", SearchModuleUtil.sellStatusList());
         model.addAttribute("displayStatusList", SearchModuleUtil.DisplayStatusList());
         model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
         model.addAttribute("regDates", SearchModuleUtil.regDateList());
         model.addAttribute("calendarStart", calendarStart);
         model.addAttribute("calendarEnd", calendarEnd);

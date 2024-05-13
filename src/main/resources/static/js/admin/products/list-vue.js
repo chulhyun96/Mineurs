@@ -1,8 +1,5 @@
 const {createApp} = Vue;
 
-
-
-
 createApp({
     data() {
         return {
@@ -66,3 +63,11 @@ async function patchProducts(products) {
         console.log("에러남", e)
     }
 }
+document.addEventListener('DOMContentLoaded', function () {
+    var start = document.getElementById('start');
+    var end = document.getElementById('end');
+
+    start.addEventListener('change', function () {
+        end.min = this.value;
+    });
+});
