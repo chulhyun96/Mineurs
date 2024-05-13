@@ -1,10 +1,10 @@
 package com.newlecmineursprj.service;
 
-import java.util.List;
-
 import com.newlecmineursprj.entity.Order;
 import com.newlecmineursprj.entity.OrderView;
 import com.newlecmineursprj.util.CustomPageImpl;
+
+import java.util.List;
 
 public interface OrderService {
 
@@ -15,7 +15,7 @@ public interface OrderService {
     CustomPageImpl<OrderView> getList(Integer pageNumber, Integer pageSize, String sortMethod,
             String sortDirection, Integer pageGroupSize, String searchMethod,
             String searchKeyword, Long memberId, String calendarStart, String calendarEnd,
-            String startDate, String endDate);
+            String startDate);
 
     CustomPageImpl<OrderView> getList(Integer pageNumber, Integer pageSize, String sortMethod,
             String sortDirection, Integer pageGroupSize, String searchMethod,

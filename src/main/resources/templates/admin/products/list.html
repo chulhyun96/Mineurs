@@ -11,6 +11,7 @@
     <title>Title</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script type="module" src="/js/admin/products/list-vue.js"></script>
+
 </head>
 <body>
 <main layout:fragment="main" class="flex flex-col container mx-auto px-10">
@@ -84,29 +85,20 @@
                 <tr>
                     <td>상품등록일</td>
                     <td colspan="3">
-                        <div class="flex space-x-5">
-                            <div class="flex space-x-1">
-                                <label th:each="regDate : ${regDates}"
-                                       class="btn btn-outline btn-sm flex justify-center items-center">
-                                    <span th:text="${regDate}">오늘</span>
-                                    <input type="radio" name="buttonRegDate" class="hidden"
-                                            th:value="${regDate}"/>
-                                </label>
-                            </div>
-                        </div>
-
                         <div class="flex space-x-1 items-center">
-                            <input type="date" name ="calendarStart" th:value="${calendarStart}" th:max="${startDate}"/>
+                            <input type="date" id="start" name="calendarStart" th:value="${calendarStart}" th:max="${startDate}" />
                             <span>~</span>
-                            <input type="date" name ="calendarEnd" th:value="${calendarEnd}" th:min="${startDate}"/>
+                            <input type="date" id="end" name="calendarEnd" th:value="${calendarEnd}" th:max="${startDate}" />
                         </div>
                     </td>
 
                     <td>진열상태</td>
                     <td>
-                        <div class="form-control flex flex-row space-x-2" th:each="displayStatus : ${displayStatusList}">
+                        <div class="form-control flex flex-row space-x-2"
+                             th:each="displayStatus : ${displayStatusList}">
                             <label class="label cursor-pointer space-x-1">
-                                <input type="radio" name="selectedDisplayStatus" class="radio" th:value="${displayStatus}"
+                                <input type="radio" name="selectedDisplayStatus" class="radio"
+                                       th:value="${displayStatus}"
                                        th:checked="${{param.selectedDisplayStatus}} == ${displayStatus}">
                                 <span class="label-text" th:text="${displayStatus}">진열상태</span>
                             </label>
@@ -118,7 +110,7 @@
                         <div class="form-control flex flex-row space-x-2" th:each="sellStatus : ${sellStatusList}">
                             <label class="label cursor-pointer space-x-1">
                                 <input type="radio" class="radio" name="selectedSellStatus" th:value="${sellStatus}"
-                                th:checked="${{param.selectedSellStatus}} == ${sellStatus}"/>
+                                       th:checked="${{param.selectedSellStatus}} == ${sellStatus}"/>
                                 <span class="label-text" th:text="${sellStatus}">판매상태</span>
                             </label>
                         </div>
