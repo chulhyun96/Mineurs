@@ -55,9 +55,6 @@ public class ProductController {
         int count = service.getCount(searchMethod, searchKeyword.trim(), categoryId);
         List<Category> categories = categoryService.getList();
 
-        log.info("calendarStart {}", calendarStart);
-        log.info("calendarEnd {}", calendarEnd);
-
         Integer sellStatusResult = SearchModuleUtil.searchBySellStatus(selectedSellStatus);
         Integer displayStatusResult = SearchModuleUtil.searchByDisplayStatus(selectedDisplayStatus);
         String startDate = SearchModuleUtil.getStartDate();

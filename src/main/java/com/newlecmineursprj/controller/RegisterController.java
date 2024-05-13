@@ -23,7 +23,6 @@ public class RegisterController {
     @PostMapping
     public String reg(Member member) {
         service.reg(member);
-
         return "redirect:/";
     }
 }

@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RequestMapping("member")
 @Controller
@@ -35,7 +34,6 @@ public class MemberController {
 
     @PostMapping("modify")
     public String modify(Member member) {
-        System.out.println("멤버 업데이트 호출");
         memberService.update(member);
         return "redirect:/";
     }

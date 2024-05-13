@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.sql.Timestamp;
 
@@ -13,10 +12,6 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Member {
-
-    public void encodePassword(PasswordEncoder passwordEncoder) {
-        this.password = passwordEncoder.encode(this.password);
-    }
 
     private long id;
     private String name;
@@ -30,4 +25,8 @@ public class Member {
     private boolean emailReception;
     @Builder.Default
     private boolean enabled = true;
+
+    public void setEncodedPassword(String passwordEncode) {
+        this.password = passwordEncode;
+    }
 }
