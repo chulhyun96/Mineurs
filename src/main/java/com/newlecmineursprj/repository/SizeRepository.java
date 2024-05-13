@@ -11,4 +11,5 @@ import java.util.List;
 public interface SizeRepository {
     List<Size> findAll(long productId);
     Size findById(Long id);
+    Long findIdByEngName(String engName);
 }

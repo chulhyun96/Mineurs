@@ -22,4 +22,9 @@ public class SizeServiceImpl implements SizeService {
     public Size getById(Long id) {
         return repository.findById(id);
     }
+
+    @Override
+    public Long getIdByEngName(String engName) {
+        return repository.findIdByEngName(engName);
+    }
 }

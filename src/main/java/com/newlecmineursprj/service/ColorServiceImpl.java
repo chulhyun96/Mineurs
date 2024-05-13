@@ -22,4 +22,9 @@ public class ColorServiceImpl implements ColorService {
     public Color getById(Long id) {
         return repository.findById(id);
     }
+
+    @Override
+    public Long getIdByKorName(String korName) {
+        return repository.findIdByKorName(korName);
+    }
 }

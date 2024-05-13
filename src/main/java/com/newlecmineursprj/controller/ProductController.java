@@ -6,6 +6,7 @@ import com.newlecmineursprj.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.poi.hpsf.Array;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -68,43 +70,98 @@ public class ProductController {
     @PostMapping("userAction")
     public String userAction(
             @RequestParam("userAction") int userAction, @RequestParam("productId") Long productId,
-            //구매 부분 수정중, 필요없는 파라미터도 있음
-            @RequestParam(value = "colorId", defaultValue = "0") Long colorId,
-            @RequestParam(value = "sizeId", defaultValue = "0") Long sizeId,
+            // @RequestParam(value = "colorId", defaultValue = "0") Long colorId,
+            // @RequestParam(value = "sizeId", defaultValue = "0") Long sizeId,
             @RequestParam(value = "colorName", defaultValue = "0") String colorName,
             @RequestParam(value = "sizeName", defaultValue = "0") String sizeName,
             @RequestParam(value = "quantity", defaultValue = "0") String quantity,
             @AuthenticationPrincipal WebUserDetails webUserDetails) {
-
+        // 로그인 정보에서 memberId 얻기
         long memberId = webUserDetails.getId();
 
         Product product = service.getById(productId);
 
-        ProductItem productItem = productItemService.getByForeignKeys(productId, sizeId, colorId);
+        // 여러개 주문에 대해 color, size, quantity 받기(String)
+        String[] colors = colorName.split(",");
+        String[] sizes = sizeName.split(",");
+        String[] StringQuantities = quantity.split(",");
 
-        // 유저가 구매 버튼 눌렀을때
+        List<Long> colorIds = new ArrayList<>();
+        List<Long> sizeIds = new ArrayList<>();
+        List<Integer> quantities = new ArrayList<>();
+        List<ProductItem> productItems = new ArrayList<>();
+
+        // 위에서 받은 color, size, quantity를 쓰기 편한 형태로 변환
+        for (int i = 0; i < colors.length; i++) {
+            Long colorId = colorService.getIdByKorName(colors[i]);
+            Long sizeId = sizeService.getIdByEngName(sizes[i]);
+            Integer tempQuantity = Integer.parseInt(StringQuantities[i]);
+            ProductItem productItem = productItemService.getByForeignKeys(productId, sizeId, colorId);
+
+            colorIds.add(colorId);
+            sizeIds.add(sizeId);
+            quantities.add(tempQuantity);
+            productItems.add(productItem);
+        }
+
+        // 상품 구매 (userAction == 1)
         if (userAction == 1) {
 
-        
+            // order 테이블에 데이터 추가
+            // 일단은 totalPrice, memberId만 저장
+            Order order = new Order();
+            int price = product.getPrice();
+            int totalQuantity = 0;
+            for (int tempQuantity : quantities)
+                totalQuantity += tempQuantity;
+            int totalPrice = price * totalQuantity;
+            order.setMemberId(memberId);
+            order.setTotalProductPrice(totalPrice);
+            orderService.add(order);
 
-           return "redirect:" + productId;
+            for (int i = 0; i < productItems.size(); i++) {
+
+                int qty = quantities.get(i);
+                ProductItem productItem = productItems.get(i);
+
+                // orderItem 테이블에 데이터 추가
+                OrderItem orderItem = new OrderItem();
+                orderItem.setQty(qty);
+                orderItem.setTotalPrice(price * qty);
+                orderItem.setOrderId(order.getId());
+                orderItem.setOrderStateId((long) 1);
+                orderItem.setProductItemId(productItem.getId());
+                orderItemService.add(orderItem);
+
+                // 주문한 갯수만큼 productItem 재고 감소
+                productItemService.stockDecrease(qty, productItem.getId());
+            }
+
+            return "redirect:pay";
+
         }
-        // 장바구니에 추가 버튼 눌렀을때
+
+        // 장바구니에 추가 (userAction == 2)
         else if (userAction == 2) {
 
-            Cart tempCart = cartService.getByForeignKeys(memberId, productItem.getId());
+            for(ProductItem productItem : productItems){
 
-            if (tempCart == null) {
-                Cart cart = new Cart();
-                cart.setMemberId(memberId);
-                cart.setProductItemId(productItem.getId());
-                cart.setQty(1);
-                cartService.add(cart);
+                Cart tempCart = cartService.getByForeignKeys(memberId, productItem.getId());
+    
+                if (tempCart == null) {
+                    Cart cart = new Cart();
+                    cart.setMemberId(memberId);
+                    cart.setProductItemId(productItem.getId());
+                    cart.setQty(1);
+                    cartService.add(cart);
+                }
+                
             }
 
             return "redirect:" + productId;
         }
-        // wishList에 추가 버튼 눌렀을때
+
+        // wishList에 추가(userAction == 3)
         else if (userAction == 3) {
 
             Like tempLike = likeService.getByForeignKeys(memberId, productId);
@@ -118,7 +175,7 @@ public class ProductController {
 
             return "redirect:" + productId;
         }
-        return "redirect:";
+        return "redirect:" + productId;
     }
 
     @GetMapping("pay")

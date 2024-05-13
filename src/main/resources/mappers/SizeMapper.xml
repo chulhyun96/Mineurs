@@ -16,4 +16,11 @@
         where id = #{id}
     </select>
 
+    <select id="findIdByEngName" resultType="Long">
+        SELECT
+        id
+        FROM size
+        where eng_name = #{engName}
+    </select>
+
 </mapper>

@@ -16,4 +16,11 @@
         where id = #{id}
     </select>
 
+    <select id="findIdByKorName" resultType="Long">
+        SELECT
+        id
+        FROM color
+        where kor_name = #{korName}
+    </select>
+
 </mapper>
