@@ -45,7 +45,6 @@ public class ProductController {
             @RequestParam(required = false) String searchMethod,
             @RequestParam(defaultValue = "") String searchKeyword,
             @RequestParam(defaultValue = "0") Long categoryId,
-            @RequestParam(defaultValue = "") String buttonRegDate,
             @RequestParam(defaultValue = "") String calendarStart,
             @RequestParam(defaultValue = "") String calendarEnd,
             @RequestParam(defaultValue = "") String selectedDisplayStatus,
@@ -62,7 +61,6 @@ public class ProductController {
         Integer sellStatusResult = SearchModuleUtil.searchBySellStatus(selectedSellStatus);
         Integer displayStatusResult = SearchModuleUtil.searchByDisplayStatus(selectedDisplayStatus);
         String startDate = SearchModuleUtil.getStartDate();
-        String endDate = SearchModuleUtil.searchByRegDate(buttonRegDate);
 
         Long memberId = null;
         if (webUserDetails != null)
@@ -71,7 +69,7 @@ public class ProductController {
         CustomPageImpl<ProductListDTO> productPage = service.getList(
                 page, pageSize, "reg_date", 5
                 , searchMethod, searchKeyword.trim(), categoryId
-                , startDate, endDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResult, memberId
+                , startDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResult, memberId
         );
 
         model.addAttribute("productPage", productPage);
@@ -80,7 +78,6 @@ public class ProductController {
         model.addAttribute("sellStatusList", SearchModuleUtil.sellStatusList());
         model.addAttribute("displayStatusList", SearchModuleUtil.DisplayStatusList());
         model.addAttribute("startDate", startDate);
-        model.addAttribute("endDate", endDate);
         model.addAttribute("regDates", SearchModuleUtil.regDateList());
         model.addAttribute("calendarStart", calendarStart);
         model.addAttribute("calendarEnd", calendarEnd);

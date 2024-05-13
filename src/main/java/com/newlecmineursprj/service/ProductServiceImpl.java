@@ -31,24 +31,23 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public CustomPageImpl<ProductListDTO> getList(
             Integer pageNumber, Integer pageSize, String sortMethod, Integer pageGroupSize, String searchMethod,
-            String searchKeyword, long categoryId, String startDate, String endDate, String calendarStart,
+            String searchKeyword, long categoryId, String startDate, String calendarStart,
             String calendarEnd, Integer displayStatusResult, Integer sellStatusResult, Long memberId) {
 
         return getList(pageNumber, pageSize, sortMethod, "DESC", pageGroupSize, searchMethod, searchKeyword, categoryId,
-                startDate, endDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResult, null);
+                startDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResult, null);
     }
 
     @Override
     public CustomPageImpl<ProductListDTO> getList(Integer pageNumber, Integer pageSize, String sortMethod,
             String sortDirection, Integer pageGroupSize, String searchMethod,
-            String searchKeyword, long categoryId, String startDate, String endDate,
-            String calendarStart, String calendarEnd, Integer displayStatusResult, Integer sellStatusResult,
+            String searchKeyword, long categoryId, String startDate, String calendarStart, String calendarEnd, Integer displayStatusResult, Integer sellStatusResult,
             Long memberId) {
         Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize,
                 Sort.by(Sort.Direction.fromString(sortDirection), sortMethod));
 
         List<ProductListDTO> content = repository.findAll(pageRequest, searchMethod, searchKeyword,
-                categoryId, startDate, endDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResult,
+                categoryId, startDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResult,
                 memberId)
                 .stream().map(ProductMapper::toDto).toList();
 

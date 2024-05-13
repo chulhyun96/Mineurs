@@ -51,7 +51,6 @@ private final PostService postService;
 
         Integer sellStatusResults = SearchModuleUtil.searchBySellStatus(selectedSellStatus);
         String startDate = SearchModuleUtil.getStartDate();
-        String endDate = SearchModuleUtil.searchByRegDate(buttonRegDate);
         Integer displayStatusResult = SearchModuleUtil.searchByDisplayStatus(selectedDisplayStatus);
 
         Long memberId = null;
@@ -61,7 +60,7 @@ private final PostService postService;
         CustomPageImpl<ProductListDTO> productPage = service.getList(
                 pageNumber, pageSize, sortMethod, sortDirection,
                 5, searchMethod, searchKeyword, categoryId,
-                startDate, endDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResults, memberId
+                startDate, calendarStart, calendarEnd, displayStatusResult, sellStatusResults, memberId
         );
         model.addAttribute("productPage", productPage);
 

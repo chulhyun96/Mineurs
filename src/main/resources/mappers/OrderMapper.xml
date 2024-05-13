@@ -42,9 +42,6 @@
             <if test="memberId != null">
                 and member_id LIKE ${memberId}
             </if>
-            <if test="startDate != '' and endDate != ''">
-                and ordered_datetime between #{endDate} and #{startDate}
-            </if>
             <if test="calendarStart != '' and calendarEnd != ''">
                 and ordered_datetime between #{calendarStart} and #{calendarEnd}
             </if>

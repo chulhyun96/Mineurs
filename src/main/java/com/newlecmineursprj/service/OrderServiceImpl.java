@@ -1,18 +1,16 @@
 package com.newlecmineursprj.service;
 
-import java.util.List;
-
 import com.newlecmineursprj.entity.Order;
 import com.newlecmineursprj.entity.OrderView;
+import com.newlecmineursprj.repository.OrderRepository;
 import com.newlecmineursprj.util.CustomPageImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.newlecmineursprj.repository.OrderRepository;
-
-import lombok.RequiredArgsConstructor;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -27,14 +25,14 @@ public class OrderServiceImpl implements OrderService {
         return getList(pageNumber, pageSize, "ordered_datetime",
                 "DESC", 5, null,
                 null, null, null,
-                null, null, null).getContent();
+                null, null).getContent();
     }
 
     @Override
     public CustomPageImpl<OrderView> getList(Integer pageNumber, Integer pageSize, String sortMethod,
             String sortDirection, Integer pageGroupSize, String searchMethod,
             String searchKeyword, Long memberId, String calendarStart, String calendarEnd,
-            String startDate, String endDate) {
+            String startDate) {
 
         Pageable pageRequest = PageRequest.of(pageNumber - 1, pageSize,
                 Sort.by(Sort.Direction.fromString(sortDirection), sortMethod));
@@ -42,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
         List<OrderView> content = repository.findAll(
                 pageRequest, searchMethod, searchKeyword,
                 memberId, calendarStart, calendarEnd,
-                startDate, endDate);
+                startDate);
 
         long count = repository.getCount(searchMethod, searchKeyword, memberId);
 
@@ -59,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
 
         List<OrderView> content = repository.findAll(
                 pageRequest, searchMethod, searchKeyword,
-                memberId, null, null, null, null);
+                memberId, null, null, null);
 
         long count = repository.getCount(searchMethod, searchKeyword, memberId);
 
@@ -73,7 +71,7 @@ public class OrderServiceImpl implements OrderService {
         return getList(pageNumber, pageSize, "ordered_datetime",
                 "DESC", 5, searchMethod,
                 searchKeyword, memberId, null,
-                null, null, null);
+                null, null);
     }
 
     @Override

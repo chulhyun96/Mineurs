@@ -13,8 +13,7 @@ import java.util.List;
 public interface ProductRepository {
     List<ProductView> findAll(@Param("pageRequest") Pageable pageRequest, @Param("searchMethod") String searchMethod,
                               @Param("searchKeyword") String searchKeyword, @Param("categoryId") Long categoryId,
-                              @Param("startDate") String startDate, @Param("endDate") String endDate,
-                              @Param("calendarStart") String calendarStart, @Param("calendarEnd") String calendarEnd,
+                              @Param("startDate") String startDate, @Param("calendarStart") String calendarStart, @Param("calendarEnd") String calendarEnd,
                               @Param("displayStatusResult") Integer displayStatusResult,@Param("sellStatusResult") Integer sellStatusResult, @Param("memberId") Long memberId);
 
     void reg(Product product);

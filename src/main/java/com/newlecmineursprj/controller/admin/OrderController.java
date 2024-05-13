@@ -32,7 +32,6 @@ public class OrderController {
                        @RequestParam(value = "s", defaultValue = "10") Integer pageSize,
                        @RequestParam(required = false) String searchMethod,
                        @RequestParam(defaultValue = "") String searchKeyword,
-                       @RequestParam(defaultValue = "") String buttonRegDate,
                        @RequestParam(defaultValue = "") String calendarStart,
                        @RequestParam(defaultValue = "") String calendarEnd,
                        @RequestParam(required = false) Long memberId) {
@@ -40,12 +39,12 @@ public class OrderController {
         int count = service.getCount(searchMethod, searchKeyword.trim());
 
         String startDate = SearchModuleUtil.getStartDate();
-        String endDate = SearchModuleUtil.searchByRegDate(buttonRegDate);
+
 
         CustomPageImpl<OrderView> list = service.getList(
                 page, pageSize, "ordered_datetime", "DESC", 5,
                 searchMethod, searchKeyword, memberId,
-                calendarStart, calendarEnd, startDate, endDate
+                calendarStart, calendarEnd, startDate
         );
         model.addAttribute("list", list);
         model.addAttribute("count", count);

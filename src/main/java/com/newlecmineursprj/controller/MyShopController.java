@@ -3,37 +3,20 @@ package com.newlecmineursprj.controller;
 import com.newlecmineursprj.config.security.WebUserDetails;
 import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.entity.*;
+import com.newlecmineursprj.service.*;
 import com.newlecmineursprj.util.CustomPageImpl;
+import com.newlecmineursprj.util.SearchModuleUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.List;
-
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.newlecmineursprj.entity.Category;
-import com.newlecmineursprj.entity.Coupon;
-import com.newlecmineursprj.entity.Member;
-import com.newlecmineursprj.entity.OrderView;
-import com.newlecmineursprj.service.AddressService;
-import com.newlecmineursprj.service.CategoryService;
-import com.newlecmineursprj.service.CouponService;
-import com.newlecmineursprj.service.MemberService;
-import com.newlecmineursprj.service.OrderService;
-import com.newlecmineursprj.service.ProductService;
-import com.newlecmineursprj.service.WishlistService;
-import com.newlecmineursprj.util.CustomPageImpl;
-import com.newlecmineursprj.util.SearchModuleUtil;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -67,14 +50,14 @@ public class MyShopController {
         log.info("MemberId : {}", memberId);
 
         String startDate = SearchModuleUtil.getStartDate();
-        String endDate = SearchModuleUtil.searchByRegDate(buttonRegDate);
+
 
         List<Category> categoryList = categoryService.getList();
 
         CustomPageImpl<OrderView> list = orderService.getList(
                 pageNumber, pageSize, "ordered_datetime", "DESC", 5,
                 searchMethod, searchKeyword, memberId,
-                calendarStart, calendarEnd, startDate, endDate);
+                calendarStart, calendarEnd, startDate);
 
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("orderPage", list);
