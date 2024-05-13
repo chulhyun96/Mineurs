@@ -1,11 +1,26 @@
 // HTML 코드에서 Cart 버튼을 선택합니다.
+const BuyButton = document.querySelector('button[name="userAction"][value="1"]');
 const cartButton = document.querySelector('button[name="userAction"][value="2"]');
 const wishButton = document.querySelector('button[name="userAction"][value="3"]');
 
+// 상품 추가시마다 +, 하나 지울때마다 -
+// isValid이 0일 때는 구매, 장바구니 버튼 X 
+let isValid = 0;
+
 // 버튼에 클릭 이벤트 리스너를 추가합니다.
-cartButton.addEventListener('click', function () {
-    // 버튼이 클릭되면 "장바구니 담기 완료"라는 메시지 창을 출력합니다.
-    alert('장바구니 담기 완료');
+BuyButton.addEventListener('click', function (event) {
+    if(isValid == 0){
+        event.preventDefault();
+        alert("상품 옵션을 선택하세요.");
+    }
+});
+cartButton.addEventListener('click', function (event) {
+    if(isValid == 0){
+        event.preventDefault();
+        alert("상품 옵션을 선택하세요.");
+    }
+    else
+        alert('장바구니 담기 완료');
 });
 wishButton.addEventListener('click', function () {
     // 버튼이 클릭되면 "장바구니 담기 완료"라는 메시지 창을 출력합니다.
@@ -65,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // 중복이 없으면 새 항목 추가
             if (!isDuplicate) {
                 addNewItem(selectedColorName, selectedSizeName);
+                isValid++;
             }
 
             // 선택된 옵션 해제
@@ -177,6 +193,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         deleteButton.addEventListener('click', function (event) {
             event.preventDefault();
+            isValid--;
+
             // 아이템 삭제
             newDiv.remove();
 
@@ -254,4 +272,6 @@ document.addEventListener('DOMContentLoaded', function () {
     sizeInputs.forEach(input => {
         input.addEventListener('change', handleSelectionChange);
     });
+    
 });
+
