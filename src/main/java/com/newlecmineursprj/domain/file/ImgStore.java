@@ -34,6 +34,7 @@ public class ImgStore {
         return imgFile.getOriginalFilename();
     }
 
+
     public List<String> getStorageSubImgName(List<MultipartFile> subImgs) throws IOException {
         if (subImgs.stream().allMatch(MultipartFile::isEmpty))
             return List.of("Non-Img");

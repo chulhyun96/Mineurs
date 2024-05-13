@@ -75,7 +75,6 @@ public class ProductController {
         model.addAttribute("sellStatusList", SearchModuleUtil.sellStatusList());
         model.addAttribute("displayStatusList", SearchModuleUtil.DisplayStatusList());
         model.addAttribute("startDate", startDate);
-        model.addAttribute("regDates", SearchModuleUtil.regDateList());
         model.addAttribute("calendarStart", calendarStart);
         model.addAttribute("calendarEnd", calendarEnd);
         return PRODUCTS_VIEW + "/list";

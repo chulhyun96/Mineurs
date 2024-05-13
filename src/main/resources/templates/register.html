@@ -18,7 +18,7 @@
             <h1 class="text-xl text-center"><a href="">회원가입</a></h1>
 
             <div class="container flex items-center justify-center px-6 mx-auto mt-12">
-                <form class="w-full max-w-md text-sm" action="/register" method="post">
+                <form class="w-full max-w-md text-sm" action="/register" method="post" th:object="${member}">
                     <div class="relative flex-col items-center mt-8 w-full">
                         <label class="">
                             아이디

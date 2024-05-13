@@ -5,16 +5,10 @@ import com.newlecmineursprj.entity.*;
 import com.newlecmineursprj.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import org.apache.poi.hpsf.Array;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -104,6 +98,7 @@ public class ProductController {
             productItems.add(productItem);
         }
 
+
         // 상품 구매 (userAction == 1)
         if (userAction == 1) {
 
@@ -119,8 +114,8 @@ public class ProductController {
             order.setTotalProductPrice(totalPrice);
             orderService.add(order);
 
-            for (int i = 0; i < productItems.size(); i++) {
 
+            for (int i = 0; i < productItems.size(); i++) {
                 int qty = quantities.get(i);
                 ProductItem productItem = productItems.get(i);
 
