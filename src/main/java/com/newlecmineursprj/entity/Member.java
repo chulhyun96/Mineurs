@@ -14,10 +14,6 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class Member {
 
-    public void encodePassword(PasswordEncoder passwordEncoder) {
-        this.password = passwordEncoder.encode(this.password);
-    }
-
     private long id;
     private String name;
     private String username;
@@ -30,4 +26,9 @@ public class Member {
     private boolean emailReception;
     @Builder.Default
     private boolean enabled = true;
+
+    public void encodePassword(PasswordEncoder passwordEncoder) {
+        this.password = passwordEncoder.encode(this.password);
+    }
+
 }
