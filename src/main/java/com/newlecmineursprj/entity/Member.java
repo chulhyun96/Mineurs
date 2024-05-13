@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.sql.Timestamp;
 
@@ -27,8 +26,7 @@ public class Member {
     @Builder.Default
     private boolean enabled = true;
 
-    public void encodePassword(PasswordEncoder passwordEncoder) {
-        this.password = passwordEncoder.encode(this.password);
+    public void setEncodedPassword(String passwordEncode) {
+        this.password = passwordEncode;
     }
-
 }
