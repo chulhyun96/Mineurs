@@ -33,6 +33,7 @@ public class MyShopController {
 
     private final CouponService couponService;
     private final AddressService addressService;
+    private final PointService pointService;
 
     @GetMapping("order/list")
     public String orderList(@RequestParam(value = "p", defaultValue = "1") Integer pageNumber,
@@ -50,7 +51,6 @@ public class MyShopController {
         log.info("MemberId : {}", memberId);
 
         String startDate = SearchModuleUtil.getStartDate();
-
 
         List<Category> categoryList = categoryService.getList();
 
@@ -110,8 +110,10 @@ public class MyShopController {
 
         long memberId = webUserDetails.getId();
         Member member = memberService.getById(memberId);
+        List<PointView> pointList = pointService.getList(memberId);
 
         model.addAttribute("member", member);
+        model.addAttribute("pointList", pointList);
         return "myshop/point";
     }
 

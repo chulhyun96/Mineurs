@@ -48,6 +48,8 @@ public class Member {
     @Builder.Default
     private boolean enabled = true;
 
+    private int point;
+
     public void setEncodedPassword(String passwordEncode) {
         this.password = passwordEncode;
     }

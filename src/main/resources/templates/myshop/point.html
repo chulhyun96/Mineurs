@@ -22,10 +22,17 @@
           class="relative border py-5 border-slate-800 grid grid-cols-2 before:content-[''] before:absolute before:left-1/2 before:block before:h-full before:border before:border-gray-200"
         >
           <li class="flex justify-between px-12 text-xs py-3">
-            총 적립금 <span>3000원</span>
+            총 적립금
+            <span
+              th:text="${#numbers.formatInteger(member.point, 0, 'COMMA')} +원"
+            ></span>
           </li>
           <li class="flex justify-between px-12 text-xs py-3">
-            사용가능 적립금 <span>3000원</span>
+            사용가능 적립금
+            <span
+              th:text="${#numbers.formatInteger(member.point, 0, 'COMMA')} +원"
+              >3000원</span
+            >
           </li>
           <li class="flex justify-between px-12 text-xs py-3">
             사용된 적립금 <span>0원</span>
@@ -60,11 +67,28 @@
               </th>
             </thead>
             <tbody class="border border-slate-800">
-              <tr>
-                <td class="text-center py-3">2024-03-11</td>
-                <td class="text-center">3000원</td>
-                <td class="text-center"></td>
-                <td class="text-center">신규회원 적립금</td>
+              <tr th:each="pointView : ${pointList}">
+                <td class="text-center py-3" th:text="${pointView.regDate}">
+                  등록날짜
+                </td>
+                <td
+                  class="text-center"
+                  th:text="${#numbers.formatInteger(pointView.point, 0, 'COMMA')} +원"
+                >
+                  포인트적립금
+                </td>
+                <td class="text-center">
+                  <span th:text="${pointView.name}">주문명</span>
+                  <div th:if="${pointView.count > 1}">
+                    <span th:text="|외 ${pointView.count-1}개|">개수</span>
+                  </div>
+                </td>
+                <td class="text-center" th:text="${pointView.contents}">
+                  내용
+                </td>
+                <td class="text-center" th:text="${pointView.code}">
+                  상품코드
+                </td>
               </tr>
             </tbody>
           </table>
