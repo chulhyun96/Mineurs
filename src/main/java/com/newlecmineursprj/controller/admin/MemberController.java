@@ -8,7 +8,7 @@ import com.newlecmineursprj.service.CouponService;
 import com.newlecmineursprj.service.MemberService;
 import com.newlecmineursprj.service.QnaService;
 import com.newlecmineursprj.service.ReviewService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,18 +19,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @RequestMapping("admin")
+@RequiredArgsConstructor
 @Controller("adminMemberController")
 public class MemberController {
 
     private static final String MEMBERS_VIEW = "/admin/members";
-    @Autowired
-    private MemberService service;
-    @Autowired
-    private CouponService couponService;
-    @Autowired
-    private ReviewService reviewService;
-    @Autowired
-    private QnaService qnaService;
+    private final MemberService service;
+    private final CouponService couponService;
+    private final ReviewService reviewService;
+    private final QnaService qnaService;
 
     @GetMapping("members")
     public String list(@RequestParam(required = false) String searchMethod
@@ -63,9 +60,7 @@ public class MemberController {
 
     @PostMapping("members/delete")
     public String delete(@RequestParam("deleteId") List<Long> deleteIds){
-
         service.deleteAll(deleteIds);
-
         return "redirect:" + MEMBERS_VIEW;
     }
 }

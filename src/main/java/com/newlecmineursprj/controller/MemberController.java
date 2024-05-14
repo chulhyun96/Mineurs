@@ -1,19 +1,18 @@
 package com.newlecmineursprj.controller;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.newlecmineursprj.config.security.WebUserDetails;
 import com.newlecmineursprj.entity.Member;
 import com.newlecmineursprj.service.MemberService;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("member")
 @Controller
@@ -33,7 +32,11 @@ public class MemberController {
     }
 
     @PostMapping("modify")
-    public String modify(Member member) {
+    public String modify(@Validated Member member, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            log.error("Member Modify Error: {}", bindingResult);
+            return "member/modify";
+        }
         memberService.update(member);
         return "redirect:/";
     }

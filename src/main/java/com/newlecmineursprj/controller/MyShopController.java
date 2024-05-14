@@ -61,7 +61,6 @@ public class MyShopController {
 
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("orderPage", list);
-        model.addAttribute("regDates", SearchModuleUtil.regDateList());
         model.addAttribute("calendarStart", calendarStart);
         model.addAttribute("calendarEnd", calendarEnd);
         model.addAttribute("startDate", startDate);

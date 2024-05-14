@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="/css/output.css" />
     <title>Document</title>
     <script src="/js/member/modify.js"></script>
+    <style>
+      .field-error {
+        color: red;
+      }
+    </style>
   </head>
   <body>
     <main layout:fragment="main" class="container mx-auto px-10 mt-20">
@@ -35,6 +40,7 @@
                     class="w-24 border border-slate-800"
                     th:field="*{username}"
                   />
+                  <div class="field-error" th:errors="*{username}"></div>
                   <span class="text-sm">(영문소문자/숫자, 4~16자)</span>
                 </td>
               </tr>
@@ -48,6 +54,7 @@
                     th:field="*{password}"
                     id="pwd1"
                   />
+                  <div class="field-error" th:errors="*{password}"></div>
                   <span
                     >(영문 대소문자/숫자/특수문자 중 3가지 이상 조합,
                     8자~16자)</span
@@ -78,6 +85,7 @@
                     th:field="*{name}"
                     required
                   />
+                  <div class="field-error" th:errors="*{name}"></div>
                 </td>
               </tr>
               <tr>

@@ -48,7 +48,6 @@ public class OrderController {
         );
         model.addAttribute("list", list);
         model.addAttribute("count", count);
-        model.addAttribute("regDates", SearchModuleUtil.regDateList());
         model.addAttribute("calendarStart", calendarStart);
         model.addAttribute("calendarEnd", calendarEnd);
         model.addAttribute("startDate", startDate);
@@ -65,6 +64,7 @@ public class OrderController {
         Sheet sheet = workbook.createSheet("게시판글들");
         int rowNo = 0;
 
+
         Row headerRow = sheet.createRow(rowNo++);
         headerRow.createCell(0).setCellValue("주문일시");
         headerRow.createCell(1).setCellValue("상품코드");
@@ -74,6 +74,7 @@ public class OrderController {
         headerRow.createCell(5).setCellValue("실결제금액");
         headerRow.createCell(6).setCellValue("결제수단");
         headerRow.createCell(7).setCellValue("주문상태");
+
 
         for (Long id : orderId) {
             OrderView orderView = service.getById(id);
@@ -87,6 +88,7 @@ public class OrderController {
                 productCount -= 1;
                 productName = productName + " 외 " + productCount + "개";
             }
+
 
             Row row = sheet.createRow(rowNo++);
             Cell cell0 = row.createCell(0);
@@ -110,6 +112,7 @@ public class OrderController {
         sheet.setColumnWidth(5, 3000);
         sheet.setColumnWidth(6, 3000);
         sheet.setColumnWidth(7, 3000);
+
 
         response.setContentType("ms-vnd/excel");
         response.setHeader("Content-Disposition", "attachment;filename=orderList.xlsx");
