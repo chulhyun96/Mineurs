@@ -134,3 +134,11 @@ window.addEventListener("load", () => {
         });
     }
 });
+const url = new URL(window.location.href);
+
+let successfully = url.searchParams.get("successfully");
+
+if (successfully) {
+    successfully = decodeURIComponent(successfully);
+    alert(successfully);
+}

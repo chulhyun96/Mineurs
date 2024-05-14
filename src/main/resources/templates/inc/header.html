@@ -80,11 +80,11 @@ transition-[background-color, opacity] duration-300 ease-in-out hover:bg-white h
             class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li sec:authorize="isAnonymous()">
-              <a href="/signin">Login</a>
+              <a href="/login">Login</a>
             </li>
 
             <li sec:authorize="isAuthenticated()">
-              <a  href="/signout">Logout</a>
+              <a  href="/logout">Logout</a>
             </li>
 
             <li sec:authorize="isAnonymous()"><a href="/register">Register</a></li>

@@ -32,12 +32,12 @@ public class WebSecurityConfig {
                         .requestMatchers("/myshop/**").hasRole("MEMBER")
                         .anyRequest().permitAll())
                 .formLogin((form) -> form
-                        .loginPage("/signin")
+                        .loginPage("/login")
                         .failureHandler(new LoginAuthenticFailure())
                         .permitAll())
                 .logout((logout) -> logout
                         .invalidateHttpSession(true)
-                        .logoutUrl("/signout")
+                        .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
                         .permitAll());
         return http.build();

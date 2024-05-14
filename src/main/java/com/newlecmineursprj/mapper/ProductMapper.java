@@ -27,20 +27,20 @@ public class ProductMapper {
                 .build();
     }
 
-    public static Product toProduct(ProductRegDTO productRegDTO) {
-        return Product.builder()
-                .id(productRegDTO.getId())
-                .name(productRegDTO.getName())
-                .price(productRegDTO.getPrice())
-                .mainImgPath(productRegDTO.getMainImg().getOriginalFilename())
-                .description(productRegDTO.getDescription())
-                .displayed(productRegDTO.getIsDisplayed() == 1)
-                .sold(productRegDTO.getIsSold()==1)
-                .deliveryToday(productRegDTO.getIsDeliveryToday()==1)
-                .code(productRegDTO.getCode())
-                .discountRate(productRegDTO.getDiscountRate())
-                .categoryId(productRegDTO.getCategoryId())
-                .build();
-    }
+//    public static Product toProduct(ProductRegDTO productRegDTO) {
+//        return Product.builder()
+//                .id(productRegDTO.getId())
+//                .name(productRegDTO.getName())
+//                .price(productRegDTO.getPrice())
+//                .mainImgPath(productRegDTO.getMainImg().getOriginalFilename())
+//                .description(productRegDTO.getDescription())
+//                .displayed(productRegDTO.getIsDisplayed() == 1)
+//                .sold(productRegDTO.getIsSold()==1)
+//                .deliveryToday(productRegDTO.getIsDeliveryToday()==1)
+//                .code(productRegDTO.getCode())
+//                .discountRate(productRegDTO.getDiscountRate())
+//                .categoryId(productRegDTO.getCategoryId())
+//                .build();
+//    }
 
 }

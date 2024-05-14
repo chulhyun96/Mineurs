@@ -12,5 +12,7 @@ public interface ColorRepository {
 
     List<Color> findAll(long productId);
     Color findById(Long id);
+
+    List<Color> findByKorNameContaining(String query);
     Long findIdByKorName(String korName);
 }

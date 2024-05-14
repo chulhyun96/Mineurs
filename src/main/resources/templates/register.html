@@ -15,6 +15,18 @@
             color: red;
         }
     </style>
+    <script>
+        // 로그인 에러시 팝업창
+        const url = new URL(window.location.href);
+
+        let error = url.searchParams.get("error");
+
+        if (error) {
+            error = decodeURIComponent(error);
+            alert(error);
+        }
+    </script>
+
     <title></title>
 </head>
 <body>

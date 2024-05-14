@@ -7,7 +7,9 @@ module.exports = {
         extend: {},
             colors:{
                 'naver':'#03c75a',
-                'kakao':'#FEE500'
+                'kakao':'#FEE500',
+                'black':'#000000',
+                'white':'#ffffff'
             }
 
     },

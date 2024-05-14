@@ -37,7 +37,6 @@ private final PostService postService;
             , @RequestParam(defaultValue = "") String searchMethod
             , @RequestParam(defaultValue = "") String searchKeyword
             , @RequestParam(defaultValue = "0") Long categoryId
-            , @RequestParam(defaultValue = "") String buttonRegDate
             , @RequestParam(defaultValue = "") String calendarStart
             , @RequestParam(defaultValue = "") String calendarEnd
             , @RequestParam(defaultValue = "") String selectedDisplayStatus
@@ -72,13 +71,5 @@ private final PostService postService;
 
         return "list";
     }
-
-    @GetMapping("checkout")
-    public String checkout(){
-        return "checkout";
-    }
-
-    @GetMapping("signin")
-    public String signin(){return "login";}
 
 }

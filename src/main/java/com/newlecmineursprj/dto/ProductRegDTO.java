@@ -1,12 +1,15 @@
 package com.newlecmineursprj.dto;
 
+import com.newlecmineursprj.entity.ProductItem;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.sql.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -14,15 +17,22 @@ import java.sql.Date;
 @Builder
 public class ProductRegDTO {
     private Long id;
+    @NotBlank
     private String name;
-    private Date regDate;
-    private int price;
-    private MultipartFile mainImg;
+    @NotNull
+    private Integer price;
+    @NotBlank
     private String description;
-    private int isDisplayed;
-    private int isSold;
-    private int isDeliveryToday;
-    private String code;
-    private double discountRate;
+    private MultipartFile mainImgFile;
+    private List<MultipartFile> subImgFiles;
+    @NotNull
     private Long categoryId;
+    private Boolean isDisplayed;
+    private Boolean isSold;
+    private String code;
+    private Boolean isDeliveryToday;
+    private Double discountRate;
+    private List<ProductItem> productItems;
+
+
 }

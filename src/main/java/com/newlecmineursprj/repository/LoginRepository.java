@@ -4,6 +4,8 @@ import com.newlecmineursprj.entity.Member;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface RegisterRepository {
-    void save(Member member);
+public interface LoginRepository {
+    Member findById(Member member);
+
+    void update(Member member);
 }

@@ -2,6 +2,7 @@ package com.newlecmineursprj.entity;
 
 import java.sql.Date;
 
+import com.newlecmineursprj.dto.ProductRegDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -37,6 +38,21 @@ public class Product {
 
     public static void saveNewImg(String mainImgPath, Product newProduct) {
         newProduct.setMainImgPath(mainImgPath);
+    }
+
+    public static Product createProduct(ProductRegDTO productRegDTO) {
+        return Product.builder()
+                .name(productRegDTO.getName())
+                .price(productRegDTO.getPrice())
+                .description(productRegDTO.getDescription())
+                .mainImgPath(productRegDTO.getMainImgFile().getOriginalFilename())
+                .displayed(productRegDTO.getIsDisplayed())
+                .sold(productRegDTO.getIsSold())
+                .code(productRegDTO.getCode())
+                .deliveryToday(productRegDTO.getIsDeliveryToday())
+                .discountRate(productRegDTO.getDiscountRate())
+                .categoryId(productRegDTO.getCategoryId())
+                .build();
     }
 
     public String getCurrentImg(String mainImgPath) {

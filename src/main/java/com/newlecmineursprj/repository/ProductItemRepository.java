@@ -13,4 +13,6 @@ public interface ProductItemRepository {
     List<ProductItem> findByProductId(Long productId);
     ProductItem findByForeignKeys(Long productId, Long sizeId, Long colorId);
     void stockDecrease(int qty, Long id);
+
+    void saveAll(List<ProductItem> productItems);
 }

@@ -24,6 +24,11 @@ public class ColorServiceImpl implements ColorService {
     }
 
     @Override
+    public List<Color> getListByKorName(String query) {
+        return repository.findByKorNameContaining(query);
+    }
+
+    @Override
     public Long getIdByKorName(String korName) {
         return repository.findIdByKorName(korName);
     }

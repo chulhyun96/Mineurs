@@ -16,6 +16,13 @@
         where id = #{id}
     </select>
 
+    <select id="findByKorNameContaining" resultType="Size">
+        SELECT
+        *
+        FROM size
+        where eng_name like '%${query}%'
+    </select>
+
     <select id="findIdByEngName" resultType="Long">
         SELECT
         id

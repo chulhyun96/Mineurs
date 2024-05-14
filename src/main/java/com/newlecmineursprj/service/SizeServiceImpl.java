@@ -24,6 +24,11 @@ public class SizeServiceImpl implements SizeService {
     }
 
     @Override
+    public List<Size> getListByKorName(String query) {
+        return repository.findByKorNameContaining(query);
+    }
+
+    @Override
     public Long getIdByEngName(String engName) {
         return repository.findIdByEngName(engName);
     }
