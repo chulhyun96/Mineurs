@@ -18,6 +18,17 @@ public class LoginController {
     final private LoginService service;
     final private MailService mailService;
 
+    @GetMapping()
+    public String login(){
+
+        return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(){
+        return "logout";
+    }
+
     @GetMapping("find-id")
     public String findIdForm(@ModelAttribute("errorMessage") String errorMessage,Model model) {
 

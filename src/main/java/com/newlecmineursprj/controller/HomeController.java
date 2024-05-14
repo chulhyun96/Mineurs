@@ -71,12 +71,4 @@ private final PostService postService;
         return "list";
     }
 
-    @GetMapping("checkout")
-    public String checkout(){
-        return "checkout";
-    }
-
-    @GetMapping("login")
-    public String signin(){return "login";}
-
 }
