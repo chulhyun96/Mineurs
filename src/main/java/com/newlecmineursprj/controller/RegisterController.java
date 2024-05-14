@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 @Slf4j
 @RequestMapping("register")
 @RequiredArgsConstructor
@@ -33,8 +36,9 @@ public class RegisterController {
             model.addAttribute("member", member);
             return "register";
         }
-        Boolean reg = service.reg(member);
-        log.info("Member Reg successfully: {}", reg);
-        return "redirect:/";
+        String welcomeMessage = URLEncoder.encode("회원가입을 축하합니다!!! 안전한 로그인을 위해 재접속 해주세요.", StandardCharsets.UTF_8) ;
+        Boolean registrationStatus = service.reg(member);
+        log.info("Member Reg successfully: {}", registrationStatus);
+        return "redirect:/signin?successfully=" + welcomeMessage;
     }
 }
