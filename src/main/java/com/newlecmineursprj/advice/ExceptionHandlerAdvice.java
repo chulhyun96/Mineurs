@@ -22,6 +22,7 @@ public class ExceptionHandlerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler
     public String noResourceFoundExHandler(NoResourceFoundException ex, Model model) {
+        log.info("NoResourceFoundException: {}", ex);
         ErrorResult result = new ErrorResult(
                 ex, "잘못된 페이지 요청입니다.",
                 HttpStatus.BAD_REQUEST.value(), "/error/4xx"
