@@ -37,7 +37,6 @@ public class Member {
 
     private Timestamp regDate;
 
-    @NotBlank
     private String paymentPassword;
 
     @NotBlank

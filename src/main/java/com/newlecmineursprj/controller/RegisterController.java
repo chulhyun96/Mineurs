@@ -21,7 +21,8 @@ public class RegisterController {
     private final RegisterService service;
 
     @GetMapping
-    public String form() {
+    public String form(Model model) {
+        model.addAttribute("member", new Member());
         return "register";
     }
 
@@ -30,7 +31,7 @@ public class RegisterController {
         if (bindingResult.hasErrors()) {
             log.info("Member Reg validation error: {}", bindingResult);
             model.addAttribute("member", member);
-            return "redirect:/register";
+            return "register";
         }
         service.reg(member);
         return "redirect:/";

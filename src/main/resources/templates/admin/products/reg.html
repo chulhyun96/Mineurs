@@ -9,6 +9,11 @@
     <title>Title</title>
     <link rel="stylesheet" href="/css/admin/products/reg.css"/>
     <script src="/js/admin/products/reg.js"></script>
+    <style>
+        .field-error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <main layout:fragment="main" class="container mx-auto px-10">
@@ -35,7 +40,7 @@
                 <td colspan="3">
                     <label>
                         <input type="text" name="name" th:field="*{name}"  class="block w-3/5" required/>
-                        <div th:errors="*{name}"></div>
+                        <div class="field-error" th:errors="*{name}"></div>
                     </label>
                 </td>
             </tr>
@@ -46,8 +51,8 @@
 
                 <td colspan="3">
                     <label>
-                        <input name="price" th:field="*{price}" required class="block w-3/5" />
-                        <div th:errors="*{price}"></div>
+                        <input name="price" th:field="*{price}" required class="block w-3/5"/>
+                        <div class="field-error" th:errors="*{price}"></div>
                     </label>
                 </td>
             </tr>
@@ -59,7 +64,7 @@
                 <td colspan="3">
                     <label class="block w-3/5">
                         <textarea name="description" th:field="*{description}" required class="h-36 w-full"></textarea>
-                        <div th:errors="*{description}"></div>
+                        <div class="field-error" th:errors="*{description}"></div>
                     </label>
                 </td>
             </tr>
@@ -110,7 +115,7 @@
                 <td>카테고리</td>
                 <td colspan="3">
                     <label>
-                        <div th:errors="*{categoryId}"></div>
+                        <div th:errors="*{categoryId}" class="field-error"></div>
                         <select name="categoryId" th:field="*{categoryId}" class="n-dropdown">
                             <option value="">Category</option>
                             <option
