@@ -16,6 +16,14 @@
         where id = #{id}
     </select>
 
+
+    <select id="findByKorNameContaining" resultType="Color">
+        SELECT
+        *
+        FROM color
+        where kor_name like '%${query}%'
+    </select>
+
     <select id="findIdByKorName" resultType="Long">
         SELECT
         id

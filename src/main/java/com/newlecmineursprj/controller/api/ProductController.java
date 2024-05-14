@@ -1,7 +1,6 @@
 package com.newlecmineursprj.controller.api;
 
 import com.newlecmineursprj.entity.Product;
-import com.newlecmineursprj.mapper.ProductMapper;
 import com.newlecmineursprj.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

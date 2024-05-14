@@ -1,6 +1,7 @@
 package com.newlecmineursprj.service;
 
 import com.newlecmineursprj.dto.ProductListDTO;
+import com.newlecmineursprj.dto.ProductRegDTO;
 import com.newlecmineursprj.entity.Product;
 import com.newlecmineursprj.util.CustomPageImpl;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,7 +22,7 @@ public interface ProductService {
 
     Product getById(Long id);
 
-    void reg(Product product, MultipartFile mainImg, List<MultipartFile> subImgs) throws IOException;
+    void reg(ProductRegDTO productRegDTO) throws IOException;
 
     void update(Product updateProduct, MultipartFile updateFile, List<MultipartFile> updateSubImgs) throws IOException;
 

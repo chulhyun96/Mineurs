@@ -11,5 +11,7 @@ import java.util.List;
 public interface SizeRepository {
     List<Size> findAll(long productId);
     Size findById(Long id);
+
+    List<Size> findByKorNameContaining(String query);
     Long findIdByEngName(String engName);
 }

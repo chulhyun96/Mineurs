@@ -3,6 +3,7 @@ package com.newlecmineursprj.controller.admin;
 import com.newlecmineursprj.config.security.WebUserDetails;
 import com.newlecmineursprj.dto.ProductListDTO;
 import com.newlecmineursprj.dto.ProductQtyDTO;
+import com.newlecmineursprj.dto.ProductRegDTO;
 import com.newlecmineursprj.entity.*;
 import com.newlecmineursprj.service.*;
 import com.newlecmineursprj.util.CustomPageImpl;
@@ -84,19 +85,19 @@ public class ProductController {
     public String regForm(Model model) {
         List<Category> categories = categoryService.getList();
         model.addAttribute("categories", categories);
-        model.addAttribute("product", new Product());
+        model.addAttribute("productRegDTO", new ProductRegDTO());
         return PRODUCTS_VIEW + "/reg";
     }
 
     @PostMapping
-    public String reg(@Validated Product product, BindingResult bindingResult, Model model,
-                      MultipartFile mainImg, @RequestParam(value = "sub-imgs") List<MultipartFile> subImages) throws IOException {
+    public String reg(@Validated @ModelAttribute ProductRegDTO productRegDTO, BindingResult bindingResult, Model model) throws IOException {
         if (bindingResult.hasErrors()) {
-            ifCategoryNull(product, model);
+            // 필드 검증 실패시 form을 다시 띄울 때 categories가 필요하므로 그걸 넣어주는 역할
+            ifCategoryNull(Product.createProduct(productRegDTO), model);
             log.error("Reg Form Error : {}", bindingResult + "\n");
             return PRODUCTS_VIEW + "/reg";
         }
-        service.reg(product, mainImg, subImages);
+                service.reg(productRegDTO);
         return REDIRECT + PRODUCTS_VIEW;
     }
 
