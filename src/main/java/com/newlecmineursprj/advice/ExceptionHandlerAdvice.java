@@ -1,6 +1,5 @@
 package com.newlecmineursprj.advice;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
@@ -42,17 +41,6 @@ public class ExceptionHandlerAdvice {
         ErrorResult result = new ErrorResult(
                 ex, "잘못된 요청입니다.",
                 "에러페이지가 반복적으로 발생 할 경우 고객센터로 연락부탁드립니다.",
-                HttpStatus.BAD_REQUEST.value(), "/error/4xx"
-        );
-        model.addAttribute("error", result);
-        return result.getViewName();
-    }
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler
-    public String servletExHandler(ServletException ex, Model model) {
-        log.info("ServletException: {}", ex);
-        ErrorResult result = new ErrorResult(
-                ex, "권한이 없는 페이지 요청입니다.",
                 HttpStatus.BAD_REQUEST.value(), "/error/4xx"
         );
         model.addAttribute("error", result);
