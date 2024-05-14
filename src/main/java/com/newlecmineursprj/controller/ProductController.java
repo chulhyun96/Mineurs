@@ -40,7 +40,13 @@ public class ProductController {
 
     @GetMapping("{id}")
 
-    public String list(@PathVariable long id, Model model) {
+    public String list(@PathVariable long id
+                        , Model model
+                        ,@AuthenticationPrincipal WebUserDetails webUserDetails) {
+
+        //구매,장바구니 버튼 누르기전 로그인 되어있는지 검증하기 위해 값 전송
+        if(webUserDetails != null)
+            model.addAttribute("memberId", webUserDetails.getId());
 
         List<Category> categoryList = categoryService.getList();
         model.addAttribute("categoryList", categoryList);
@@ -67,7 +73,7 @@ public class ProductController {
         return "detail";
     }
 
-    @PostMapping("userAction")
+    @PostMapping("user-action")
     public String userAction(
             @RequestParam("userAction") int userAction, @RequestParam("productId") Long productId,
             // @RequestParam(value = "colorId", defaultValue = "0") Long colorId,

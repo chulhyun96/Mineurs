@@ -1,5 +1,8 @@
-// HTML 코드에서 Cart 버튼을 선택합니다.
-const BuyButton = document.querySelector('button[name="userAction"][value="1"]');
+// 로그인 되어있는지 확인하는 값
+let isLogin = document.querySelector('.isLogin').innerText;
+
+// 구매,장바구니,찜 버튼
+const buyButton = document.querySelector('button[name="userAction"][value="1"]');
 const cartButton = document.querySelector('button[name="userAction"][value="2"]');
 const wishButton = document.querySelector('button[name="userAction"][value="3"]');
 
@@ -8,23 +11,41 @@ const wishButton = document.querySelector('button[name="userAction"][value="3"]'
 let isValid = 0;
 
 // 버튼에 클릭 이벤트 리스너를 추가합니다.
-BuyButton.addEventListener('click', function (event) {
-    if(isValid == 0){
+buyButton.addEventListener('click', function (event) {
+    if(isLogin == ""){
         event.preventDefault();
-        alert("상품 옵션을 선택하세요.");
-    }
-});
-cartButton.addEventListener('click', function (event) {
-    if(isValid == 0){
-        event.preventDefault();
-        alert("상품 옵션을 선택하세요.");
+        alert("로그인 하세요.");
+        window.location.href = "http://localhost:8083/signin";
     }
     else
-        alert('장바구니 담기 완료');
+        if(isValid == 0){
+            event.preventDefault();
+            alert("상품 옵션을 선택하세요.");
+        }
 });
-wishButton.addEventListener('click', function () {
-    // 버튼이 클릭되면 "장바구니 담기 완료"라는 메시지 창을 출력합니다.
-    alert('위시리스트 담기 완료');
+cartButton.addEventListener('click', function (event) {
+    if(isLogin == ""){
+        event.preventDefault();
+        alert("로그인 하세요.");
+        window.location.href = "http://localhost:8083/signin";
+    }
+    else{
+        if(isValid == 0){
+            event.preventDefault();
+            alert("상품 옵션을 선택하세요.");
+        }
+        else
+            alert('장바구니 담기 완료');
+    }
+});
+wishButton.addEventListener('click', function (event) {
+    if(isLogin == ""){
+        event.preventDefault();
+        alert("로그인 하세요.");
+        window.location.href = "http://localhost:8083/signin";
+    }
+    else
+        alert('위시리스트 담기 완료');
 });
 
 document.addEventListener('DOMContentLoaded', function () {
