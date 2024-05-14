@@ -33,7 +33,8 @@ public class RegisterController {
             model.addAttribute("member", member);
             return "register";
         }
-        service.reg(member);
+        Boolean reg = service.reg(member);
+        log.info("Member Reg successfully: {}", reg);
         return "redirect:/";
     }
 }
