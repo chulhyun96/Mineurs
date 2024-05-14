@@ -36,9 +36,9 @@ public class RegisterController {
             model.addAttribute("member", member);
             return "register";
         }
-        String welcomeMessage = URLEncoder.encode("회원가입을 축하합니다!!! 안전한 로그인을 위해 재접속 해주세요.", StandardCharsets.UTF_8) ;
+        final String WELCOME_MESSAGE = URLEncoder.encode("회원가입을 축하합니다!!! 안전한 로그인을 위해 재접속 해주세요.", StandardCharsets.UTF_8) ;
         Boolean registrationStatus = service.reg(member);
         log.info("Member Reg successfully: {}", registrationStatus);
-        return "redirect:/signin?successfully=" + welcomeMessage;
+        return "redirect:/login?successfully=" + WELCOME_MESSAGE;
     }
 }

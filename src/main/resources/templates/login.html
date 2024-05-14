@@ -14,10 +14,14 @@
         const url = new URL(window.location.href);
 
         let error = url.searchParams.get("error");
-
+        let successfully = url.searchParams.get("successfully");
         if (error) {
             error = decodeURIComponent(error);
             alert(error);
+        }
+        else if (successfully) {
+            successfully = decodeURIComponent(successfully);
+            alert(successfully);
         }
     </script>
 </head>
