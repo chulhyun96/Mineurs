@@ -12,9 +12,7 @@ public class ErrorResult extends Exception{
     private Integer code;
     private String viewName;
     /**
-     * Constructs a new exception with {@code null} as its detail message.
-     * The cause is not initialized, and may subsequently be initialized by a
-     * call to {@link #initCause}.
+     * 생성자 메서드를 오버라이딩해서 사용가능
      */
 
     public ErrorResult(Exception exception, String defaultMessage, String extendMessage, Integer code, String viewName) {
@@ -24,7 +22,7 @@ public class ErrorResult extends Exception{
         this.code = code;
         this.viewName = viewName;
     }
-    public ErrorResult(Exception exception, String defaultMessage,String extendMessage) {
+    public ErrorResult(Exception exception, String defaultMessage) {
         this.exception = exception;
         this.defaultMessage = defaultMessage;
     }

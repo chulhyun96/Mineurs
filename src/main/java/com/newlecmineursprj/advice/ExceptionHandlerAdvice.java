@@ -54,13 +54,13 @@ public class ExceptionHandlerAdvice {
         //회원 가입 아이디 중복 시
         if (ex.getMessage().contains("membername")) {
             log.error("Member ID duplication {}", ex);
-            ErrorResult memberDuplicatedError = new ErrorResult(ex, "이미 등록된 회원입니다.","");
+            ErrorResult memberDuplicatedError = new ErrorResult(ex, "이미 등록된 회원입니다.");
             response.sendRedirect("/register?error=" + URLEncoder.encode(memberDuplicatedError.getMessage(), StandardCharsets.UTF_8));
             return;
         }
         //회원가입 이메일 중복 시
         log.error("Member ID duplication {}", ex);
-        ErrorResult memberDuplicatedError = new ErrorResult(ex, "이미 등록된 이메일입니다.","");
+        ErrorResult memberDuplicatedError = new ErrorResult(ex, "이미 등록된 이메일입니다.");
         response.sendRedirect("/register?error=" + URLEncoder.encode(memberDuplicatedError.getMessage(), StandardCharsets.UTF_8));
     }
 }
