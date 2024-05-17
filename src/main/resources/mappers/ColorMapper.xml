@@ -31,4 +31,17 @@
         where kor_name = #{korName}
     </select>
 
+    <insert id="save" parameterType="Color">
+        insert into color(kor_name, eng_name, hex_code)
+        values (#{korName},#{engName},#{hexCode})
+    </insert>
+
+    <delete id="deleteAllById" parameterType="list">
+        DELETE FROM color
+        WHERE id IN
+        <foreach item="id" index="index" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
 </mapper>
