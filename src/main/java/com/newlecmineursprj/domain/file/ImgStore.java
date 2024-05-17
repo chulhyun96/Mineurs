@@ -24,6 +24,7 @@ public class ImgStore {
     private String mainImg;
     private String subImg;
 
+
     public String getStorageMainImgName(MultipartFile imgFile) throws IOException {
         if (imgFile.isEmpty())
             return "Non-Img";
