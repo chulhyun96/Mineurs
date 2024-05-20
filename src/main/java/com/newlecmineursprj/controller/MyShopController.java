@@ -12,6 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -136,6 +137,20 @@ public class MyShopController {
 
         model.addAttribute("addresses", addresses);
         return "myshop/addr/list";
+    }
+
+    @GetMapping("addr/modify/{id}")
+    public String addrModify(@PathVariable long id, @AuthenticationPrincipal WebUserDetails webUserDetails,
+            Model model) {
+        long memberId = webUserDetails.getId();
+
+        Address address = addressService.getById(id, memberId);
+
+        System.out.println("isdefault ===== " + address.getIsDefault());
+
+        model.addAttribute("address", address);
+
+        return "myshop/addr/modify";
     }
 
 }

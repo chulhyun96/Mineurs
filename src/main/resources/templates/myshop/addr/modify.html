@@ -10,12 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/output.css" />
     <title>Document</title>
-    <script src="/js/member/modify.js"></script>
-    <style>
-      .field-error {
-        color: red;
-      }
-    </style>
   </head>
   <body>
     <main layout:fragment="main" class="container mx-auto px-10 mt-20">
@@ -23,72 +17,37 @@
         id="modifyForm"
         action="modify"
         method="post"
-        th:object="${member}"
-        onsubmit="return validateForm()"
+        th:object="${address}"
       >
         <section class="w-full">
-          <h1 class="hidden">마이페이지 프로필</h1>
-          <div class="text-center font-serif">Profile</div>
+          <h1 class="hidden">주소 수정 페이지</h1>
+          <div class="text-center font-serif">Address List</div>
           <div class="flex pt-10">
             <table class="border table">
-              <tr>
-                <th class="border">아이디 <strong>*</strong></th>
+              <tr class="">
+                <th class="border">배송지명 <strong>*</strong></th>
                 <td class="w-5/6">
                   <input type="hidden" th:field="*{id}" />
                   <input
                     type="text"
-                    class="w-24 border border-slate-800"
-                    th:field="*{username}"
+                    class="w-40 border border-slate-800"
+                    th:field="*{name}"
                   />
-                  <div class="field-error" th:errors="*{username}"></div>
-                  <span class="text-sm">(영문소문자/숫자, 4~16자)</span>
                 </td>
               </tr>
               <tr>
-                <th class="border">비밀번호 <strong>*</strong></th>
-                <td>
-                  <input
-                    type="password"
-                    class="w-24 border border-slate-800"
-                    required
-                    th:field="*{password}"
-                    id="pwd1"
-                  />
-                  <div class="field-error" th:errors="*{password}"></div>
-                  <span
-                    >(영문 대소문자/숫자/특수문자 중 3가지 이상 조합,
-                    8자~16자)</span
-                  >
-                </td>
-              </tr>
-              <tr>
-                <th class="border">비밀번호 확인<strong>*</strong></th>
-                <td>
-                  <input
-                    type="password"
-                    class="w-24 border border-slate-800"
-                    required
-                    id="pwd2"
-                    oninput="validatePassword()"
-                  />
-                  <div id="passwordError" style="display: none; color: red">
-                    비밀번호가 일치하지 않습니다.
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th class="border">이름 <strong>*</strong></th>
-                <td>
+                <th class="border">성명 <strong>*</strong></th>
+                <td class="border">
                   <input
                     type="text"
-                    class="w-24 border border-slate-800"
-                    th:field="*{name}"
+                    class="w-40 border border-slate-800"
                     required
+                    id="receiverName"
+                    th:field="*{receiverName}"
                   />
-                  <div class="field-error" th:errors="*{name}"></div>
                 </td>
               </tr>
-              <!-- <tr>
+              <tr>
                 <th class="border">주소</th>
                 <td>
                   <input
@@ -96,6 +55,7 @@
                     id="sample6_postcode"
                     placeholder="우편번호"
                     class="border"
+                    th:field="*{postCode}"
                   />
                   <input
                     type="button"
@@ -108,24 +68,28 @@
                     id="sample6_address"
                     placeholder="주소"
                     class="border my-1 w-2/6"
+                    th:field="*{address}"
                   /><br />
                   <input
                     type="text"
                     id="sample6_extraAddress"
                     placeholder="참고항목"
                     class="border w-2/6"
+                    th:field="*{extraAddress}"
                   /><br />
                   <input
                     type="text"
                     id="sample6_detailAddress"
                     placeholder="상세주소"
-                    class="border w-2/6"
+                    class="border my-1 w-2/6"
+                    th:field="*{detailAddress}"
                   />
                 </td>
-              </tr> -->
-              <!-- <tr>
+              </tr>
+
+              <tr>
                 <th class="border">휴대전화 <strong>*</strong></th>
-                <td>
+                <td class="border">
                   <select
                     name="phoneNumber1"
                     id="phone"
@@ -141,7 +105,6 @@
                     name="phoneNumber2"
                     id="mobile2"
                     class="border border-slate-800 w-16"
-                    --th:value="*{phoneNumber.substring(3, 7)}"
                   />
                   -
                   <input
@@ -149,88 +112,41 @@
                     name="phoneNumber3"
                     id="mobile3"
                     class="border border-slate-800 w-16"
-                    --th:value="*{phoneNumber.substring(7)}"
-                  />
-                </td>
-              </tr> -->
-              <tr>
-                <th class="border">SMS 수신여부 <strong>*</strong></th>
-                <td>
-                  <input
-                    type="radio"
-                    th:field="*{smsReception}"
-                    th:value="true"
-                  />
-                  <label for="">수신함</label>
-                  <input
-                    type="radio"
-                    th:field="*{smsReception}"
-                    th:value="false"
-                  />
-                  <label for="">수신안함</label>
-                  <p>
-                    쇼핑몰에서 제공하는 유익한 이벤트 소식을 SMS로 받으실 수
-                    있습니다.
-                  </p>
-                </td>
-              </tr>
-              <tr>
-                <th class="border">이메일 <strong>*</strong></th>
-                <td>
-                  <input
-                    type="text"
-                    class="w-36 border border-slate-800"
-                    th:field="*{email}"
-                    required
                   />
                 </td>
               </tr>
               <tr>
-                <th class="border">이메일 수신여부 <strong>*</strong></th>
-                <td>
-                  <input
-                    type="radio"
-                    th:field="*{emailReception}"
-                    th:value="true"
-                  />
-                  <label for="">수신함</label>
-                  <input
-                    type="radio"
-                    th:field="*{emailReception}"
-                    th:value="false"
-                  />
-                  <label for="">수신안함</label>
-                  <p>
-                    쇼핑몰에서 제공하는 유익한 이벤트 소식을 이메일로 받으실 수
-                    있습니다.
-                  </p>
-                </td>
-              </tr>
-              <tr>
-                <th class="border">평생회원</th>
-                <td>
-                  <input type="radio" name="member" value="agree" />
-                  <label for="">동의함</label>
-                  <input type="radio" name="member" value="disagree" checked />
-                  <label for="">동의안함</label>
-                  <p>
-                    - 평생회원은 <b>마인유어스 : mine, yours ♡</b> 회원
-                    탈퇴시까지 휴면회원으로 전환되지 않습니다.
-                  </p>
+                <th></th>
+                <td colspan="2">
+                  <div class="flex justify-end">
+                    <input type="checkbox" th:field="*{isDefault}" />
+                    <label for="isDefault">기본 배송지로 저장</label>
+                  </div>
                 </td>
               </tr>
             </table>
           </div>
         </section>
-        <div class="flex justify-center">
-          <button class="btn btn-neutral" type="submit" onclick="submitForm()">
-            회원정보수정
-          </button>
-          <a href="/myshop" class="btn ml-2">취소</a>
+        <div class="flex justify-end mt-2">
+          <div class="text-center pl-2">
+            <button
+              class="inline-block border border-slate-800 w-20 h-7 text-xs px-3 py-1 bg-neutral-400 text-white hover:bg-white hover:text-black duration-300 ease-in-out"
+            >
+              수정
+            </button>
+          </div>
+          <div class="text-center pl-2">
+            <a
+              href="/myshop/addr/list"
+              class="inline-block border border-slate-800 w-20 h-7 text-xs px-1 py-1 bg-white hover:bg-neutral-300 duration-300 ease-in-out"
+              >취소</a
+            >
+          </div>
         </div>
       </form>
 
-      <!-- <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+      <!-- 카카오 주소 검색 api -->
+      <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
       <script>
         function sample6_execDaumPostcode() {
           new daum.Postcode({
@@ -284,7 +200,7 @@
             },
           }).open();
         }
-      </script> -->
+      </script>
     </main>
   </body>
 </html>

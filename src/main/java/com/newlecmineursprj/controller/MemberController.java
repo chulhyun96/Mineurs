@@ -38,6 +38,7 @@ public class MemberController {
             return "member/modify";
         }
         memberService.update(member);
+
         return "redirect:/";
     }
 

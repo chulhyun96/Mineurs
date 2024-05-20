@@ -14,7 +14,7 @@
     <main layout:fragment="main" class="container mx-auto px-20 mt-20">
       <section class="w-full">
         <h1 class="hidden">위시리스트</h1>
-        <div class="text-center font-sans">Address List</div>
+        <div class="text-center font-serif">Address List</div>
         <div class="w-full mt-10">
           <div>
             <table class="border border-slate-800 w-full">
@@ -64,8 +64,8 @@
                   <td class="text-xs">
                     <div>
                       <a
-                        href=""
-                        class="inline-block border border-slate-800 w-14 h-7 text-xs px-3 py-1 bg-black text-slate-100 hover:bg-white hover:text-slate-800 duration-300 ease-in-out"
+                        th:href="'/myshop/addr/modify/' + ${address.id}"
+                        class="inline-block border border-slate-800 w-14 h-7 text-xs px-3 py-1 bg-white text-black hover:bg-neutral-300 duration-300 ease-in-out"
                         >수정</a
                       >
                     </div>
@@ -80,7 +80,7 @@
             <div class="text-center pl-2">
               <a
                 href=""
-                class="inline-block border border-slate-800 w-28 h-7 text-xs px-1 py-1 bg-gray-500 text-slate-100 hover:bg-white hover:text-slate-800 duration-300 ease-in-out"
+                class="inline-block border border-slate-800 w-28 h-7 text-xs px-1 py-1 hover:bg-neutral-300 duration-300 ease-in-out"
                 >선택 주소록 삭제</a
               >
             </div>
@@ -89,7 +89,7 @@
             <div class="text-center pl-2">
               <a
                 href=""
-                class="flex justify-center items-center border border-slate-800 w-32 h-10 text-xs px-3 py-1 bg-gray-500 text-slate-100 hover:bg-red hover:text-slate-800 duration-300 ease-in-out"
+                class="flex justify-center items-center border border-slate-800 w-32 h-10 text-xs px-3 py-1 bg-white hover:bg-neutral-300 duration-300 ease-in-out"
                 >배송지등록</a
               >
             </div>
