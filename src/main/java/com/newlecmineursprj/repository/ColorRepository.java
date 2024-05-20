@@ -10,9 +10,13 @@ import java.util.List;
 @Mapper
 public interface ColorRepository {
 
-    List<Color> findAll(long productId);
+    List<Color> findAll();
     Color findById(Long id);
 
     List<Color> findByKorNameContaining(String query);
     Long findIdByKorName(String korName);
+
+    void save(Color color);
+
+    void deleteAllById(List<Long> colorIds);
 }

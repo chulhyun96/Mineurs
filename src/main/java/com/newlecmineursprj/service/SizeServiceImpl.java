@@ -14,8 +14,8 @@ public class SizeServiceImpl implements SizeService {
     private final SizeRepository repository;
 
     @Override
-    public List<Size> getList(long productId) {
-        return repository.findAll(productId);
+    public List<Size> getList() {
+        return repository.findAll();
     }
 
     @Override
@@ -31,5 +31,15 @@ public class SizeServiceImpl implements SizeService {
     @Override
     public Long getIdByEngName(String engName) {
         return repository.findIdByEngName(engName);
+    }
+
+    @Override
+    public void reg(Size size) {
+        repository.save(size);
+    }
+
+    @Override
+    public void deleteAllById(List<Long> sizeIds) {
+        repository.deleteAllById(sizeIds);
     }
 }
