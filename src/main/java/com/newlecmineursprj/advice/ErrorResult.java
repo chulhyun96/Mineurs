@@ -26,5 +26,4 @@ public class ErrorResult extends Exception{
         this.exception = exception;
         this.defaultMessage = defaultMessage;
     }
-
 }

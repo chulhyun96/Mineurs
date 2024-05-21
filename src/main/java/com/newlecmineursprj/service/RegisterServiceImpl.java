@@ -19,12 +19,12 @@ public class RegisterServiceImpl implements RegisterService {
     public Boolean reg(Member member) {
         String passwordEncoding = passwordEncoder.encode(member.getPassword());
         member.setEncodedPassword(passwordEncoding);
+
         try{
             repository.save(member);
             return true;
         } catch (DuplicateKeyException e) {
-            log.error("Error during registration", e);
-            throw e;
+            throw new DuplicateKeyException("Error during registration [" + e.getMessage() + "]");
         }
     }
 }
