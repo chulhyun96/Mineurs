@@ -30,4 +30,9 @@ public class AddressServiceImpl implements AddressService {
         return repository.findById(id, memberId);
     }
 
+    @Override
+    public void edit(Address address) {
+        repository.update(address);
+    }
+
 }

@@ -88,71 +88,18 @@
                   <div class="field-error" th:errors="*{name}"></div>
                 </td>
               </tr>
-              <!-- <tr>
-                <th class="border">주소</th>
-                <td>
-                  <input
-                    type="text"
-                    id="sample6_postcode"
-                    placeholder="우편번호"
-                    class="border"
-                  />
-                  <input
-                    type="button"
-                    onclick="sample6_execDaumPostcode()"
-                    value="주소검색"
-                    class="border px-1"
-                  /><br />
-                  <input
-                    type="text"
-                    id="sample6_address"
-                    placeholder="주소"
-                    class="border my-1 w-2/6"
-                  /><br />
-                  <input
-                    type="text"
-                    id="sample6_extraAddress"
-                    placeholder="참고항목"
-                    class="border w-2/6"
-                  /><br />
-                  <input
-                    type="text"
-                    id="sample6_detailAddress"
-                    placeholder="상세주소"
-                    class="border w-2/6"
-                  />
-                </td>
-              </tr> -->
-              <!-- <tr>
+
+              <tr>
                 <th class="border">휴대전화 <strong>*</strong></th>
                 <td>
-                  <select
-                    name="phoneNumber1"
-                    id="phone"
-                    class="border border-slate-800"
-                  >
-                    <option value="010">010</option>
-                    <option value="011">011</option>
-                    <option value="016">016</option>
-                  </select>
-                  -
                   <input
                     type="text"
-                    name="phoneNumber2"
-                    id="mobile2"
-                    class="border border-slate-800 w-16"
-                    --th:value="*{phoneNumber.substring(3, 7)}"
-                  />
-                  -
-                  <input
-                    type="text"
-                    name="phoneNumber3"
-                    id="mobile3"
-                    class="border border-slate-800 w-16"
-                    --th:value="*{phoneNumber.substring(7)}"
+                    class="border border-slate-800 w-40"
+                    th:field="*{phoneNumber}"
+                    placeholder="- 없이 입력해주세요"
                   />
                 </td>
-              </tr> -->
+              </tr>
               <tr>
                 <th class="border">SMS 수신여부 <strong>*</strong></th>
                 <td>

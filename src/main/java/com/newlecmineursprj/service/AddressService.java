@@ -10,4 +10,6 @@ public interface AddressService {
     List<Address> findAll(Long memberId);
 
     Address getById(long id, Long memberId);
+
+    void edit(Address address);
 }

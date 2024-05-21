@@ -14,4 +14,6 @@ public interface AddressRepository {
     List<Address> findAllByMemberId(Long memberId);
 
     Address findById(long id, Long memberId);
+
+    void update(Address address);
 }

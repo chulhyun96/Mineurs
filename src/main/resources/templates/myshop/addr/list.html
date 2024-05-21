@@ -60,7 +60,11 @@
                   <td class="text-xs" th:text="${address.phoneNumber}">
                     폰번호
                   </td>
-                  <td class="text-xs">주소</td>
+                  <td class="text-xs">
+                    <span th:text="${address.address}"></span>
+                    <span th:text="${address.extraAddress}"></span>
+                    <span th:text="${address.detailAddress}"></span>
+                  </td>
                   <td class="text-xs">
                     <div>
                       <a

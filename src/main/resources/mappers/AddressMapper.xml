@@ -4,18 +4,33 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.newlecmineursprj.repository.AddressRepository">
 
-<!-- <insert id="reg">
-        INSERT INTO 
-        delivery_info (receiver_name, phone_number, member_id,name) 
-        VALUES (#{receiverName},#{phoneNumber},#{memberId},#{name})
-</insert> -->
+    <!-- <insert id="reg">
+            INSERT INTO
+            delivery_info (receiver_name, phone_number, member_id,name)
+            VALUES (#{receiverName},#{phoneNumber},#{memberId},#{name})
+    </insert> -->
 
-<select id="findAllByMemberId" resultType="Address" parameterType="Long">
+    <select id="findAllByMemberId" resultType="Address" parameterType="Long">
         select * from delivery_info where member_id = #{memberId}
     </select>
 
-<select id="findById" resultType="Address">
+    <select id="findById" resultType="Address">
         select * from delivery_info where member_id = #{memberId} and id = #{id}
     </select>
+
+    <update id="update" parameterType="Address">
+        UPDATE delivery_info
+        SET
+        receiver_name = #{receiverName},
+        phone_number = #{phoneNumber},
+        name = #{name},
+        post_code = #{postCode},
+        address = #{address},
+        extra_address = #{extraAddress},
+        detail_address = #{detailAddress},
+        is_default = #{isDefault}
+        where id = #{id}
+
+    </update>
 
 </mapper>

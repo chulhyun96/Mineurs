@@ -95,11 +95,21 @@ public class MyShopController {
     }
 
     @PostMapping("wishlist/delete")
-    public String wishListDelete(@AuthenticationPrincipal WebUserDetails webUserDetails, Long productId) {
+    public String wishListDelete(@AuthenticationPrincipal WebUserDetails webUserDetails,
+                                 @RequestParam(required = false) Long productId,
+                                 @RequestParam(required = false) List<Long> productIds) {
 
         long memberId = webUserDetails.getId();
 
-        wishlistService.delete(memberId, productId);
+        if (productId != null) {
+            // 단일 항목 삭제
+            wishlistService.delete(memberId, productId);
+        } else if (productIds != null && !productIds.isEmpty()) {
+            // 다중 항목 삭제
+            for (Long id : productIds) {
+                wishlistService.delete(memberId, id);
+            }
+        }
 
         return "redirect:/myshop/wishlist";
     }
@@ -151,6 +161,12 @@ public class MyShopController {
         model.addAttribute("address", address);
 
         return "myshop/addr/modify";
+    }
+    @PostMapping("addr/modify/{id}")
+    public String postModify(Address address){
+        addressService.edit(address);
+        log.info("address : {}", address);
+        return "redirect:/myshop/addr/list";
     }
 
 }

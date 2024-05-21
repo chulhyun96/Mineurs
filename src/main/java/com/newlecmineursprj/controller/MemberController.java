@@ -37,6 +37,7 @@ public class MemberController {
             log.error("Member Modify Error: {}", bindingResult);
             return "member/modify";
         }
+
         memberService.update(member);
 
         return "redirect:/";

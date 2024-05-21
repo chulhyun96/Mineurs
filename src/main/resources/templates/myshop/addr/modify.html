@@ -4,18 +4,26 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{/inc/layout}"
+
 >
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/output.css" />
+    <script src="/js/myshop/addr/modify.js"></script>
     <title>Document</title>
+    <style>
+      .error {
+        color: red;
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <main layout:fragment="main" class="container mx-auto px-10 mt-20">
       <form
         id="modifyForm"
-        action="modify"
+        th:action="@{/myshop/addr/modify/${address.id}}"
         method="post"
         th:object="${address}"
       >
@@ -32,6 +40,7 @@
                     type="text"
                     class="w-40 border border-slate-800"
                     th:field="*{name}"
+                    required
                   />
                 </td>
               </tr>
@@ -56,12 +65,14 @@
                     placeholder="우편번호"
                     class="border"
                     th:field="*{postCode}"
+                    required
                   />
                   <input
                     type="button"
                     onclick="sample6_execDaumPostcode()"
                     value="주소검색"
                     class="border px-1"
+                    required
                   /><br />
                   <input
                     type="text"
@@ -90,29 +101,15 @@
               <tr>
                 <th class="border">휴대전화 <strong>*</strong></th>
                 <td class="border">
-                  <select
-                    name="phoneNumber1"
-                    id="phone"
-                    class="border border-slate-800"
-                  >
-                    <option value="010">010</option>
-                    <option value="011">011</option>
-                    <option value="016">016</option>
-                  </select>
-                  -
                   <input
                     type="text"
-                    name="phoneNumber2"
+                    name="phoneNumber"
                     id="mobile2"
-                    class="border border-slate-800 w-16"
+                    class="border border-slate-800 w-40"
+                    placeholder="- 없이 입력해주세요"
+                    th:field="*{phoneNumber}"
                   />
-                  -
-                  <input
-                    type="text"
-                    name="phoneNumber3"
-                    id="mobile3"
-                    class="border border-slate-800 w-16"
-                  />
+                  <span id="phoneError" class="error">올바른 전화번호 형식이 아닙니다.</span>
                 </td>
               </tr>
               <tr>
@@ -131,6 +128,7 @@
           <div class="text-center pl-2">
             <button
               class="inline-block border border-slate-800 w-20 h-7 text-xs px-3 py-1 bg-neutral-400 text-white hover:bg-white hover:text-black duration-300 ease-in-out"
+              onclick="submitForm()"
             >
               수정
             </button>
