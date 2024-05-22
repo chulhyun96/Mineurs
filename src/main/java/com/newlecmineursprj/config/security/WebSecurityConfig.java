@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -33,11 +34,13 @@ public class WebSecurityConfig {
                         .anyRequest().permitAll())
                 .formLogin((form) -> form
                         .loginPage("/login")
+                        .successHandler(new LoginSuccessHandler())
                         .failureHandler(new LoginAuthenticFailure())
                         .permitAll())
                 .logout((logout) -> logout
-                        .invalidateHttpSession(true)
                         .logoutUrl("/logout")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
                         .logoutSuccessUrl("/")
                         .permitAll());
         return http.build();
