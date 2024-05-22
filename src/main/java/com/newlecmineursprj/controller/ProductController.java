@@ -69,7 +69,8 @@ public class ProductController {
 
     @PostMapping("user-action")
     public String userAction(
-            @RequestParam("userAction") int userAction, @RequestParam("productId") Long productId,
+            @RequestParam("userAction") int userAction, 
+            @RequestParam("productId") Long productId,
             // @RequestParam(value = "colorId", defaultValue = "0") Long colorId,
             // @RequestParam(value = "sizeId", defaultValue = "0") Long sizeId,
             @RequestParam(value = "colorName", defaultValue = "0") String colorName,
@@ -145,18 +146,23 @@ public class ProductController {
         // 장바구니에 추가 (userAction == 2)
         else if (userAction == 2) {
 
-            for(ProductItem productItem : productItems){
-
+            for(int i=0; i<productItems.size(); i++){
+                ProductItem productItem = productItems.get(i);
+                int tempQuantity = quantities.get(i);
                 Cart tempCart = cartService.getByForeignKeys(memberId, productItem.getId());
     
                 if (tempCart == null) {
                     Cart cart = new Cart();
                     cart.setMemberId(memberId);
                     cart.setProductItemId(productItem.getId());
-                    cart.setQty(1);
+                    cart.setQty(tempQuantity);
                     cartService.add(cart);
                 }
-                
+                else{
+                    int newQty = tempCart.getQty() + tempQuantity;
+                    tempCart.setQty(newQty);
+                    cartService.update(tempCart);
+                }
             }
 
             return "redirect:" + productId;
@@ -182,6 +188,6 @@ public class ProductController {
     @GetMapping("pay")
     public String pay(Model model) {
 
-        return "pay";
+        return "order/pay";
     }
 }

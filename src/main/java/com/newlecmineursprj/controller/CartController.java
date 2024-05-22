@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("cart")
 @Controller
 public class CartController {
-    
+
     @Autowired
     private CartService cartService;
     @Autowired
@@ -27,10 +27,14 @@ public class CartController {
     private SizeService sizeService;
     @Autowired
     private ColorService colorService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private OrderItemService orderItemService;
 
     @GetMapping
     public String listByMid(@RequestParam(name = "mid", required = false) Long mid,
-                             Model model){
+            Model model) {
 
         List<Cart> cartList = cartService.getByMid(mid);
         List<Long> productItemIds = new ArrayList<>();
@@ -39,21 +43,21 @@ public class CartController {
         List<Size> sizeList = new ArrayList<>();
         List<Color> colorList = new ArrayList<>();
 
-        for(Cart cart : cartList)
-            productItemIds.add(cart.getProductItemId());   
-        for(Long productItemId : productItemIds)
+        for (Cart cart : cartList)
+            productItemIds.add(cart.getProductItemId());
+        for (Long productItemId : productItemIds)
             productItemList.add(productItemService.getById(productItemId));
-        for(ProductItem productItem : productItemList){
+        for (ProductItem productItem : productItemList) {
             productList.add(productService.getById(productItem.getProductId()));
             sizeList.add(sizeService.getById(productItem.getSizeId()));
             colorList.add(colorService.getById(productItem.getColorId()));
         }
-        
+
         model.addAttribute("cartList", cartList);
         model.addAttribute("productList", productList);
         model.addAttribute("sizeList", sizeList);
         model.addAttribute("colorList", colorList);
-            
+
         return "cart/list";
     }
 
@@ -65,22 +69,23 @@ public class CartController {
 
         return "redirect:/cart?mid="+mid;
     }
+
     @PostMapping("qty")
     public String qty(@RequestParam("qtyJudge") int qtyJudge,
-                    @RequestParam("cartId") Long cartId,
-                    @RequestParam(defaultValue = "0", value = "qty") int qty,
-                    @RequestParam("mid") Long mid){
+            @RequestParam("cartId") Long cartId,
+            @RequestParam(defaultValue = "0", value = "qty") int qty,
+            @RequestParam("mid") Long mid) {
 
-        Cart cart = cartService.getById(cartId);
-        ProductItem productItem = productItemService.getById(cart.getProductItemId());
-        int stock = productItem.getQty();
+        // Cart cart = cartService.getById(cartId);
+        // ProductItem productItem = productItemService.getById(cart.getProductItemId());
+        // int stock = productItem.getQty();
 
-        if(qtyJudge == 1 && stock > qty)
+        if (qtyJudge == 1)
             cartService.increase(cartId);
-        else if(qtyJudge == 0 && qty > 1)
+        else if (qtyJudge == 0 && qty > 1)
             cartService.decrease(cartId);
 
-        return "redirect:/cart?mid="+mid;
+        return "redirect:/cart?mid=" + mid;
     }
 
 }

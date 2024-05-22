@@ -30,6 +30,11 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public void update(Cart cart) {
+        repository.update(cart);
+    }
+
+    @Override
     public void add(Cart cart) {
         repository.add(cart);
     }
@@ -37,6 +42,11 @@ public class CartServiceImpl implements CartService {
     @Override
     public void delete(Long deleteId) {
         repository.delete(deleteId);
+    }
+
+    @Override
+    public void deleteByMid(Long memberId) {
+        repository.deleteByMid(memberId);
     }
 
     @Override
@@ -48,6 +58,8 @@ public class CartServiceImpl implements CartService {
     public void decrease(Long cartId) {
         repository.decrease(cartId);
     }
+
+    
 
     
 
