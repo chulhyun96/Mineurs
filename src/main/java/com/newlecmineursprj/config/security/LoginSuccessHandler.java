@@ -17,7 +17,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         HttpSession session = request.getSession(false);
-        session.setMaxInactiveInterval(10 * 60);
+        session.setMaxInactiveInterval(10 * 60); // 세션 10분
         response.sendRedirect("/");
     }
 }

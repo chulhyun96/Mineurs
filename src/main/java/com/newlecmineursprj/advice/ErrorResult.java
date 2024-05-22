@@ -22,6 +22,11 @@ public class ErrorResult extends Exception{
         this.code = code;
         this.viewName = viewName;
     }
+    public ErrorResult(Exception exception, String defaultMessage,String viewName) {
+        this.exception = exception;
+        this.defaultMessage = defaultMessage;
+        this.viewName = viewName;
+    }
     public ErrorResult(Exception exception, String defaultMessage) {
         this.exception = exception;
         this.defaultMessage = defaultMessage;

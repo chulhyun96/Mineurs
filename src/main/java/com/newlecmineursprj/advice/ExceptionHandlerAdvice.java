@@ -22,7 +22,7 @@ public class ExceptionHandlerAdvice {
 
     /*404에러용*/
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(NoHandlerFoundException.class)
+    @ExceptionHandler
     public String handle404(NoHandlerFoundException ex, Model model) {
         ErrorResult result = new ErrorResult(
                 ex, "죄송합니다.요청하신 페이지를 찾을 수 없습니다..",
@@ -49,6 +49,7 @@ public class ExceptionHandlerAdvice {
     }
 
 
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler
     public void duplicateKeyExHandler(DuplicateKeyException ex, HttpServletResponse response) throws IOException {
@@ -58,11 +59,10 @@ public class ExceptionHandlerAdvice {
             ErrorResult memberDuplicatedError = new ErrorResult(ex, "이미 등록된 회원입니다.");
             String errorMessage = URLEncoder.encode(memberDuplicatedError.getDefaultMessage(), StandardCharsets.UTF_8);
             response.sendRedirect("/register?error=" + errorMessage);
-
             return;
         }
         //회원가입 이메일 중복 시
-        log.error("Member ID duplication {}", ex);
+        log.error("Member Email duplication {}", ex);
         ErrorResult memberDuplicatedError = new ErrorResult(ex, "이미 등록된 이메일입니다.");
         response.sendRedirect("/register?error=" + URLEncoder.encode(memberDuplicatedError.getDefaultMessage(), StandardCharsets.UTF_8));
     }
