@@ -40,12 +40,14 @@ public class RegisterController {
             return "register";
         }
         int reg = service.reg(member);
+
         String welcomeMsg = "";
-        if (reg > 0){
+        if (reg > 0) {
             welcomeMsg = URLEncoder.encode("회원가입을 축하합니다!!! 안전한 로그인을 위해 재접속 해주세요.", StandardCharsets.UTF_8);
         }
         return "redirect:/login?successfully=" + welcomeMsg;
     }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler
     public void duplicateKeyExHandler(DuplicateKeyException ex, HttpServletResponse response) throws IOException {

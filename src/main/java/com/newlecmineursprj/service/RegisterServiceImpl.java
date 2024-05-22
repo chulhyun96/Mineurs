@@ -1,6 +1,8 @@
 package com.newlecmineursprj.service;
 
 import com.newlecmineursprj.entity.Member;
+import com.newlecmineursprj.entity.MemberRole;
+import com.newlecmineursprj.repository.MemberRoleRepository;
 import com.newlecmineursprj.repository.RegisterRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class RegisterServiceImpl implements RegisterService {
     private final RegisterRepository repository;
     private final PasswordEncoder passwordEncoder;
+    private final MemberRoleRepository memberRoleRepository;
 
     @Override
     @Transactional
@@ -23,7 +26,15 @@ public class RegisterServiceImpl implements RegisterService {
         member.setEncodedPassword(passwordEncoding);
 
         try{
-            return repository.save(member);
+            int savedRowCount = repository.save(member);
+            MemberRole memberRole = MemberRole.builder()
+                    .roleId(1L)
+                    .memberId(member.getId())
+                    .build();
+            
+            memberRoleRepository.save(memberRole);
+
+            return savedRowCount;
         } catch (DuplicateKeyException e) {
             log.error("Error during registration: {}", e.getMessage());
             throw e;
