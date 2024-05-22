@@ -14,8 +14,8 @@ public class ColorServiceImpl implements ColorService {
     private final ColorRepository repository;
 
     @Override
-    public List<Color> getList(long productId) {
-        return repository.findAll(productId);
+    public List<Color> getList() {
+        return repository.findAll();
     }
 
     @Override
@@ -32,4 +32,15 @@ public class ColorServiceImpl implements ColorService {
     public Long getIdByKorName(String korName) {
         return repository.findIdByKorName(korName);
     }
+
+    @Override
+    public void reg(Color color) {
+        repository.save(color);
+    }
+
+    @Override
+    public void deleteAllById(List<Long> colorIds) {
+        repository.deleteAllById(colorIds);
+    }
+
 }

@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,14 +17,15 @@ public class RegisterServiceImpl implements RegisterService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public Boolean reg(Member member) {
+    @Transactional
+    public int reg(Member member) {
         String passwordEncoding = passwordEncoder.encode(member.getPassword());
         member.setEncodedPassword(passwordEncoding);
+
         try{
-            repository.save(member);
-            return true;
+            return repository.save(member);
         } catch (DuplicateKeyException e) {
-            log.error("Error during registration", e);
+            log.error("Error during registration: {}", e.getMessage());
             throw e;
         }
     }

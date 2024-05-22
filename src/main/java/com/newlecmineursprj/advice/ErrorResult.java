@@ -15,7 +15,6 @@ public class ErrorResult extends Exception{
      * 생성자 메서드를 오버라이딩해서 사용가능
      * null 및 불필요한 인자 넣어서 생성하지 않기
      */
-
     public ErrorResult(Exception exception, String defaultMessage, String extendMessage, Integer code, String viewName) {
         this.exception = exception;
         this.defaultMessage = defaultMessage;
@@ -23,9 +22,13 @@ public class ErrorResult extends Exception{
         this.code = code;
         this.viewName = viewName;
     }
+    public ErrorResult(Exception exception, String defaultMessage,String viewName) {
+        this.exception = exception;
+        this.defaultMessage = defaultMessage;
+        this.viewName = viewName;
+    }
     public ErrorResult(Exception exception, String defaultMessage) {
         this.exception = exception;
         this.defaultMessage = defaultMessage;
     }
-
 }

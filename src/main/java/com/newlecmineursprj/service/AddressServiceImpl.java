@@ -25,4 +25,14 @@ public class AddressServiceImpl implements AddressService {
         return repository.findAllByMemberId(memberId);
     }
 
+    @Override
+    public Address getById(long id, Long memberId) {
+        return repository.findById(id, memberId);
+    }
+
+    @Override
+    public void edit(Address address) {
+        repository.update(address);
+    }
+
 }

@@ -8,7 +8,7 @@
 <!--        <result property="emailReception" column="email_reception"/>-->
 <!--        <result property="smsReception" column="sms_reception"/>-->
 <!--    </resultMap>-->
-    <insert id="save" parameterType="Member" useGeneratedKeys="true" keyProperty="id" >
+    <insert id="save" parameterType="Member" useGeneratedKeys="true" keyProperty="id">
         insert into member(username,password,name,phone_number,email,sms_reception,email_reception,enabled)
         values (#{username},#{password},#{name},#{phoneNumber},#{email},#{smsReception},#{emailReception},#{enabled})
     </insert>

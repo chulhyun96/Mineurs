@@ -9,9 +9,13 @@ import java.util.List;
 
 @Mapper
 public interface SizeRepository {
-    List<Size> findAll(long productId);
+    List<Size> findAll();
     Size findById(Long id);
 
     List<Size> findByKorNameContaining(String query);
     Long findIdByEngName(String engName);
+
+    void save(Size size);
+
+    void deleteAllById(List<Long> sizeIds);
 }

@@ -5,5 +5,5 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface RegisterRepository {
-    void save(Member member);
+    int save(Member member);
 }
