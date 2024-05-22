@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function addNewItem(colorName, sizeName) {
         const newDiv = document.createElement('div');
-        newDiv.className = 'clickList mt-10 text-gray-900 flex items-center';
+        newDiv.className = 'clickList mt-10 text-gray-900 flex items-center text-lg';
 
         // 데이터 속성을 추가하여 색상 및 사이즈를 저장합니다.
         newDiv.setAttribute('data-color', colorName);

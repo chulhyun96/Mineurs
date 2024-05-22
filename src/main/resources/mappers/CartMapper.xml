@@ -22,6 +22,16 @@
             AND product_item_id = #{productItemId}
     </select>
 
+    <update id="update" parameterType="cart">
+        UPDATE 
+            cart 
+        SET 
+            member_id=${memberId}
+            ,product_item_id=${productItemId}
+            ,qty = ${qty} 
+        where id = ${id};
+    </update>
+
     <insert id="add" parameterType="cart">
         INSERT INTO 
         cart (member_id, product_item_id, qty) 
@@ -31,6 +41,11 @@
     <delete id="delete">
         DELETE FROM cart
         WHERE id = #{deleteId}
+    </delete>
+
+    <delete id="deleteByMid">
+        DELETE FROM cart
+        WHERE member_id = #{memberId}
     </delete>
 
     <update id="increase">
