@@ -1,22 +1,13 @@
 package com.newlecmineursprj.advice;
 
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 
 
 @Slf4j
 @ControllerAdvice
 public class ExceptionHandlerAdvice {
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    /*@ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler
     public void duplicateKeyExHandler(DuplicateKeyException ex, HttpServletResponse response) throws IOException {
         //회원 가입 아이디 중복 시
@@ -31,6 +22,6 @@ public class ExceptionHandlerAdvice {
         log.error("Member Email duplication {}", ex);
         ErrorResult memberDuplicatedError = new ErrorResult(ex, "이미 등록된 이메일입니다.");
         response.sendRedirect("/register?error=" + URLEncoder.encode(memberDuplicatedError.getDefaultMessage(), StandardCharsets.UTF_8));
-    }
+    }*/
 }
 
