@@ -65,6 +65,13 @@
         from (select p.*, count(l.member_id) like_count from product p
         left join `like` l on l.product_id = p.id
         group by p.id
+
+        <if test="pageRequest.sort.sorted">
+            <foreach item="order" index="i" collection="pageRequest.sort" separator=", ">
+                ORDER BY ${order.property} ${order.direction}
+            </foreach>
+        </if>
+
         limit #{pageRequest.offset}, #{pageRequest.pageSize}
         ) p
         left join category ct on ct.id = p.category_id
@@ -92,11 +99,7 @@
                 and is_sold = #{sellStatusResult}
             </if>
         </where>
-        <if test="pageRequest.sort.sorted">
-            <foreach item="order" index="i" collection="pageRequest.sort" separator=", ">
-                ORDER BY ${order.property} ${order.direction}
-            </foreach>
-        </if>
+
     </select>
 
     <select id="findAllByMemberId" resultMap="ProductView">
