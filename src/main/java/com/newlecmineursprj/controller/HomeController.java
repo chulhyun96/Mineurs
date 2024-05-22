@@ -39,7 +39,7 @@ private final PostService postService;
             , @RequestParam(defaultValue = "0") Long categoryId
             , @RequestParam(defaultValue = "") String calendarStart
             , @RequestParam(defaultValue = "") String calendarEnd
-            , @RequestParam(defaultValue = "") String selectedDisplayStatus
+            , @RequestParam(defaultValue = "진열함") String selectedDisplayStatus
             , @RequestParam(defaultValue = "") String selectedSellStatus
             , @AuthenticationPrincipal WebUserDetails webUserDetails
             , Model model) {
