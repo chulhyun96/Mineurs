@@ -42,7 +42,9 @@ public class WebSecurityConfig {
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .logoutSuccessUrl("/")
-                        .permitAll());
+                        .permitAll())
+                .headers(headers -> headers.frameOptions().sameOrigin());
         return http.build();
     }
+
 }

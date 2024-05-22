@@ -11,11 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -60,8 +56,10 @@ public class MyShopController {
                 searchMethod, searchKeyword, memberId,
                 calendarStart, calendarEnd, startDate);
 
+        System.out.println("orderlist = " + list.getSize());
+
         model.addAttribute("categoryList", categoryList);
-        model.addAttribute("orderPage", list);
+
         model.addAttribute("calendarStart", calendarStart);
         model.addAttribute("calendarEnd", calendarEnd);
         model.addAttribute("startDate", startDate);
@@ -71,9 +69,13 @@ public class MyShopController {
         return "myshop/order/list";
     }
 
+
     @GetMapping
     public String index(Model model) {
         List<Category> categoryList = categoryService.getList();
+
+
+
         model.addAttribute("categoryList", categoryList);
         return "myshop/index";
     }

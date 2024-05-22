@@ -23,3 +23,44 @@ function submitClearWishlistForm() {
     // 폼을 제출합니다.
     form.submit();
 }
+
+// Modal을 구현하고 그 안에 iframe 설정
+
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("my_modal_1");
+    const openModalButton = document.getElementById("openModalButton");
+    const iframe = document.getElementById("iframe");
+
+    // 모달 열기
+    function openModal() {
+        // iframe에 불러올 URL 설정
+        iframe.src = "http://localhost:8083/products/64"; // 원하는 URL로 변경
+        modal.showModal();
+    }
+
+    // 모달 닫기
+    function closeModal() {
+        modal.close();
+        iframe.src = ""; // 모달 닫힐 때 iframe 초기화
+    }
+
+    // 버튼 클릭 이벤트 리스너
+    openModalButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        openModal();
+    });
+
+    // ESC 키로 모달 닫기
+    window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            closeModal();
+        }
+    });
+
+    // 모달 외부 클릭으로 닫기
+    modal.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+});
