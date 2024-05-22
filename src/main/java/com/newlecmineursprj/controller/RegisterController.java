@@ -1,6 +1,6 @@
 package com.newlecmineursprj.controller;
 
-import com.newlecmineursprj.advice.ErrorResult;
+import com.newlecmineursprj.error.ErrorResult;
 import com.newlecmineursprj.entity.Member;
 import com.newlecmineursprj.service.RegisterService;
 import jakarta.servlet.http.HttpServletResponse;

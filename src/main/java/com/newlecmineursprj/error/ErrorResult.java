@@ -1,4 +1,4 @@
-package com.newlecmineursprj.advice;
+package com.newlecmineursprj.error;
 
 import lombok.Getter;
 import lombok.Setter;
