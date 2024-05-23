@@ -24,7 +24,6 @@
         <form>
             <select class="select select-bordered select-sm w-full max-w-64 border mt-12" name="categoryId">
                 <option value="0" selected th:selected="${{param.categoryId}}==0">전체</option>
-                <option>-문의유형을 선택후 작성해주세요</option>
                 <option value="1" th:selected="${{param.categoryId}}==1">교환 / 반품 문의</option>
                 <option value="2" th:selected="${{param.categoryId}}==2">배송 문의</option>
                 <option value="3" th:selected="${{param.categoryId}}==3">상품 문의</option>
