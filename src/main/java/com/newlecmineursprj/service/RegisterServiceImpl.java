@@ -19,6 +19,7 @@ public class RegisterServiceImpl implements RegisterService {
     private final RegisterRepository repository;
     private final MemberRoleRepository memberRoleRepository;
 
+
     @Override
     @Transactional
     public int reg(Member member) {
@@ -42,14 +43,26 @@ public class RegisterServiceImpl implements RegisterService {
         }
     }
 
+    /*OAuth2객체는 비밀번호가 따로 없고, 오로지 이메일주소와 사용자닉네임,프로필정보등만 얻을 수 있음
+    * 때문에 기존 로컬로그인과 별개로 오버로딩해서 별도로 만듬 */
+    /**/
     @Override
-    public OAuth2User reg(OAuth2User oAuth2User) {
+    public void reg(OAuth2User oAuth2User) {
 
         repository.save(Member.builder()
                 .name(oAuth2User.getAttribute("name"))
                 .email(oAuth2User.getAttribute("email"))
                 .build());
-        return oAuth2User;
+
+        String email = oAuth2User.getAttribute("email");
+        Member member = repository.findById(email);
+
+        MemberRole memberRole = MemberRole.builder()
+                .roleId(1L)
+                .memberId(member.getId())
+                .build();
+
+        memberRoleRepository.save(memberRole);
     }
 }
 

@@ -69,4 +69,8 @@
             </if>
         </trim>
     </insert>
+
+    <select id="findById">
+        select * from member where email = #{email}
+    </select>
 </mapper>

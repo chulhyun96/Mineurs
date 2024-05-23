@@ -41,6 +41,7 @@ public class OAuth2UserDetailsService implements OAuth2UserService<OAuth2UserReq
         WebUserDetails userDetails;
 
         if (member == null) {
+
             registerService.reg(oAuth2User);
 
             userDetails = WebUserDetails.builder()

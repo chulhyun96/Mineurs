@@ -7,5 +7,5 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 public interface RegisterService {
     int reg(Member member);
 
-    OAuth2User reg(OAuth2User oAuth2User);
+    void reg(OAuth2User oAuth2User);
 }
