@@ -1,4 +1,4 @@
-package com.newlecmineursprj.controller;
+package com.newlecmineursprj.controller.board;
 
 import com.newlecmineursprj.config.security.WebUserDetails;
 import com.newlecmineursprj.entity.Notice;

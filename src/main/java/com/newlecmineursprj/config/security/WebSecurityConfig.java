@@ -17,6 +17,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 @Slf4j
 public class WebSecurityConfig {
+
+    private final OAuth2UserDetailsService  oAuth2UserDetailsService;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         log.info("비밀번호 인코더 호출");
@@ -37,6 +40,11 @@ public class WebSecurityConfig {
                         .successHandler(new LoginSuccessHandler())
                         .failureHandler(new LoginAuthenticFailure())
                         .permitAll())
+                .oauth2Login(config->config
+                                .loginPage("/login")
+                                .userInfoEndpoint(userInf->userInf
+                                    .userService(oAuth2UserDetailsService))
+                )
                 .logout((logout) -> logout
                         .logoutUrl("/logout")
                         .invalidateHttpSession(true)
