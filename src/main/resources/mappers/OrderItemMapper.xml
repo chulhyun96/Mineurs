@@ -24,4 +24,11 @@
         VALUES (#{qty}, #{totalPrice}, #{orderId}, #{orderStateId}, #{productItemId});
     </insert>
 
+    <select id="findByOrderId" resultType="OrderItem">
+        SELECT
+        *
+        FROM order_item
+        where order_id = #{orderId}
+    </select>
+
 </mapper>

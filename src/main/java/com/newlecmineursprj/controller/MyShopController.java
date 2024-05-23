@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -31,6 +32,11 @@ public class MyShopController {
     private final CouponService couponService;
     private final AddressService addressService;
     private final PointService pointService;
+    private final OrderItemService orderItemService;
+    private final ProductItemService productItemService;
+
+    private final SizeService sizeService;
+    private final ColorService colorService;
 
     @GetMapping("order/list")
     public String orderList(@RequestParam(value = "p", defaultValue = "1") Integer pageNumber,
@@ -69,6 +75,47 @@ public class MyShopController {
         return "myshop/order/list";
     }
 
+    @GetMapping("order/detail")
+    public String orderDetail(@AuthenticationPrincipal WebUserDetails webUserDetails
+                            ,@RequestParam(value = "id") Long orderId
+                            ,Model model){
+
+        long memberId = webUserDetails.getId();
+        
+        OrderView orderView = orderService.getById(orderId);
+        List<OrderItem> orderItemList = orderItemService.getByOrderId(orderId);
+
+        List<Long> productItemIds = new ArrayList<>();
+        List<ProductItem> productItemList = new ArrayList<>();
+        List<Product> productList = new ArrayList<>();
+        List<Size> sizeList = new ArrayList<>();
+        List<Color> colorList = new ArrayList<>();
+
+        for (OrderItem orderItem : orderItemList)
+            productItemIds.add(orderItem.getProductItemId());
+        for (Long productItemId : productItemIds)
+            productItemList.add(productItemService.getById(productItemId));
+        for (ProductItem productItem : productItemList) {
+            productList.add(productService.getById(productItem.getProductId()));
+            sizeList.add(sizeService.getById(productItem.getSizeId()));
+            colorList.add(colorService.getById(productItem.getColorId()));
+        }
+
+        int totalPrice = 0;
+        for (int i = 0; i < orderItemList.size(); i++) {
+            totalPrice += orderItemList.get(i).getQty() * productList.get(i).getPrice();
+        }
+
+        model.addAttribute("orderItemList", orderItemList);
+        model.addAttribute("productList", productList);
+        model.addAttribute("sizeList", sizeList);
+        model.addAttribute("colorList", colorList);
+        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("orderView", orderView);
+
+        return "myshop/order/detail";
+    }
 
     @GetMapping
     public String index(Model model) {

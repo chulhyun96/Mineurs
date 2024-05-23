@@ -139,7 +139,7 @@ public class ProductController {
                 productItemService.stockDecrease(qty, productItem.getId());
             }
 
-            return "redirect:pay";
+            return "redirect:/order/payComplete";
 
         }
 
@@ -183,11 +183,5 @@ public class ProductController {
             return "redirect:" + productId;
         }
         return "redirect:" + productId;
-    }
-
-    @GetMapping("pay")
-    public String pay(Model model) {
-
-        return "order/pay";
     }
 }

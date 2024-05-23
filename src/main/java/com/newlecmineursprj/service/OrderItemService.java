@@ -11,4 +11,6 @@ public interface OrderItemService {
     OrderItem getById(Long id);
 
     void add(OrderItem orderItem);
+
+    List<OrderItem> getByOrderId(Long orderId);
 }

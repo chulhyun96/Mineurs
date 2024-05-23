@@ -168,17 +168,19 @@
                   <!--                <td scope="col" th:text="${product.description}">설명</td>-->
                   <td scope="col" th:text="${order.userName}">주문자</td>
                   <td scope="col">
-                    <span
-                      th:each="productName : ${order.productNames}"
-                      th:text="${productName}"
-                    >
-                      상품명
-                    </span>
-                    <div th:if="${order.productsCount > 1}">
-                      <span th:text="|외 ${order.productsCount-1}개|"
-                        >개수</span
+                    <a th:href="@{/admin/order/detail(id=${order.id})}">
+                      <span
+                        th:each="productName : ${order.productNames}"
+                        th:text="${productName}"
                       >
-                    </div>
+                        상품명
+                      </span>
+                      <div th:if="${order.productsCount > 1}">
+                        <span th:text="|외 ${order.productsCount-1}개|"
+                          >개수</span
+                        >
+                      </div>
+                    </a>
                   </td>
                   <td scope="col" th:text="${order.totalProductPrice}">
                     총 상품구매금액

@@ -82,7 +82,7 @@ public class OrderController {
     }
 
     @PostMapping("pay")
-    public String pay(@RequestParam("memberId") Long memberId){
+    public String pay(@RequestParam("memberId") Long memberId) {
 
         List<Cart> cartList = cartService.getByMid(memberId);
 
@@ -91,16 +91,15 @@ public class OrderController {
         int totalPrice = 0;
 
         for (int i = 0; i < cartList.size(); i++) {
-        Cart cart = cartList.get(i);
-        ProductItem productItem =
-        productItemService.getById(cart.getProductItemId());
-        productItemList.add(productItem);
-        Product product = productService.getById(productItem.getProductId());
-        productList.add(product);
+            Cart cart = cartList.get(i);
+            ProductItem productItem = productItemService.getById(cart.getProductItemId());
+            productItemList.add(productItem);
+            Product product = productService.getById(productItem.getProductId());
+            productList.add(product);
 
-        int qty = cart.getQty();
-        int price = product.getPrice();
-        totalPrice += price * qty;
+            int qty = cart.getQty();
+            int price = product.getPrice();
+            totalPrice += price * qty;
         }
 
         // order 테이블에 데이터 추가
@@ -111,33 +110,33 @@ public class OrderController {
         orderService.add(order);
 
         for (int i = 0; i < productItemList.size(); i++) {
-        Product product = productList.get(i);
-        ProductItem productItem = productItemList.get(i);
-        Cart cart = cartList.get(i);
-        int qty = cart.getQty();
-        int price = product.getPrice();
+            Product product = productList.get(i);
+            ProductItem productItem = productItemList.get(i);
+            Cart cart = cartList.get(i);
+            int qty = cart.getQty();
+            int price = product.getPrice();
 
-        // orderItem 테이블에 데이터 추가
-        OrderItem orderItem = new OrderItem();
-        orderItem.setQty(qty);
-        orderItem.setTotalPrice(price * qty);
-        orderItem.setOrderId(order.getId());
-        orderItem.setOrderStateId((long) 1);
-        orderItem.setProductItemId(productItem.getId());
-        orderItemService.add(orderItem);
+            // orderItem 테이블에 데이터 추가
+            OrderItem orderItem = new OrderItem();
+            orderItem.setQty(qty);
+            orderItem.setTotalPrice(price * qty);
+            orderItem.setOrderId(order.getId());
+            orderItem.setOrderStateId((long) 1);
+            orderItem.setProductItemId(productItem.getId());
+            orderItemService.add(orderItem);
 
-        // 주문한 갯수만큼 productItem 재고 감소
-        productItemService.stockDecrease(qty, productItem.getId());
+            // 주문한 갯수만큼 productItem 재고 감소
+            productItemService.stockDecrease(qty, productItem.getId());
         }
         // 구매한 후 장바구니에서 품목 삭제
         cartService.deleteByMid(memberId);
-        
-    return"redirect:/order/payComplete";
+
+        return "redirect:/order/payComplete";
 
     }
 
     @GetMapping("payComplete")
-    public String payComplete(){
+    public String payComplete() {
         return "order/payComplete";
     }
 }

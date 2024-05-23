@@ -30,6 +30,11 @@ public class OrderItemServiceImpl implements OrderItemService {
         repository.add(orderItem);
     }
 
+    @Override
+    public List<OrderItem> getByOrderId(Long orderId) {
+        return repository.findByOrderId(orderId);
+    }
+
     
 
 }
