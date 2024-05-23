@@ -69,7 +69,6 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public void reg(ProductRegDTO productRegDTO) throws IOException {
-
         // 메인 이미지 저장
         String storageMainImgName = imgStore.getStorageMainImgName(productRegDTO.getMainImgFile());
         Product product = Product.createProduct(productRegDTO);
