@@ -89,7 +89,6 @@ public class QnaController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         WebUserDetails webUserDetails = getPrincipal(authentication);
         boolean hasRoleAdmin = webUserDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
-        System.out.println(hasRoleAdmin);
         if (!accessGranted.equals("true") && !hasRoleAdmin) {
             return "redirect:/error";
         }
@@ -125,6 +124,12 @@ public class QnaController {
 
     @GetMapping("secretForm")
     public String secretForm(Long id, Model model, @ModelAttribute("errorMessage")Optional<String> errorMessage) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        WebUserDetails webUserDetails = getPrincipal(authentication);
+        boolean hasRoleAdmin = webUserDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        if(hasRoleAdmin)
+            return "redirect:/qna/"+id;
+
         model.addAttribute("id", id);
         errorMessage.ifPresent(msg -> model.addAttribute("errorMessage",msg));
         return "board/qna/secretForm";

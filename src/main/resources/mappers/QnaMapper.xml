@@ -76,6 +76,10 @@
         <if test="password != null and password !=''">
         , password = #{password}
         </if>
+        <if test="answerContent != null and answerContent !=''">
+            , answer_content = #{answerContent}
+            ,state = 1
+        </if>
         where id = #{id}
     </update>
 

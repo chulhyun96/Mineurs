@@ -1,5 +1,6 @@
 <!DOCTYPE >
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/inc/layout}">
 <head>
@@ -19,9 +20,7 @@
         <h1 class="text-center text-3xl">QnA</h1>
         <form class="mt-16" action="/qna/edit" method="post">
             <input type="hidden" value="3" name="id" th:value="${qna.id}">
-            <div>
-                나중에 문의할 사진 등록할 곳
-            </div>
+
             <div class="mt-4 flex">
                 <span>
                     <label th:if="${member != null}">
@@ -49,6 +48,20 @@
 
 
             <textarea id="summernote" name="content" th:text="${qna.content}"></textarea>
+            <div sec:authorize="hasRole('ADMIN')" class="mt-4 mb-4">
+                <label>
+                    관리자 답변
+                    <input class="border w-full h-12" type="text" name="answerContent" th:value="${qna.answerContent}">
+                </label>
+            </div>
+            <!--일반사용자-->
+            <div sec:authorize="!hasRole('ADMIN')"
+                 th:if="${qna.answerContent != null and qna.answerContent != ''}" class="mt-4 mb-4">
+                <label>
+                    관리자 답변
+                    <input class="border w-full h-12" disabled type="text" name="answerContent" th:value="${qna.answerContent}">
+                </label>
+            </div>
             <div class="flex justify-between my-4">
                 <label>
                     비밀번호
@@ -62,39 +75,6 @@
             </div>
         </form>
     </section>
-<!--    <section class="">-->
-<!--        <h1 class="text-center text-3xl">QnA</h1>-->
-<!--        <form class="">-->
-<!--            <table>-->
-<!--                <tbody>-->
-<!--                <tr>-->
-<!--                    <th>작성자</th>-->
-<!--                    <td th:text="${qna.memberId != null ? member.username : ''}">1</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <th>E-MAIL</th>-->
-<!--                    <td>1</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <th>SUBJECT</th>-->
-<!--                    <td>1</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <th>PASSWORD</th>-->
-<!--                    <td><input type="password" name="password" id="userPassword"></td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <th>CONTENTS</th>-->
-<!--                    <td>-->
-<!--                        <div th:utext="${qna.content}">1</div>-->
-<!--                    </td>-->
-<!--                </tr>-->
-<!--                </tbody>-->
-<!--            </table>-->
-<!--            <a class="btn" th:href="@{/qna}">돌아가기</a>-->
-<!--            <a class="btn">수정하기</a>-->
-<!--        </form>-->
-<!--    </section>-->
 </main>
 </body>
 </html>
