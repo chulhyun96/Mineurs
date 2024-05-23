@@ -44,7 +44,6 @@ public class MyShopController {
             @RequestParam(defaultValue = "") String calendarEnd, Model model) {
 
         long memberId = webUserDetails.getId();
-
         log.info("MemberId : {}", memberId);
 
         String startDate = SearchModuleUtil.getStartDate();
@@ -64,9 +63,7 @@ public class MyShopController {
         model.addAttribute("calendarStart", calendarStart);
         model.addAttribute("calendarEnd", calendarEnd);
         model.addAttribute("startDate", startDate);
-
         model.addAttribute("orderPage", list);
-
         return "myshop/order/list";
     }
 
