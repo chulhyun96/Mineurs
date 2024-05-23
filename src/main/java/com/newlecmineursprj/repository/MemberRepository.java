@@ -23,4 +23,6 @@ public interface MemberRepository {
     void deleteAll(List<Long> ids);
 
     int count(String searchMethod, String searchKeyword);
+
+    Member findByEmail(String email);
 }

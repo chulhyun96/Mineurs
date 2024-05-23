@@ -1,42 +1,40 @@
 package com.newlecmineursprj.config.security;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Builder
-public class WebUserDetails implements UserDetails {
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class WebUserDetails implements UserDetails, OAuth2User {
 
-    @Setter
-    @Getter
+    /*Local*/
+
     private Long id;
     private String username;
-    @Setter
     private String password;
-    @Setter
     private List<GrantedAuthority> authorities;
-    @Setter
-    @Getter
     private String name;
-    @Setter
-    @Getter
     private String phoneNumber;
-    @Setter
-    @Getter
     private String email;
-    @Setter
-    @Getter
     private String paymentPassword;
-    @Setter
-    @Getter
     private Date regDate;
 
+    /*social OAuth2*/
+    private Map<String, Object> attributes;
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
