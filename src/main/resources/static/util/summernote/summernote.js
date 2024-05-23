@@ -5,7 +5,7 @@ $(document).ready(function() {
             ['font', ['bold', 'italic', 'underline', 'clear']],
             ['para', ['ul', 'ol', 'paragraph']],
             ['height', ['height']],
-            ['insert', ['link', 'picture', 'video']],
+            // ['insert', ['link', 'picture', 'video']],
         ],
         height: 300,
         minHeight: null,

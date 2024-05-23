@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @RequestMapping("notices")
@@ -24,11 +23,11 @@ public class NoticeController {
     public String list(Model model){
 
         model.addAttribute("searchMethods", service.findAllSearchMethods());
-
         model.addAttribute("list", service.findAll());
         return "board/notice/list";
 
     }
+
 
 
     @GetMapping("{id}")

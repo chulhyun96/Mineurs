@@ -13,9 +13,7 @@ import com.newlecmineursprj.repository.ProductSubImgRepository;
 import com.newlecmineursprj.util.CustomPageImpl;
 import jakarta.transaction.Transactional;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -69,7 +67,6 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public void reg(ProductRegDTO productRegDTO) throws IOException {
-
         // 메인 이미지 저장
         String storageMainImgName = imgStore.getStorageMainImgName(productRegDTO.getMainImgFile());
         Product product = Product.createProduct(productRegDTO);
@@ -86,6 +83,7 @@ public class ProductServiceImpl implements ProductService {
         productItemRepository.saveAll(productItems);
     }
 
+    @Transactional
     @Override
     public void update(Product updateProduct, MultipartFile updateFile, List<MultipartFile> updateSubImgs)
             throws IOException {

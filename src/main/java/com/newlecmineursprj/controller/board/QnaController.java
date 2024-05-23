@@ -45,6 +45,7 @@ public class QnaController {
                         , Model model) {
         CustomPageImpl<QnaView> list = service.getList(pageNumber, pageSize,5,searchMethod, searchKeyword, categoryId,dueDate);
         List<Category> categoryList = categoryService.getList();
+        
 
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("list", list);
@@ -81,16 +82,19 @@ public class QnaController {
     }
 
     @GetMapping("{id}")
-    public String detail(Model model, @PathVariable Long id ,@CookieValue(value = "access_granted", defaultValue = "false") String accessGranted) {
-        if (!accessGranted.equals("true")) {
+    public String detail(Model model, @PathVariable Long id , @CookieValue(value = "access_granted", defaultValue = "false") String accessGranted) {
+
+
+        /*관리자 직접접근 추가*/
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        WebUserDetails webUserDetails = getPrincipal(authentication);
+        boolean hasRoleAdmin = webUserDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        if (!accessGranted.equals("true") && !hasRoleAdmin) {
             return "redirect:/error";
         }
         Qna qna = service.getById(id);
         QnaCategory category = qnaCategoryService.getById(qna.getQnaCategoryId());
         service.increase(id);
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        WebUserDetails webUserDetails = getPrincipal(authentication);
 
         model.addAttribute("qna", service.getById(id));
         if (webUserDetails != null) {
@@ -120,6 +124,12 @@ public class QnaController {
 
     @GetMapping("secretForm")
     public String secretForm(Long id, Model model, @ModelAttribute("errorMessage")Optional<String> errorMessage) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        WebUserDetails webUserDetails = getPrincipal(authentication);
+        boolean hasRoleAdmin = webUserDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        if(hasRoleAdmin)
+            return "redirect:/qna/"+id;
+
         model.addAttribute("id", id);
         errorMessage.ifPresent(msg -> model.addAttribute("errorMessage",msg));
         return "board/qna/secretForm";

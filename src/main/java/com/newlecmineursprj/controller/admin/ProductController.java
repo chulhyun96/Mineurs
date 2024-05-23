@@ -62,7 +62,7 @@ public class ProductController {
 
         Long memberId = null;
         if (webUserDetails != null)
-            memberId =  webUserDetails.getId();
+            memberId = webUserDetails.getId();
 
         CustomPageImpl<ProductListDTO> productPage = service.getList(
                 page, pageSize, "reg_date", 5
@@ -97,7 +97,7 @@ public class ProductController {
             log.error("Reg Form Error : {}", bindingResult + "\n");
             return PRODUCTS_VIEW + "/reg";
         }
-                service.reg(productRegDTO);
+        service.reg(productRegDTO);
         return REDIRECT + PRODUCTS_VIEW;
     }
 
@@ -117,7 +117,7 @@ public class ProductController {
 
         List<ProductItem> productItems = productItemService.getByProductId(id);
         List<ProductQtyDTO> productQtyDTOs = new ArrayList<>();
-        for(ProductItem productItem : productItems){
+        for (ProductItem productItem : productItems) {
             Color color = colorService.getById(productItem.getColorId());
             Size size = sizeService.getById(productItem.getSizeId());
             ProductQtyDTO productQtyDTO = new ProductQtyDTO();

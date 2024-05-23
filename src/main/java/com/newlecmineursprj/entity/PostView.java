@@ -10,6 +10,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class PostView {
 
+    private Long postId;
     private String boardName;
     private Long boardId;
     private String title;

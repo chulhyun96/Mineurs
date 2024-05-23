@@ -22,5 +22,7 @@ public class Qna {
     private String title;
     private String categoryName;
     private String password;
+    private String answerContent;
+    private Long state;
 
 }

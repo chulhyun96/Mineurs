@@ -20,4 +20,5 @@ public class QnaView {
     private Date regDateTime;
     private Long views;
     private String categoryName;
+    private Long state;
 }
