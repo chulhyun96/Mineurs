@@ -58,6 +58,7 @@ public class MyShopController {
 
         System.out.println("orderlist = " + list.getSize());
 
+
         model.addAttribute("categoryList", categoryList);
 
         model.addAttribute("calendarStart", calendarStart);

@@ -45,6 +45,7 @@ public class QnaController {
                         , Model model) {
         CustomPageImpl<QnaView> list = service.getList(pageNumber, pageSize,5,searchMethod, searchKeyword, categoryId,dueDate);
         List<Category> categoryList = categoryService.getList();
+        
 
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("list", list);

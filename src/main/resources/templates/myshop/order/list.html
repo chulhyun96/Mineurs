@@ -78,7 +78,6 @@
                     <thead>
                     <tr>
                         <th scope="col">주문일</th>
-                        <th scope="col">주문코드</th>
                         <th scope="col">주문자</th>
                         <th scope="col">상품명</th>
                         <th scope="col">총 상품구매금액</th>
@@ -93,10 +92,13 @@
 
                         <!--                <td scope="col" th:text="${product.categoryName}">카테고리 이름</td>-->
                         <td scope="col" th:text="${order.orderedDatetime}">주문일</td>
-                        <td scope="col" th:text="${order.code}">주문코드</td>
                         <!--                <td scope="col" th:text="${product.supplyingPrice}">공급가</td>-->
                         <!--                <td scope="col" th:text="${product.description}">설명</td>-->
-                        <td scope="col" th:text="${order.userName}">주문자</td>
+                        <td scope="col"> <img
+                                class="py-3"
+                                th:src="@{|/webapp/image/products/${order.pImgPath}|}"
+                                alt=""
+                        /></td>
                         <td scope="col">
                     <span
                             th:each="productName : ${order.productNames}"

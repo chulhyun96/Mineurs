@@ -24,5 +24,6 @@ public class OrderView {
     private String paymentMethod;
     private String orderState;
     private int productsCount;
+    private String pImgPath;
 
 }
