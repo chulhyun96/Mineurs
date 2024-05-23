@@ -61,7 +61,8 @@
                                 <button class="ml-3 text-2xl">+</button>
                             </form>
                         </th>
-                        <th scope="col" th:text="${cartList[i].qty}*${productList[i].price}"
+                        <th scope="col" th:with="price=${cartList[i].qty}*${productList[i].price}" 
+                        th:text="${#numbers.formatInteger(price, 3, 'COMMA') + '원'}"
                             class="text-center text-xl">상품구매금액
                         </th>
                         <th scope="col" class="text-center">
@@ -90,9 +91,8 @@
             </table>
             <div class="flex justify-between">
                 <div class="h-10 mt-2 flex justify-start font-bold">
-                    <div>선택상품</div>
-                    <button form="selectedList" name="userAction" value="1" class="mr-8 w-16 border-2">주문</button>
-                    <button form="selectedList" name="userAction" value="2" class="w-16 border-2">삭제</button>
+                    <button form="selectedList" name="userAction" value="1" class="w-20 border-2">선택주문</button>
+                    <button form="selectedList" name="userAction" value="2" class="w-20 border-2">선택삭제</button>
                 </div>
                 <form method="post" action="cart/user-action-all">
                     <div class="h-10 mt-2 flex justify-end font-bold">
