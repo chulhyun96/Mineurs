@@ -20,7 +20,8 @@ public class LoginServiceImpl implements LoginService{
     }
 
     @Override
-    public void updatePassword(Member member) {
+    public void updatePassword(Member member,String password) {
+        member.setEncodedPassword(password);
         repository.update(member);
     }
 }

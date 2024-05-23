@@ -14,7 +14,7 @@ public class MailService {
 
     private final JavaMailSender javaMailSender;
 
-    public void sendMail(Member member) {
+    public void sendMail(Member member, String tempPassword) {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
         try{
@@ -77,7 +77,7 @@ public class MailService {
                                                                                 </th>
                                                                                 <td align="left" valign="middle" width="28%" style="padding:13px 10px 10px; border-bottom:1px solid #d5d5d5; border-right:1px solid #d5d5d5; color:#393939;">
                                                                                     """
-                                                                                    +member.getPassword()+
+                                                                                    +tempPassword+
                                                                                     """
                                                                                 </td>
                                                                             </tr>

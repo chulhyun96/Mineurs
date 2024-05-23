@@ -65,10 +65,9 @@ public class LoginController {
         Member result = service.getById(member);
         if (result != null) {
             String tempPassword = RandomPasswordGenerator.generate(10);
-            result.setPassword(tempPassword);
-            service.updatePassword(result);
+            service.updatePassword(result,tempPassword);
             model.addAttribute("member", result);
-            mailService.sendMail(result);
+            mailService.sendMail(result,tempPassword);
             return "/pw-found";
         } else {
             redirectAttributes.addFlashAttribute("errorMessage", "일치하는 정보가 없습니다.");
