@@ -31,6 +31,8 @@ public class CartController {
     private OrderService orderService;
     @Autowired
     private OrderItemService orderItemService;
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping
     public String listByMid(@RequestParam(name = "mid", required = false) Long mid,
@@ -42,6 +44,7 @@ public class CartController {
         List<Product> productList = new ArrayList<>();
         List<Size> sizeList = new ArrayList<>();
         List<Color> colorList = new ArrayList<>();
+        List<Category> categoryList = categoryService.getList();
 
         for (Cart cart : cartList)
             productItemIds.add(cart.getProductItemId());
@@ -52,7 +55,7 @@ public class CartController {
             sizeList.add(sizeService.getById(productItem.getSizeId()));
             colorList.add(colorService.getById(productItem.getColorId()));
         }
-
+        model.addAttribute("categoryList", categoryList);
         model.addAttribute("cartList", cartList);
         model.addAttribute("productList", productList);
         model.addAttribute("sizeList", sizeList);

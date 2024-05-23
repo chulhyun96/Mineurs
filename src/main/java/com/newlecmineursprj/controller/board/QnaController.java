@@ -1,9 +1,11 @@
 package com.newlecmineursprj.controller.board;
 
 import com.newlecmineursprj.config.security.WebUserDetails;
+import com.newlecmineursprj.entity.Category;
 import com.newlecmineursprj.entity.Qna;
 import com.newlecmineursprj.entity.QnaCategory;
 import com.newlecmineursprj.entity.QnaView;
+import com.newlecmineursprj.service.CategoryService;
 import com.newlecmineursprj.service.MemberService;
 import com.newlecmineursprj.service.QnaCategoryService;
 import com.newlecmineursprj.service.QnaService;
@@ -19,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -30,6 +33,7 @@ public class QnaController {
     private final QnaService service;
     private final MemberService MemberService;
     private final QnaCategoryService qnaCategoryService;
+    private final CategoryService categoryService;
 
     @GetMapping
     public String list(@RequestParam(value= "p", defaultValue = "1")int pageNumber
@@ -40,7 +44,9 @@ public class QnaController {
                         , @RequestParam(defaultValue = "0") int dueDate
                         , Model model) {
         CustomPageImpl<QnaView> list = service.getList(pageNumber, pageSize,5,searchMethod, searchKeyword, categoryId,dueDate);
+        List<Category> categoryList = categoryService.getList();
 
+        model.addAttribute("categoryList", categoryList);
         model.addAttribute("list", list);
         return "/board/qna/list";
     }
