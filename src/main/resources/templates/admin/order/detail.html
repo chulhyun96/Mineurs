@@ -64,9 +64,10 @@
         </div>
         <div class="flex">
           <div class="mr-10 w-40 text-3xl">배송상태</div>
-          <form method="post" action="">
-            <select class="text-2xl" th:value="${orderView.orderState}">
-              <option th:each="state : ${orderStateList}" name="orderState" th:value="${state.id}" th:text="${state.name}"
+          <form method="post" action="orderState">
+            <input type="hidden" name="orderId" th:value="${orderId}">
+            <select class="text-2xl" name="orderState" th:value="${orderView.orderState}">
+              <option th:each="state : ${orderStateList}" th:text="${state.name}"
                 th:selected="${state.name == orderView.orderState}">
               </option>
             </select>

@@ -31,4 +31,10 @@
         where order_id = #{orderId}
     </select>
 
+    <update id="updateOrderState">
+        UPDATE order_item
+        SET order_state_id = #{orderStateId}
+        WHERE id = #{orderItemId};
+    </update>
+
 </mapper>

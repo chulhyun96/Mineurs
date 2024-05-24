@@ -9,4 +9,5 @@ import com.newlecmineursprj.entity.OrderState;
  */
 public interface OrderStateService {
     List<OrderState> getList();
+    OrderState getByName(String name);
 }

@@ -13,4 +13,6 @@ public interface OrderItemRepository {
     OrderItem findById(Long id);
     void add(OrderItem orderItem);
     List<OrderItem> findByOrderId(Long orderId);
+    void updateOrderState(Long orderStateId,Long orderItemId);
+
 }

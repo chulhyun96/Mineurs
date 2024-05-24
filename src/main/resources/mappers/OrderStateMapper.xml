@@ -11,4 +11,11 @@
         order_state
     </select>
 
+    <select id="findByName" resultType="OrderState">
+        SELECT
+        *
+        FROM order_state
+        where name = #{name}
+    </select>
+
 </mapper>
