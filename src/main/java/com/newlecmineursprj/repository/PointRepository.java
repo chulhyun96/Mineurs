@@ -10,4 +10,6 @@ import com.newlecmineursprj.entity.PointView;
 public interface PointRepository {
 
     List<PointView> findById(Long memberId);
+
+    void save(Integer totalProductPrice, Long memberId, Long id);
 }

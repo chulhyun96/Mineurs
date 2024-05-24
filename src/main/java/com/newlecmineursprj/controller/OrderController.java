@@ -3,6 +3,7 @@ package com.newlecmineursprj.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.newlecmineursprj.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,13 +20,6 @@ import com.newlecmineursprj.entity.OrderItem;
 import com.newlecmineursprj.entity.Product;
 import com.newlecmineursprj.entity.ProductItem;
 import com.newlecmineursprj.entity.Size;
-import com.newlecmineursprj.service.CartService;
-import com.newlecmineursprj.service.ColorService;
-import com.newlecmineursprj.service.OrderItemService;
-import com.newlecmineursprj.service.OrderService;
-import com.newlecmineursprj.service.ProductItemService;
-import com.newlecmineursprj.service.ProductService;
-import com.newlecmineursprj.service.SizeService;
 
 @Controller
 @RequestMapping("order")
@@ -45,6 +39,8 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private OrderItemService orderItemService;
+    @Autowired
+    private PointService pointService;
 
     @GetMapping("pay")
     public String pay(Model model, @ModelAttribute("cartList") List<Cart> cartList,
@@ -109,6 +105,7 @@ public class OrderController {
         order.setTotalProductPrice(totalPrice);
         orderService.add(order);
 
+
         for (int i = 0; i < productItemList.size(); i++) {
             Product product = productList.get(i);
             ProductItem productItem = productItemList.get(i);
@@ -128,6 +125,7 @@ public class OrderController {
             // 주문한 갯수만큼 productItem 재고 감소
             productItemService.stockDecrease(qty, productItem.getId());
         }
+
         // 구매한 후 장바구니에서 품목 삭제
         cartService.deleteByMid(memberId);
 

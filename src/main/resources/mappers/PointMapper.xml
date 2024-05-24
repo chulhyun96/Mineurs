@@ -9,5 +9,11 @@
     * FROM
     point_list_view where member_id = #{memberId}
 </select>
+    <insert id="save" >
+        INSERT INTO
+        point (accumulate_point,contents,member_id,order_id)
+        values
+        (#{totalProductPrice},`주문 적립금`,#{memberId},#{orderId})
+    </insert>
 
 </mapper>

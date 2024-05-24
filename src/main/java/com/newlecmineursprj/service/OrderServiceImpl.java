@@ -3,6 +3,7 @@ package com.newlecmineursprj.service;
 import com.newlecmineursprj.entity.Order;
 import com.newlecmineursprj.entity.OrderView;
 import com.newlecmineursprj.repository.OrderRepository;
+import com.newlecmineursprj.repository.PointRepository;
 import com.newlecmineursprj.util.CustomPageImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +18,7 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository repository;
+    private final PointRepository pointRepository;
 
     @Override
     public List<OrderView> getList(Integer pageNumber) {
@@ -92,6 +94,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void add(Order order) {
         repository.add(order);
+        Long memberId = order.getMemberId();
+        Long id = order.getId();
+        Integer totalProductPrice = order.getTotalProductPrice();
+        System.out.println("totalProductPrice = " + totalProductPrice);
+        System.out.println("memberId = " + memberId);
+        System.out.println("id = " + id);
+        pointRepository.save(totalProductPrice,memberId,id);
+
     }
 
 }
