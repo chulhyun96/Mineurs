@@ -40,6 +40,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public Member getByName(String name) {
+        return repository.findByName(name);
+    }
+
+    @Override
     public void save(Member member) {
         repository.save(member);
     }
@@ -73,4 +78,5 @@ public class MemberServiceImpl implements MemberService {
     public int getCount(String searchMethod, String searchKeyword) {
         return repository.count(searchMethod, searchKeyword);
     }
+
 }

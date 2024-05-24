@@ -110,8 +110,8 @@ public class OrderController {
 
         List<OrderState> orderStateList = orderStateService.getList();
 
-        Member member = memberService.getById(memberId);
-
+        Member member = memberService.getByName(orderView.getUserName());
+        
         model.addAttribute("orderItemList", orderItemList);
         model.addAttribute("productList", productList);
         model.addAttribute("sizeList", sizeList);

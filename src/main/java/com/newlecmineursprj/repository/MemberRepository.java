@@ -13,6 +13,8 @@ public interface MemberRepository {
 
     Member findById(long id);
     Optional<Member> findByUsername(String username);
+    
+    Member findByName(String name);
 
     void save(Member member);
 

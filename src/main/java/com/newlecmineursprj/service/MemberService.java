@@ -12,6 +12,8 @@ public interface MemberService {
     
     Member getById(long id);
 
+    Member getByName(String name);
+
     void save(Member member);
 
     void update(Member member);
