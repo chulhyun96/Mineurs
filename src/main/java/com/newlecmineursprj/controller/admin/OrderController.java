@@ -8,7 +8,9 @@ import com.newlecmineursprj.entity.Product;
 import com.newlecmineursprj.entity.ProductItem;
 import com.newlecmineursprj.entity.Size;
 import com.newlecmineursprj.entity.Color;
+import com.newlecmineursprj.entity.Member;
 import com.newlecmineursprj.service.ColorService;
+import com.newlecmineursprj.service.MemberService;
 import com.newlecmineursprj.service.OrderItemService;
 import com.newlecmineursprj.service.OrderService;
 import com.newlecmineursprj.service.OrderStateService;
@@ -49,6 +51,7 @@ public class OrderController {
 
     private final ColorService colorService;
     private final OrderStateService orderStateService;
+    private final MemberService memberService;
 
     @GetMapping
     public String list(Model model, @RequestParam(value = "p", defaultValue = "1") Integer page,
@@ -107,6 +110,8 @@ public class OrderController {
 
         List<OrderState> orderStateList = orderStateService.getList();
 
+        Member member = memberService.getById(memberId);
+
         model.addAttribute("orderItemList", orderItemList);
         model.addAttribute("productList", productList);
         model.addAttribute("sizeList", sizeList);
@@ -116,6 +121,7 @@ public class OrderController {
         model.addAttribute("orderView", orderView);
         model.addAttribute("orderStateList", orderStateList);
         model.addAttribute("orderId", orderId);
+        model.addAttribute("member", member);
 
         return "admin/order/detail";
     }

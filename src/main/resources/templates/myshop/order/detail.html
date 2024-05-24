@@ -61,7 +61,7 @@
       <div class="border-y py-6 px-8">
         <div class="flex mb-6">
           <div class="mr-10 w-40 text-3xl">주문일자</div>
-          <div class="text-2xl" th:text="${orderView.orderedDatetime}"></div>
+          <div class="text-2xl" th:text="${#dates.format(orderView.orderedDatetime,'yyyy-MM-dd')}"></div>
         </div>
         <div class="flex">
           <div class="mr-10 w-40 text-3xl">배송상태</div>

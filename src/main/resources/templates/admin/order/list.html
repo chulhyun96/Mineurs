@@ -133,13 +133,13 @@
                   <th scope="col" class="w:2"></th>
                   <!--                <th scope="col">카테고리 이름</th>-->
                   <th scope="col">주문일</th>
-                  <th scope="col">상품코드</th>
+                  <!-- <th scope="col">상품코드</th> -->
                   <!--                <th scope="col">공급가</th>-->
                   <th scope="col">주문자</th>
                   <th scope="col">상품명</th>
                   <th scope="col">총 상품구매금액</th>
                   <th scope="col">총 실결제금액</th>
-                  <th scope="col">결제수단</th>
+                  <!-- <th scope="col">결제수단</th> -->
                   <th scope="col">주문상태</th>
                 </tr>
               </thead>
@@ -161,7 +161,7 @@
                   >
                     주문일
                   </td>
-                  <td scope="col" th:text="${order.code}">상품코드</td>
+                  <!-- <td scope="col" th:text="${order.code}">상품코드</td> -->
                   <!--                <td scope="col" th:text="${product.supplyingPrice}">공급가</td>-->
                   <!--                <td scope="col" th:text="${product.description}">설명</td>-->
                   <td scope="col" th:text="${order.userName}">주문자</td>
@@ -189,7 +189,7 @@
                   >
                     총 실결제금액
                   </td>
-                  <td scope="col" th:text="${order.paymentMethod}">결제수단</td>
+                  <!-- <td scope="col" th:text="${order.paymentMethod}">결제수단</td> -->
                   <!--                <td>No</td>-->
                   <td scope="col" th:text="${order.orderState}">주문상태</td>
                 </tr>
