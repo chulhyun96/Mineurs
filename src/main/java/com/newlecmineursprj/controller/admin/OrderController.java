@@ -8,7 +8,9 @@ import com.newlecmineursprj.entity.Product;
 import com.newlecmineursprj.entity.ProductItem;
 import com.newlecmineursprj.entity.Size;
 import com.newlecmineursprj.entity.Color;
+import com.newlecmineursprj.entity.Member;
 import com.newlecmineursprj.service.ColorService;
+import com.newlecmineursprj.service.MemberService;
 import com.newlecmineursprj.service.OrderItemService;
 import com.newlecmineursprj.service.OrderService;
 import com.newlecmineursprj.service.OrderStateService;
@@ -26,6 +28,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -48,6 +51,7 @@ public class OrderController {
 
     private final ColorService colorService;
     private final OrderStateService orderStateService;
+    private final MemberService memberService;
 
     @GetMapping
     public String list(Model model, @RequestParam(value = "p", defaultValue = "1") Integer page,
@@ -106,6 +110,8 @@ public class OrderController {
 
         List<OrderState> orderStateList = orderStateService.getList();
 
+        Member member = memberService.getByName(orderView.getUserName());
+        
         model.addAttribute("orderItemList", orderItemList);
         model.addAttribute("productList", productList);
         model.addAttribute("sizeList", sizeList);
@@ -114,8 +120,24 @@ public class OrderController {
         model.addAttribute("memberId", memberId);
         model.addAttribute("orderView", orderView);
         model.addAttribute("orderStateList", orderStateList);
+        model.addAttribute("orderId", orderId);
+        model.addAttribute("member", member);
 
         return "admin/order/detail";
+    }
+
+    @PostMapping("orderState")
+    public String orderState(@RequestParam("orderId") Long orderId
+                            ,@RequestParam("orderState") String orderStateName){
+
+        OrderState orderState = orderStateService.getByName(orderStateName);
+        List<OrderItem> orderItemList = orderItemService.getByOrderId(orderId);
+
+        for(OrderItem orderItem : orderItemList){
+            orderItemService.changeOrderState(orderState.getId(), orderItem.getId());
+        }
+
+        return "redirect:detail?id=" + orderId;
     }
 
     @GetMapping("excel")

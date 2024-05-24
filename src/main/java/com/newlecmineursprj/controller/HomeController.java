@@ -47,8 +47,6 @@ private final PostService postService;
         List<Category> categoryList = categoryService.getList();
         model.addAttribute("categoryList",categoryList);
 
-
-
         Integer sellStatusResults = SearchModuleUtil.searchBySellStatus(selectedSellStatus);
         String startDate = SearchModuleUtil.getStartDate();
         Integer displayStatusResult = SearchModuleUtil.searchByDisplayStatus(selectedDisplayStatus);

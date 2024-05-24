@@ -56,17 +56,35 @@
       </div>
     </section>
     <section class="mt-6 px-8">
+      <h1 class="text-4xl mb-2 ml-4">고객 정보</h1>
+      <div class="border-y py-6 px-8">
+        <div class="flex mb-6">
+          <div class="mr-10 w-40 text-3xl">아이디</div>
+          <div class="text-2xl" th:text="${member.username}"></div>
+        </div>
+        <div class="flex mb-6">
+          <div class="mr-10 w-40 text-3xl">이름</div>
+          <div class="text-2xl" th:text="${member.name}"></div>
+        </div>
+        <div class="flex mb-6">
+          <div class="mr-10 w-40 text-3xl">연락처</div>
+          <div class="text-2xl" th:text="${member.phoneNumber}"></div>
+        </div>
+      </div>
+    </section>
+    <section class="mt-6 px-8">
       <h1 class="hidden">추가 정보</h1>
       <div class="border-y py-6 px-8">
         <div class="flex mb-6">
           <div class="mr-10 w-40 text-3xl">주문일자</div>
-          <div class="text-2xl" th:text="${orderView.orderedDatetime}"></div>
+          <div class="text-2xl" th:text="${#dates.format(orderView.orderedDatetime,'yyyy-MM-dd')}"></div>
         </div>
         <div class="flex">
           <div class="mr-10 w-40 text-3xl">배송상태</div>
-          <form method="post" action="">
-            <select class="text-2xl" th:value="${orderView.orderState}">
-              <option th:each="state : ${orderStateList}" name="orderState" th:value="${state.id}" th:text="${state.name}"
+          <form method="post" action="orderState">
+            <input type="hidden" name="orderId" th:value="${orderId}">
+            <select class="text-2xl" name="orderState" th:value="${orderView.orderState}">
+              <option th:each="state : ${orderStateList}" th:text="${state.name}"
                 th:selected="${state.name == orderView.orderState}">
               </option>
             </select>

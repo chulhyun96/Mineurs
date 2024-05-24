@@ -11,4 +11,5 @@ public interface OrderStateRepository {
     
     List<OrderState> findAll();
 
+    OrderState findByName(String name);
 }

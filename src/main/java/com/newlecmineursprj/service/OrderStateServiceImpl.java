@@ -21,5 +21,10 @@ public class OrderStateServiceImpl implements OrderStateService {
     public List<OrderState> getList() {
         return repository.findAll();
     }
+
+    @Override
+    public OrderState getByName(String name) {
+        return repository.findByName(name);
+    }
     
 }

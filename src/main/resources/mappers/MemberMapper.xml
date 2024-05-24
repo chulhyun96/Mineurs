@@ -27,6 +27,13 @@
         where id = #{id}
     </select>
 
+    <select id="findByName" resultType="Member">
+        SELECT
+        *
+        FROM member
+        where name = #{name}
+    </select>
+
     <select id="findByUsername" resultType="Member">
         SELECT
         *

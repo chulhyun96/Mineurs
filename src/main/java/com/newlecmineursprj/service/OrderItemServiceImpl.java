@@ -35,6 +35,11 @@ public class OrderItemServiceImpl implements OrderItemService {
         return repository.findByOrderId(orderId);
     }
 
+    @Override
+    public void changeOrderState(Long orderStateId, Long orderItemId) {
+        repository.updateOrderState(orderStateId, orderItemId);
+    }
+
     
 
 }
