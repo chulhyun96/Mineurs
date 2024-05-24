@@ -42,7 +42,7 @@
             <if test="memberId != null">
                 and member_id LIKE ${memberId}
             </if>
-            <if test="calendarStart != '' and calendarEnd != ''">
+            <if test="!calendarStart.isEmpty() and !calendarEnd.isEmpty()">
                 and ordered_datetime between #{calendarStart} and #{calendarEnd}
             </if>
         </where>

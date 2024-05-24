@@ -12,11 +12,11 @@
   </head>
   <body>
     <main layout:fragment="main" class="flex flex-col container mx-auto px-10">
-      <h1 class="font-bold text-3xl self-center">관리자 상품목록</h1>
+      <h1 class="font-bold text-3xl self-center">관리자 주문목록</h1>
       <!--    검색 -->
 
       <section class="overflow-x-auto w-full flex flex-col">
-        <h1 class="text-2xl mb-0">결제 정보</h1>
+
         <form
           method="get"
           action="/admin/order"
@@ -96,14 +96,12 @@
                         type="date"
                         name="calendarStart"
                         th:value="${calendarStart}"
-                        th:max="${startDate}"
                       />
                       <span>~</span>
                       <input
                         type="date"
                         name="calendarEnd"
                         th:value="${calendarEnd}"
-                        th:min="${startDate}"
                       />
                     </div>
                   </div>
@@ -159,7 +157,7 @@
                   <!--                <td scope="col" th:text="${product.categoryName}">카테고리 이름</td>-->
                   <td
                     scope="col"
-                    th:text="${#dates.format(order.orderedDatetime, 'yyyy-MM-dd HH:mm:ss')}"
+                    th:text="${#dates.format(order.orderedDatetime, 'yyyy-MM-dd')}"
                   >
                     주문일
                   </td>
@@ -182,12 +180,12 @@
                       </div>
                     </a>
                   </td>
-                  <td scope="col" th:text="${order.totalProductPrice}">
+                  <td scope="col" th:text="${{order.totalProductPrice}}">
                     총 상품구매금액
                   </td>
                   <td
                     scope="col"
-                    th:text="${order.totalProductPrice} - ${order.totalDiscountAmount}"
+                    th:text="${order.totalProductPrice}- ${order.totalDiscountAmount}"
                   >
                     총 실결제금액
                   </td>

@@ -17,7 +17,6 @@ import java.util.Map;
 public class WebUserDetails implements UserDetails, OAuth2User {
 
     /*Local*/
-
     private Long id;
     private String username;
     private String password;
