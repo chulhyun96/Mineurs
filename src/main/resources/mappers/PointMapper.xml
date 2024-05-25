@@ -11,9 +11,9 @@
 </select>
     <insert id="save" >
         INSERT INTO
-        point (accumulate_point,contents,member_id,order_id)
+        point (accumulate_point,member_id,order_id)
         values
-        (#{totalProductPrice},`주문 적립금`,#{memberId},#{orderId})
+        (#{point},#{memberId},#{id})
     </insert>
 
 </mapper>

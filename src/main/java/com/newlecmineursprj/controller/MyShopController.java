@@ -70,6 +70,11 @@ public class MyShopController {
         model.addAttribute("calendarEnd", calendarEnd);
         model.addAttribute("startDate", startDate);
         model.addAttribute("orderPage", list);
+
+        for (OrderView orderView : list) {
+            System.out.println("orderView.getPImgPath() = " + orderView.getPImgPath());
+        }
+
         return "myshop/order/list";
     }
 

@@ -100,7 +100,8 @@ public class OrderServiceImpl implements OrderService {
         System.out.println("totalProductPrice = " + totalProductPrice);
         System.out.println("memberId = " + memberId);
         System.out.println("id = " + id);
-        pointRepository.save(totalProductPrice,memberId,id);
+        Integer point = totalProductPrice / 100;
+        pointRepository.save(point,memberId,id);
 
     }
 

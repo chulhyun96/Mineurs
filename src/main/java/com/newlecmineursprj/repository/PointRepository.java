@@ -11,5 +11,5 @@ public interface PointRepository {
 
     List<PointView> findById(Long memberId);
 
-    void save(Integer totalProductPrice, Long memberId, Long id);
+    void save(Integer point, Long memberId, Long id);
 }

@@ -74,7 +74,7 @@
                     <thead>
                     <tr>
                         <th scope="col">주문일</th>
-                        <!-- <th scope="col">주문자</th> -->
+                         <th scope="col">주문자</th>
                         <th scope="col">상품명</th>
                         <th scope="col">총 상품구매금액</th>
                         <th scope="col">총 실결제금액</th>
@@ -95,6 +95,14 @@
                                 th:src="@{|/webapp/image/products/${order.pImgPath}|}"
                                 alt=""
                         /></td> -->
+                            <td scope="col">
+                                <div>
+                                    <img class="py-3 h-56"
+                                         th:src="@{|/webapp/image/products/${order.pImgPath}|}"
+                                         alt=""
+                                    />
+                                </div>
+                            </td>
 
                             <td scope="col">
                                 <a th:href="@{detail(id=${order.id})}">
