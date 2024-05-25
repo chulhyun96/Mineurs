@@ -22,4 +22,6 @@ public class PointServiceImpl implements PointService {
         return repository.findById(memberId);
     }
 
+
+
 }

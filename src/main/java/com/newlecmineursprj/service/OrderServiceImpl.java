@@ -2,6 +2,7 @@ package com.newlecmineursprj.service;
 
 import com.newlecmineursprj.entity.Order;
 import com.newlecmineursprj.entity.OrderView;
+import com.newlecmineursprj.repository.MemberRepository;
 import com.newlecmineursprj.repository.OrderRepository;
 import com.newlecmineursprj.repository.PointRepository;
 import com.newlecmineursprj.util.CustomPageImpl;
@@ -10,8 +11,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +23,7 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository repository;
     private final PointRepository pointRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public List<OrderView> getList(Integer pageNumber) {
@@ -92,6 +97,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public void add(Order order) {
         repository.add(order);
         Long memberId = order.getMemberId();
@@ -103,6 +109,38 @@ public class OrderServiceImpl implements OrderService {
         Integer point = totalProductPrice / 100;
         pointRepository.save(point,memberId,id);
 
+        memberRepository.updatePoint(point,memberId);
+
+    }
+
+    @Override
+    public List<OrderView> getByMemberId(Long memberId) {
+        return repository.findByMemberId(memberId);
+    }
+
+    @Override
+    public Map<String, Integer> getOrderStateCounts(List<OrderView> orderList) {
+        Map<String, Integer> orderStateCounts = new HashMap<>();
+        orderStateCounts.put("결제완료", 0);
+        orderStateCounts.put("배송중", 0);
+        orderStateCounts.put("배송준비중", 0);
+        orderStateCounts.put("배송완료", 0);
+
+        for (OrderView order : orderList) {
+            String orderState = order.getOrderState(); // 실제 OrderView에서 상태를 가져오는 코드로 대체
+            orderStateCounts.put(orderState, orderStateCounts.getOrDefault(orderState, 0) + 1);
+        }
+
+        return orderStateCounts;
+    }
+
+    @Override
+    public int getTotalOrderCount(Map<String, Integer> orderStateCounts) {
+        int totalOrderCount = 0;
+        for (int count : orderStateCounts.values()) {
+            totalOrderCount += count;
+        }
+        return totalOrderCount;
     }
 
 }

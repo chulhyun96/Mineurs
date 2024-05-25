@@ -97,10 +97,12 @@
                         /></td> -->
                             <td scope="col">
                                 <div>
-                                    <img class="py-3 h-56"
-                                         th:src="@{|/webapp/image/products/${order.pImgPath}|}"
-                                         alt=""
-                                    />
+                                    <a th:href="@{detail(id=${order.id})}">
+                                        <img class="py-3 h-56"
+                                             th:src="@{|/webapp/image/products/${order.pImgPath}|}"
+                                             alt=""
+                                        />
+                                    </a>
                                 </div>
                             </td>
 
@@ -114,11 +116,11 @@
                                     </div>
                                 </a>
                             </td>
-                            <td scope="col" th:text="${#numbers.formatInteger(order.totalProductPrice, 0, 'COMMA')}">
+                            <td scope="col" th:text="${#numbers.formatInteger(order.totalProductPrice, 0, 'COMMA') +'원'}">
                                 총 상품구매금액
                             </td>
                             <td scope="col"
-                                th:text="${#numbers.formatInteger(order.totalProductPrice-order.totalDiscountAmount, 0, 'COMMA')}">
+                                th:text="${#numbers.formatInteger(order.totalProductPrice - order.totalDiscountAmount, 0, 'COMMA') + '원'}">
                                 총 실결제금액
                             </td>
                             <!-- <td scope="col" th:text="${order.paymentMethod}">결제수단</td> -->

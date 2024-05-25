@@ -1,6 +1,8 @@
 package com.newlecmineursprj.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,10 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public void regBymemberId(Address address, Long memberId) {
-        repository.reg(address, memberId);
+        Map<String, Object> params = new HashMap<>();
+        params.put("address", address);
+        params.put("memberId", memberId);
+        repository.saveByMemberId(params);
     }
 
     @Override
@@ -33,6 +38,11 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void edit(Address address) {
         repository.update(address);
+    }
+
+    @Override
+    public void delete(long memberId, Long addressId) {
+        repository.delete(memberId,addressId);
     }
 
 }

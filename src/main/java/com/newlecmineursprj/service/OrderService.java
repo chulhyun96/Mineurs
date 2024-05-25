@@ -5,6 +5,7 @@ import com.newlecmineursprj.entity.OrderView;
 import com.newlecmineursprj.util.CustomPageImpl;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrderService {
 
@@ -29,5 +30,9 @@ public interface OrderService {
 
     void add(Order order);
 
-    
+    List<OrderView> getByMemberId(Long memberId);
+
+    Map<String, Integer> getOrderStateCounts(List<OrderView> orderList);
+
+    int getTotalOrderCount(Map<String, Integer> orderStateCounts);
 }

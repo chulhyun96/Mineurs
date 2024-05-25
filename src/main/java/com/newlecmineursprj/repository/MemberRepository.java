@@ -27,4 +27,6 @@ public interface MemberRepository {
     int count(String searchMethod, String searchKeyword);
 
     Member findByEmail(String email);
+
+    void updatePoint(Integer point,Long memberId);
 }

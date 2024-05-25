@@ -19,6 +19,6 @@ public interface OrderRepository {
     int getCount(String searchMethod, String searchKeyword, Long memberId);
 
     OrderView findById(Long id);
-
+    List<OrderView> findByMemberId(Long memberId);
     void add(Order order);
 }

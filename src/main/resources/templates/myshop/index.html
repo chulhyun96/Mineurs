@@ -13,18 +13,19 @@
   </head>
   <body>
     <main layout:fragment="main" class="container mx-auto px-20 mt-20">
+
       <section class="w-full">
         <h1 class="hidden">마이페이지</h1>
         <div class="text-center font-serif">My Page</div>
         <div class="text-base mt-10">
           <ul class="list-none flex justify-center text-sm">
-            <li class="px-2">가용적립금 3000원</li>
+            <li class="px-2">가용적립금 <span  th:text="${#numbers.formatInteger(member.point, 0, 'COMMA')} +원"></span></li>
             <li>
               <a class="btn btn-xs" href="myshop/point">조회</a>
             </li>
-            <li class="px-2">총적립금 3000원</li>
+            <li class="px-2">총적립금 <span th:text="${#numbers.formatInteger(member.point, 0, 'COMMA')} +원"></span></li>
             <li class="px-2">사용적립금 0원</li>
-            <li class="px-2">총주문 0원(0회)</li>
+            <li class="px-2">총주문 <span th:text="${totalOrderCount}"></span>회</li>
             <li class="px-2">쿠폰 0개</li>
             <li class="px-2">
               <a class="btn btn-xs" href="myshop/coupon">조회</a>
@@ -40,26 +41,26 @@
           </div>
           <div class="flex py-8 h-40">
             <div class="flex flex-col justify-center text-center w-full">
-              <div>입금전</div>
-              <a href="" class="font-bold">0</a>
+              <div>결제완료</div>
+              <a href="" class="font-bold" th:text="${orderStateCounts['결제완료']}">0</a>
             </div>
             <div
               class="flex flex-col justify-center text-center w-full border-l-2 border-dotted border-slate-700"
             >
               <div>배송준비중</div>
-              <a href="" class="font-bold">0</a>
+              <a href="" class="font-bold" th:text="${orderStateCounts['배송준비중']}">0</a>
             </div>
             <div
               class="flex flex-col justify-center text-center w-full border-l-2 border-dotted border-slate-700"
             >
               <div>배송중</div>
-              <a href="" class="font-bold">0</a>
+              <a href="" class="font-bold" th:text="${orderStateCounts['배송중']}">0</a>
             </div>
             <div
               class="flex flex-col justify-center text-center w-full border-l-2 border-dotted border-slate-700"
             >
               <div>배송완료</div>
-              <a href="" class="font-bold">0</a>
+              <a href="" class="font-bold" th:text="${orderStateCounts['배송완료']}">0</a>
             </div>
             <div
               class="flex flex-col items-center justify-center text-center w-full border-l-2 border-dotted border-slate-700"
@@ -123,14 +124,14 @@
                 <span class="text-xs">쿠폰</span></a
               >
             </li>
-            <li class="border border-slate-950 w-28 h-28 flex text-sm px-0">
-              <a
-                href="/myshop/post"
-                class="flex flex-col justify-center items-center w-full"
-                ><span class="font-medium">Board</span>
-                <span class="text-xs">게시물 관리</span></a
-              >
-            </li>
+<!--            <li class="border border-slate-950 w-28 h-28 flex text-sm px-0">-->
+<!--              <a-->
+<!--                href="/myshop/post"-->
+<!--                class="flex flex-col justify-center items-center w-full"-->
+<!--                ><span class="font-medium">Board</span>-->
+<!--                <span class="text-xs">게시물 관리</span></a-->
+<!--              >-->
+<!--            </li>-->
             <li class="border border-slate-950 w-28 h-28 flex text-sm px-0">
               <a
                 href="/myshop/addr/list"

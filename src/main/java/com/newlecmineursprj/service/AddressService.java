@@ -12,4 +12,6 @@ public interface AddressService {
     Address getById(long id, Long memberId);
 
     void edit(Address address);
+
+    void delete(long memberId, Long addressId);
 }

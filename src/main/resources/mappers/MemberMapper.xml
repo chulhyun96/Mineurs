@@ -90,4 +90,11 @@
     <select id="findByEmail">
         select email from member where email = #{email}
     </select>
+
+    <update id="updatePoint">
+        UPDATE member
+        SET point = point + #{point}
+        WHERE id = #{memberId};
+    </update>
+
 </mapper>

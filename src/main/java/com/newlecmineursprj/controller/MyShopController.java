@@ -8,6 +8,7 @@ import com.newlecmineursprj.util.CustomPageImpl;
 import com.newlecmineursprj.util.SearchModuleUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.math3.analysis.function.Add;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -121,12 +123,22 @@ public class MyShopController {
     }
 
     @GetMapping
-    public String index(Model model) {
+    public String index(Model model,@AuthenticationPrincipal WebUserDetails webUserDetails) {
         List<Category> categoryList = categoryService.getList();
 
+        long memberId = webUserDetails.getId();
+
+        Member member = memberService.getById(memberId);
+        List<OrderView> orderList = orderService.getByMemberId(memberId);
+        Map<String, Integer> orderStateCounts = orderService.getOrderStateCounts(orderList);
+        int totalOrderCount = orderService.getTotalOrderCount(orderStateCounts);
 
 
+        model.addAttribute("totalOrderCount", totalOrderCount);
+        model.addAttribute("member", member);
+        model.addAttribute("orderList", orderList);
         model.addAttribute("categoryList", categoryList);
+        model.addAttribute("orderStateCounts", orderStateCounts);
         return "myshop/index";
     }
 
@@ -173,7 +185,9 @@ public class MyShopController {
 
         long memberId = webUserDetails.getId();
         Member member = memberService.getById(memberId);
+        List<OrderView> orderList = orderService.getByMemberId(memberId);
         List<PointView> pointList = pointService.getList(memberId);
+
 
         model.addAttribute("member", member);
         model.addAttribute("pointList", pointList);
@@ -221,4 +235,39 @@ public class MyShopController {
         return "redirect:/myshop/addr/list";
     }
 
+    @GetMapping("addr/register")
+    public String addrRegister(Model model, @AuthenticationPrincipal WebUserDetails webUserDetails
+    ) {
+        long memberId = webUserDetails.getId();
+
+        return "myshop/addr/register";
+    }
+    @PostMapping("addr/register")
+    public String postRegister(Address address, @AuthenticationPrincipal WebUserDetails webUserDetails){
+
+        Long memberId = webUserDetails.getId();
+
+        addressService.regBymemberId(address,memberId);
+
+        return "redirect:/myshop/addr/list";
+    }
+    @PostMapping("addr/list")
+    public String listDelete(@AuthenticationPrincipal WebUserDetails webUserDetails,
+                             @RequestParam(required = false) Long addressId,
+                             @RequestParam(required = false) List<Long> addressIds){
+
+        long memberId = webUserDetails.getId();
+
+        if (addressId != null) {
+            // 단일 항목 삭제
+            addressService.delete(memberId, addressId);
+        } else if (addressIds != null && !addressIds.isEmpty()) {
+            // 다중 항목 삭제
+            for (Long id : addressIds) {
+                addressService.delete(memberId, id);
+            }
+        }
+
+        return "redirect:/myshop/addr/list";
+    }
 }

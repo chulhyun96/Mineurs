@@ -87,4 +87,10 @@
             VALUES (#{totalProductPrice}, #{memberId});
         </insert>
 
+    <select id="findByMemberId" resultMap="OrderView">
+        select
+        *
+        from order_list_view where member_id = #{MemberId}
+    </select>
+
 </mapper>
