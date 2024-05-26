@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberRole {
-
     private Long roleId;
     private Long memberId;
 }
