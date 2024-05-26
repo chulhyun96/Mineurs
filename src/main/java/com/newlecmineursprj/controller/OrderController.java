@@ -39,8 +39,7 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private OrderItemService orderItemService;
-    @Autowired
-    private PointService pointService;
+
 
     @GetMapping("pay")
     public String pay(Model model, @ModelAttribute("cartList") List<Cart> cartList,
