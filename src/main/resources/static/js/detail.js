@@ -27,7 +27,7 @@ cartButton.addEventListener('click', function (event) {
     if(isLogin == ""){
         event.preventDefault();
         alert("로그인 하세요.");
-        window.location.href = "http://localhost:8083/signin";
+        window.location.href = "http://localhost:8083/login";
     }
     else{
         if(isValid == 0){
@@ -42,7 +42,7 @@ wishButton.addEventListener('click', function (event) {
     if(isLogin == ""){
         event.preventDefault();
         alert("로그인 하세요.");
-        window.location.href = "http://localhost:8083/signin";
+        window.location.href = "http://localhost:8083/login";
     }
     else
         alert('위시리스트 담기 완료');
