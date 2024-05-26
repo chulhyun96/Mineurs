@@ -162,7 +162,7 @@
                         <th scope="col">제목</th>
                         <th scope="col">답변상태</th>
                         <th scope="col">내용보기</th>
-                        <th scope="col">답변하기</th>
+
                         <th scope="col">작성자</th>
                     </tr>
                     </thead>
@@ -187,7 +187,6 @@
                             <a class="btn" th:if="${post.boardName} == 'QnA'" th:href="@{/qna/{id}(id=${post.id})}">이동</a>
                             <a class="btn" th:if="${post.boardName} == 'NOTICE'" th:href="@{/notices/{id}(id=${post.id})}">이동</a>
                         </td>
-                        <td><button class="n-btn">답변하기</button></td>
                         <td th:text="${post.memberName}">작성자</td>
                     </tr>
                     </tbody>

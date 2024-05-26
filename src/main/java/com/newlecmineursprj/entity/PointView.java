@@ -20,4 +20,5 @@ public class PointView {
     private String name;
     private String code;
     private Long count;
+    private String productNames;
 }
