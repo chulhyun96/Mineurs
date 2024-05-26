@@ -83,8 +83,6 @@ public class QnaController {
 
     @GetMapping("{id}")
     public String detail(Model model, @PathVariable Long id , @CookieValue(value = "access_granted", defaultValue = "false") String accessGranted) {
-
-
         /*관리자 직접접근 추가*/
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         WebUserDetails webUserDetails = getPrincipal(authentication);
@@ -110,9 +108,8 @@ public class QnaController {
 
     @PostMapping("edit")
     public String edit(Qna qna) {
-
         service.edit(qna);
-        return "redirect:/qna";
+        return "redirect:/admin/post";
     }
 
     @GetMapping("delete/{id}")
