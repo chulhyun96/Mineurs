@@ -4,7 +4,6 @@ import com.newlecmineursprj.entity.Product;
 import com.newlecmineursprj.entity.ProductSubImg;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,10 +18,9 @@ import java.util.List;
 @Slf4j
 @Component
 @Data
-@ConfigurationProperties("file")
 public class ImgStore {
-    private String mainImg;
-    private String subImg;
+    private String mainImg = "/src/main/webapp/image/products/";
+    private String subImg = "/src/main/webapp/image/subImg/";
 
 
     public String getStorageMainImgName(MultipartFile imgFile) throws IOException {
@@ -34,7 +32,6 @@ public class ImgStore {
         imgFile.transferTo(new File(fullMainPath));
         return imgFile.getOriginalFilename();
     }
-
 
     public List<String> getStorageSubImgName(List<MultipartFile> subImgs) throws IOException {
         if (subImgs.stream().allMatch(MultipartFile::isEmpty))
@@ -105,10 +102,10 @@ public class ImgStore {
     }
 
     private String getFullMainPath(String fileName) {
-        return System.getProperty("user.dir") + mainImg + fileName;
+        return mainImg + fileName;
     }
 
     private String getFullSubPath(String fileName) {
-        return System.getProperty("user.dir") + subImg + fileName;
+        return subImg + fileName;
     }
 }
