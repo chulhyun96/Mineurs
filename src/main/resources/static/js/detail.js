@@ -15,7 +15,7 @@ buyButton.addEventListener('click', function (event) {
     if(isLogin == ""){
         event.preventDefault();
         alert("로그인 하세요.");
-        window.location.href = "http://localhost:8083/signin";
+        window.location.href = "http://localhost:8083/login";
     }
     else
         if(isValid == 0){
